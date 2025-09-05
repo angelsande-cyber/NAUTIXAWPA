@@ -15,6 +15,7 @@ import {
   Sun,
   Menu,
   ChevronLeft,
+  Calculator,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -44,6 +45,13 @@ const mainNavItems = [
   { id: "simulacro", label: "Simulacro", icon: Target },
   { id: "senales", label: "Señales", icon: Lightbulb },
   { id: "menu", label: "Menú", icon: Menu },
+];
+
+const dashboardItems = [
+    { id: "sosgen", label: "SOSGEN", icon: LifeBuoy, description: "Generador de mensajes MAYDAY." },
+    { id: "simulacro", label: "Simulacro", icon: Target, description: "Ponte a prueba con un caso práctico." },
+    { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
+    { id: "menu", label: "Más Herramientas", icon: Menu, description: "Directorio, calculadoras y más." },
 ];
 
 function ThemeToggle() {
@@ -77,16 +85,16 @@ export function AppShell({ user }: { user: User }) {
   const { signOut } = useAuth();
 
   const pageTitleMap: { [key: string]: string } = {
-    dashboard: "Dashboard",
+    dashboard: "Inicio",
     sosgen: "SOSGEN",
     simulacro: "Simulacro",
     senales: "Señales Marítimas",
     mmsi: "Buscador MMSI",
     directorio: "Directorio",
     referencias: "Referencias",
-    calculadora: "Calculadora",
-    diccionario: "Diccionario",
-    menu: "Menú",
+    calculadora: "Calculadora de Coordenadas",
+    diccionario: "Diccionario Náutico",
+    menu: "Menú de Herramientas",
   };
 
   const renderContent = () => {
@@ -114,9 +122,22 @@ export function AppShell({ user }: { user: User }) {
                 </div>
             </div>
             
-            <div className="bg-card border rounded-lg p-4 text-center">
-              <h2 className="font-semibold text-lg">¿Listo para navegar?</h2>
-              <p className="text-muted-foreground mt-1 text-sm">Selecciona una herramienta de la barra de navegación para empezar.</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {dashboardItems.map((item) => (
+                  <button
+                      key={item.id}
+                      onClick={() => setActivePage(item.id)}
+                      className="text-left p-4 bg-card border rounded-lg hover:bg-muted transition-colors flex items-start gap-4"
+                  >
+                      <div className="bg-primary/10 text-primary p-3 rounded-md">
+                          <item.icon className="h-6 w-6"/>
+                      </div>
+                      <div>
+                          <p className="font-semibold">{item.label}</p>
+                          <p className="text-sm text-muted-foreground">{item.description}</p>
+                      </div>
+                  </button>
+              ))}
             </div>
 
           </div>
@@ -128,14 +149,15 @@ export function AppShell({ user }: { user: User }) {
 
   return (
       <div className="flex h-screen w-full flex-col bg-background">
-        <header className="sticky top-0 z-10 flex h-16 items-center justify-between gap-4 border-b bg-background/95 px-4 backdrop-blur-sm">
+        <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between gap-4 border-b bg-background/95 px-4 backdrop-blur-sm">
             <div className="flex items-center gap-2">
                 {showBackButton && (
                     <Button variant="ghost" size="icon" className="-ml-2" onClick={() => setActivePage('menu')}>
                         <ChevronLeft className="h-5 w-5"/>
+                        <span className="sr-only">Volver al Menú</span>
                     </Button>
                 )}
-                 <h1 className="text-lg font-semibold uppercase tracking-wider">{pageTitleMap[activePage]}</h1>
+                 <h1 className="text-lg font-semibold uppercase tracking-wider">{pageTitleMap[activePage] || 'NAUTIXA'}</h1>
             </div>
             <div className="flex items-center gap-2">
                 <ThemeToggle />
