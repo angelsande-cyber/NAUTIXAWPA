@@ -13,6 +13,8 @@ import {
   LogOut,
   Home,
   Lightbulb,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +33,13 @@ import SenalesPage from "./pages/SenalesPage";
 import MmsiPage from "./pages/MmsiPage";
 import ReferenciasPage from "./pages/ReferenciasPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
+import { useTheme } from "next-themes";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const navItems = [
   { id: "dashboard", label: "Dashboard", icon: Home },
@@ -43,6 +52,32 @@ const navItems = [
   { id: "calculadora", label: "Calculadora", icon: Calculator },
   { id: "diccionario", label: "Diccionario", icon: Languages },
 ];
+
+function ThemeToggle() {
+  const { setTheme } = useTheme();
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Claro
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Oscuro
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          Sistema
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export function AppShell({ user }: { user: User }) {
   const [activePage, setActivePage] = useState("dashboard");
@@ -70,7 +105,7 @@ export function AppShell({ user }: { user: User }) {
       default:
         return (
           <div className="p-8">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
              <p className="text-muted-foreground">Bienvenido a NAUTIXA, {user.displayName}.</p>
           </div>
         )
@@ -79,10 +114,10 @@ export function AppShell({ user }: { user: User }) {
 
   return (
     <TooltipProvider>
-      <div className="flex min-h-screen w-full bg-muted/40">
+      <div className="flex min-h-screen w-full bg-background">
         <aside
           className={`
-          flex h-screen flex-col border-r bg-background transition-all 
+          flex h-screen flex-col border-r bg-muted/20 transition-all 
           ${isSidebarOpen ? "w-64 p-4" : "w-16 items-center p-2"}
         `}
         >
@@ -127,22 +162,22 @@ export function AppShell({ user }: { user: User }) {
               </TooltipTrigger>
                {!isSidebarOpen && <TooltipContent side="right">Cerrar Sesión</TooltipContent>}
             </Tooltip>
-             <div className="flex items-center gap-3 p-2">
+             <div className={`flex items-center gap-3 p-2 ${!isSidebarOpen && "justify-center"}`}>
                 <Avatar className="h-8 w-8">
                     <AvatarImage src={user.photoURL ?? ""} alt={user.displayName ?? ""} />
                     <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
                 </Avatar>
                 {isSidebarOpen && (
-                    <div className="flex flex-col">
-                        <span className="text-sm font-medium">{user.displayName}</span>
-                        <span className="text-xs text-muted-foreground">{user.email}</span>
+                    <div className="flex flex-col overflow-hidden">
+                        <span className="text-sm font-medium truncate">{user.displayName}</span>
+                        <span className="text-xs text-muted-foreground truncate">{user.email}</span>
                     </div>
                 )}
             </div>
           </div>
         </aside>
         <div className="flex flex-1 flex-col">
-          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4">
+          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur-sm px-4">
             <Button
               variant="ghost"
               size="icon"
@@ -151,9 +186,12 @@ export function AppShell({ user }: { user: User }) {
               <PanelLeft className="h-5 w-5" />
               <span className="sr-only">Toggle sidebar</span>
             </Button>
-            <h1 className="text-xl font-semibold uppercase">{activePage}</h1>
+            <h1 className="text-xl font-semibold uppercase tracking-wider">{activePage}</h1>
+            <div className="ml-auto">
+              <ThemeToggle />
+            </div>
           </header>
-          <main className="flex-1 overflow-y-auto">
+          <main className="flex-1 overflow-y-auto bg-muted/40">
             {renderContent()}
           </main>
         </div>

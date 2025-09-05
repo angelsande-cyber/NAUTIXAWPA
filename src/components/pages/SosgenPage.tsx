@@ -2,10 +2,10 @@
 import { useState } from 'react';
 import { generateSos } from '@/ai/flows/sosgen';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Copy } from 'lucide-react';
+import { Copy, Sparkles } from 'lucide-react';
 import { Skeleton } from '../ui/skeleton';
 
 export default function SosgenPage() {
@@ -53,13 +53,13 @@ export default function SosgenPage() {
     };
 
     return (
-        <div className="p-8">
-            <Card className="w-full max-w-2xl mx-auto">
+        <div className="p-4 md:p-8">
+            <Card className="w-full max-w-3xl mx-auto shadow-lg">
                 <CardHeader>
                     <CardTitle>Generador de Mensajes de Socorro (SOSGEN)</CardTitle>
-                    <p className="text-muted-foreground pt-2">
+                    <CardDescription>
                         Describe la situación de emergencia con tus propias palabras. La IA extraerá la información clave para formatear el mensaje de socorro estándar.
-                    </p>
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Textarea
@@ -67,10 +67,10 @@ export default function SosgenPage() {
                         onChange={(e) => setNaturalInput(e.target.value)}
                         placeholder="Ej: Fuego en la sala de máquinas del pesquero 'Siempre Airoso' (MMSI 224123456), somos 5 a bordo cerca de las Cíes. Necesitamos ayuda ya."
                         rows={4}
-                        className="mb-4 font-mono"
+                        className="mb-4 font-mono text-base"
                     />
-                    <Button onClick={handleGenerate} disabled={loading} className="w-full">
-                        {loading ? "Generando..." : "Generar Mensaje MAYDAY"}
+                    <Button onClick={handleGenerate} disabled={loading} className="w-full text-lg py-6">
+                        {loading ? "Generando..." : <><Sparkles className="mr-2 h-5 w-5" /> Generar Mensaje MAYDAY</>}
                     </Button>
 
                     {loading && (
@@ -94,7 +94,7 @@ export default function SosgenPage() {
                                     <Copy className="h-4 w-4" />
                                 </Button>
                             </div>
-                            <div className="sos-message p-4 rounded-md bg-muted font-mono text-sm leading-relaxed"
+                            <div className="sos-message p-4 rounded-lg bg-muted font-mono text-sm leading-relaxed"
                                  dangerouslySetInnerHTML={{ __html: sosMessage }}
                             />
                         </div>

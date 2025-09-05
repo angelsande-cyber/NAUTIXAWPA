@@ -1,10 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter as FontSans } from "next/font/google";
+import { IBM_Plex_Mono as FontMono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { Toaster } from "@/components/ui/toaster";
+import { cn } from "@/lib/utils";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+const fontMono = FontMono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: "400",
+});
 
 export const metadata: Metadata = {
   title: "NAUTIXA",
@@ -18,11 +30,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <body className={inter.variable}>
-        <AuthProvider>
-          {children}
-        </AuthProvider>
-        <Toaster />
+      <body className={cn("font-sans antialiased", fontSans.variable, fontMono.variable)}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );
