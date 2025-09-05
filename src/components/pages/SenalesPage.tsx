@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { IALA_BUOY_DATA, LIGHT_CHARACTERISTIC_TERMS } from "@/lib/data/senales";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 
 // --- Helper Functions (moved from simulation.ts) ---
@@ -152,7 +153,7 @@ function runSimulation(
     const esDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.es || char.rhythm} ${char.group ? `de grupo (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.es).join(' y ')} con un período de ${char.period}s.`;
     const enDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.en || char.rhythm} ${char.group ? `group (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.en).join(' & ')} with a period of ${char.period}s.`;
 
-    const descriptionHtml = `<p><strong>ES:</strong> ${esDesc}</p><p><strong>EN:</strong> ${enDesc}</p><p class="text-sm text-muted-foreground mt-2">${char.original}</p>`;
+    const descriptionHtml = `<div class="text-sm"><p><strong>ES:</strong> ${esDesc}</p><p><strong>EN:</strong> ${enDesc}</p><p class="text-xs text-muted-foreground mt-2 font-mono">${char.original}</p></div>`;
     infoEl.innerHTML = prependInfo ? prependInfo + descriptionHtml : descriptionHtml;
 }
 
@@ -168,7 +169,7 @@ const LighthouseSimulator = () => {
     useEffect(() => {
         let groupStr = '';
         if (rhythm !== 'F' && rhythm !== 'ISO' && group) {
-            const numericGroup = group.replace(/\D/g, '');
+            const numericGroup = group.replace(/[^0-9+]/g, '');
             if (numericGroup && numericGroup !== '1') {
                 groupStr = `(${numericGroup}) `;
             }
@@ -269,7 +270,7 @@ const LighthouseSimulator = () => {
                     </svg>
                 </div>
                 <div id="lighthouse-simulation-info" className="text-center mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
-                    <p>Introduzca una característica para iniciar la simulación.</p>
+                    <p className="text-muted-foreground">Introduzca una característica para iniciar la simulación.</p>
                 </div>
             </div>
         </div>
@@ -286,11 +287,11 @@ const BuoySimulator = () => {
 
     const handleCategoryClick = (category: string) => {
         setActiveCategory(category);
-        setActiveType(null); // Reset type when category changes
+        setActiveType(null);
         if (simulationTimeout) clearInterval(simulationTimeout);
         const buoyInfoEl = document.getElementById('buoy-info-panel');
         const buoySchematicEl = document.getElementById('buoy-schematic-container');
-        if(buoyInfoEl) buoyInfoEl.innerHTML = '<p>Seleccione un tipo de señal para comenzar.</p>';
+        if(buoyInfoEl) buoyInfoEl.innerHTML = '<p class="text-muted-foreground">Seleccione un tipo de señal para comenzar.</p>';
         if(buoySchematicEl) buoySchematicEl.innerHTML = '';
 
     };
@@ -304,7 +305,7 @@ const BuoySimulator = () => {
             const lightEl = schematicContainer.querySelector<SVGElement>('#buoy-svg-light');
             if (lightEl) {
                 const char = parseLighthouseCharacteristic(buoy.characteristic);
-                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50"><strong>Regla:</strong> ${buoy.mnemonic}</p>` : '';
+                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>Regla:</strong> ${buoy.mnemonic}</p>` : '';
                 const infoTitle = `<h4 class="font-bold">${buoy.type}${buoy.region ? ` (Región ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
                 runSimulation(lightEl, infoPanel, char, infoTitle);
             }
@@ -321,7 +322,7 @@ const BuoySimulator = () => {
             setActiveType(null);
             const buoyInfoEl = document.getElementById('buoy-info-panel');
             const buoySchematicEl = document.getElementById('buoy-schematic-container');
-            if(buoyInfoEl) buoyInfoEl.innerHTML = '<p>Seleccione un tipo de señal para comenzar.</p>';
+            if(buoyInfoEl) buoyInfoEl.innerHTML = '<p class="text-muted-foreground">Seleccione un tipo de señal para comenzar.</p>';
             if(buoySchematicEl) buoySchematicEl.innerHTML = '';
         }
     }, [region]);
@@ -336,11 +337,11 @@ const BuoySimulator = () => {
         <div>
             <div className="space-y-4">
                 {activeCategory === 'Marcas Laterales' && (
-                    <div className="flex items-center space-x-2">
-                        <Label htmlFor="iala-region">Región IALA</Label>
-                        <span className={region === 'A' ? '' : 'text-muted-foreground'}>A</span>
+                    <div className="flex items-center space-x-2 p-3 bg-muted rounded-lg">
+                        <Label htmlFor="iala-region" className="font-semibold">Región IALA</Label>
+                        <span className={cn(region === 'A' ? '' : 'text-muted-foreground', "font-bold")}>A</span>
                         <Switch id="iala-region" checked={region === 'B'} onCheckedChange={(checked) => setRegion(checked ? 'B' : 'A')} />
-                        <span className={region === 'B' ? '' : 'text-muted-foreground'}>B</span>
+                        <span className={cn(region === 'B' ? '' : 'text-muted-foreground', "font-bold")}>B</span>
                     </div>
                 )}
                  <div>
@@ -370,7 +371,7 @@ const BuoySimulator = () => {
             <div className="mt-6 flex flex-col items-center">
                 <div id="buoy-schematic-container" className="w-32 h-48"></div>
                 <div id="buoy-info-panel" className="text-center mt-4 p-4 bg-muted rounded-lg w-full min-h-[140px]">
-                    <p>Seleccione una categoría y tipo de señal para comenzar.</p>
+                    <p className="text-muted-foreground">Seleccione una categoría y tipo de señal para comenzar.</p>
                 </div>
             </div>
         </div>
@@ -430,13 +431,13 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
 // --- Main Page Component ---
 export default function SenalesPage() {
     return (
-        <div className="p-8">
+        <div className="p-4 md:p-6">
             <Card className="w-full max-w-2xl mx-auto">
                 <CardHeader>
                     <CardTitle>Simulador de Señales Marítimas</CardTitle>
-                     <p className="text-muted-foreground pt-2">
+                     <CardDescription>
                         Herramienta interactiva para aprender a identificar las características de las luces de faros y las marcas de balizamiento IALA.
-                    </p>
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="lighthouse" className="w-full">
@@ -444,10 +445,10 @@ export default function SenalesPage() {
                             <TabsTrigger value="lighthouse">Faros</TabsTrigger>
                             <TabsTrigger value="buoys">Boyas y Marcas</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="lighthouse" className="pt-4">
+                        <TabsContent value="lighthouse" className="pt-6">
                             <LighthouseSimulator />
                         </TabsContent>
-                        <TabsContent value="buoys" className="pt-4">
+                        <TabsContent value="buoys" className="pt-6">
                             <BuoySimulator />
                         </TabsContent>
                     </Tabs>

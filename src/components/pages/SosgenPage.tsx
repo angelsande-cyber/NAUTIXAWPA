@@ -44,7 +44,7 @@ export default function SosgenPage() {
     };
     
     const handleCopy = () => {
-        const textToCopy = sosMessage.replace(/<br\/>/g, '\n').replace(/<span class="placeholder">/g, '').replace(/<\/span>/g, '');
+        const textToCopy = sosMessage.replace(/<br\s*\/?>/g, '\n').replace(/<[^>]*>/g, '');
         navigator.clipboard.writeText(textToCopy);
         toast({
             title: "Copiado",
@@ -53,12 +53,12 @@ export default function SosgenPage() {
     };
 
     return (
-        <div className="p-4 md:p-8">
-            <Card className="w-full max-w-3xl mx-auto shadow-lg">
+        <div className="p-4 md:p-6">
+            <Card className="w-full max-w-3xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Generador de Mensajes de Socorro (SOSGEN)</CardTitle>
+                    <CardTitle>Generador de Mensajes de Socorro</CardTitle>
                     <CardDescription>
-                        Describe la situación de emergencia con tus propias palabras. La IA extraerá la información clave para formatear el mensaje de socorro estándar.
+                        Describe la emergencia con tus propias palabras. La IA formateará el mensaje de socorro estándar.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

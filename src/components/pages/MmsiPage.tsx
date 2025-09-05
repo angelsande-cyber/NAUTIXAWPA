@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '../ui/skeleton';
@@ -26,13 +26,13 @@ export default function MmsiPage() {
     };
 
     return (
-        <div className="p-8">
+        <div className="p-4 md:p-6">
             <Card className="w-full max-w-2xl mx-auto">
                 <CardHeader>
                     <CardTitle>Buscador de MMSI</CardTitle>
-                    <p className="text-muted-foreground pt-2">
+                    <CardDescription>
                         Busca información pública de un buque a partir de su número MMSI.
-                    </p>
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="flex w-full items-center space-x-2">
@@ -41,7 +41,7 @@ export default function MmsiPage() {
                             placeholder="Introduce 9 dígitos..."
                             value={mmsi}
                             onChange={(e) => setMmsi(e.target.value)}
-                            pattern="\d{9}"
+                            pattern="\\d{9}"
                             maxLength={9}
                         />
                         <Button onClick={handleSearch} disabled={loading}>

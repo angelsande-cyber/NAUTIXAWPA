@@ -18,7 +18,7 @@ export default function DirectorioPage() {
     );
 
     return (
-        <div className="p-8">
+        <div className="p-4 md:p-6">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
                     <CardTitle>Directorio de Centros de Salvamento</CardTitle>
@@ -61,7 +61,7 @@ export default function DirectorioPage() {
                                 </Card>
                             ))
                         ) : (
-                            <p className="text-muted-foreground col-span-full text-center">No se encontraron resultados para "{searchTerm}".</p>
+                            <p className="text-muted-foreground col-span-full text-center py-8">No se encontraron resultados para "{searchTerm}".</p>
                         )}
                     </div>
                 </CardContent>

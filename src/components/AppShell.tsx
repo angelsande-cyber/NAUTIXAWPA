@@ -7,22 +7,16 @@ import {
   Target,
   Search,
   Book,
-  Calculator,
   Languages,
-  PanelLeft,
   LogOut,
   Home,
   Lightbulb,
   Moon,
   Sun,
+  Menu,
+  ChevronLeft,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import SosgenPage from "./pages/SosgenPage";
@@ -33,6 +27,7 @@ import SenalesPage from "./pages/SenalesPage";
 import MmsiPage from "./pages/MmsiPage";
 import ReferenciasPage from "./pages/ReferenciasPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
+import MenuPage from "./pages/MenuPage";
 import { useTheme } from "next-themes";
 import {
   DropdownMenu,
@@ -40,27 +35,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
-const navItems = [
-  { id: "dashboard", label: "Dashboard", icon: Home },
+const mainNavItems = [
+  { id: "dashboard", label: "Inicio", icon: Home },
   { id: "sosgen", label: "SOSGEN", icon: LifeBuoy },
   { id: "simulacro", label: "Simulacro", icon: Target },
   { id: "senales", label: "Señales", icon: Lightbulb },
-  { id: "mmsi", label: "MMSI", icon: Search },
-  { id: "directorio", label: "Directorio", icon: Book },
-  { id: "referencias", label: "Referencias", icon: Book },
-  { id: "calculadora", label: "Calculadora", icon: Calculator },
-  { id: "diccionario", label: "Diccionario", icon: Languages },
+  { id: "menu", label: "Menú", icon: Menu },
 ];
 
 function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
@@ -81,121 +73,118 @@ function ThemeToggle() {
 
 export function AppShell({ user }: { user: User }) {
   const [activePage, setActivePage] = useState("dashboard");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const { signOut } = useAuth();
-  
+
+  const pageTitleMap: { [key: string]: string } = {
+    dashboard: "Dashboard",
+    sosgen: "SOSGEN",
+    simulacro: "Simulacro",
+    senales: "Señales Marítimas",
+    mmsi: "Buscador MMSI",
+    directorio: "Directorio",
+    referencias: "Referencias",
+    calculadora: "Calculadora",
+    diccionario: "Diccionario",
+    menu: "Menú",
+  };
+
   const renderContent = () => {
-    switch(activePage) {
-      case 'sosgen':
-        return <SosgenPage />;
-      case 'simulacro':
-        return <SimulacroPage />;
-      case 'directorio':
-        return <DirectorioPage />;
-      case 'diccionario':
-        return <DiccionarioPage />;
-      case 'senales':
-        return <SenalesPage />;
-      case 'mmsi':
-        return <MmsiPage />;
-      case 'referencias':
-        return <ReferenciasPage />;
-      case 'calculadora':
-        return <CalculadoraPage />;
+    switch (activePage) {
+      case 'sosgen': return <SosgenPage />;
+      case 'simulacro': return <SimulacroPage />;
+      case 'directorio': return <DirectorioPage />;
+      case 'diccionario': return <DiccionarioPage />;
+      case 'senales': return <SenalesPage />;
+      case 'mmsi': return <MmsiPage />;
+      case 'referencias': return <ReferenciasPage />;
+      case 'calculadora': return <CalculadoraPage />;
+      case 'menu': return <MenuPage setActivePage={setActivePage} />;
       default:
         return (
-          <div className="p-8">
-            <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-             <p className="text-muted-foreground">Bienvenido a NAUTIXA, {user.displayName}.</p>
-          </div>
-        )
-    }
-  }
-
-  return (
-    <TooltipProvider>
-      <div className="flex min-h-screen w-full bg-background">
-        <aside
-          className={`
-          flex h-screen flex-col border-r bg-muted/20 transition-all 
-          ${isSidebarOpen ? "w-64 p-4" : "w-16 items-center p-2"}
-        `}
-        >
-          <div className="flex-1 overflow-y-auto">
-            <nav className="flex flex-col gap-2">
-              {navItems.map((item) => (
-                <Tooltip key={item.id}>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant={activePage === item.id ? "secondary" : "ghost"}
-                      size={isSidebarOpen ? "default" : "icon"}
-                      className={`
-                      flex justify-start gap-3 
-                      ${!isSidebarOpen && "justify-center"}
-                    `}
-                      onClick={() => setActivePage(item.id)}
-                    >
-                      <item.icon className="h-5 w-5" />
-                      {isSidebarOpen && <span>{item.label}</span>}
-                    </Button>
-                  </TooltipTrigger>
-                  {!isSidebarOpen && (
-                    <TooltipContent side="right">
-                      {item.label}
-                    </TooltipContent>
-                  )}
-                </Tooltip>
-              ))}
-            </nav>
-          </div>
-          <div className="mt-auto flex flex-col gap-2">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button
-                    onClick={signOut}
-                    variant="ghost"
-                    size={isSidebarOpen ? "default" : "icon"}
-                    className={`flex justify-start gap-3 ${!isSidebarOpen && "justify-center"}`}>
-                    <LogOut className="h-5 w-5" />
-                    {isSidebarOpen && <span>Cerrar Sesión</span>}
-                </Button>
-              </TooltipTrigger>
-               {!isSidebarOpen && <TooltipContent side="right">Cerrar Sesión</TooltipContent>}
-            </Tooltip>
-             <div className={`flex items-center gap-3 p-2 ${!isSidebarOpen && "justify-center"}`}>
-                <Avatar className="h-8 w-8">
+          <div className="p-4 md:p-6">
+             <div className="flex items-center gap-4 mb-6">
+                <Avatar className="h-16 w-16 border-2 border-primary">
                     <AvatarImage src={user.photoURL ?? ""} alt={user.displayName ?? ""} />
                     <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
                 </Avatar>
-                {isSidebarOpen && (
-                    <div className="flex flex-col overflow-hidden">
-                        <span className="text-sm font-medium truncate">{user.displayName}</span>
-                        <span className="text-xs text-muted-foreground truncate">{user.email}</span>
-                    </div>
-                )}
+                <div>
+                    <p className="text-muted-foreground text-sm">Bienvenido de nuevo,</p>
+                    <h1 className="text-2xl font-bold tracking-tight">{user.displayName}</h1>
+                </div>
             </div>
+            
+            <div className="bg-card border rounded-lg p-4 text-center">
+              <h2 className="font-semibold text-lg">¿Listo para navegar?</h2>
+              <p className="text-muted-foreground mt-1 text-sm">Selecciona una herramienta de la barra de navegación para empezar.</p>
+            </div>
+
           </div>
-        </aside>
-        <div className="flex flex-1 flex-col">
-          <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur-sm px-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            >
-              <PanelLeft className="h-5 w-5" />
-              <span className="sr-only">Toggle sidebar</span>
-            </Button>
-            <h1 className="text-xl font-semibold uppercase tracking-wider">{activePage}</h1>
-            <div className="ml-auto">
-              <ThemeToggle />
+        );
+    }
+  };
+  
+  const showBackButton = activePage !== 'dashboard' && mainNavItems.find(item => item.id === activePage) === undefined;
+
+  return (
+      <div className="flex h-screen w-full flex-col bg-background">
+        <header className="sticky top-0 z-10 flex h-16 items-center justify-between gap-4 border-b bg-background/95 px-4 backdrop-blur-sm">
+            <div className="flex items-center gap-2">
+                {showBackButton && (
+                    <Button variant="ghost" size="icon" className="-ml-2" onClick={() => setActivePage('menu')}>
+                        <ChevronLeft className="h-5 w-5"/>
+                    </Button>
+                )}
+                 <h1 className="text-lg font-semibold uppercase tracking-wider">{pageTitleMap[activePage]}</h1>
             </div>
-          </header>
-          <main className="flex-1 overflow-y-auto bg-muted/40">
-            {renderContent()}
-          </main>
-        </div>
+            <div className="flex items-center gap-2">
+                <ThemeToggle />
+                 <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                             <Avatar className="h-9 w-9">
+                                <AvatarImage src={user.photoURL ?? ""} alt={user.displayName ?? ""} />
+                                <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-56">
+                        <DropdownMenuItem disabled>
+                            <div className="flex flex-col space-y-1">
+                                <p className="text-sm font-medium leading-none">{user.displayName}</p>
+                                <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
+                            </div>
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={signOut}>
+                            <LogOut className="mr-2 h-4 w-4" />
+                            <span>Cerrar Sesión</span>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </div>
+        </header>
+
+        <main className="flex-1 overflow-y-auto pb-20">
+          {renderContent()}
+        </main>
+        
+        <nav className="fixed bottom-0 left-0 right-0 z-10 border-t bg-background/95 backdrop-blur-sm">
+            <div className="grid h-16 grid-cols-5 items-center justify-center gap-1">
+                 {mainNavItems.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => setActivePage(item.id)}
+                      className={cn(
+                          "flex flex-col items-center justify-center gap-1 pt-1 text-xs transition-colors h-full",
+                          activePage === item.id ? "text-primary font-semibold" : "text-muted-foreground"
+                      )}
+                    >
+                      <item.icon className="h-6 w-6" />
+                      <span>{item.label}</span>
+                    </button>
+                ))}
+            </div>
+        </nav>
       </div>
-    </TooltipProvider>
   );
 }

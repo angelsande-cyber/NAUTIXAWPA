@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -20,17 +20,19 @@ const phoneticAlphabet = [
 
 export default function ReferenciasPage() {
     return (
-        <div className="p-8">
+        <div className="p-4 md:p-6">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
                     <CardTitle>Tablas de Referencia Rápida</CardTitle>
+                    <CardDescription>Información útil para comunicaciones y navegación.</CardDescription>
                 </CardHeader>
                 <CardContent>
                      <Tabs defaultValue="alphabet" className="w-full">
-                        <TabsList>
-                            <TabsTrigger value="alphabet">Alfabeto Fonético</TabsTrigger>
+                        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 h-auto">
+                            <TabsTrigger value="alphabet">Alfabeto</TabsTrigger>
                             <TabsTrigger value="frequencies">Frecuencias</TabsTrigger>
                             <TabsTrigger value="qcodes">Códigos Q</TabsTrigger>
+                             <TabsTrigger value="misc">Miscelánea</TabsTrigger>
                         </TabsList>
                         <TabsContent value="alphabet" className="pt-4">
                              <Table>
@@ -64,10 +66,13 @@ export default function ReferenciasPage() {
                             </Table>
                         </TabsContent>
                         <TabsContent value="frequencies" className="pt-4">
-                            <p className="text-muted-foreground">Tablas de frecuencias y canales comunes (VHF, MF/HF) se añadirán aquí.</p>
+                            <p className="text-muted-foreground text-center py-8">Tablas de frecuencias y canales comunes (VHF, MF/HF) se añadirán aquí.</p>
                         </TabsContent>
                          <TabsContent value="qcodes" className="pt-4">
-                            <p className="text-muted-foreground">Una lista de los códigos Q más comunes en comunicaciones marítimas se añadirá aquí.</p>
+                            <p className="text-muted-foreground text-center py-8">Una lista de los códigos Q más comunes en comunicaciones marítimas se añadirán aquí.</p>
+                        </TabsContent>
+                         <TabsContent value="misc" className="pt-4">
+                            <p className="text-muted-foreground text-center py-8">Otras tablas útiles como la Escala de Douglas o Beaufort se añadirán aquí.</p>
                         </TabsContent>
                     </Tabs>
                 </CardContent>

@@ -3,17 +3,18 @@ import { useState } from 'react';
 import { generateDrill } from '@/ai/flows/simulacro';
 import type { DrillOutput } from '@/ai/schemas/simulacro-schema';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '../ui/skeleton';
 import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
-import { Info } from 'lucide-react';
+import { Info, RefreshCw } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export default function SimulacroPage() {
     const [drill, setDrill] = useState<DrillOutput | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
     const [showResult, setShowResult] = useState(false);
     const { toast } = useToast();
@@ -38,6 +39,10 @@ export default function SimulacroPage() {
         }
     };
     
+    useState(() => {
+        handleGenerateDrill();
+    });
+
     const handleCheckAnswer = () => {
         if (selectedAnswer === null) {
             toast({
@@ -52,28 +57,39 @@ export default function SimulacroPage() {
 
     const getOptionClass = (index: number) => {
         if (!showResult) return '';
-        if (index === drill?.correctAnswerIndex) return 'text-green-600 border-green-500 bg-green-50';
-        if (index === selectedAnswer) return 'text-red-600 border-red-500 bg-red-50';
+        if (index === drill?.correctAnswerIndex) return 'bg-green-100/80 dark:bg-green-900/40 border-green-500/50';
+        if (index === selectedAnswer) return 'bg-red-100/80 dark:bg-red-900/40 border-destructive/50';
         return '';
     };
 
     return (
-        <div className="p-8">
+        <div className="p-4 md:p-6">
             <Card className="w-full max-w-2xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Simulacro de Llamada de Socorro</CardTitle>
-                    <p className="text-muted-foreground pt-2">
-                        Pon a prueba tus conocimientos de GMDSS. La IA generará un escenario de emergencia.
-                    </p>
+                    <div className='flex justify-between items-start'>
+                        <div>
+                            <CardTitle>Simulacro de Llamada</CardTitle>
+                            <CardDescription className="pt-1">
+                                Pon a prueba tus conocimientos de GMDSS con un escenario de la IA.
+                            </CardDescription>
+                        </div>
+                        <Button onClick={handleGenerateDrill} disabled={loading} size="icon" variant="ghost">
+                            <RefreshCw className={cn("h-4 w-4", loading && "animate-spin")} />
+                        </Button>
+                    </div>
                 </CardHeader>
                 <CardContent>
-                    <Button onClick={handleGenerateDrill} disabled={loading} className="w-full mb-6">
-                        {loading ? "Generando Escenario..." : "Iniciar Nuevo Simulacro"}
-                    </Button>
-                    
-                    {loading && <Skeleton className="h-48 w-full" />}
+                    {loading && (
+                        <div className='space-y-4'>
+                            <Skeleton className="h-24 w-full" />
+                            <Skeleton className="h-8 w-3/4" />
+                            <Skeleton className="h-12 w-full" />
+                            <Skeleton className="h-12 w-full" />
+                            <Skeleton className="h-12 w-full" />
+                        </div>
+                    )}
 
-                    {drill && (
+                    {drill && !loading && (
                         <div>
                             <Alert className="mb-4">
                                 <Info className="h-4 w-4"/>
@@ -86,12 +102,13 @@ export default function SimulacroPage() {
                                 value={selectedAnswer?.toString()}
                                 onValueChange={(value) => setSelectedAnswer(Number(value))}
                                 disabled={showResult}
+                                className="gap-3"
                             >
                                 {drill.options.map((option, index) => (
-                                    <div key={index} className={`flex items-center space-x-2 p-3 border rounded-md ${getOptionClass(index)}`}>
-                                        <RadioGroupItem value={index.toString()} id={`option-${index}`} />
-                                        <Label htmlFor={`option-${index}`} className="flex-1">{option}</Label>
-                                    </div>
+                                    <Label key={index} htmlFor={`option-${index}`} className={cn("flex items-start space-x-3 p-3 border rounded-lg transition-colors cursor-pointer hover:bg-accent/50", getOptionClass(index))}>
+                                        <RadioGroupItem value={index.toString()} id={`option-${index}`} className="mt-1"/>
+                                        <span className="flex-1">{option}</span>
+                                    </Label>
                                 ))}
                             </RadioGroup>
 

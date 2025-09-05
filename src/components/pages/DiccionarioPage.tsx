@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { translateText } from '@/ai/flows/translator';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Skeleton } from '../ui/skeleton';
@@ -43,13 +43,13 @@ export default function DiccionarioPage() {
     };
 
     return (
-        <div className="p-8">
+        <div className="p-4 md:p-6">
             <Card className="w-full max-w-2xl mx-auto">
                 <CardHeader>
                     <CardTitle>Diccionario Náutico (IA)</CardTitle>
-                    <p className="text-muted-foreground pt-2">
+                    <CardDescription>
                         Traduce términos y frases cortas entre español e inglés. La IA detectará el idioma de origen.
-                    </p>
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Textarea

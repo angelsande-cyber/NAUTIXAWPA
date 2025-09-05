@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Calculator } from 'lucide-react';
@@ -68,13 +68,13 @@ export default function CalculadoraPage() {
     }
 
     return (
-        <div className="p-8">
+        <div className="p-4 md:p-6">
             <Card className="w-full max-w-2xl mx-auto">
                 <CardHeader>
                     <CardTitle>Calculadora de Coordenadas</CardTitle>
-                     <p className="text-muted-foreground pt-2">
+                     <CardDescription>
                         Convierte coordenadas geográficas entre diferentes formatos.
-                    </p>
+                    </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="flex w-full items-center space-x-2">
