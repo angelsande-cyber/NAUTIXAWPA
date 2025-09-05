@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { User } from "firebase/auth";
 import {
   LifeBuoy,
@@ -13,7 +13,6 @@ import {
   Lightbulb,
   Moon,
   Sun,
-  Menu,
   ChevronLeft,
   Calculator,
 } from "lucide-react";
@@ -37,10 +36,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-
-const mainNavItems = [
-  { id: "dashboard", label: "Inicio", icon: Home },
-];
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 const dashboardItems = [
     { id: "sosgen", label: "SOSGEN", icon: LifeBuoy, description: "Generador de mensajes MAYDAY." },
@@ -55,27 +52,29 @@ const dashboardItems = [
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    setIsDark(theme === 'dark');
+  }, [theme]);
+
+  const handleThemeChange = (checked: boolean) => {
+    const newTheme = checked ? 'dark' : 'light';
+    setTheme(newTheme);
+    setIsDark(checked);
+  };
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon">
-          <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Claro
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Oscuro
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          Sistema
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="flex items-center space-x-2">
+        <Sun className={cn("h-5 w-5", !isDark && "text-primary")} />
+        <Switch
+            id="theme-switch"
+            checked={isDark}
+            onCheckedChange={handleThemeChange}
+            aria-label="Toggle theme"
+        />
+        <Moon className={cn("h-5 w-5", isDark && "text-primary")} />
+    </div>
   );
 }
 
@@ -156,7 +155,7 @@ export function AppShell({ user }: { user: User }) {
                 )}
                  <h1 className="text-lg font-semibold uppercase tracking-wider">{pageTitleMap[activePage] || 'NAUTIXA'}</h1>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-4">
                 <ThemeToggle />
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -190,19 +189,19 @@ export function AppShell({ user }: { user: User }) {
         
         <nav className="fixed bottom-0 left-0 right-0 z-10 border-t bg-background/95 backdrop-blur-sm">
             <div className="grid h-16 grid-cols-1 items-center justify-center gap-1">
-                 {mainNavItems.map((item) => (
+                 
                     <button
-                      key={item.id}
-                      onClick={() => setActivePage(item.id)}
+                      key="dashboard"
+                      onClick={() => setActivePage("dashboard")}
                       className={cn(
                           "flex flex-col items-center justify-center gap-1 pt-1 text-xs transition-colors h-full",
-                          activePage === item.id ? "text-primary font-semibold" : "text-muted-foreground"
+                          activePage === "dashboard" ? "text-primary font-semibold" : "text-muted-foreground"
                       )}
                     >
-                      <item.icon className="h-6 w-6" />
-                      <span>{item.label}</span>
+                      <Home className="h-6 w-6" />
+                      <span>Inicio</span>
                     </button>
-                ))}
+                
             </div>
         </nav>
       </div>
