@@ -1,0 +1,23 @@
+export const PHONE_DIRECTORY_DATA = [
+  { name: 'CNCS', phones: ['917 559 132', '917 559 133', '608 229 010'], email: 'cncs@sasemar.es', keywords: ['madrid', 'nacional'] },
+  { name: 'RADIOAVISOS', phones: ['917 559 191'], email: 'radioavisos.cncs@sasemar.es', keywords: ['navtex', 'avisos'] },
+  { name: 'CCS BILBAO', phones: ['944 839 286'], email: 'bilbao@sasemar.es', keywords: ['bizkaia', 'euskadi'] },
+  { name: 'CCS SANTANDER', phones: ['942 21 30 60'], email: 'santander@sasemar.es', keywords: ['cantabria'] },
+  { name: 'CCS GIJÓN', phones: ['985 326 050'], email: 'gijon@sasemar.es', keywords: ['asturias'] },
+  { name: 'CCS A CORUÑA', phones: ['981 209 548'], email: 'coruna@sasemar.es', keywords: ['galicia'] },
+  { name: 'CCS FINISTERRE', phones: ['981 767 738'], email: 'finisterre@sasemar.es', keywords: ['galicia'] },
+  { name: 'CCS VIGO', phones: ['986 228 874'], email: 'vigo@sasemar.es', keywords: ['galicia', 'pontevedra'] },
+  { name: 'CCS HUELVA', phones: ['959 243 000'], email: 'huelva@sasemar.es', keywords: ['andalucia'] },
+  { name: 'CCS CÁDIZ', phones: ['956 214 253'], email: 'cadiz@sasemar.es', keywords: ['andalucia'] },
+  { name: 'CCS TARIFA', phones: ['956 684 757'], email: 'tarifa@sasemar.es', keywords: ['andalucia', 'estrecho'] },
+  { name: 'CCS ALGECIRAS', phones: ['956 580 930'], email: 'algeciras@sasemar.es', keywords: ['andalucia'] },
+  { name: 'CCS ALMERÍA', phones: ['950 275 477'], email: 'almeria@sasemar.es', keywords: ['andalucia'] },
+  { name: 'CCS CARTAGENA', phones: ['968 505 366'], email: 'cartagena@sasemar.es', keywords: ['murcia'] },
+  { name: 'CCS VALENCIA', phones: ['963 679 204'], email: 'valencia@sasemar.es', keywords: ['comunidad valenciana'] },
+  { name: 'CCS CASTELLÓN', phones: ['964 737 202'], email: 'castellon@sasemar.es', keywords: ['comunidad valenciana'] },
+  { name: 'CCS TARRAGONA', phones: ['977 216 203'], email: 'tarragona@sasemar.es', keywords: ['cataluña'] },
+  { name: 'CCS BARCELONA', phones: ['932 234 759'], email: 'barcelona@sasemar.es', keywords: ['cataluña'] },
+  { name: 'CCS PALMA', phones: ['971 724 562'], email: 'palma@sasemar.es', keywords: ['baleares', 'mallorca'] },
+  { name: 'CCS TENERIFE', phones: ['922 597 551'], email: 'tenerife@sasemar.es', keywords: ['canarias'] },
+  { name: 'CCS LAS PALMAS', phones: ['928 467 955'], email: 'laspalmas@sasemar.es', keywords: ['canarias', 'gran canaria'] }
+];

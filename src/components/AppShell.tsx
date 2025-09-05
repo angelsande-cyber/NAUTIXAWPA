@@ -11,8 +11,6 @@ import {
   Languages,
   PanelLeft,
   LogOut,
-  Sun,
-  Moon,
   Home,
   Lightbulb,
 } from "lucide-react";
@@ -26,6 +24,9 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import SosgenPage from "./pages/SosgenPage";
+import SimulacroPage from "./pages/SimulacroPage";
+import DiccionarioPage from "./pages/DiccionarioPage";
+import DirectorioPage from "./pages/DirectorioPage";
 
 const navItems = [
   { id: "dashboard", label: "Dashboard", icon: Home },
@@ -48,6 +49,12 @@ export function AppShell({ user }: { user: User }) {
     switch(activePage) {
       case 'sosgen':
         return <SosgenPage />;
+      case 'simulacro':
+        return <SimulacroPage />;
+      case 'directorio':
+        return <DirectorioPage />;
+      case 'diccionario':
+        return <DiccionarioPage />;
       // TODO: Add other pages here
       default:
         return (
