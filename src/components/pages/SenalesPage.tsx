@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { IALA_BUOY_DATA, LIGHT_CHARACTERISTIC_TERMS } from "@/lib/data/senales";
 import { useEffect, useState } from "react";
-import { Switch } from "../ui/switch";
+import { cn } from "@/lib/utils";
+
 
 // --- Helper Functions (moved from simulation.ts) ---
 
@@ -148,19 +149,43 @@ function runSimulation(
     runSequence();
     simulationTimeout = window.setInterval(runSequence, char.period * 1000);
     
-    const esDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.es || char.rhythm} ${char.group ? `de grupo (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.es).join(' y ')} cada ${char.period}s.`;
-    infoEl.innerHTML = `<p>${esDesc}</p><p class="text-sm text-muted-foreground">${char.original}</p>`;
+    const esDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.es || char.rhythm} ${char.group ? `de grupo (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.es).join(' y ')} con un período de ${char.period}s.`;
+    const enDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.en || char.rhythm} ${char.group ? `group (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.en).join(' & ')} with a period of ${char.period}s.`;
+
+    infoEl.innerHTML = `<p><strong>ES:</strong> ${esDesc}</p><p><strong>EN:</strong> ${enDesc}</p><p class="text-sm text-muted-foreground mt-2">${char.original}</p>`;
 }
 
 
 // --- Lighthouse Simulator Component ---
 const LighthouseSimulator = () => {
-    const [charStr, setCharStr] = useState("Gp Fl(2+1) W 15s");
+    const [rhythm, setRhythm] = useState('FL');
+    const [color, setColor] = useState('W');
+    const [group, setGroup] = useState('1');
+    const [period, setPeriod] = useState('10');
+    const [manualChar, setManualChar] = useState('');
+
+    useEffect(() => {
+        let groupStr = '';
+        if (rhythm !== 'F' && rhythm !== 'ISO' && group) {
+            const numericGroup = group.replace(/\D/g, '');
+            if (numericGroup && numericGroup !== '1') {
+                groupStr = `(${numericGroup}) `;
+            }
+        }
+        
+        let constructedString = `${rhythm} ${groupStr}${color} ${period}s`;
+        if (rhythm === 'MO') {
+            constructedString = `Mo(${group}) ${color} ${period}s`;
+        }
+        
+        setManualChar(constructedString.replace(/\s+/g, ' ').trim());
+    }, [rhythm, color, group, period]);
+
 
     const handleSimulate = () => {
         const lightEl = document.getElementById('lighthouse-svg-light') as SVGElement | null;
         const infoEl = document.getElementById('lighthouse-simulation-info') as HTMLElement | null;
-        const char = parseLighthouseCharacteristic(charStr);
+        const char = parseLighthouseCharacteristic(manualChar);
         runSimulation(lightEl, infoEl, char);
     };
     
@@ -174,17 +199,60 @@ const LighthouseSimulator = () => {
         }
     }, []);
 
+    const controlSections = [
+        { label: "RITMO / RHYTHM", stateSetter: setRhythm, selectedValue: rhythm, options: ['F', 'FL', 'LFL', 'OC', 'ISO', 'Q', 'VQ', 'MO'] },
+        { label: "COLOR", stateSetter: setColor, selectedValue: color, options: ['W', 'R', 'G', 'Y', 'BU'] }
+    ];
+
     return (
         <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-4">
+                {controlSections.map(section => (
+                    <div key={section.label}>
+                        <Label className="text-xs uppercase text-muted-foreground tracking-wider">{section.label}</Label>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                            {section.options.map(opt => (
+                                <Button
+                                    key={opt}
+                                    variant={section.selectedValue === opt ? 'secondary' : 'outline'}
+                                    className="flex-1"
+                                    onClick={() => section.stateSetter(opt)}
+                                >
+                                    {opt}
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+                 <div>
+                    <Label htmlFor="group-input" className="text-xs uppercase text-muted-foreground tracking-wider">GRUPO / GROUP</Label>
+                    <Input id="group-input" value={group} onChange={e => setGroup(e.target.value)} className="mt-2" placeholder="Ej: 2 or 2+1"/>
+                </div>
+                 <div>
+                    <Label htmlFor="period-input" className="text-xs uppercase text-muted-foreground tracking-wider">PERÍODO / PERIOD (S)</Label>
+                    <Input id="period-input" type="number" value={period} onChange={e => setPeriod(e.target.value)} className="mt-2" placeholder="Ej: 15"/>
+                </div>
+            </div>
+
+            <div className="relative my-6 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                </div>
+                <div className="relative bg-card px-4 text-sm text-muted-foreground">
+                    O introducir manualmente
+                </div>
+            </div>
+
             <div className="flex w-full items-center space-x-2">
                 <Input
                     id="lighthouse-char-input"
                     placeholder="Ej: Gp Oc(2+1) W 15s"
-                    value={charStr}
-                    onChange={e => setCharStr(e.target.value)}
+                    value={manualChar}
+                    onChange={e => setManualChar(e.target.value)}
                 />
                 <Button id="lighthouse-simulate-btn" onClick={handleSimulate}>Simular</Button>
             </div>
+
             <div className="mt-6 flex flex-col items-center">
                  <div className="w-24 h-48">
                     <svg viewBox="0 0 100 200" className="w-full h-full">
@@ -200,7 +268,7 @@ const LighthouseSimulator = () => {
                         <circle id="lighthouse-svg-light" cx="50" cy="50" r="8" className="light-element" fill="hsl(var(--border))" />
                     </svg>
                 </div>
-                <div id="lighthouse-simulation-info" className="text-center mt-4 p-4 bg-muted rounded-lg w-full">
+                <div id="lighthouse-simulation-info" className="text-center mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
                     <p>Introduzca una característica para iniciar la simulación.</p>
                 </div>
             </div>
