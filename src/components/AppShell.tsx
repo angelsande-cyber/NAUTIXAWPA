@@ -41,10 +41,10 @@ import { cn } from "@/lib/utils";
 
 const mainNavItems = [
   { id: "dashboard", label: "Inicio", icon: Home },
-  { id: "sosgen", label: "SOSGEN", icon: LifeBuoy },
-  { id: "simulacro", label: "Simulacro", icon: Target },
-  { id: "senales", label: "Señales", icon: Lightbulb },
-  { id: "menu", label: "Menú", icon: Menu },
+  // { id: "sosgen", label: "SOSGEN", icon: LifeBuoy },
+  // { id: "simulacro", label: "Simulacro", icon: Target },
+  // { id: "senales", label: "Señales", icon: Lightbulb },
+  // { id: "menu", label: "Menú", icon: Menu },
 ];
 
 const dashboardItems = [
@@ -192,7 +192,7 @@ export function AppShell({ user }: { user: User }) {
         </main>
         
         <nav className="fixed bottom-0 left-0 right-0 z-10 border-t bg-background/95 backdrop-blur-sm">
-            <div className="grid h-16 grid-cols-5 items-center justify-center gap-1">
+            <div className="grid h-16 grid-cols-1 items-center justify-center gap-1">
                  {mainNavItems.map((item) => (
                     <button
                       key={item.id}
