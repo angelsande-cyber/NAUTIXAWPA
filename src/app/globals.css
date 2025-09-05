@@ -62,3 +62,11 @@
 .sos-message .placeholder {
     @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-md font-semibold;
 }
+
+/* Light simulation styles */
+.light-element.on.w-on { filter: drop-shadow(0 0 5px #fff) drop-shadow(0 0 10px #fff) drop-shadow(0 0 15px #fff); fill: white; }
+.light-element.on.r-on { filter: drop-shadow(0 0 5px #FCA5A5) drop-shadow(0 0 10px #EF4444) drop-shadow(0 0 15px #B91C1C); fill: #EF4444; }
+.light-element.on.g-on { filter: drop-shadow(0 0 5px #86EFAC) drop-shadow(0 0 10px #22C55E) drop-shadow(0 0 15px #15803D); fill: #22C55E; }
+.light-element.on.y-on { filter: drop-shadow(0 0 5px #FDE047) drop-shadow(0 0 10px #EAB308) drop-shadow(0 0 15px #A16207); fill: #EAB308; }
+.light-element.on.bu-on { filter: drop-shadow(0 0 5px #93C5FD) drop-shadow(0 0 10px #3B82F6) drop-shadow(0 0 15px #1E40AF); fill: #3B82F6; }
+.light-element.on.vi-on { filter: drop-shadow(0 0 5px #C4B5FD) drop-shadow(0 0 10px #8B5CF6) drop-shadow(0 0 15px #6D28D9); fill: #8B5CF6; }
