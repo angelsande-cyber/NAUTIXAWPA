@@ -56,9 +56,9 @@ export default function SosgenPage() {
         <div className="p-4 md:p-6">
             <Card className="w-full max-w-3xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Generador de Mensajes de Socorro</CardTitle>
+                    <CardTitle>Asistente de Radio para Socorro</CardTitle>
                     <CardDescription>
-                        Describe la emergencia con tus propias palabras. La IA formateará el mensaje de socorro estándar.
+                        Describe la emergencia con tus propias palabras. La IA formateará el mensaje de socorro estándar (MAYDAY) para su transmisión por VHF.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

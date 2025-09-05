@@ -13,6 +13,7 @@ import {
   Sun,
   ChevronLeft,
   Calculator,
+  Radio,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -36,7 +37,7 @@ import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 
 const dashboardItems = [
-    { id: "sosgen", label: "SOSGEN", icon: LifeBuoy, description: "Generador de mensajes MAYDAY." },
+    { id: "sosgen", label: "Radio", icon: Radio, description: "Asistente para mensajes de socorro." },
     { id: "simulacro", label: "Simulacro", icon: Target, description: "Ponte a prueba con un caso práctico." },
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
     { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de salvamento." },
@@ -78,7 +79,7 @@ export function AppShell({ user }: { user: User }) {
 
   const pageTitleMap: { [key: string]: string } = {
     dashboard: "Inicio",
-    sosgen: "SOSGEN",
+    sosgen: "Radio",
     simulacro: "Simulacro",
     senales: "Señales Marítimas",
     directorio: "Directorio",
