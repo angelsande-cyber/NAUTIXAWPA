@@ -5,9 +5,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { IALA_BUOY_DATA, LIGHT_CHARACTERISTIC_TERMS } from "@/lib/data/senales";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/utils";
 
 
 // --- Helper Functions (moved from simulation.ts) ---
@@ -64,7 +64,8 @@ function parseLighthouseCharacteristic(charStr: string): LightCharacteristic | n
 function runSimulation(
     lightEl: SVGElement | null, 
     infoEl: HTMLElement | null, 
-    char: LightCharacteristic | null
+    char: LightCharacteristic | null,
+    prependInfo?: string
 ) {
     if (simulationTimeout) clearInterval(simulationTimeout);
     if (!lightEl || !infoEl || !char) return;
@@ -123,7 +124,6 @@ function runSimulation(
                 delay: cumulativeDelay,
                 action: () => {
                     if (!lightEl) return;
-                    // Clean previous color classes
                     const lightClasses = lightEl.getAttribute('class')?.split(' ') || [];
                     lightClasses.forEach(c => { if (c.endsWith('-on')) lightEl.classList.remove(c); });
                     lightEl.classList.add('on', `${color}-on`);
@@ -152,7 +152,8 @@ function runSimulation(
     const esDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.es || char.rhythm} ${char.group ? `de grupo (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.es).join(' y ')} con un período de ${char.period}s.`;
     const enDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.en || char.rhythm} ${char.group ? `group (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.en).join(' & ')} with a period of ${char.period}s.`;
 
-    infoEl.innerHTML = `<p><strong>ES:</strong> ${esDesc}</p><p><strong>EN:</strong> ${enDesc}</p><p class="text-sm text-muted-foreground mt-2">${char.original}</p>`;
+    const descriptionHtml = `<p><strong>ES:</strong> ${esDesc}</p><p><strong>EN:</strong> ${enDesc}</p><p class="text-sm text-muted-foreground mt-2">${char.original}</p>`;
+    infoEl.innerHTML = prependInfo ? prependInfo + descriptionHtml : descriptionHtml;
 }
 
 
@@ -190,7 +191,6 @@ const LighthouseSimulator = () => {
     };
     
     useEffect(() => {
-        // Stop simulation when component unmounts
         return () => {
             if (simulationTimeout) {
                 clearInterval(simulationTimeout);
@@ -276,6 +276,157 @@ const LighthouseSimulator = () => {
     );
 }
 
+// --- Buoy Simulator Component ---
+const BuoySimulator = () => {
+    const [region, setRegion] = useState('A');
+    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const [activeType, setActiveType] = useState<string | null>(null);
+
+    const categories = Array.from(new Set(IALA_BUOY_DATA.map(b => b.category)));
+
+    const handleCategoryClick = (category: string) => {
+        setActiveCategory(category);
+        setActiveType(null); // Reset type when category changes
+        if (simulationTimeout) clearInterval(simulationTimeout);
+        const buoyInfoEl = document.getElementById('buoy-info-panel');
+        const buoySchematicEl = document.getElementById('buoy-schematic-container');
+        if(buoyInfoEl) buoyInfoEl.innerHTML = '<p>Seleccione un tipo de señal para comenzar.</p>';
+        if(buoySchematicEl) buoySchematicEl.innerHTML = '';
+
+    };
+
+    const handleTypeClick = (buoy: any) => {
+        setActiveType(buoy.type);
+        const schematicContainer = document.getElementById('buoy-schematic-container');
+        const infoPanel = document.getElementById('buoy-info-panel');
+        if (schematicContainer && infoPanel) {
+            renderBuoySchematic(schematicContainer, buoy);
+            const lightEl = schematicContainer.querySelector<SVGElement>('#buoy-svg-light');
+            if (lightEl) {
+                const char = parseLighthouseCharacteristic(buoy.characteristic);
+                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50"><strong>Regla:</strong> ${buoy.mnemonic}</p>` : '';
+                const infoTitle = `<h4 class="font-bold">${buoy.type}${buoy.region ? ` (Región ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
+                runSimulation(lightEl, infoPanel, char, infoTitle);
+            }
+        }
+    };
+    
+    useEffect(() => {
+        handleCategoryClick(categories[0]);
+    }, []);
+
+     useEffect(() => {
+        // When region changes, if the current category is lateral marks, reset it.
+        if (activeCategory === 'Marcas Laterales') {
+            setActiveType(null);
+            const buoyInfoEl = document.getElementById('buoy-info-panel');
+            const buoySchematicEl = document.getElementById('buoy-schematic-container');
+            if(buoyInfoEl) buoyInfoEl.innerHTML = '<p>Seleccione un tipo de señal para comenzar.</p>';
+            if(buoySchematicEl) buoySchematicEl.innerHTML = '';
+        }
+    }, [region]);
+
+    const buoyTypesForCategory = IALA_BUOY_DATA.filter(b => {
+        if (b.category !== activeCategory) return false;
+        if (activeCategory === 'Marcas Laterales') return b.region === region;
+        return true;
+    });
+
+    return (
+        <div>
+            <div className="space-y-4">
+                {activeCategory === 'Marcas Laterales' && (
+                    <div className="flex items-center space-x-2">
+                        <Label htmlFor="iala-region">Región IALA</Label>
+                        <span className={region === 'A' ? '' : 'text-muted-foreground'}>A</span>
+                        <Switch id="iala-region" checked={region === 'B'} onCheckedChange={(checked) => setRegion(checked ? 'B' : 'A')} />
+                        <span className={region === 'B' ? '' : 'text-muted-foreground'}>B</span>
+                    </div>
+                )}
+                 <div>
+                    <Label className="text-xs uppercase text-muted-foreground tracking-wider">Categoría</Label>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                        {categories.map(cat => (
+                            <Button key={cat} variant={activeCategory === cat ? 'secondary' : 'outline'} onClick={() => handleCategoryClick(cat)}>
+                                {cat}
+                            </Button>
+                        ))}
+                    </div>
+                </div>
+                {buoyTypesForCategory.length > 0 && (
+                    <div>
+                        <Label className="text-xs uppercase text-muted-foreground tracking-wider">Tipo</Label>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                            {buoyTypesForCategory.map(buoy => (
+                                <Button key={`${buoy.type}-${buoy.region || ''}`} variant={activeType === buoy.type ? 'secondary' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                    {buoy.type}
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <div className="mt-6 flex flex-col items-center">
+                <div id="buoy-schematic-container" className="w-32 h-48"></div>
+                <div id="buoy-info-panel" className="text-center mt-4 p-4 bg-muted rounded-lg w-full min-h-[140px]">
+                    <p>Seleccione una categoría y tipo de señal para comenzar.</p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
+    const colorMap: { [key: string]: string } = { 'red': '#EF4444', 'green': '#22C55E', 'yellow': '#EAB308', 'black': 'hsl(var(--foreground))', 'white': '#F0F2F5' };
+    const stroke = 'hsl(var(--foreground))';
+
+    let defs = '';
+    let fill = `fill="${colorMap[buoy.colors[0]]}"`;
+    if (buoy.colors.length > 1) {
+        const gradientId = `grad-${buoy.colors.join('-').replace(/\s/g, '')}`;
+        const isVertical = buoy.shape === 'spherical'; // Vertical stripes for Safe Water
+        const stops = buoy.colors.map((color:string, index:number) => {
+            const step = 100 / buoy.colors.length;
+            return `<stop offset="${index * step}%" stop-color="${colorMap[color]}" /><stop offset="${(index + 1) * step}%" stop-color="${colorMap[color]}" />`;
+        }).join('');
+        
+        defs = `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="${isVertical ? '100%' : '0%'}" y2="${isVertical ? '0%' : '100%'}">${stops}</linearGradient></defs>`;
+        fill = `fill="url(#${gradientId})"`;
+    }
+
+    let shapeSvg = '';
+    switch (buoy.shape) {
+        case 'can': shapeSvg = `<rect x="35" y="100" width="30" height="60" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
+        case 'conical': shapeSvg = `<polygon points="30,160 70,160 50,100" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
+        case 'spherical': shapeSvg = `<circle cx="50" cy="130" r="30" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
+        default: shapeSvg = `<rect x="40" y="100" width="20" height="60" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break; // Pillar
+    }
+
+    let topmarkSvg = '';
+    const tm = buoy.topmark;
+    if (tm) {
+        const tmFill = `fill="${colorMap[tm.color]}" stroke="${stroke}" stroke-width="1.5"`;
+        switch (tm.shape) {
+            case 'can': topmarkSvg = `<rect x="42" y="80" width="16" height="16" ${tmFill}/>`; break;
+            case 'cone-up': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
+            case 'spheres-2': topmarkSvg = `<circle cx="50" cy="75" r="8" ${tmFill}/><circle cx="50" cy="95" r="8" ${tmFill}/>`; break;
+            case 'sphere': topmarkSvg = `<circle cx="50" cy="88" r="8" ${tmFill}/>`; break;
+            case 'cross': topmarkSvg = `<path d="M45 80 L55 90 M55 80 L45 90" stroke="${colorMap[tm.color]}" stroke-width="3"/>`; break;
+            case 'cones-up': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
+            case 'cones-down': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill}/><polygon points="40,80 60,80 50,96" ${tmFill}/>`; break;
+            case 'cones-base-base': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/><polygon points="40,64 60,64 50,80" ${tmFill}/>`; break;
+            case 'cones-point-point': topmarkSvg = `<polygon points="40,80 60,80 50,96" ${tmFill}/><polygon points="40,80 60,80 50,64" ${tmFill}/>`; break;
+        }
+    }
+    const lightY = buoy.topmark ? 60 : 88;
+    const lightSvg = `<circle id="buoy-svg-light" cx="50" cy="${lightY}" r="6" class="light-element" fill="hsl(var(--border))" />`;
+    const waterSvg = `<path d="M0 160 Q 50 150, 100 160 T 200 160" stroke-width="2" stroke="hsl(var(--primary))" fill="hsl(var(--primary)/.2)"/>`;
+
+    container.innerHTML = `<svg viewBox="0 0 100 180" style="overflow: visible;">${defs}${waterSvg}${shapeSvg}${topmarkSvg}${lightSvg}</svg>`;
+};
+
+
 // --- Main Page Component ---
 export default function SenalesPage() {
     return (
@@ -297,7 +448,7 @@ export default function SenalesPage() {
                             <LighthouseSimulator />
                         </TabsContent>
                         <TabsContent value="buoys" className="pt-4">
-                             <p className="text-muted-foreground text-center p-8">El simulador de boyas se implementará en una futura actualización.</p>
+                            <BuoySimulator />
                         </TabsContent>
                     </Tabs>
                 </CardContent>
