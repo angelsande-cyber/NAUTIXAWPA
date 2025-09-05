@@ -97,17 +97,6 @@ export function AppShell({ user }: { user: User }) {
       default:
         return (
           <div className="p-4 md:p-6">
-             <div className="flex items-center gap-4 mb-6">
-                <Avatar className="h-16 w-16 border-2 border-primary">
-                    <AvatarImage src={user.photoURL ?? ""} alt={user.displayName ?? ""} />
-                    <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
-                </Avatar>
-                <div>
-                    <p className="text-muted-foreground text-sm">Bienvenido de nuevo,</p>
-                    <h1 className="text-2xl font-bold tracking-tight">{user.displayName}</h1>
-                </div>
-            </div>
-            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {dashboardItems.map((item) => (
                   <button
