@@ -8,61 +8,69 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
 
-export default function Home() {
-  const { user, loading, signInWithGoogle } = useAuth();
-  
-  const SignInScreen = ({ isLoading }: { isLoading: boolean }) => {
-    const [isSigningIn, setIsSigningIn] = useState(false);
+// --- Sub-components defined outside the main component ---
 
-    const handleSignIn = async () => {
-        setIsSigningIn(true);
-        try {
-            await signInWithGoogle();
-        } finally {
-            // This might not be reached if the component unmounts upon successful login,
-            // but it's good practice for handling failed attempts.
-            setIsSigningIn(false);
-        }
-    };
+const LoadingScreen = () => (
+  <div className="flex min-h-screen items-center justify-center bg-background p-8">
+    <div className="w-full max-w-sm space-y-4">
+      <Skeleton className="h-12 w-full" />
+      <Skeleton className="h-6 w-3/4 mx-auto" />
+      <Skeleton className="h-12 w-full mt-8" />
+    </div>
+  </div>
+);
 
-    const buttonDisabled = isLoading || isSigningIn;
+const SignInScreen = ({ isLoading, signInAction }: { isLoading: boolean; signInAction: () => Promise<void> }) => {
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
-    return (
-        <div className="flex min-h-screen items-center justify-center bg-background p-8">
-            <div className="w-full max-w-sm rounded-2xl border bg-card p-8 shadow-lg text-center animate-in fade-in zoom-in-95">
-                <h1 className="text-4xl font-bold tracking-tight text-primary">NAUTIXA</h1>
-                <p className="text-muted-foreground mt-2">Tu asistente de navegación y comunicaciones.</p>
-                <Button onClick={handleSignIn} disabled={buttonDisabled} className="w-full mt-8 h-12 text-base">
-                    {isSigningIn ? (
-                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    ) : (
-                        <GoogleIcon className="mr-2 h-5 w-5" />
-                    )}
-                    {isSigningIn ? "Iniciando sesión..." : "Iniciar sesión con Google"}
-                </Button>
-            </div>
-        </div>
-    );
+  const handleSignIn = async () => {
+    setIsSigningIn(true);
+    try {
+      await signInAction();
+    } catch (e) {
+      console.error("Sign in failed:", e);
+      // Let the AuthContext handle user-facing errors
+    } finally {
+      // The button state will be managed by the parent's `loading` prop
+      // after the initial click. But we keep this for cases where the
+      // popup is blocked or fails immediately.
+      setIsSigningIn(false);
+    }
   };
-  
-  const LoadingScreen = () => (
+
+  const buttonDisabled = isLoading || isSigningIn;
+
+  return (
     <div className="flex min-h-screen items-center justify-center bg-background p-8">
-      <div className="w-full max-w-sm space-y-4">
-        <Skeleton className="h-12 w-full" />
-        <Skeleton className="h-6 w-3/4 mx-auto" />
-        <Skeleton className="h-12 w-full mt-8" />
+      <div className="w-full max-w-sm rounded-2xl border bg-card p-8 text-center shadow-lg animate-in fade-in zoom-in-95">
+        <h1 className="text-4xl font-bold tracking-tight text-primary">NAUTIXA</h1>
+        <p className="mt-2 text-muted-foreground">Tu asistente de navegación y comunicaciones.</p>
+        <Button onClick={handleSignIn} disabled={buttonDisabled} className="mt-8 h-12 w-full text-base">
+          {buttonDisabled ? (
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+          ) : (
+            <GoogleIcon className="mr-2 h-5 w-5" />
+          )}
+          {buttonDisabled ? "Iniciando sesión..." : "Iniciar sesión con Google"}
+        </Button>
       </div>
     </div>
-  )
+  );
+};
+
+
+// --- Main Page Component ---
+
+export default function Home() {
+  const { user, loading, signInWithGoogle } = useAuth();
 
   if (loading) {
     return <LoadingScreen />;
   }
 
   if (!user) {
-    return <SignInScreen isLoading={loading} />;
+    return <SignInScreen isLoading={loading} signInAction={signInWithGoogle} />;
   }
 
-a
   return <AppShell user={user} />;
 }
