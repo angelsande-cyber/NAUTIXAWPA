@@ -35,7 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const authError = error as AuthError;
       if (
         authError.code !== 'auth/cancelled-popup-request' &&
-        authError.code !== 'auth/popup-closed-by-user'
+        authError.code !== 'auth/popup-closed-by-user' &&
+        authError.code !== 'auth/popup-blocked'
       ) {
         console.error("Error signing in with Google: ", error);
       }
