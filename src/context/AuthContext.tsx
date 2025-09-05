@@ -33,7 +33,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       // It's good practice to handle popup cancellation errors gracefully.
       const authError = error as AuthError;
-      if (authError.code !== 'auth/cancelled-popup-request') {
+      if (
+        authError.code !== 'auth/cancelled-popup-request' &&
+        authError.code !== 'auth/popup-closed-by-user'
+      ) {
         console.error("Error signing in with Google: ", error);
       }
     }
