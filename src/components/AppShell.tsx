@@ -28,7 +28,6 @@ import SenalesPage from "./pages/SenalesPage";
 import MmsiPage from "./pages/MmsiPage";
 import ReferenciasPage from "./pages/ReferenciasPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
-import MenuPage from "./pages/MenuPage";
 import { useTheme } from "next-themes";
 import {
   DropdownMenu,
@@ -41,17 +40,17 @@ import { cn } from "@/lib/utils";
 
 const mainNavItems = [
   { id: "dashboard", label: "Inicio", icon: Home },
-  // { id: "sosgen", label: "SOSGEN", icon: LifeBuoy },
-  // { id: "simulacro", label: "Simulacro", icon: Target },
-  // { id: "senales", label: "Señales", icon: Lightbulb },
-  // { id: "menu", label: "Menú", icon: Menu },
 ];
 
 const dashboardItems = [
     { id: "sosgen", label: "SOSGEN", icon: LifeBuoy, description: "Generador de mensajes MAYDAY." },
     { id: "simulacro", label: "Simulacro", icon: Target, description: "Ponte a prueba con un caso práctico." },
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
-    { id: "menu", label: "Más Herramientas", icon: Menu, description: "Directorio, calculadoras y más." },
+    { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de salvamento." },
+    { id: "mmsi", label: "Buscador MMSI", icon: Search, description: "Información de buques." },
+    { id: "referencias", label: "Referencias", icon: Book, description: "Tablas y datos útiles." },
+    { id: "calculadora", label: "Calculadora", icon: Calculator, description: "Conversor de coordenadas." },
+    { id: "diccionario", label: "Diccionario", icon: Languages, description: "Traductor de términos." },
 ];
 
 function ThemeToggle() {
@@ -94,7 +93,6 @@ export function AppShell({ user }: { user: User }) {
     referencias: "Referencias",
     calculadora: "Calculadora de Coordenadas",
     diccionario: "Diccionario Náutico",
-    menu: "Menú de Herramientas",
   };
 
   const renderContent = () => {
@@ -107,7 +105,6 @@ export function AppShell({ user }: { user: User }) {
       case 'mmsi': return <MmsiPage />;
       case 'referencias': return <ReferenciasPage />;
       case 'calculadora': return <CalculadoraPage />;
-      case 'menu': return <MenuPage setActivePage={setActivePage} />;
       default:
         return (
           <div className="p-4 md:p-6">
@@ -145,16 +142,16 @@ export function AppShell({ user }: { user: User }) {
     }
   };
   
-  const showBackButton = activePage !== 'dashboard' && mainNavItems.find(item => item.id === activePage) === undefined;
+  const showBackButton = activePage !== 'dashboard';
 
   return (
       <div className="flex h-screen w-full flex-col bg-background">
         <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between gap-4 border-b bg-background/95 px-4 backdrop-blur-sm">
             <div className="flex items-center gap-2">
                 {showBackButton && (
-                    <Button variant="ghost" size="icon" className="-ml-2" onClick={() => setActivePage('menu')}>
+                    <Button variant="ghost" size="icon" className="-ml-2" onClick={() => setActivePage('dashboard')}>
                         <ChevronLeft className="h-5 w-5"/>
-                        <span className="sr-only">Volver al Menú</span>
+                        <span className="sr-only">Volver al Inicio</span>
                     </Button>
                 )}
                  <h1 className="text-lg font-semibold uppercase tracking-wider">{pageTitleMap[activePage] || 'NAUTIXA'}</h1>
