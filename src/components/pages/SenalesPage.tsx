@@ -448,9 +448,9 @@ export default function SenalesPage() {
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="lighthouse" className="w-full">
-                        <TabsList className="grid w-full grid-cols-2">
-                            <TabsTrigger value="lighthouse">Faros</TabsTrigger>
-                            <TabsTrigger value="buoys">Boyas y Marcas</TabsTrigger>
+                        <TabsList className="grid w-full grid-cols-2 gap-2 h-auto bg-transparent p-0">
+                            <TabsTrigger value="lighthouse" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros</TabsTrigger>
+                            <TabsTrigger value="buoys" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Boyas y Marcas</TabsTrigger>
                         </TabsList>
                         <TabsContent value="lighthouse" className="pt-6">
                             <LighthouseSimulator />
