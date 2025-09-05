@@ -1,6 +1,6 @@
 "use client";
 
-import type { User } from "firebase/auth";
+import type { User, AuthError } from "firebase/auth";
 import { signInWithPopup, signOut as firebaseSignOut } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
@@ -31,7 +31,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       await signInWithPopup(auth, googleProvider);
     } catch (error) {
-      console.error("Error signing in with Google: ", error);
+      // It's good practice to handle popup cancellation errors gracefully.
+      const authError = error as AuthError;
+      if (authError.code !== 'auth/cancelled-popup-request') {
+        console.error("Error signing in with Google: ", error);
+      }
     }
   };
 
