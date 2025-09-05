@@ -5,9 +5,7 @@ import type { User } from "firebase/auth";
 import {
   LifeBuoy,
   Target,
-  Search,
   Book,
-  Languages,
   LogOut,
   Home,
   Lightbulb,
@@ -21,10 +19,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import SosgenPage from "./pages/SosgenPage";
 import SimulacroPage from "./pages/SimulacroPage";
-import DiccionarioPage from "./pages/DiccionarioPage";
 import DirectorioPage from "./pages/DirectorioPage";
 import SenalesPage from "./pages/SenalesPage";
-import MmsiPage from "./pages/MmsiPage";
 import ReferenciasPage from "./pages/ReferenciasPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
 import { useTheme } from "next-themes";
@@ -44,10 +40,8 @@ const dashboardItems = [
     { id: "simulacro", label: "Simulacro", icon: Target, description: "Ponte a prueba con un caso práctico." },
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
     { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de salvamento." },
-    { id: "mmsi", label: "Buscador MMSI", icon: Search, description: "Información de buques." },
     { id: "referencias", label: "Referencias", icon: Book, description: "Tablas y datos útiles." },
     { id: "calculadora", label: "Calculadora", icon: Calculator, description: "Conversor de coordenadas." },
-    { id: "diccionario", label: "Diccionario", icon: Languages, description: "Traductor de términos." },
 ];
 
 function ThemeToggle() {
@@ -87,11 +81,9 @@ export function AppShell({ user }: { user: User }) {
     sosgen: "SOSGEN",
     simulacro: "Simulacro",
     senales: "Señales Marítimas",
-    mmsi: "Buscador MMSI",
     directorio: "Directorio",
     referencias: "Referencias",
     calculadora: "Calculadora de Coordenadas",
-    diccionario: "Diccionario Náutico",
   };
 
   const renderContent = () => {
@@ -99,9 +91,7 @@ export function AppShell({ user }: { user: User }) {
       case 'sosgen': return <SosgenPage />;
       case 'simulacro': return <SimulacroPage />;
       case 'directorio': return <DirectorioPage />;
-      case 'diccionario': return <DiccionarioPage />;
       case 'senales': return <SenalesPage />;
-      case 'mmsi': return <MmsiPage />;
       case 'referencias': return <ReferenciasPage />;
       case 'calculadora': return <CalculadoraPage />;
       default:
