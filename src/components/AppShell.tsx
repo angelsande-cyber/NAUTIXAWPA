@@ -27,6 +27,10 @@ import SosgenPage from "./pages/SosgenPage";
 import SimulacroPage from "./pages/SimulacroPage";
 import DiccionarioPage from "./pages/DiccionarioPage";
 import DirectorioPage from "./pages/DirectorioPage";
+import SenalesPage from "./pages/SenalesPage";
+import MmsiPage from "./pages/MmsiPage";
+import ReferenciasPage from "./pages/ReferenciasPage";
+import CalculadoraPage from "./pages/CalculadoraPage";
 
 const navItems = [
   { id: "dashboard", label: "Dashboard", icon: Home },
@@ -55,7 +59,14 @@ export function AppShell({ user }: { user: User }) {
         return <DirectorioPage />;
       case 'diccionario':
         return <DiccionarioPage />;
-      // TODO: Add other pages here
+      case 'senales':
+        return <SenalesPage />;
+      case 'mmsi':
+        return <MmsiPage />;
+      case 'referencias':
+        return <ReferenciasPage />;
+      case 'calculadora':
+        return <CalculadoraPage />;
       default:
         return (
           <div className="p-8">
