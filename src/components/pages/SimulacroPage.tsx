@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { generateDrill } from '@/ai/flows/simulacro';
 import type { DrillOutput } from '@/ai/schemas/simulacro-schema';
 import { Button } from '@/components/ui/button';
@@ -39,9 +39,9 @@ export default function SimulacroPage() {
         }
     };
     
-    useState(() => {
+    useEffect(() => {
         handleGenerateDrill();
-    });
+    }, []);
 
     const handleCheckAnswer = () => {
         if (selectedAnswer === null) {
