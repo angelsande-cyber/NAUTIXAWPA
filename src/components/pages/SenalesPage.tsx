@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { IALA_BUOY_DATA, LIGHT_CHARACTERISTIC_TERMS } from "@/lib/data/senales";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 
 
@@ -166,6 +166,13 @@ const LighthouseSimulator = () => {
     const [period, setPeriod] = useState('10');
     const [manualChar, setManualChar] = useState('');
 
+    const handleSimulate = useCallback(() => {
+        const lightEl = document.getElementById('lighthouse-svg-light') as SVGElement | null;
+        const infoEl = document.getElementById('lighthouse-simulation-info') as HTMLElement | null;
+        const char = parseLighthouseCharacteristic(manualChar);
+        runSimulation(lightEl, infoEl, char);
+    }, [manualChar]);
+
     useEffect(() => {
         let groupStr = '';
         if (rhythm !== 'F' && rhythm !== 'ISO' && group) {
@@ -184,14 +191,14 @@ const LighthouseSimulator = () => {
     }, [rhythm, color, group, period]);
 
 
-    const handleSimulate = () => {
-        const lightEl = document.getElementById('lighthouse-svg-light') as SVGElement | null;
-        const infoEl = document.getElementById('lighthouse-simulation-info') as HTMLElement | null;
-        const char = parseLighthouseCharacteristic(manualChar);
-        runSimulation(lightEl, infoEl, char);
-    };
+    useEffect(() => {
+        if(manualChar){
+            handleSimulate();
+        }
+    }, [manualChar, handleSimulate]);
     
     useEffect(() => {
+        // Cleanup on component unmount
         return () => {
             if (simulationTimeout) {
                 clearInterval(simulationTimeout);
@@ -215,7 +222,7 @@ const LighthouseSimulator = () => {
                             {section.options.map(opt => (
                                 <Button
                                     key={opt}
-                                    variant={section.selectedValue === opt ? 'secondary' : 'outline'}
+                                    variant={section.selectedValue === opt ? 'default' : 'outline'}
                                     className="flex-1"
                                     onClick={() => section.stateSetter(opt)}
                                 >
@@ -251,7 +258,6 @@ const LighthouseSimulator = () => {
                     value={manualChar}
                     onChange={e => setManualChar(e.target.value)}
                 />
-                <Button id="lighthouse-simulate-btn" onClick={handleSimulate}>Simular</Button>
             </div>
 
             <div className="mt-6 flex flex-col items-center">
@@ -314,6 +320,7 @@ const BuoySimulator = () => {
     
     useEffect(() => {
         handleCategoryClick(categories[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
      useEffect(() => {
@@ -325,7 +332,7 @@ const BuoySimulator = () => {
             if(buoyInfoEl) buoyInfoEl.innerHTML = '<p class="text-muted-foreground">Seleccione un tipo de señal para comenzar.</p>';
             if(buoySchematicEl) buoySchematicEl.innerHTML = '';
         }
-    }, [region]);
+    }, [region, activeCategory]);
 
     const buoyTypesForCategory = IALA_BUOY_DATA.filter(b => {
         if (b.category !== activeCategory) return false;
@@ -348,7 +355,7 @@ const BuoySimulator = () => {
                     <Label className="text-xs uppercase text-muted-foreground tracking-wider">Categoría</Label>
                     <div className="flex flex-wrap gap-2 mt-2">
                         {categories.map(cat => (
-                            <Button key={cat} variant={activeCategory === cat ? 'secondary' : 'outline'} onClick={() => handleCategoryClick(cat)}>
+                            <Button key={cat} variant={activeCategory === cat ? 'default' : 'outline'} onClick={() => handleCategoryClick(cat)}>
                                 {cat}
                             </Button>
                         ))}
@@ -359,7 +366,7 @@ const BuoySimulator = () => {
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">Tipo</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map(buoy => (
-                                <Button key={`${buoy.type}-${buoy.region || ''}`} variant={activeType === buoy.type ? 'secondary' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                <Button key={`${buoy.type}-${buoy.region || ''}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
                                     {buoy.type}
                                 </Button>
                             ))}
