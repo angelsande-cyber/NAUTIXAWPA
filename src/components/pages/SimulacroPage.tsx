@@ -194,7 +194,7 @@ export default function SimulacroPage() {
                                 </Button>
 
                                 {currentQuestionIndex < quiz.length - 1 ? (
-                                     <Button variant="outline" onClick={() => setCurrentQuestionIndex(p => p + 1)} disabled={answers[currentQuestionIndex] === undefined}>
+                                     <Button variant="outline" onClick={() => setCurrentQuestionIndex(p => p + 1)}>
                                         Siguiente
                                         <ChevronRight className="ml-2 h-4 w-4"/>
                                     </Button>
