@@ -14,6 +14,7 @@ import {
   ChevronLeft,
   Calculator,
   Radio,
+  Sailboat,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -24,6 +25,7 @@ import DirectorioPage from "./pages/DirectorioPage";
 import SenalesPage from "./pages/SenalesPage";
 import ReferenciasPage from "./pages/ReferenciasPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
+import ColregPage from "./pages/ColregPage";
 import { useTheme } from "next-themes";
 import {
   DropdownMenu,
@@ -40,6 +42,7 @@ const dashboardItems = [
     { id: "sosgen", label: "Radio", icon: Radio, description: "Asistente para mensajes de socorro." },
     { id: "simulacro", label: "Simulacro", icon: Target, description: "Ponte a prueba con un caso práctico." },
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
+    { id: "colreg", label: "COLREG", icon: Sailboat, description: "Consulta el reglamento de abordajes." },
     { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de salvamento." },
     { id: "referencias", label: "Referencias", icon: Book, description: "Tablas y datos útiles." },
     { id: "calculadora", label: "Calculadora", icon: Calculator, description: "Conversor de coordenadas." },
@@ -82,6 +85,7 @@ export function AppShell({ user }: { user: User }) {
     sosgen: "Radio",
     simulacro: "Simulacro",
     senales: "Señales Marítimas",
+    colreg: "Reglamento (COLREG)",
     directorio: "Directorio",
     referencias: "Referencias",
     calculadora: "Calculadora de Coordenadas",
@@ -93,6 +97,7 @@ export function AppShell({ user }: { user: User }) {
       case 'simulacro': return <SimulacroPage />;
       case 'directorio': return <DirectorioPage />;
       case 'senales': return <SenalesPage />;
+      case 'colreg': return <ColregPage />;
       case 'referencias': return <ReferenciasPage />;
       case 'calculadora': return <CalculadoraPage />;
       default:
