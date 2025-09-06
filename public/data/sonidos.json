@@ -1,74 +1,93 @@
+
 [
     {
-        "id": "R35a",
-        "title": "Buque de P.M. con arrancada",
-        "description": "Un buque de propulsión mecánica con arrancada, en visibilidad reducida.",
-        "signal": "Una pitada larga a intervalos no superiores a 2 minutos.",
+        "id": "power_making_way",
+        "title": "Buque de propulsión mecánica con arrancada",
+        "description": "Un buque de propulsión mecánica en navegación, con arrancada.",
+        "signal": "Una pitada larga (—)",
         "sequence": ["long"],
-        "interval": 120000,
-        "rule": "Regla 35 (a)"
+        "interval": 120,
+        "rule": "Regla 35(a)"
     },
     {
-        "id": "R35b",
-        "title": "Buque de P.M. parado",
+        "id": "power_stopped",
+        "title": "Buque de propulsión mecánica parado y sin arrancada",
         "description": "Un buque de propulsión mecánica en navegación, pero parado y sin arrancada.",
-        "signal": "Dos pitadas largas consecutivas, con un intervalo de 2s entre ellas, repetidas a intervalos no superiores a 2 minutos.",
+        "signal": "Dos pitadas largas (— —)",
         "sequence": ["long", "long"],
-        "interval": 120000,
-        "rule": "Regla 35 (b)"
+        "interval": 120,
+        "rule": "Regla 35(b)"
     },
     {
-        "id": "R35c",
-        "title": "Buque sin gobierno o restringido",
-        "description": "Buque sin gobierno, con maniobra restringida, restringido por su calado, de vela, de pesca, o remolcando/empujando a otro.",
-        "signal": "Una pitada larga seguida de dos cortas a intervalos no superiores a 2 minutos.",
+        "id": "restricted",
+        "title": "Buque sin gobierno, restringido, vela, pesca o remolque",
+        "description": "Buques sin gobierno, con maniobra restringida, restringido por su calado, de vela, de pesca, o remolcando/empujando a otro.",
+        "signal": "Una pitada larga y dos cortas (— • •)",
         "sequence": ["long", "short", "short"],
-        "interval": 120000,
-        "rule": "Regla 35 (c)"
+        "interval": 120,
+        "rule": "Regla 35(c)"
     },
     {
-        "id": "R35e",
+        "id": "towed",
         "title": "Buque remolcado",
-        "description": "Un buque remolcado (o el último si se remolca más de uno).",
-        "signal": "Una pitada larga seguida de tres cortas, después de la señal del remolcador.",
+        "description": "Un buque remolcado (o el último si se remolca más de uno), si va tripulado.",
+        "signal": "Una pitada larga y tres cortas (— • • •)",
         "sequence": ["long", "short", "short", "short"],
-        "interval": 120000,
-        "rule": "Regla 35 (e)"
+        "interval": 120,
+        "rule": "Regla 35(e)"
     },
     {
-        "id": "R35f_lt100",
+        "id": "anchor_lt100",
         "title": "Buque fondeado (< 100m)",
-        "description": "Un buque de menos de 100m de eslora, fondeado.",
-        "signal": "Un repique de campana de 5s a proa, a intervalos no superiores a 1 minuto.",
+        "description": "Un buque de eslora inferior a 100 metros, fondeado.",
+        "signal": "Repique rápido de campana (5s)",
         "sequence": ["bell"],
-        "interval": 60000,
-        "rule": "Regla 35 (f)"
+        "interval": 60,
+        "rule": "Regla 35(g)"
     },
     {
-        "id": "R35f_gt100",
-        "title": "Buque fondeado (> 100m)",
-        "description": "Un buque de 100m o más de eslora, fondeado.",
-        "signal": "Un repique de campana de 5s a proa, seguido inmediatamente de un son de gong de 5s a popa, a intervalos no superiores a 1 minuto.",
+        "id": "anchor_gt100",
+        "title": "Buque fondeado (≥ 100m)",
+        "description": "Un buque de eslora igual o superior a 100 metros, fondeado.",
+        "signal": "Repique de campana en proa (5s) y son de gong en popa (5s)",
         "sequence": ["bell", "gong"],
-        "interval": 60000,
-        "rule": "Regla 35 (f)"
+        "interval": 60,
+        "rule": "Regla 35(g)"
+    },
+     {
+        "id": "anchor_warning",
+        "title": "Buque fondeado (señal adicional)",
+        "description": "Señal opcional de un buque fondeado para advertir de su posición y evitar un abordaje.",
+        "signal": "Una pitada corta, una larga y una corta (• — •)",
+        "sequence": ["short", "long", "short"],
+        "interval": 0,
+        "rule": "Regla 35(g)"
     },
     {
-        "id": "R35g",
-        "title": "Buque varado",
-        "description": "Un buque varado.",
-        "signal": "Tres golpes de campana distintos antes y después del repique rápido (o del repique y son de gong).",
+        "id": "aground_lt100",
+        "title": "Buque varado (< 100m)",
+        "description": "Un buque de eslora inferior a 100 metros, varado.",
+        "signal": "Tres golpes de campana, repique rápido (5s), tres golpes de campana",
         "sequence": ["bell-stroke", "bell-stroke", "bell-stroke", "bell", "bell-stroke", "bell-stroke", "bell-stroke"],
-        "interval": 60000,
-        "rule": "Regla 35 (g)"
+        "interval": 60,
+        "rule": "Regla 35(h)"
     },
     {
-        "id": "R35i",
+        "id": "aground_gt100",
+        "title": "Buque varado (≥ 100m)",
+        "description": "Un buque de eslora igual o superior a 100 metros, varado.",
+        "signal": "Tres golpes de campana, repique en proa, tres golpes de campana, y son de gong en popa.",
+        "sequence": ["bell-stroke", "bell-stroke", "bell-stroke", "bell", "bell-stroke", "bell-stroke", "bell-stroke", "gong"],
+        "interval": 60,
+        "rule": "Regla 35(h)"
+    },
+    {
+        "id": "pilot",
         "title": "Buque de práctico",
         "description": "Un buque de práctico en servicio.",
-        "signal": "Puede emitir una señal de identidad de cuatro pitadas cortas.",
+        "signal": "Cuatro pitadas cortas (• • • •)",
         "sequence": ["short", "short", "short", "short"],
-        "interval": 120000,
-        "rule": "Regla 35 (i)"
+        "interval": 0,
+        "rule": "Regla 35(i)"
     }
 ]
