@@ -26,7 +26,7 @@ const FlagR = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#d
 const FlagS = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M3 3 H12 V9 H3Z" fill="#0058a7"/></svg>;
 const FlagT = () => <svg viewBox="0 0 15 12"><path d="M0 0 H5 V12 H0Z" fill="#d72828"/><path d="M5 0 H10 V12 H5Z" fill="#fff"/><path d="M10 0 H15 V12 H10Z" fill="#0058a7"/></svg>;
 const FlagU = () => <svg viewBox="0 0 15 12"><rect width="7.5" height="6" fill="#d72828" /><rect x="7.5" width="7.5" height="6" fill="#fff" /><rect y="6" width="7.5" height="6" fill="#fff" /><rect x="7.5" y="6" width="7.5" height="6" fill="#d72828" /></svg>;
-const FlagV = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M1.5 1.5 L13.5 10.5 M1.5 10.5 L13.5 1.5" stroke="#d72828" strokeWidth="2.5"/></svg>;
+const FlagV = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0 0 L15 12 M0 12 L15 0" stroke="#d72828" strokeWidth="2.5"/></svg>;
 const FlagW = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#0058a7"/><path d="M2 2 H13 V10 H2Z" fill="#fff"/><path d="M4 4 H11 V8 H4Z" fill="#d72828"/></svg>;
 const FlagX = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0 6 H15 M7.5 0 V12" stroke="#0058a7" strokeWidth="2.5"/></svg>;
 const FlagY = () => <svg viewBox="0 0 15 12"><path d="M0,0 l3,2.4 l-3,2.4z m3,0 l3,2.4 l-3,2.4z m3,0 l3,2.4 l-3,2.4z m3,0 l3,2.4 l-3,2.4z m3,0 l3,2.4 l-3,2.4z" fill="#d72828" /><path d="M0,4.8 l3,2.4 l-3,2.4z m3,0 l3,2.4 l-3,2.4z m3,0 l3,2.4 l-3,2.4z m3,0 l3,2.4 l-3,2.4z m3,0 l3,2.4 l-3,2.4z" fill="#ffcd00" /></svg>;
