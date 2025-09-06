@@ -4,7 +4,6 @@ import React from 'react';
 
 // --- Flag SVG Components ---
 
-// NOTE: Using a 20:12 aspect ratio for flags, and 20:12 for pennants to give them a bit more length.
 const FlagA = () => <svg viewBox="0 0 20 12"><path d="M0,0 H10 V12 H0Z" fill="#fff" /><path d="M10,0 H20 L15,6 L20,12 H10Z" fill="#0058a7" /></svg>;
 const FlagB = () => <svg viewBox="0 0 20 12"><path d="M0,0 H20 L15,6 L20,12 H0Z" fill="#d72828" /></svg>;
 const FlagC = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V2.4 H0Z" fill="#0058a7"/><path d="M0,2.4 H15 V4.8 H0Z" fill="#fff"/><path d="M0,4.8 H15 V7.2 H0Z" fill="#d72828"/><path d="M0,7.2 H15 V9.6 H0Z" fill="#fff"/><path d="M0,9.6 H15 V12 H0Z" fill="#0058a7"/></svg>;
@@ -31,22 +30,13 @@ const FlagW = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#0
 const FlagX = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0 6 H15 M7.5 0 V12" stroke="#0058a7" strokeWidth="2.5"/></svg>;
 const FlagY = () => (
     <svg viewBox="0 0 15 12">
-        <path d="M-1,1 L1, -1 L16,11 L14,13 Z" fill="#d72828" />
-        <path d="M1, -1 L3, -3 L18,9 L16,11 Z" fill="#ffcd00" />
-        <path d="M3, -3 L5, -5 L20,7 L18,9 Z" fill="#d72828" />
-        <path d="M5, -5 L7, -7 L22,5 L20,7 Z" fill="#ffcd00" />
-        <path d="M7, -7 L9, -9 L24,3 L22,5 Z" fill="#d72828" />
-        <path d="M9, -9 L11,-11 L26,1 L24,3 Z" fill="#ffcd00" />
-        <path d="M11,-11 L13,-13 L28,-1 L26,1 Z" fill="#d72828" />
-        <path d="M13,-13 L15,-15 L30,-3 L28,-1 Z" fill="#ffcd00" />
-        <path d="M15,-15 L17,-17 L32,-5 L30,-3 Z" fill="#d72828" />
-        <path d="M17,-17 L19,-19 L34,-7 L32,-5 Z" fill="#ffcd00" />
-        <path d="M19,-19 L21,-21 L36,-9 L34,-7 Z" fill="#d72828" />
-        <path d="M0,0 H15 V12 H0 Z" fill="none" stroke="hsl(var(--foreground))" stroke-width="0.2"/>
+        <path d="M0,0 H15 V12 H0Z" fill="#ffcd00" />
+        <path d="M-1,1 L1,-1 L15,11 L13,13Z M2,1 L4,-1 L15,10 L13,12Z M5,1 L7,-1 L15,8 L13,10Z M8,1 L10,-1 L15,6 L13,8Z M11,1 L13,-1 L15,4 L13,6Z M14,1 L15,-0 L15,1Z" fill="#d72828" />
+        <path d="M-1,4 L1,2 L12,13 L10,15Z M-1,7 L1,5 L9,13 L7,15Z M-1,10 L1,8 L6,13 L4,15Z M-1,13 L1,11 L3,13 L-1,15Z" fill="#d72828" />
+        <path d="M0,0 H15 V12 H0 Z" fill="none" stroke="hsl(var(--foreground))" strokeWidth="0.2"/>
     </svg>
 );
-const FlagZ = () => <svg viewBox="0 0 15 12"><path d="M0 0 L7.5 0 L15 6 L7.5 12 L0 12 L7.5 6 Z" fill="#000" /><path d="M0 0 L7.5 0 L0 6 Z" fill="#ffcd00" /><path d="M7.5 0 L15 0 L15 6 Z" fill="#0058a7" /><path d="M15 12 L7.5 12 L15 6 Z" fill="#d72828" /></svg>;
-
+const FlagZ = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0,0 L7.5,6 L0,12Z" fill="#0058a7"/><path d="M15,0 L7.5,6 L15,12Z" fill="#d72828"/><path d="M0,0 L15,0 L7.5,6Z" fill="#000"/><path d="M0,12 L15,12 L7.5,6Z" fill="#ffcd00"/></svg>;
 
 // --- Pennants ---
 const pennantShape = "M0 0 H15 L20 6 L15 12 H0 Z";
