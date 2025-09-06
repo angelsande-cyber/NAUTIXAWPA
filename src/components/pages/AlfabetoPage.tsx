@@ -25,7 +25,7 @@ export default function AlfabetoPage() {
                                 {LETTERS.map((item) => (
                                     <TableRow key={item.letter}>
                                         <TableCell>
-                                            <div className="w-16 h-12 flex items-center justify-center">{item.flag}</div>
+                                            <div className="w-20 h-12 flex items-center justify-center">{item.flag}</div>
                                         </TableCell>
                                         <TableCell className="font-bold text-lg">{item.letter}</TableCell>
                                         <TableCell className="font-mono">{item.word}</TableCell>
@@ -71,6 +71,3 @@ export default function AlfabetoPage() {
         </div>
     );
 }
-
-    
-
