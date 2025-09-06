@@ -64,7 +64,20 @@ const Num6 = () => (
         <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
 );
-const Num7 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d="M0 0 L20 3 L0 6 Z" fill="#ffcd00" /><path d="M0 6 L20 9 L0 12 Z" fill="#d72828" /><path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none"/></svg>;
+const Num7 = () => (
+    <svg viewBox="-0.5 -0.5 21 13" fill="none">
+        <defs>
+            <clipPath id="clipPennant7">
+                <path d={pennantShapeTapered} />
+            </clipPath>
+        </defs>
+        <g clipPath="url(#clipPennant7)">
+            <rect x="0" y="0" width="20" height="6" fill="#ffcd00" />
+            <rect x="0" y="6" width="20" height="6" fill="#d72828" />
+        </g>
+        <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
+    </svg>
+);
 const Num8 = () => (
     <svg viewBox="-0.5 -0.5 21 13" fill="none">
         <defs>
