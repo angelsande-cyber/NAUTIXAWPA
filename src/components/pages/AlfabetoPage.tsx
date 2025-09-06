@@ -15,7 +15,7 @@ export default function AlfabetoPage() {
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="w-20">Bandera</TableHead>
+                                    <TableHead className="w-24">Bandera</TableHead>
                                     <TableHead>Letra</TableHead>
                                     <TableHead>Palabra Clave</TableHead>
                                     <TableHead>Significado (Bandera Aislada)</TableHead>
@@ -25,7 +25,7 @@ export default function AlfabetoPage() {
                                 {LETTERS.map((item) => (
                                     <TableRow key={item.letter}>
                                         <TableCell>
-                                            <div className="w-16 h-12">{item.flag}</div>
+                                            <div className="w-16 h-12 flex items-center justify-center">{item.flag}</div>
                                         </TableCell>
                                         <TableCell className="font-bold text-lg">{item.letter}</TableCell>
                                         <TableCell className="font-mono">{item.word}</TableCell>
@@ -48,7 +48,7 @@ export default function AlfabetoPage() {
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="w-20">Gallardete</TableHead>
+                                    <TableHead className="w-24">Gallardete</TableHead>
                                     <TableHead>Número</TableHead>
                                     <TableHead>Pronunciación</TableHead>
                                 </TableRow>
@@ -57,7 +57,7 @@ export default function AlfabetoPage() {
                                 {NUMBERS.map((item) => (
                                     <TableRow key={item.digit}>
                                         <TableCell>
-                                            <div className="w-16 h-12">{item.flag}</div>
+                                             <div className="w-20 h-12 flex items-center justify-center">{item.flag}</div>
                                         </TableCell>
                                         <TableCell className="font-bold text-lg">{item.digit}</TableCell>
                                         <TableCell className="font-mono">{item.pronunciation}</TableCell>
@@ -73,3 +73,4 @@ export default function AlfabetoPage() {
 }
 
     
+
