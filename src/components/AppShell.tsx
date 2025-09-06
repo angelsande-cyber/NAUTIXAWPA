@@ -19,6 +19,7 @@ import {
   RadioTower,
   MessageSquareQuote,
   Cloud,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -43,11 +44,13 @@ import AlfabetoPage from "./pages/AlfabetoPage";
 import CanalesPage from "./pages/CanalesPage";
 import CodigosQPage from "./pages/CodigosQPage";
 import MeteorologiaPage from "./pages/MeteorologiaPage";
+import ExamenPage from "./pages/ExamenPage";
 
 const dashboardItems = [
-    { id: "sosgen", label: "Radio", icon: Radio, description: "Asistente para mensajes de socorro." },
+    { id: "sosgen", label: "Radio", icon: Radio, description: "Guía de comunicaciones de socorro." },
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
     { id: "colreg", label: "COLREG", icon: Sailboat, description: "Consulta el reglamento de abordajes." },
+    { id: "examen", label: "Examen PER", icon: FileText, description: "Genera exámenes de práctica." },
     { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de salvamento." },
     { id: "calculadora", label: "Calculadora", icon: Calculator, description: "Conversor de coordenadas." },
     { id: "alfabeto", label: "Alfabeto Fonético", icon: Text, description: "Alfabeto internacional ICAO/OTAN." },
@@ -99,6 +102,7 @@ export function AppShell({ user }: { user: User }) {
     canales: "Canales VHF",
     codigosq: "Códigos Q",
     meteorologia: "Meteorología",
+    examen: "Examen PER",
   };
 
   const renderContent = () => {
@@ -112,6 +116,7 @@ export function AppShell({ user }: { user: User }) {
       case 'canales': return <CanalesPage />;
       case 'codigosq': return <CodigosQPage />;
       case 'meteorologia': return <MeteorologiaPage />;
+      case 'examen': return <ExamenPage />;
       default:
         return (
           <div className="p-4 md:p-6">
