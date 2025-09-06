@@ -1,11 +1,13 @@
 import { z } from 'zod';
 
-export const DrillOutputSchema = z.object({
-  scenario: z.string().describe("Descripción narrativa del escenario de socorro."),
-  question: z.string().describe("La pregunta para el usuario."),
-  options: z.array(z.string()).length(3).describe("Un array de 3 posibles respuestas en formato string."),
-  correctAnswerIndex: z.number().int().min(0).max(2).describe("El índice (0, 1, o 2) de la respuesta correcta en el array 'options'."),
-  feedback: z.string().describe("La explicación de por qué la respuesta es correcta."),
+export const QuestionSchema = z.object({
+  question: z.string().describe("El enunciado de la pregunta tipo test."),
+  options: z.array(z.string()).length(4).describe("Un array de 4 posibles respuestas en formato string."),
+  correctAnswerIndex: z.number().int().min(0).max(3).describe("El índice (0, 1, 2, o 3) de la respuesta correcta en el array 'options'."),
+  explanation: z.string().describe("Una explicación breve y clara de la respuesta correcta."),
 });
 
-export type DrillOutput = z.infer<typeof DrillOutputSchema>;
+export const QuizOutputSchema = z.array(QuestionSchema).length(10);
+
+export type PerQuestion = z.infer<typeof QuestionSchema>;
+export type QuizOutput = z.infer<typeof QuizOutputSchema>;

@@ -1,56 +1,62 @@
 'use server';
 /**
- * @fileOverview Flow to generate a GMDSS drill scenario.
+ * @fileOverview Flow to generate a PER (Patrón de Embarcaciones de Recreo) quiz.
  *
- * - generateDrill - A function that returns a drill scenario.
+ * - generatePerQuiz - A function that returns a 10-question quiz.
  */
 
 import { ai } from '@/ai/genkit';
-import { DrillOutput, DrillOutputSchema } from '@/ai/schemas/simulacro-schema';
+import { QuizOutput, QuizOutputSchema } from '@/ai/schemas/simulacro-schema';
 
-const drillPrompt = ai.definePrompt({
-    name: 'drillPrompt',
-    output: { schema: DrillOutputSchema },
+const quizPrompt = ai.definePrompt({
+    name: 'perQuizPrompt',
+    output: { schema: QuizOutputSchema },
     prompt: `
-            Eres un instructor GMDSS experto y estricto. Tu tarea es generar un caso práctico para un navegante (estudiante o tripulante de un buque) sobre cómo iniciar una comunicación de socorro.
+            Eres un experto instructor náutico y examinador para la titulación de Patrón de Embarcaciones de Recreo (PER) en España.
+            Tu tarea es generar un examen tipo test de 10 preguntas que cubra de forma variada el temario oficial del PER.
 
             **REGLAS INQUEBRANTABLES:**
-            1.  **Crea un escenario de peligro:** Describe una situación de peligro grave e inminente a bordo de un buque. Sé creativo y varía los escenarios en cada generación.
-                *   **Tipos de Buque:** Pesquero, yate, mercante, velero.
-                *   **Naturaleza del Peligro:** Incendio incontrolable, vía de agua grave, fallo estructural, colisión con hundimiento, abandono de buque.
-                *   **Ejemplo de escenario:** "Estás a bordo del pesquero 'MARCATO' a 15 millas al oeste de Finisterre. Se declara un incendio en la sala de máquinas que se extiende rápidamente y la tripulación no puede controlarlo. El capitán te ordena que lances la llamada de socorro."
-            2.  **Genera una pregunta clave:** La pregunta siempre debe ser: "¿Cuál es la primera y más importante llamada que debes hacer por la radio VHF?"
-            3.  **Genera 3 opciones de respuesta:**
-                *   Una opción **correcta** que debe ser la llamada de socorro completa: "MAYDAY, MAYDAY, MAYDAY, aquí [Nombre del Buque], [Nombre del Buque], [Nombre del Buque]".
-                *   Dos opciones **incorrectas** pero plausibles, como "PAN PAN, PAN PAN, PAN PAN...", "SÉCURITÉ, SÉCURITÉ, SÉCURITÉ...", o una llamada MAYDAY incompleta o mal formulada.
-            4.  **Genera un feedback:** Proporciona una explicación clara de por qué la respuesta correcta es la adecuada, enfatizando que 'MAYDAY' se usa para peligro grave e inminente y la importancia de la repetición y la identificación del buque.
-
-            **Formato de Salida:** Devuelve el resultado exclusivamente en formato JSON, siguiendo el esquema proporcionado.
+            1.  **Genera exactamente 10 preguntas.**
+            2.  **Varía los temas:** Asegúrate de que las preguntas cubran un amplio espectro del temario del PER, incluyendo, pero no limitándose a:
+                *   Reglamento Internacional para Prevenir Abordajes (COLREG): reglas de rumbo y gobierno, luces y marcas.
+                *   Balizamiento (Sistema IALA A): marcas laterales, cardinales, peligro aislado, etc.
+                *   Seguridad en la mar: equipo de seguridad, emergencias, lucha contra incendios.
+                *   Navegación: cartas náuticas, coordenadas, rumbos, mareas.
+                *   Meteorología: interpretación de partes, fenómenos básicos.
+                *   Maniobras y gobierno del buque.
+            3.  **Para cada pregunta, debes proporcionar:**
+                *   **Pregunta (question):** Un enunciado claro y conciso.
+                *   **Opciones (options):** Un array con exactamente 4 posibles respuestas. Una debe ser la correcta y las otras tres deben ser incorrectas pero verosímiles (distractores comunes).
+                *   **Índice de la respuesta correcta (correctAnswerIndex):** El índice (0, 1, 2 o 3) de la respuesta correcta en el array de opciones.
+                *   **Explicación (explanation):** Una explicación breve pero clara de por qué la respuesta correcta es la correcta, y si es relevante, por qué las otras no lo son.
+            4.  **Formato de Salida:** Devuelve el resultado exclusivamente como un objeto JSON que se ajuste al esquema proporcionado. No incluyas ningún texto o comentario fuera del JSON.
             `,
   });
 
-const drillFlow = ai.defineFlow(
+const quizFlow = ai.defineFlow(
     {
-        name: 'drillFlow',
-        outputSchema: DrillOutputSchema,
+        name: 'perQuizFlow',
+        outputSchema: QuizOutputSchema,
     },
     async () => {
-        const { output } = await drillPrompt({});
+        const { output } = await quizPrompt({});
         if (!output) {
             throw new Error("AI failed to generate a valid response.");
         }
-        // The prompt is asked to generate an index, but let's find it just in case.
-        const correctOption = output.options.find(o => o.startsWith("MAYDAY, MAYDAY, MAYDAY"));
-        if (correctOption) {
-            output.correctAnswerIndex = output.options.indexOf(correctOption);
-        } else {
-            // Fallback if the AI doesn't generate a clear correct answer
-            output.correctAnswerIndex = 0;
-        }
+        
+        // Ensure the correct index is plausible and exists
+        output.forEach(q => {
+            if (q.correctAnswerIndex < 0 || q.correctAnswerIndex >= q.options.length) {
+                // A simple fallback, though the prompt is strict.
+                console.warn("AI generated an invalid correctAnswerIndex, falling back to 0");
+                q.correctAnswerIndex = 0;
+            }
+        });
+        
         return output;
     }
 );
 
-export async function generateDrill(): Promise<DrillOutput> {
-  return drillFlow();
+export async function generatePerQuiz(): Promise<QuizOutput> {
+  return quizFlow();
 }
