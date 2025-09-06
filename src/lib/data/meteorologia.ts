@@ -41,8 +41,8 @@ export const CLOUD_TYPES_DATA = [
         type: 'Cirrus (Ci)',
         altitude: 'Altas (>6000m)',
         description: 'Fibrosas, blancas, delicadas, en forma de filamentos o bancos estrechos. Compuestas de cristales de hielo. No suelen producir precipitación.',
-        imageUrl: 'https://picsum.photos/id/12/400/200',
-        hint: 'cirrus clouds'
+        imageUrl: 'https://images.pexels.com/photos/4210908/pexels-photo-4210908.jpeg?auto=compress&cs=tinysrgb&w=400',
+        hint: 'cirrus sky'
     },
     {
         type: 'Cirrocumulus (Cc)',
