@@ -24,7 +24,6 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import SosgenPage from "./pages/SosgenPage";
-import SimulacroPage from "./pages/SimulacroPage";
 import DirectorioPage from "./pages/DirectorioPage";
 import SenalesPage from "./pages/SenalesPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
@@ -47,7 +46,6 @@ import MeteorologiaPage from "./pages/MeteorologiaPage";
 
 const dashboardItems = [
     { id: "sosgen", label: "Radio", icon: Radio, description: "Asistente para mensajes de socorro." },
-    { id: "simulacro", label: "Simulacro", icon: Target, description: "Ponte a prueba con un caso práctico." },
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
     { id: "colreg", label: "COLREG", icon: Sailboat, description: "Consulta el reglamento de abordajes." },
     { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de salvamento." },
@@ -93,7 +91,6 @@ export function AppShell({ user }: { user: User }) {
   const pageTitleMap: { [key: string]: string } = {
     dashboard: "Inicio",
     sosgen: "Radio",
-    simulacro: "Simulacro",
     senales: "Señales Marítimas",
     colreg: "Reglamento (COLREG)",
     directorio: "Directorio",
@@ -107,7 +104,6 @@ export function AppShell({ user }: { user: User }) {
   const renderContent = () => {
     switch (activePage) {
       case 'sosgen': return <SosgenPage />;
-      case 'simulacro': return <SimulacroPage />;
       case 'directorio': return <DirectorioPage />;
       case 'senales': return <SenalesPage />;
       case 'colreg': return <ColregPage />;
