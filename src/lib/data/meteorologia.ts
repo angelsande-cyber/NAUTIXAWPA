@@ -102,7 +102,7 @@ export const CLOUD_TYPES_DATA = [
         type: 'Cumulonimbus (Cb)',
         altitude: 'Desarrollo vertical',
         description: 'Nube densa y potente, con un considerable desarrollo vertical, en forma de montaña o enormes torres. Asociada a tormentas, chubascos, granizo y tornados. Su cima suele tener forma de yunque.',
-        imageUrl: 'https://picsum.photos/id/155/400/200',
+        imageUrl: 'https://images.pexels.com/photos/10590545/pexels-photo-10590545.jpeg?auto=compress&cs=tinysrgb&w=400',
         hint: 'cumulonimbus storm'
     },
 ];
