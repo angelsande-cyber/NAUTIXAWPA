@@ -1,37 +1,38 @@
+
 // COLREG rules for vessel lights and shapes simulator.
 // Note: Positions are simplified for a 2D representation.
 import React from 'react';
 
 const commonSVG = {
     power_gt50: { // Inspired by Container Ship
-      side: <svg viewBox="0 0 200 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 5 60 L 195 60 L 195 55 C 190 55, 185 40, 175 40 L 165 40 L 165 30 L 155 30 L 155 40 L 45 40 L 45 35 L 25 35 L 25 40 L 15 40 C 5 40, 5 55, 5 55 Z" strokeWidth="1" fill="hsl(var(--muted))" /><rect x="50" y="42" width="20" height="3" fill="hsl(var(--card-foreground))" /><rect x="75" y="42" width="20" height="3" fill="hsl(var(--card-foreground))" /><rect x="100" y="42" width="20" height="3" fill="hsl(var(--card-foreground))" /><rect x="125" y="42" width="20" height="3" fill="hsl(var(--card-foreground))" /><path d="M 5 60 L 195 60" strokeWidth="1.5" /></g></svg>,
-      front: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 10 60 L 90 60 L 90 55 C 85 40, 75 30, 65 30 L 35 30 C 25 30, 15 40, 10 55 Z" strokeWidth="1" fill="hsl(var(--muted))" /><rect x="40" y="20" width="20" height="10" fill="hsl(var(--card))" /><path d="M 10 60 L 90 60" strokeWidth="1.5" /></g></svg>,
-      back: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 10 60 L 90 60 L 90 30 L 10 30 Z" strokeWidth="1" fill="hsl(var(--muted))" /><rect x="15" y="35" width="70" height="5" fill="hsl(var(--card))" /><rect x="15" y="45" width="70" height="5" fill="hsl(var(--card))" /><path d="M 10 60 L 90 60" strokeWidth="1.5" /></g></svg>,
+      side: <svg viewBox="0 0 200 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 5 60 L 195 60 L 195 55 C 190 55, 185 40, 175 40 L 165 40 L 165 30 L 155 30 L 155 40 L 45 40 L 45 35 L 25 35 L 25 40 L 15 40 C 5 40, 5 55, 5 55 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 5 60 L 195 60" stroke="black" strokeWidth="1.5" /></g></svg>,
+      front: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 10 60 L 90 60 L 90 55 C 85 40, 75 30, 65 30 L 35 30 C 25 30, 15 40, 10 55 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 10 60 L 90 60" stroke="black" strokeWidth="1.5" /></g></svg>,
+      back: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 10 60 L 90 60 L 90 30 L 10 30 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 10 60 L 90 60" stroke="black" strokeWidth="1.5" /></g></svg>,
     },
     power_lt50: { // Inspired by Big Yacht
-      side: <svg viewBox="0 0 200 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 190 55, 195 60 L 190 65 L 15 65 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 50 60 L 50 45 L 150 45 C 160 45, 160 55, 150 55 L 60 55 L 60 60 Z" fill="hsl(var(--card))" strokeWidth="0.5" /><path d="M 65 40 L 130 40 L 125 45 L 70 45 Z" fill="hsl(var(--card))" strokeWidth="0.5" /><path d="M 10 65 L 195 65" strokeWidth="1.5" /></g></svg>,
-      front: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 80 50, 90 65 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 50 35 L 65 50 L 35 50 Z" fill="hsl(var(--card))" strokeWidth="0.5"/><path d="M 30 50 H 70 V 65 H 30 Z" fill="hsl(var(--card))" strokeWidth="0.5"/><path d="M 10 65 L 90 65" strokeWidth="1.5" /></g></svg>,
-      back: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 80 50, 90 65 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 20 45 H 80 V 65 H 20 Z" fill="hsl(var(--card))" strokeWidth="0.5"/><path d="M 10 65 L 90 65" strokeWidth="1.5" /></g></svg>,
+      side: <svg viewBox="0 0 200 80" className="w-full h-full"><g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 190 55, 195 60 L 190 65 L 15 65 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 50 60 L 50 45 L 150 45 C 160 45, 160 55, 150 55 L 60 55 L 60 60 Z" fill="hsl(var(--background))" stroke="black" strokeWidth="0.5" /><path d="M 65 40 L 130 40 L 125 45 L 70 45 Z" fill="hsl(var(--background))" stroke="black" strokeWidth="0.5" /><path d="M 10 65 L 195 65" stroke="black" strokeWidth="1.5" /></g></svg>,
+      front: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 80 50, 90 65 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 50 35 L 65 50 L 35 50 Z" fill="hsl(var(--background))" stroke="black" strokeWidth="0.5"/><path d="M 30 50 H 70 V 65 H 30 Z" fill="hsl(var(--background))" strokeWidth="0.5"/><path d="M 10 65 L 90 65" stroke="black" strokeWidth="1.5" /></g></svg>,
+      back: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 80 50, 90 65 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 20 45 H 80 V 65 H 20 Z" fill="hsl(var(--background))" stroke="black" strokeWidth="0.5"/><path d="M 10 65 L 90 65" stroke="black" strokeWidth="1.5" /></g></svg>,
     },
     sailing: { // Inspired by Sailboat
-      side: <svg viewBox="0 0 200 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 5)"><path d="M 20 65 C 40 50, 160 50, 180 65 L 175 65 L 25 65 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 90 10 L 95 65 M 50 65 H 150" strokeWidth="1" /><path d="M 97 15 C 110 30, 110 50, 97 63" fill="hsl(var(--card))" strokeWidth="0.5" /><path d="M 93 15 C 60 30, 70 63, 93 63" fill="hsl(var(--muted-foreground))" strokeWidth="0.5" /><path d="M 20 65 L 180 65" strokeWidth="1.5" /></g></svg>,
-      front: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 5)"><path d="M 15 65 C 25 55, 75 55, 85 65 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 50 10 L 50 65" strokeWidth="1" /><path d="M 52 15 C 70 30, 65 63, 52 63" fill="hsl(var(--card))" /><path d="M 15 65 L 85 65" strokeWidth="1.5" /></g></svg>,
-      back: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 5)"><path d="M 15 65 C 25 55, 75 55, 85 65 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 50 10 L 50 65" strokeWidth="1" /><path d="M 48 15 C 30 30, 35 63, 48 63" fill="hsl(var(--card))" /><path d="M 15 65 L 85 65" strokeWidth="1.5" /></g></svg>,
+      side: <svg viewBox="0 0 200 80" className="w-full h-full"><g transform="translate(0, 5)"><path d="M 20 65 C 40 50, 160 50, 180 65 L 175 65 L 25 65 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 90 10 L 95 65 M 50 65 H 150" stroke="black" strokeWidth="1" /><path d="M 97 15 C 110 30, 110 50, 97 63" fill="hsl(var(--background))" stroke="black" strokeWidth="0.5" /><path d="M 93 15 C 60 30, 70 63, 93 63" fill="#333" stroke="black" strokeWidth="0.5" /><path d="M 20 65 L 180 65" stroke="black" strokeWidth="1.5" /></g></svg>,
+      front: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 5)"><path d="M 15 65 C 25 55, 75 55, 85 65 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 50 10 L 50 65" stroke="black" strokeWidth="1" /><path d="M 52 15 C 70 30, 65 63, 52 63" fill="hsl(var(--background))" stroke="black" /><path d="M 15 65 L 85 65" stroke="black" strokeWidth="1.5" /></g></svg>,
+      back: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 5)"><path d="M 15 65 C 25 55, 75 55, 85 65 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 50 10 L 50 65" stroke="black" strokeWidth="1" /><path d="M 48 15 C 30 30, 35 63, 48 63" fill="hsl(var(--background))" stroke="black" /><path d="M 15 65 L 85 65" stroke="black" strokeWidth="1.5" /></g></svg>,
     },
     fishing: { // Inspired by Trawler
-      side: <svg viewBox="0 0 200 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 10 60 L 190 60 L 190 55 C 180 55, 170 45, 150 45 L 110 45 L 110 30 L 60 30 L 60 45 L 30 45 C 20 45, 15 50, 10 55 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 140 45 L 120 20 M 115 20 H 145" strokeWidth="1" /><path d="M 10 60 L 190 60" strokeWidth="1.5" /></g></svg>,
-      front: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 10 60 C 10 45, 90 45, 90 60 Z" strokeWidth="1" fill="hsl(var(--muted))" /><rect x="30" y="30" width="40" height="30" fill="hsl(var(--card))" strokeWidth="0.5" /><path d="M 10 60 L 90 60" strokeWidth="1.5" /></g></svg>,
-      back: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 10 60 C 10 45, 90 45, 90 60 Z" strokeWidth="1" fill="hsl(var(--muted))" /><rect x="30" y="30" width="40" height="30" fill="hsl(var(--card))" strokeWidth="0.5" /><path d="M 10 60 L 90 60" strokeWidth="1.5" /></g></svg>,
+      side: <svg viewBox="0 0 200 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 10 60 L 190 60 L 190 55 C 180 55, 170 45, 150 45 L 110 45 L 110 30 L 60 30 L 60 45 L 30 45 C 20 45, 15 50, 10 55 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 140 45 L 120 20 M 115 20 H 145" stroke="black" strokeWidth="1" /><path d="M 10 60 L 190 60" stroke="black" strokeWidth="1.5" /></g></svg>,
+      front: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 10 60 C 10 45, 90 45, 90 60 Z" stroke="black" strokeWidth="1" fill="black" /><rect x="30" y="30" width="40" height="30" fill="hsl(var(--background))" stroke="black" strokeWidth="0.5" /><path d="M 10 60 L 90 60" stroke="black" strokeWidth="1.5" /></g></svg>,
+      back: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 10 60 C 10 45, 90 45, 90 60 Z" stroke="black" strokeWidth="1" fill="black" /><rect x="30" y="30" width="40" height="30" fill="hsl(var(--background))" stroke="black" strokeWidth="0.5" /><path d="M 10 60 L 90 60" stroke="black" strokeWidth="1.5" /></g></svg>,
     },
-     tug: { // Inspired by Small Ferry
-      side: <svg viewBox="0 0 200 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 15)"><path d="M 20 55 L 180 55 L 180 45 L 140 45 L 140 30 L 60 30 L 60 45 L 20 45 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 20 55 L 180 55" strokeWidth="1.5" /></g></svg>,
-      front: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 15)"><path d="M 20 55 L 80 55 L 80 30 L 20 30 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 20 55 L 80 55" strokeWidth="1.5" /></g></svg>,
-      back: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 15)"><path d="M 20 55 L 80 55 L 80 30 L 20 30 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 20 55 L 80 55" strokeWidth="1.5" /></g></svg>,
+     tug: { // Inspired by Small Ferry/Tug
+      side: <svg viewBox="0 0 200 80" className="w-full h-full"><g transform="translate(0, 15)"><path d="M 20 55 L 180 55 L 180 45 L 140 45 L 140 30 L 60 30 L 60 45 L 20 45 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 20 55 L 180 55" stroke="black" strokeWidth="1.5" /></g></svg>,
+      front: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 15)"><path d="M 20 55 L 80 55 L 80 30 L 20 30 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 20 55 L 80 55" stroke="black" strokeWidth="1.5" /></g></svg>,
+      back: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 15)"><path d="M 20 55 L 80 55 L 80 30 L 20 30 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 20 55 L 80 55" stroke="black" strokeWidth="1.5" /></g></svg>,
     },
     power_lt12: { // Inspired by Speedboat
-      side: <svg viewBox="0 0 200 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 30 60 C 40 50, 170 50, 180 60 L 170 60 L 40 60 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 70 50 L 140 50 L 130 60 L 80 60 Z" fill="hsl(var(--card))" strokeWidth="0.5" /><path d="M 30 60 L 180 60" strokeWidth="1.5" /></g></svg>,
-      front: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 20 60 C 30 50, 70 50, 80 60 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 20 60 L 80 60" strokeWidth="1.5" /></g></svg>,
-      back: <svg viewBox="0 0 100 80" className="w-full h-full fill-current stroke-current text-foreground/50"><g transform="translate(0, 10)"><path d="M 20 60 L 80 60 L 80 55 L 20 55 Z" strokeWidth="1" fill="hsl(var(--muted))" /><path d="M 20 60 L 80 60" strokeWidth="1.5" /></g></svg>,
+      side: <svg viewBox="0 0 200 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 30 60 C 40 50, 170 50, 180 60 L 170 60 L 40 60 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 70 50 L 140 50 L 130 60 L 80 60 Z" fill="hsl(var(--background))" stroke="black" strokeWidth="0.5" /><path d="M 30 60 L 180 60" stroke="black" strokeWidth="1.5" /></g></svg>,
+      front: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 20 60 C 30 50, 70 50, 80 60 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 20 60 L 80 60" stroke="black" strokeWidth="1.5" /></g></svg>,
+      back: <svg viewBox="0 0 100 80" className="w-full h-full"><g transform="translate(0, 10)"><path d="M 20 60 L 80 60 L 80 55 L 20 55 Z" stroke="black" strokeWidth="1" fill="black" /><path d="M 20 60 L 80 60" stroke="black" strokeWidth="1.5" /></g></svg>,
     },
 }
 
@@ -62,7 +63,7 @@ export const COLREG_RULES_DATA = [
     {
         id: 'R24',
         title: 'Remolque y Empuje',
-        description: 'Remolcando por la popa (<200m).',
+        description: 'Remolcando por la popa.',
         svg: commonSVG.tug,
         lights: [
             { ...PDV_LIGHTS[0], desc: 'Luz de tope #1 (vertical)', position: { bow: { x: 50, y: 30 }, starboard: { x: 30, y: 30 }, stern: { x: 0, y: 0 } } },
@@ -92,7 +93,7 @@ export const COLREG_RULES_DATA = [
     {
         id: 'R26',
         title: 'Buque de Pesca',
-        description: 'Dedicado a la pesca de arrastre.',
+        description: 'Dedicado a la pesca.',
         svg: commonSVG.fishing,
         lights: [
             { id: 'trawl-g', color: 'green', desc: 'Verde todo horizonte (Arrastre)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
@@ -174,3 +175,5 @@ export const COLREG_RULES_DATA = [
         explanation: "Exhibe dos luces todo horizonte en vertical: blanca sobre roja. Si está en navegación, muestra además las luces de costado y de alcance. Si está fondeado, muestra las luces de fondeo además de las de práctico. De día no exhibe marcas especiales, solo la bandera 'H'."
     },
 ];
+
+    
