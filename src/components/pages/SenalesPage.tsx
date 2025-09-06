@@ -469,7 +469,7 @@ const BuquesSimulator = () => {
 
 
     const colorMap: { [key: string]: string } = {
-        white: 'white',
+        white: '#FFFFFF',
         red: '#EF4444',
         green: '#22C55E',
         yellow: '#EAB308',
@@ -531,7 +531,7 @@ const BuquesSimulator = () => {
                 case 'diamond': markSvg = <><polygon points="2,12 22,12 12,2" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
                 case 'cylinder': markSvg = <rect x="4" y="2" width="16" height="20" fill={C}/>; break;
                 case 'basket': markSvg = <rect x="4" y="2" width="16" height="16" stroke={C} strokeWidth="2" fill="transparent"/>; break;
-                case 'cones-vertex-together': markSvg = <><polygon points="2,12 22,12 12,2" fill={C} /><polygon points="2,12 22,12 12,22" fill={C} transform="translate(0, 0)" /></>; break;
+                case 'cones-vertex-together': markSvg = <><polygon points="2,2 12,11 22,2" fill={C}/><polygon points="2,13 12,22 22,13" fill={C} /></>; break;
             }
             return (
                  <div key={mark.id} className="absolute w-6 h-6" style={style}>
@@ -690,3 +690,5 @@ export default function SenalesPage() {
         </div>
     );
 }
+
+    
