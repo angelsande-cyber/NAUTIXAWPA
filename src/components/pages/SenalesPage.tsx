@@ -6,12 +6,43 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { IALA_BUOY_DATA, LIGHT_CHARACTERISTIC_TERMS } from "@/lib/data/senales";
-import { COLREG_RULES_DATA } from "@/lib/data/buques";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, Moon, Sun } from "lucide-react";
+
+interface LightCharacteristicTerm {
+    [key: string]: {
+        es: string;
+        en: string;
+    };
+}
+
+interface BuoyData {
+    category: string;
+    type: string;
+    region?: string;
+    shape: string;
+    colors: string[];
+    topmark: {
+        shape: string;
+        color: string;
+    } | null;
+    characteristic: string;
+    purpose: string;
+    mnemonic: string;
+}
+
+interface ColregRule {
+    id: string;
+    title: string;
+    description: string;
+    svg: { [key: string]: React.ReactNode }; // Simplified for client-side
+    lights: any[];
+    marks: any[];
+    explanation: string;
+    states?: any[];
+}
 
 
 // --- Helper Functions (moved from simulation.ts) ---
@@ -69,6 +100,7 @@ function runSimulation(
     lightEl: SVGElement | null, 
     infoEl: HTMLElement | null, 
     char: LightCharacteristic | null,
+    lightTerms: LightCharacteristicTerm,
     prependInfo?: string
 ) {
     if (simulationTimeout) clearInterval(simulationTimeout);
@@ -153,8 +185,8 @@ function runSimulation(
     runSequence();
     simulationTimeout = window.setInterval(runSequence, char.period! * 1000);
     
-    const esDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.es || char.rhythm} ${char.group ? `de grupo (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.es).join(' y ')} con un período de ${char.period}s.`;
-    const enDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.en || char.rhythm} ${char.group ? `group (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.en).join(' & ')} with a period of ${char.period}s.`;
+    const esDesc = `${lightTerms[char.rhythm]?.es || char.rhythm} ${char.group ? `de grupo (${char.group})` : ''} ${char.colors.map(c => lightTerms[c]?.es).join(' y ')} con un período de ${char.period}s.`;
+    const enDesc = `${lightTerms[char.rhythm]?.en || char.rhythm} ${char.group ? `group (${char.group})` : ''} ${char.colors.map(c => lightTerms[c]?.en).join(' & ')} with a period of ${char.period}s.`;
 
     const descriptionHtml = `<div class="text-sm"><p><strong>ES:</strong> ${esDesc}</p><p><strong>EN:</strong> ${enDesc}</p><p class="text-xs text-muted-foreground mt-2 font-mono">${char.original}</p></div>`;
     infoEl.innerHTML = prependInfo ? prependInfo + descriptionHtml : descriptionHtml;
@@ -162,7 +194,7 @@ function runSimulation(
 
 
 // --- Lighthouse Simulator Component ---
-const LighthouseSimulator = () => {
+const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTerm }) => {
     const [rhythm, setRhythm] = useState('FL');
     const [color, setColor] = useState('W');
     const [group, setGroup] = useState('1');
@@ -173,8 +205,8 @@ const LighthouseSimulator = () => {
         const lightEl = document.getElementById('lighthouse-svg-light') as SVGElement | null;
         const infoEl = document.getElementById('lighthouse-simulation-info') as HTMLElement | null;
         const char = parseLighthouseCharacteristic(manualChar);
-        runSimulation(lightEl, infoEl, char);
-    }, [manualChar]);
+        runSimulation(lightEl, infoEl, char, lightTerms);
+    }, [manualChar, lightTerms]);
 
     useEffect(() => {
         let groupStr = '';
@@ -284,12 +316,12 @@ const LighthouseSimulator = () => {
 }
 
 // --- Buoy Simulator Component ---
-const BuoySimulator = () => {
+const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTerms: LightCharacteristicTerm }) => {
     const [region, setRegion] = useState('A');
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [activeType, setActiveType] = useState<string | null>(null);
 
-    const categories = Array.from(new Set(IALA_BUOY_DATA.map(b => b.category)));
+    const categories = Array.from(new Set(buoyData.map(b => b.category)));
 
     const handleCategoryClick = (category: string) => {
         setActiveCategory(category);
@@ -313,15 +345,17 @@ const BuoySimulator = () => {
                 const char = parseLighthouseCharacteristic(buoy.characteristic);
                 const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>Regla:</strong> ${buoy.mnemonic}</p>` : '';
                 const infoTitle = `<h4 class="font-bold">${buoy.type}${buoy.region ? ` (Región ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
-                runSimulation(lightEl, infoPanel, char, infoTitle);
+                runSimulation(lightEl, infoPanel, char, lightTerms, infoTitle);
             }
         }
     };
     
     useEffect(() => {
-        handleCategoryClick(categories[0]);
+        if(categories.length > 0) {
+            handleCategoryClick(categories[0]);
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [categories]);
 
      useEffect(() => {
         // When region changes, if the current category is lateral marks, reset it.
@@ -344,7 +378,7 @@ const BuoySimulator = () => {
         }
     }, []);
 
-    const buoyTypesForCategory = IALA_BUOY_DATA.filter(b => {
+    const buoyTypesForCategory = buoyData.filter(b => {
         if (b.category !== activeCategory) return false;
         if (activeCategory === 'Marcas Laterales') return b.region === region;
         return true;
@@ -447,15 +481,15 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
 
 // --- Buques Simulator Component ---
 
-const BuquesSimulator = () => {
-    const [selectedRuleId, setSelectedRuleId] = useState(COLREG_RULES_DATA[0].id);
+const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[], vesselSvgs: any }) => {
+    const [selectedRuleId, setSelectedRuleId] = useState(colregRules.length > 0 ? colregRules[0].id : '');
     const [selectedStateId, setSelectedStateId] = useState(0);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
 
     const ruleData = useMemo(() => {
-        return COLREG_RULES_DATA.find(r => r.id === selectedRuleId) || null;
-    }, [selectedRuleId]);
+        return colregRules.find(r => r.id === selectedRuleId) || null;
+    }, [selectedRuleId, colregRules]);
 
     const stateData = useMemo(() => {
         if (!ruleData) return null;
@@ -466,7 +500,6 @@ const BuquesSimulator = () => {
     useEffect(() => {
         setSelectedStateId(0);
     }, [selectedRuleId]);
-
 
     const colorMap: { [key: string]: string } = {
         white: '#FFFFFF',
@@ -492,7 +525,7 @@ const BuquesSimulator = () => {
     const renderLights = () => {
         if (!stateData || !stateData.lights) return null;
         
-        return stateData.lights.map(light => {
+        return stateData.lights.map((light: any) => {
             const isVisible = light.arc[view];
             if (!isVisible) return null;
             
@@ -509,14 +542,14 @@ const BuquesSimulator = () => {
                 animationDuration: isFlashing ? '1s' : undefined,
             };
 
-            return <div key={light.id} className={cn(baseClasses, isVisible && 'on', onClasses, flashingClass)} style={style} />;
+            return <div key={light.id} className={cn(baseClasses, isVisible && 'on', onClasses, flashingClass)} style={style as React.CSSProperties} />;
         })
     }
     
     const renderMarks = () => {
         if (!stateData || !stateData.marks) return null;
 
-        return stateData.marks.map(mark => {
+        return stateData.marks.map((mark: any) => {
             const style = { 
                 left: `${mark.position[view].x}%`, 
                 top: `${mark.position[view].y}%`,
@@ -541,6 +574,11 @@ const BuquesSimulator = () => {
         })
     }
 
+    const renderVesselSvg = (svgName: string, view: 'side' | 'front' | 'back') => {
+        if (!vesselSvgs[svgName] || !vesselSvgs[svgName][view]) return null;
+        return <div dangerouslySetInnerHTML={{ __html: vesselSvgs[svgName][view] }} />;
+    }
+
     const hasStates = ruleData?.states && ruleData.states.length > 1;
 
     return (
@@ -553,7 +591,7 @@ const BuquesSimulator = () => {
                             <SelectValue placeholder="Selecciona una regla..." />
                         </SelectTrigger>
                         <SelectContent>
-                             {COLREG_RULES_DATA.map(rule => (
+                             {colregRules.map(rule => (
                                 <SelectItem key={rule.id} value={rule.id}>{rule.title}</SelectItem>
                             ))}
                         </SelectContent>
@@ -614,13 +652,13 @@ const BuquesSimulator = () => {
 
                     {/* Ship Schematic */}
                     <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'starboard' ? 'opacity-100' : 'opacity-0')}>
-                        {stateData?.svg?.side}
+                        {stateData && renderVesselSvg(stateData.svg, 'side')}
                     </div>
                     <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'bow' ? 'opacity-100' : 'opacity-0')}>
-                        {stateData?.svg?.front}
+                        {stateData && renderVesselSvg(stateData.svg, 'front')}
                     </div>
                     <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'stern' ? 'opacity-100' : 'opacity-0')}>
-                        {stateData?.svg?.back}
+                         {stateData && renderVesselSvg(stateData.svg, 'back')}
                     </div>
 
                     {/* Lights & Marks */}
@@ -638,12 +676,12 @@ const BuquesSimulator = () => {
                             <strong className="block mb-1">{isNight ? "Luces Requeridas:" : "Marcas Requeridas:"}</strong>
                             {isNight ? (
                                 <ul className="list-disc list-inside space-y-1">
-                                    {stateData?.lights?.map(l => l.desc && <li key={l.id}>{l.desc}</li>)}
+                                    {stateData?.lights?.map((l: any) => l.desc && <li key={l.id}>{l.desc}</li>)}
                                 </ul>
                             ) : (
                                 <ul className="list-disc list-inside space-y-1">
                                     {stateData?.marks && stateData.marks.length > 0 ? 
-                                        stateData.marks.map(m => m.desc && <li key={m.id}>{m.desc}</li>) :
+                                        stateData.marks.map((m: any) => m.desc && <li key={m.id}>{m.desc}</li>) :
                                         <li>Ninguna marca requerida.</li>
                                     }
                                 </ul>
@@ -665,6 +703,37 @@ const BuquesSimulator = () => {
 
 // --- Main Page Component ---
 export default function SenalesPage() {
+    const [senalesData, setSenalesData] = useState<{
+        lightTerms: LightCharacteristicTerm;
+        ialaBuoyData: BuoyData[];
+    } | null>(null);
+
+    const [buquesData, setBuquesData] = useState<{
+        colregRules: ColregRule[];
+        vesselSvgs: any;
+    } | null>(null);
+
+    useEffect(() => {
+        fetch('/data/senales.json')
+            .then(res => res.json())
+            .then(setSenalesData);
+        fetch('/data/buques.json')
+            .then(res => res.json())
+            .then(setBuquesData);
+    }, []);
+
+    if (!senalesData || !buquesData) {
+        return (
+            <div className="p-4 md:p-6">
+                <Card className="w-full max-w-4xl mx-auto">
+                    <CardHeader>
+                        <CardTitle>Cargando Simulador...</CardTitle>
+                    </CardHeader>
+                </Card>
+            </div>
+        );
+    }
+    
     return (
         <div className="p-4 md:p-6">
             <Card className="w-full max-w-4xl mx-auto">
@@ -682,13 +751,13 @@ export default function SenalesPage() {
                             <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros y Boyas</TabsTrigger>
                         </TabsList>
                         <TabsContent value="buques" className="pt-6">
-                           <BuquesSimulator />
+                           <BuquesSimulator colregRules={buquesData.colregRules} vesselSvgs={buquesData.vesselSvgs} />
                         </TabsContent>
                         <TabsContent value="balizamiento" className="pt-6">
-                            <BuoySimulator />
+                            <BuoySimulator buoyData={senalesData.ialaBuoyData} lightTerms={senalesData.lightTerms} />
                         </TabsContent>
                         <TabsContent value="faros" className="pt-6">
-                            <LighthouseSimulator />
+                            <LighthouseSimulator lightTerms={senalesData.lightTerms} />
                         </TabsContent>
                     </Tabs>
                 </CardContent>

@@ -1,0 +1,14 @@
+{[
+  { "name": "Emergencias Marítimas (España)", "phones": ["900 202 202", "112"], "email": "cncs@sasemar.es", "keywords": ["españa", "nacional", "emergencia", "salvamento"] },
+  { "name": "Servicio Radiomédico Español (Madrid)", "phones": ["+34 91 310 34 75"], "email": "cr-madrid@mitramiss.es", "keywords": ["medico", "consulta", "doctor", "radiomedico", "madrid", "ism"] },
+  { "name": "CCS Tarifa (Estrecho)", "phones": ["956 684 757"], "email": "tarifa@sasemar.es", "keywords": ["gibraltar", "estrecho", "cadiz"] },
+  { "name": "CCS Finisterre (Galicia)", "phones": ["981 767 738"], "email": "finisterre@sasemar.es", "keywords": ["galicia", "costa da morte", "coruña"] },
+  { "name": "CCS Palma (Baleares)", "phones": ["971 724 562"], "email": "palma@sasemar.es", "keywords": ["baleares", "mallorca", "ibiza"] },
+  { "name": "CCS Las Palmas (Canarias)", "phones": ["928 467 955"], "email": "laspalmas@sasemar.es", "keywords": ["canarias", "gran canaria"] },
+  { "name": "Francia - MRCC CROSS Gris-Nez", "phones": ["+33 3 21 87 21 87"], "email": "gris-nez@cross.fr", "keywords": ["francia", "canal de la mancha", "channel"] },
+  { "name": "Francia - MRCC CROSS Corsen", "phones": ["+33 2 98 89 31 31"], "email": "corsen@cross.fr", "keywords": ["francia", "atlantico", "bretaña", "bretagne"] },
+  { "name": "Portugal - MRCC Lisboa", "phones": ["+351 214 401 919"], "email": "mrcc.lisboa@marinha.pt", "keywords": ["portugal", "lisbon"] },
+  { "name": "Portugal - MRCC Azores", "phones": ["+351 296 281 777"], "email": "mrcc.delgada@marinha.pt", "keywords": ["portugal", "azores"] },
+  { "name": "Reino Unido - HM Coastguard", "phones": ["+44 2380 329 100"], "email": "nmoccontroller@hmcg.gov.uk", "keywords": ["uk", "united kingdom", "gran bretaña"] },
+  { "name": "Italia - Guardia Costiera", "phones": ["+39 06 592 1414"], "email": "mrcc.roma@guardiacostiera.it", "keywords": ["italia", "mediterraneo", "italy"] }
+]

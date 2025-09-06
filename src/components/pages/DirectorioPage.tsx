@@ -1,16 +1,27 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { PHONE_DIRECTORY_DATA } from '@/lib/data/directorio';
 import { AtSign, Phone, Search } from 'lucide-react';
 
-const PHONE_ENTRIES = PHONE_DIRECTORY_DATA;
+interface PhoneEntry {
+    name: string;
+    phones: string[];
+    email: string | null;
+    keywords: string[];
+}
 
 export default function DirectorioPage() {
     const [searchTerm, setSearchTerm] = useState('');
+    const [phoneEntries, setPhoneEntries] = useState<PhoneEntry[]>([]);
 
-    const filteredData = PHONE_ENTRIES.filter(entry =>
+    useEffect(() => {
+        fetch('/data/directorio.json')
+            .then(res => res.json())
+            .then(data => setPhoneEntries(data));
+    }, []);
+
+    const filteredData = phoneEntries.filter(entry =>
         entry.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         entry.phones.some(p => p.includes(searchTerm)) ||
         (entry.email && entry.email.toLowerCase().includes(searchTerm.toLowerCase())) ||

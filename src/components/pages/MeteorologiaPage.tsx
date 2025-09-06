@@ -2,10 +2,60 @@
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { BEAUFORT_SCALE_DATA, DOUGLAS_SEA_SCALE, DOUGLAS_SWELL_SCALE, CLOUD_TYPES_DATA } from "@/lib/data/meteorologia";
 import Image from "next/image";
+import { useState, useEffect } from "react";
+
+interface BeaufortScaleData {
+    force: number;
+    denomination: string;
+    speedKnots: string;
+    waveHeight: string;
+    seaState: string;
+}
+
+interface DouglasScaleData {
+    degree: number;
+    denomination: string;
+    waveHeight: string;
+}
+
+interface CloudTypeData {
+    type: string;
+    altitude: string;
+    description: string;
+    imageUrl: string;
+    hint: string;
+}
+
+interface MeteorologiaData {
+    beaufortScale: BeaufortScaleData[];
+    douglasSeaScale: DouglasScaleData[];
+    douglasSwellScale: DouglasScaleData[];
+    cloudTypes: CloudTypeData[];
+}
+
 
 export default function MeteorologiaPage() {
+    const [data, setData] = useState<MeteorologiaData | null>(null);
+
+    useEffect(() => {
+        fetch('/data/meteorologia.json')
+            .then(res => res.json())
+            .then(setData);
+    }, []);
+
+    if (!data) {
+        return (
+            <div className="p-4 md:p-6 space-y-6">
+                <Card className="w-full max-w-4xl mx-auto">
+                    <CardHeader>
+                        <CardTitle>Cargando...</CardTitle>
+                    </CardHeader>
+                </Card>
+            </div>
+        )
+    }
+
     return (
         <div className="p-4 md:p-6 space-y-6">
             {/* Beaufort Scale Card */}
@@ -27,7 +77,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {BEAUFORT_SCALE_DATA.map((item) => (
+                                {data.beaufortScale.map((item) => (
                                     <TableRow key={item.force}>
                                         <TableCell className="font-bold text-center">{item.force}</TableCell>
                                         <TableCell>{item.denomination}</TableCell>
@@ -60,7 +110,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {DOUGLAS_SEA_SCALE.map((item) => (
+                                {data.douglasSeaScale.map((item) => (
                                     <TableRow key={item.degree}>
                                         <TableCell className="font-bold text-center">{item.degree}</TableCell>
                                         <TableCell>{item.denomination}</TableCell>
@@ -81,7 +131,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {DOUGLAS_SWELL_SCALE.map((item) => (
+                                {data.douglasSwellScale.map((item) => (
                                     <TableRow key={item.degree}>
                                         <TableCell className="font-bold text-center">{item.degree}</TableCell>
                                         <TableCell>{item.denomination}</TableCell>
@@ -101,7 +151,7 @@ export default function MeteorologiaPage() {
                     <CardDescription>Guía visual para reconocer los géneros de nubes más comunes y su altitud típica.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    {CLOUD_TYPES_DATA.map((cloud) => (
+                    {data.cloudTypes.map((cloud) => (
                         <Card key={cloud.type} className="overflow-hidden">
                             <div className="grid grid-cols-1 md:grid-cols-3">
                                 <div className="md:col-span-1">
