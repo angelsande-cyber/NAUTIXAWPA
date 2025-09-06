@@ -75,8 +75,8 @@ export const CLOUD_TYPES_DATA = [
         type: 'Nimbostratus (Ns)',
         altitude: 'Bajas (<2000m)',
         description: 'Capa nubosa gris, a menudo oscura, de aspecto amorfo y base difusa por la precipitación continua de lluvia o nieve que llega al suelo.',
-        imageUrl: 'https://picsum.photos/id/366/400/200',
-        hint: 'nimbostratus rain'
+        imageUrl: 'https://images.pexels.com/photos/414659/pexels-photo-414659.jpeg?auto=compress&cs=tinysrgb&w=400',
+        hint: 'grey clouds'
     },
     {
         type: 'Stratocumulus (Sc)',
