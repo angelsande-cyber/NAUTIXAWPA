@@ -12,6 +12,7 @@ import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
 import { Check, Info, RefreshCw, X, ChevronLeft, ChevronRight, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Progress } from '../ui/progress';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 export default function SimulacroPage() {
     const [quiz, setQuiz] = useState<QuizOutput | null>(null);
@@ -44,6 +45,7 @@ export default function SimulacroPage() {
     
     useEffect(() => {
         handleGenerateQuiz();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     const handleAnswerChange = (questionIndex: number, answerIndex: number) => {
@@ -124,11 +126,11 @@ export default function SimulacroPage() {
                                     <p className="font-semibold">{i + 1}. {q.question}</p>
                                     <p className={cn("text-sm mt-1", isCorrect ? "text-green-600" : "text-red-600")}>
                                         {isCorrect ? <Check className="inline h-4 w-4 mr-1"/> : <X className="inline h-4 w-4 mr-1"/>}
-                                        Tu respuesta: "{q.options[answers[i]]}"
+                                        Tu respuesta: "{answers[i] !== undefined ? q.options[answers[i]] : 'No contestada'}"
                                     </p>
                                     {!isCorrect && <p className="text-sm mt-1 text-green-600">Respuesta correcta: "{q.options[q.correctAnswerIndex]}"</p>}
                                     <Accordion type="single" collapsible className="w-full mt-2 text-sm">
-                                        <AccordionItem value="item-1">
+                                        <AccordionItem value={`item-${i}`}>
                                             <AccordionTrigger>Ver explicación</AccordionTrigger>
                                             <AccordionContent>{q.explanation}</AccordionContent>
                                         </AccordionItem>
@@ -164,10 +166,10 @@ export default function SimulacroPage() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    {currentQuestion && (
+                    {currentQuestion && quiz && (
                         <div>
                             <div className="mb-4">
-                                <Label htmlFor="progress" className="text-sm text-muted-foreground">Pregunta {currentQuestionIndex + 1} de {quiz?.length}</Label>
+                                <Label htmlFor="progress" className="text-sm text-muted-foreground">Pregunta {currentQuestionIndex + 1} de {quiz.length}</Label>
                                 <Progress id="progress" value={progress} className="mt-1" />
                             </div>
 
@@ -191,8 +193,8 @@ export default function SimulacroPage() {
                                     Anterior
                                 </Button>
 
-                                {currentQuestionIndex < (quiz?.length ?? 0) - 1 ? (
-                                     <Button variant="outline" onClick={() => setCurrentQuestionIndex(p => p + 1)}>
+                                {currentQuestionIndex < quiz.length - 1 ? (
+                                     <Button variant="outline" onClick={() => setCurrentQuestionIndex(p => p + 1)} disabled={answers[currentQuestionIndex] === undefined}>
                                         Siguiente
                                         <ChevronRight className="ml-2 h-4 w-4"/>
                                     </Button>
@@ -202,46 +204,22 @@ export default function SimulacroPage() {
                                     </Button>
                                 )}
                            </div>
-                           {!isQuizComplete && currentQuestionIndex === (quiz?.length ?? 0) -1 && (
+                           {!isQuizComplete && currentQuestionIndex === quiz.length -1 && (
                                 <p className="text-center text-xs text-muted-foreground mt-2">Debes responder todas las preguntas para poder corregir.</p>
                            )}
+                        </div>
+                    )}
+                     {!loading && !quiz && (
+                        <div className="text-center py-12">
+                            <p className="text-muted-foreground mb-4">No se pudo cargar el examen. Inténtalo de nuevo.</p>
+                             <Button onClick={handleGenerateQuiz}>
+                                <RefreshCw className="mr-2 h-4 w-4" />
+                                Reintentar
+                            </Button>
                         </div>
                     )}
                 </CardContent>
             </Card>
         </div>
     );
-}
-
-// Minimal Accordion for explanations to avoid extra imports
-const Accordion = ({className, ...props}: React.ComponentProps<"div">) => <div className={cn("w-full", className)} {...props} />;
-const AccordionItem = ({className, ...props}: React.ComponentProps<"div">) => <div className={cn("border-b", className)} {...props} />;
-const AccordionTrigger = ({children}: {children: React.ReactNode}) => {
-    const [isOpen, setIsOpen] = useState(false);
-    return (
-         <button onClick={() => setIsOpen(!isOpen)} className="flex flex-1 items-center justify-between py-2 text-sm font-medium text-muted-foreground hover:underline">
-             {children}
-             <ChevronRight className={cn("h-4 w-4 transition-transform duration-200", isOpen && "rotate-90")}/>
-        </button>
-    )
-};
-const AccordionContent = ({children}: {children: React.ReactNode}) => {
-    const parent = React.useRef<HTMLDivElement>(null);
-    const trigger = parent.current?.previousElementSibling as HTMLButtonElement | null;
-    const isOpen = trigger?.getAttribute('data-state') === 'open';
-
-    return <div ref={parent} className="overflow-hidden text-sm transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"><div className="pb-4 pt-0">{children}</div></div>
-}
-
-const useIsOpen = (trigger: HTMLButtonElement | null) => {
-    const [isOpen, setIsOpen] = useState(false);
-    useEffect(() => {
-        if(!trigger) return;
-        const observer = new MutationObserver(() => {
-            setIsOpen(trigger.getAttribute('data-state') === 'open');
-        });
-        observer.observe(trigger, {attributes: true});
-        return () => observer.disconnect();
-    }, [trigger]);
-    return isOpen;
 }
