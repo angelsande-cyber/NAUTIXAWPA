@@ -47,7 +47,7 @@ import MeteorologiaPage from "./pages/MeteorologiaPage";
 import ExamenPage from "./pages/ExamenPage";
 
 const dashboardItems = [
-    { id: "sosgen", label: "Radio", icon: Radio, description: "Guía de comunicaciones de socorro." },
+    { id: "sosgen", label: "SOS", icon: Radio, description: "Guía de comunicaciones de socorro." },
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
     { id: "colreg", label: "COLREG", icon: Sailboat, description: "Consulta el reglamento de abordajes." },
     { id: "examen", label: "Examen PER", icon: FileText, description: "Genera exámenes de práctica." },
@@ -93,7 +93,7 @@ export function AppShell({ user }: { user: User }) {
 
   const pageTitleMap: { [key: string]: string } = {
     dashboard: "Inicio",
-    sosgen: "Radio",
+    sosgen: "SOS",
     senales: "Señales Marítimas",
     colreg: "Reglamento (COLREG)",
     directorio: "Directorio",
