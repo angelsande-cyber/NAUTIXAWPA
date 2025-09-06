@@ -50,7 +50,7 @@ const dashboardItems = [
     { id: "sosgen", label: "SOS", icon: Radio, description: "Guía de comunicaciones de socorro." },
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
     { id: "colreg", label: "COLREG", icon: Sailboat, description: "Consulta el reglamento de abordajes." },
-    { id: "examen", label: "Examen PER", icon: FileText, description: "Genera exámenes de práctica." },
+    { id: "examen", label: "Examen", icon: FileText, description: "Genera exámenes de práctica." },
     { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de salvamento." },
     { id: "calculadora", label: "Calculadora", icon: Calculator, description: "Conversor de coordenadas." },
     { id: "alfabeto", label: "Alfabeto Fonético", icon: Text, description: "Alfabeto internacional ICAO/OTAN." },
@@ -102,7 +102,7 @@ export function AppShell({ user }: { user: User }) {
     canales: "Canales VHF",
     codigosq: "Códigos Q",
     meteorologia: "Meteorología",
-    examen: "Examen PER",
+    examen: "Examen",
   };
 
   const renderContent = () => {
