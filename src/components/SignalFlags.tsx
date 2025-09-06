@@ -3,7 +3,7 @@
 import React from 'react';
 
 // --- Pennants ---
-const pennantShapeTapered = "M0,0 H20 L16,6 L20,12 H0 Z";
+const pennantShapeTapered = "M0,0 H20 L18,6 L20,12 H0 Z";
 
 const Num0 = () => (
     <svg viewBox="-0.5 -0.5 21 13" fill="none">
@@ -44,11 +44,10 @@ const Num4 = () => (
                 <path d={pennantShapeTapered} />
             </clipPath>
         </defs>
+        <path d={pennantShapeTapered} fill="#d72828" stroke="#4A4A4A" strokeWidth="0.5" />
         <g clipPath="url(#clipPennant4)">
-            <path d={pennantShapeTapered} fill="#d72828" />
             <path d="M-1 6 H21 M10 -1 V13" stroke="#fff" strokeWidth="2.5" />
         </g>
-        <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
 );
 const Num5 = () => (
@@ -100,11 +99,10 @@ const Num8 = () => (
                 <path d={pennantShapeTapered} />
             </clipPath>
         </defs>
+        <path d={pennantShapeTapered} fill="#fff" stroke="#4A4A4A" strokeWidth="0.5" />
         <g clipPath="url(#clipPennant8)">
-            <path d={pennantShapeTapered} fill="#fff" />
             <path d="M-1 6 H21 M10 -1 V13" stroke="#d72828" strokeWidth="2.5" />
         </g>
-        <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
 );
 const Num9 = () => (
