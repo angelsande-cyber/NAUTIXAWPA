@@ -95,8 +95,8 @@ export const CLOUD_TYPES_DATA = [
         type: 'Cumulus (Cu)',
         altitude: 'Bajas (<2000m)',
         description: 'Nubes separadas, generalmente densas y con contornos bien definidos, que se desarrollan verticalmente en forma de cúpulas o torres. Su parte superior iluminada por el sol es de un blanco brillante, mientras que su base es relativamente oscura y horizontal.',
-        imageUrl: 'https://picsum.photos/id/103/400/200',
-        hint: 'cumulus puffy'
+        imageUrl: 'https://images.pexels.com/photos/33709203/pexels-photo-33709203.jpeg?auto=compress&cs=tinysrgb&w=400',
+        hint: 'puffy clouds'
     },
     {
         type: 'Cumulonimbus (Cb)',
