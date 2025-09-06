@@ -7,7 +7,7 @@ import {name as appName} from './app.json';
 
 const App = () => (
   <View style={styles.container}>
-    <Text style={styles.text}>¡Hola, Mundo Móvil!</Text>
+    <Text style={styles.text}>NAUTIXA</Text>
     <Text style={styles.subtext}>
       Este es el punto de partida para la app nativa de NAUTIXA.
     </Text>
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#1E293B',
     },
     text: {
-        fontSize: 28,
+        fontSize: 48,
         fontWeight: 'bold',
         color: '#FFFFFF',
         textAlign: 'center',
