@@ -1,4 +1,5 @@
 
+
 export const BEAUFORT_SCALE_DATA = [
     { force: 0, denomination: 'Calma', speedKnots: '< 1', seaState: 'Espejo', waveHeight: '0m' },
     { force: 1, denomination: 'Ventolina', speedKnots: '1-3', seaState: 'Rizos', waveHeight: '0.1m' },
@@ -54,8 +55,8 @@ export const CLOUD_TYPES_DATA = [
         type: 'Cirrostratus (Cs)',
         altitude: 'Altas (>6000m)',
         description: 'Velo nuboso transparente y blanquecino, de aspecto fibroso o liso, que cubre total o parcialmente el cielo. Producen el fenómeno del halo solar o lunar.',
-        imageUrl: 'https://picsum.photos/id/257/400/200',
-        hint: 'cirrostratus halo'
+        imageUrl: 'https://images.pexels.com/photos/4210918/pexels-photo-4210918.jpeg?auto=compress&cs=tinysrgb&w=400',
+        hint: 'cirrostratus sky'
     },
     {
         type: 'Altocumulus (Ac)',
@@ -107,4 +108,3 @@ export const CLOUD_TYPES_DATA = [
         hint: 'cumulonimbus storm'
     },
 ];
-
