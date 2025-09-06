@@ -514,6 +514,7 @@ const BuquesSimulator = () => {
                 case 'diamond': markSvg = <polygon points="12,2 22,12 12,22 2,12" fill={C}/>; break;
                 case 'cylinder': markSvg = <rect x="4" y="2" width="16" height="20" fill={C}/>; break;
                 case 'basket': markSvg = <rect x="4" y="2" width="16" height="16" stroke={C} strokeWidth="2" fill="transparent"/>; break;
+                case 'bicone-point-together': markSvg = <><polygon points="2,12 22,12 12,2" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
                 default: return null;
             }
             return (
@@ -627,7 +628,7 @@ export default function SenalesPage() {
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
                     <CardTitle>Simulador de Señales Marítimas</CardTitle>
-                     <CardDescription>
+                    <CardDescription>
                         Herramienta interactiva para aprender a identificar las características de luces y marcas de faros, boyas y buques.
                     </CardDescription>
                 </CardHeader>
