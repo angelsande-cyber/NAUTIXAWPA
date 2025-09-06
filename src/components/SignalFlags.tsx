@@ -12,13 +12,13 @@ const FlagE = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v5h-12z" fill="#005
 const FlagF = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#fff"/><path d="M6 5L2 1h8zM6 5l-4 4h8z" fill="#d72828"/></svg>;
 const FlagG = () => <svg viewBox="0 0 12 10"><path d="M0 0h2v10H0zM4 0h2v10H4zM8 0h2v10H8z" fill="#ffcd00"/><path d="M2 0h2v10H2zM6 0h2v10H6zM10 0h2v10H10z" fill="#0058a7"/></svg>;
 const FlagH = () => <svg viewBox="0 0 12 10"><path d="M0 0h6v10H0z" fill="#fff"/><path d="M6 0h6v10H6z" fill="#d72828"/></svg>;
-const FlagI = () => <svg viewBox="0 '0 12 10'"><path d="M0 0h12v10H0z" fill="#ffcd00"/><circle cx="6" cy="5" r="2" fill="#000"/></svg>;
+const FlagI = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#ffcd00"/><circle cx="6" cy="5" r="2" fill="#000"/></svg>;
 const FlagJ = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v3h-12zM0 7h12v3h-12z" fill="#0058a7"/><path d="M0 3h12v4h-12z" fill="#fff"/></svg>;
 const FlagK = () => <svg viewBox="0 0 12 10"><path d="M0 0h6v10H0z" fill="#ffcd00"/><path d="M6 0h6v10H6z" fill="#0058a7"/></svg>;
 const FlagL = () => <svg viewBox="0 0 12 10"><path d="M0 0h6v5H0zM6 5h6v5H6z" fill="#000"/><path d="M6 0h6v5H6zM0 5h6v5H0z" fill="#ffcd00"/></svg>;
 const FlagM = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#0058a7"/><path d="M0 0l6 5 6-5v10l-6-5-6 5z" stroke="#fff" strokeWidth="1.5" fill="none"/></svg>;
-const FlagN = () => <svg viewBox="0 0 12 10"><path d="M0 0h3v2.5H0z m3 0h3v2.5H3z m-3 2.5h3v2.5H0z m3 0h3v2.5H3z m3-2.5h3v2.5H6z m-3 2.5h3v2.5H6z m3-2.5h3v2.5H9z m-3 2.5h3v2.5H9z m-9 2.5h3v2.5H0z m3 0h3v2.5H3z m-3 2.5h3v2.5H0z m3 0h3v2.5H3z m3-2.5h3v2.5H6z m-3 2.5h3v2.5H6z m3-2.5h3v2.5H9z m-3 2.5h3v2.5H9z" fill="#fff"/><path d="M0 2.5h3v2.5H0z m3 0h3v2.5H3z m-3-2.5h3v2.5H3z m3 2.5h3v2.5H6z m-3 0h3v2.5H6z m3 2.5h3v2.5H9z m-3-2.5h3v2.5H9z m-6 5h3v2.5H0z m3 0h3v2.5H3z m-3 2.5h3v2.5H0z m3 2.5h3v2.5H6z m-3 0h3v2.5H6z m3 2.5h3v2.5H9z m-3-2.5h3v2.5H9z m-3-2.5h3v2.5H6z" fill="#0058a7"/></svg>;
-const FlagO = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#ffcd00"/><path d="M0 0h12v10H0l-12-10z" fill="#d72828"/></svg>;
+const FlagN = () => <svg viewBox="0 0 12 10"><rect width="12" height="10" fill="#0058a7"/><path d="M0 0h3v2.5H0z m3 0h3v2.5H3z m3 0h3v2.5H6z m3 0h3v2.5H9z M0 5h3v2.5H0z m3 0h3v2.5H3z m3 0h3v2.5H6z m3 0h3v2.5H9z" fill="#fff"/><path d="M0 2.5h3v2.5H0z m3 0h3v2.5H3z m3 0h3v2.5H6z m3 0h3v2.5H9z M0 7.5h3v2.5H0z m3 0h3v2.5H3z m3 0h3v2.5H6z m3 0h3v2.5H9z" fill="#fff"/></svg>;
+const FlagO = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#ffcd00"/><path d="M0 0L12 10V0H0Z" fill="#d72828"/></svg>;
 const FlagP = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#0058a7"/><path d="M2 2h8v6H2z" fill="#fff"/></svg>;
 const FlagQ = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#ffcd00"/></svg>;
 const FlagR = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#d72828"/><path d="M0 5h12v-1h-12zM5.5 0h1v10h-1z" stroke="#ffcd00" strokeWidth="2"/></svg>;
@@ -28,8 +28,8 @@ const FlagU = () => <svg viewBox="0 0 12 10"><path d="M0 0h6v5H0zM6 5h6v5H6z" fi
 const FlagV = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#fff"/><path d="M0 0l6 5 6-5v10l-6-5-6 5z" stroke="#d72828" strokeWidth="1.5" fill="none"/></svg>;
 const FlagW = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#0058a7"/><path d="M1 1h10v8H1z" fill="#fff"/><path d="M3 3h6v4H3z" fill="#d72828"/></svg>;
 const FlagX = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#fff"/><path d="M0 5h12v-1h-12zM5.5 0h1v10h-1z" stroke="#0058a7" strokeWidth="2"/></svg>;
-const FlagY = () => <svg viewBox="0 0 12 10"><path d="M0 0h2.4v10h-2.4zM4.8 0h2.4v10h-2.4zM9.6 0h2.4v10h-2.4z" fill="#ffcd00"/><path d="M2.4 0h2.4v10h-2.4zM7.2 0h2.4v10h-2.4z" fill="#d72828"/></svg>;
-const FlagZ = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v2.5H0zM0 7.5h12v2.5H0z" fill="#000"/><path d="M0 2.5h12v2.5H0z" fill="#ffcd00"/><path d="M0 5h12v2.5H0z" fill="#0058a7"/><path d="M0 0v10l12-5z" fill="#d72828"/></svg>;
+const FlagY = () => <svg viewBox="0 0 12 10"><path d="M0 0h2.4v10h-2.4zM4.8 0h2.4v10h-2.4zM9.6 0h2.4v10h-2.4z" fill="#ffcd00" transform="skewX(-20)"/><path d="M2.4 0h2.4v10h-2.4zM7.2 0h2.4v10h-2.4z" fill="#d72828" transform="skewX(-20)"/></svg>;
+const FlagZ = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0z" fill="#0058a7"/><path d="M0 0L12 0 0 10z" fill="#ffcd00"/><path d="M12 0L0 10h12z" fill="#d72828"/><path d="M12 10L0 0v10z" fill="#000"/></svg>;
 
 const Num1 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#fff"/><circle cx="6" cy="5" r="1.5" fill="#d72828"/></svg>;
 const Num2 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#0058a7"/><circle cx="6" cy="5" r="1.5" fill="#fff"/></svg>;
@@ -37,10 +37,10 @@ const Num3 = () => <svg viewBox="0 0 12 10"><path d="M0 0h4v10H0l-2-5z" fill="#d
 const Num4 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#d72828"/><path d="M1 1h1v8H1zM1 5h10v-1h-10z" stroke="#fff" strokeWidth="1"/></svg>;
 const Num5 = () => <svg viewBox="0 0 12 10"><path d="M0 0h6v10H0l-2-5z" fill="#ffcd00"/><path d="M6 0h6v10H6l-2-5z" fill="#0058a7"/></svg>;
 const Num6 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v5H0l-2-2.5z" fill="#000"/><path d="M0 5h12v5H0l-2-2.5z" fill="#fff"/></svg>;
-const Num7 = () => <svg viewBox="0_0 12 10"><path d="M0 0h12v5H0l-2-2.5z" fill="#ffcd00"/><path d="M0 5h12v5H0l-2-2.5z" fill="#d72828"/></svg>;
+const Num7 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v5H0l-2-2.5z" fill="#ffcd00"/><path d="M0 5h12v5H0l-2-2.5z" fill="#d72828"/></svg>;
 const Num8 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#fff"/><path d="M1 1h1v8H1zM1 5h10v-1h-10z" stroke="#d72828" strokeWidth="1"/></svg>;
 const Num9 = () => <svg viewBox="0 0 12 10"><path d="M0 0h6v5H0l-2-2.5z" fill="#fff"/><path d="M6 0h6v5H6l-2-2.5z" fill="#000"/><path d="M0 5h6v5H0l-2-2.5z" fill="#d72828"/><path d="M6 5h6v5H6l-2-2.5z" fill="#ffcd00"/></svg>;
-const Num0 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#ffcd00"/><path d="M1 1h1v8H1zM1 5h10v-1h-10z" stroke="#d72828" strokeWidth="1"/></svg>;
+const Num0 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#ffcd00"/><path d="M0 0L12 0 6 10Z" stroke="#d72828" strokeWidth="1" fill="none"/></svg>;
 
 // --- Data Arrays ---
 
@@ -85,3 +85,5 @@ export const NUMBERS = [
     { digit: "9", pronunciation: "Novenine", flag: <Num9 /> },
     { digit: "0", pronunciation: "Nadazero", flag: <Num0 /> },
 ];
+
+    
