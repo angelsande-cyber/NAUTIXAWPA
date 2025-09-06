@@ -18,6 +18,7 @@ import {
   Text,
   RadioTower,
   MessageSquareQuote,
+  Cloud,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -42,6 +43,7 @@ import { Label } from "@/components/ui/label";
 import AlfabetoPage from "./pages/AlfabetoPage";
 import CanalesPage from "./pages/CanalesPage";
 import CodigosQPage from "./pages/CodigosQPage";
+import MeteorologiaPage from "./pages/MeteorologiaPage";
 
 const dashboardItems = [
     { id: "sosgen", label: "Radio", icon: Radio, description: "Asistente para mensajes de socorro." },
@@ -53,6 +55,7 @@ const dashboardItems = [
     { id: "alfabeto", label: "Alfabeto Fonético", icon: Text, description: "Alfabeto internacional ICAO/OTAN." },
     { id: "canales", label: "Canales VHF", icon: RadioTower, description: "Listado de canales y usos comunes." },
     { id: "codigosq", label: "Códigos Q", icon: MessageSquareQuote, description: "Listado de códigos Q de consulta." },
+    { id: "meteorologia", label: "Meteorología", icon: Cloud, description: "Escalas Beaufort, Douglas y nubes." },
 ];
 
 function ThemeToggle() {
@@ -98,6 +101,7 @@ export function AppShell({ user }: { user: User }) {
     alfabeto: "Alfabeto Fonético",
     canales: "Canales VHF",
     codigosq: "Códigos Q",
+    meteorologia: "Meteorología",
   };
 
   const renderContent = () => {
@@ -111,6 +115,7 @@ export function AppShell({ user }: { user: User }) {
       case 'alfabeto': return <AlfabetoPage />;
       case 'canales': return <CanalesPage />;
       case 'codigosq': return <CodigosQPage />;
+      case 'meteorologia': return <MeteorologiaPage />;
       default:
         return (
           <div className="p-4 md:p-6">
