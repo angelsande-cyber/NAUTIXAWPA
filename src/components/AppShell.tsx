@@ -15,6 +15,9 @@ import {
   Calculator,
   Radio,
   Sailboat,
+  Text,
+  RadioTower,
+  MessageSquareQuote,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -23,7 +26,6 @@ import SosgenPage from "./pages/SosgenPage";
 import SimulacroPage from "./pages/SimulacroPage";
 import DirectorioPage from "./pages/DirectorioPage";
 import SenalesPage from "./pages/SenalesPage";
-import ReferenciasPage from "./pages/ReferenciasPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
 import ColregPage from "./pages/ColregPage";
 import { useTheme } from "next-themes";
@@ -37,6 +39,9 @@ import {
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
+import AlfabetoPage from "./pages/AlfabetoPage";
+import CanalesPage from "./pages/CanalesPage";
+import CodigosQPage from "./pages/CodigosQPage";
 
 const dashboardItems = [
     { id: "sosgen", label: "Radio", icon: Radio, description: "Asistente para mensajes de socorro." },
@@ -44,8 +49,10 @@ const dashboardItems = [
     { id: "senales", label: "Señales", icon: Lightbulb, description: "Simulador de luces y marcas." },
     { id: "colreg", label: "COLREG", icon: Sailboat, description: "Consulta el reglamento de abordajes." },
     { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de salvamento." },
-    { id: "referencias", label: "Referencias", icon: Book, description: "Tablas y datos útiles." },
     { id: "calculadora", label: "Calculadora", icon: Calculator, description: "Conversor de coordenadas." },
+    { id: "alfabeto", label: "Alfabeto Fonético", icon: Text, description: "Alfabeto internacional ICAO/OTAN." },
+    { id: "canales", label: "Canales VHF", icon: RadioTower, description: "Listado de canales y usos comunes." },
+    { id: "codigosq", label: "Códigos Q", icon: MessageSquareQuote, description: "Listado de códigos Q de consulta." },
 ];
 
 function ThemeToggle() {
@@ -87,8 +94,10 @@ export function AppShell({ user }: { user: User }) {
     senales: "Señales Marítimas",
     colreg: "Reglamento (COLREG)",
     directorio: "Directorio",
-    referencias: "Referencias",
     calculadora: "Calculadora de Coordenadas",
+    alfabeto: "Alfabeto Fonético",
+    canales: "Canales VHF",
+    codigosq: "Códigos Q",
   };
 
   const renderContent = () => {
@@ -98,8 +107,10 @@ export function AppShell({ user }: { user: User }) {
       case 'directorio': return <DirectorioPage />;
       case 'senales': return <SenalesPage />;
       case 'colreg': return <ColregPage />;
-      case 'referencias': return <ReferenciasPage />;
       case 'calculadora': return <CalculadoraPage />;
+      case 'alfabeto': return <AlfabetoPage />;
+      case 'canales': return <CanalesPage />;
+      case 'codigosq': return <CodigosQPage />;
       default:
         return (
           <div className="p-4 md:p-6">
