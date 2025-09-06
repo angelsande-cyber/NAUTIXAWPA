@@ -107,8 +107,22 @@ const Num8 = () => (
         <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
 );
-const Num9 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d="M0 0 H10 V6 H0Z" fill="#fff" stroke="#4A4A4A" strokeWidth="0.5"/><path d="M10 0 L20 3 L10 6 V0Z" fill="#d72828" stroke="#4A4A4A" strokeWidth="0.5"/><path d="M0 6 H10 V12 H0Z" fill="#ffcd00" stroke="#4A4A4A" strokeWidth="0.5"/><path d="M10 6 L20 9 L10 12 V6Z" fill="#000" stroke="#4A4A4A" strokeWidth="0.5"/></svg>;
-
+const Num9 = () => (
+    <svg viewBox="-0.5 -0.5 21 13" fill="none">
+        <defs>
+            <clipPath id="clipPennant9">
+                <path d={pennantShapeTapered} />
+            </clipPath>
+        </defs>
+        <g clipPath="url(#clipPennant9)">
+            <path d="M0,0 H10 V6 H0Z" fill="#fff" />
+            <path d="M10,0 H20 V6 H10Z" fill="#d72828" />
+            <path d="M0,6 H10 V12 H0Z" fill="#ffcd00" />
+            <path d="M10,6 H20 V12 H10Z" fill="#000" />
+        </g>
+        <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
+    </svg>
+);
 
 // --- Data Arrays ---
 export const NUMBERS = [
