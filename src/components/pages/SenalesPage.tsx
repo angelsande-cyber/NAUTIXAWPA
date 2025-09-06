@@ -457,7 +457,7 @@ const BuquesSimulator = () => {
     }, [selectedRule]);
 
     const colorMap: { [key: string]: string } = {
-        white: 'hsl(var(--foreground))',
+        white: 'white',
         red: '#EF4444',
         green: '#22C55E',
         yellow: '#EAB308',
