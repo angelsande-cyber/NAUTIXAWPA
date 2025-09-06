@@ -15,26 +15,20 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { cn } from "@/lib/utils";
 
 const LoadingSkeleton = () => (
-  <div className="p-4 md:p-6 space-y-6">
-    <Card className="w-full max-w-3xl mx-auto">
-      <CardHeader>
-        <Skeleton className="h-8 w-3/4" />
-        <Skeleton className="h-4 w-1/2" />
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <Skeleton className="h-6 w-full" />
-          <div className="space-y-2">
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
-            <Skeleton className="h-10 w-full" />
-          </div>
-          <Skeleton className="h-12 w-full" />
-        </div>
-      </CardContent>
-    </Card>
-  </div>
+    <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)] p-8 text-center">
+        <Card className="w-full max-w-md p-8">
+            <div className="animate-spin mb-4">
+                <RefreshCw className="mx-auto h-12 w-12 text-primary" />
+            </div>
+            <h2 className="text-xl font-semibold">Generando examen con IA</h2>
+            <p className="mt-2 text-muted-foreground">Por favor, espera un momento...</p>
+             <div className="w-full max-w-sm space-y-4 mt-8">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-3/4 mx-auto" />
+              <Skeleton className="h-4 w-full" />
+            </div>
+        </Card>
+    </div>
 );
 
 export default function ExamenPage() {
@@ -146,7 +140,7 @@ export default function ExamenPage() {
                      </AccordionTrigger>
                      <AccordionContent className="space-y-4">
                         <div className="pl-8 text-sm">
-                           <p>Tu respuesta: <span className={cn("font-semibold", !isCorrect && "text-destructive")}>{q.options[userAnswer]}</span></p>
+                           <p>Tu respuesta: <span className={cn("font-semibold", !isCorrect && "text-destructive")}>{userAnswer !== undefined ? q.options[userAnswer] : 'No respondida'}</span></p>
                            {!isCorrect && <p>Respuesta correcta: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
                         </div>
                         <Alert>
@@ -170,6 +164,8 @@ export default function ExamenPage() {
       </div>
     );
   }
+
+  const isAnswered = userAnswers.hasOwnProperty(currentQuestionIndex);
 
   return (
     <div className="p-4 md:p-6">
