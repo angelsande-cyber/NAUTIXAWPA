@@ -39,70 +39,70 @@ export const CLOUD_TYPES_DATA = [
         type: 'Cirrus (Ci)',
         altitude: 'Altas (>6000m)',
         description: 'Fibrosas, blancas, delicadas, en forma de filamentos o bancos estrechos. Compuestas de cristales de hielo. No suelen producir precipitación.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'wispy clouds'
+        imageUrl: 'https://picsum.photos/id/12/400/200',
+        hint: 'cirrus clouds'
     },
     {
         type: 'Cirrocumulus (Cc)',
         altitude: 'Altas (>6000m)',
         description: 'Bancos o capas delgadas de nubes blancas, sin sombras, compuestas por elementos muy pequeños en forma de granos, rizos, etc. (cielo aborregado).',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'mackerel sky'
+        imageUrl: 'https://picsum.photos/id/219/400/200',
+        hint: 'cirrocumulus sky'
     },
     {
         type: 'Cirrostratus (Cs)',
         altitude: 'Altas (>6000m)',
         description: 'Velo nuboso transparente y blanquecino, de aspecto fibroso o liso, que cubre total o parcialmente el cielo. Producen el fenómeno del halo solar o lunar.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'halo cloud'
+        imageUrl: 'https://picsum.photos/id/257/400/200',
+        hint: 'cirrostratus halo'
     },
     {
         type: 'Altocumulus (Ac)',
         altitude: 'Medias (2000-6000m)',
         description: 'Banco o capa de nubes blancas o grises, que tienen generalmente sombras propias. Pueden tener aspecto de losas, rodillos, etc.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'fluffy clouds'
+        imageUrl: 'https://picsum.photos/id/249/400/200',
+        hint: 'altocumulus clouds'
     },
     {
         type: 'Altostratus (As)',
         altitude: 'Medias (2000-6000m)',
         description: 'Capa nubosa grisácea o azulada, de aspecto estriado, fibroso o uniforme, que cubre total o parcialmente el cielo. El sol puede verse como a través de un vidrio esmerilado.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'grey layer'
+        imageUrl: 'https://picsum.photos/id/415/400/200',
+        hint: 'altostratus layer'
     },
     {
         type: 'Nimbostratus (Ns)',
         altitude: 'Bajas (<2000m)',
         description: 'Capa nubosa gris, a menudo oscura, de aspecto amorfo y base difusa por la precipitación continua de lluvia o nieve que llega al suelo.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'rain cloud'
+        imageUrl: 'https://picsum.photos/id/366/400/200',
+        hint: 'nimbostratus rain'
     },
     {
         type: 'Stratocumulus (Sc)',
         altitude: 'Bajas (<2000m)',
         description: 'Banco, capa o faja de nubes grises o blanquecinas que casi siempre tienen partes oscuras. Con aspecto de mosaico, masas redondeadas, etc.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'low clouds'
+        imageUrl: 'https://picsum.photos/id/531/400/200',
+        hint: 'stratocumulus low'
     },
     {
         type: 'Stratus (St)',
         altitude: 'Bajas (<2000m)',
         description: 'Capa nubosa generalmente gris, con base bastante uniforme, pudiendo dar lugar a llovizna, prismas de hielo o cinarra. Similar a la niebla, pero sin tocar el suelo.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'fog bank'
+        imageUrl: 'https://picsum.photos/id/488/400/200',
+        hint: 'stratus fog'
     },
     {
         type: 'Cumulus (Cu)',
         altitude: 'Bajas (<2000m)',
         description: 'Nubes separadas, generalmente densas y con contornos bien definidos, que se desarrollan verticalmente en forma de cúpulas o torres. Su parte superior iluminada por el sol es de un blanco brillante, mientras que su base es relativamente oscura y horizontal.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'puffy clouds'
+        imageUrl: 'https://picsum.photos/id/103/400/200',
+        hint: 'cumulus puffy'
     },
     {
         type: 'Cumulonimbus (Cb)',
         altitude: 'Desarrollo vertical',
         description: 'Nube densa y potente, con un considerable desarrollo vertical, en forma de montaña o enormes torres. Asociada a tormentas, chubascos, granizo y tornados. Su cima suele tener forma de yunque.',
-        imageUrl: 'https://picsum.photos/400/200',
-        hint: 'storm cloud'
+        imageUrl: 'https://picsum.photos/id/155/400/200',
+        hint: 'cumulonimbus storm'
     },
 ];
