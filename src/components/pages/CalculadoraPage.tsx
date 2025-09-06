@@ -15,11 +15,11 @@ interface CoordinatesDD {
 }
 
 function parseCoordinates(input: string): CoordinatesDD | null {
-    input = input.trim().toUpperCase();
+    input = input.trim().toUpperCase().replace(/,/g, '');
 
     // Regex for DDM (Degrees Decimal Minutes) or DMS (Degrees Minutes Seconds)
-    // 40 20.5 N 003 30.1 W  |  40° 20' 25" N 003° 30' 05" W
-    const dmsRegex = /(-?\d{1,2})[°\s]+(\d{1,2}(?:\.\d+)?)[´'`\s]*(\d{1,2}(?:\.\d+)?)?[´'`\s]*([NS])\s*,?\s*(-?\d{1,3})[°\s]+(\d{1,2}(?:\.\d+)?)[´'`\s]*(\d{1,2}(?:\.\d+)?)?[´'`\s]*([WE])/;
+    // Supports formats like: 40 20.5 N 003 30.1 W | 40°20.5'N 003°30.1'W | 40° 20' 25" N 003° 30' 05" W
+    const dmsRegex = /(-?\d{1,2})[°\s]+(\d{1,2}(?:\.\d+)?)[´'`\s]*(\d{1,2}(?:\.\d+)?)?[´'`\s"]*\s*([NS])\s+(-?\d{1,3})[°\s]+(\d{1,2}(?:\.\d+)?)[´'`\s]*(\d{1,2}(?:\.\d+)?)?[´'`\s"]*\s*([WE])/;
     const dmsMatch = input.match(dmsRegex);
     if (dmsMatch) {
         const [, latDeg, latMin, latSec, latDir, lonDeg, lonMin, lonSec, lonDir] = dmsMatch;
@@ -31,8 +31,8 @@ function parseCoordinates(input: string): CoordinatesDD | null {
     }
 
     // Regex for DD (Decimal Degrees)
-    // 40.7128, -74.0060 | 40.7128N, 74.0060W
-    const ddRegex = /(-?\d{1,2}(?:\.\d+)?)\s*([NS])?,?\s*(-?\d{1,3}(?:\.\d+)?)\s*([WE])?/;
+    // Supports formats like: 40.7128 -74.0060 | 40.7128N 74.0060W
+    const ddRegex = /(-?\d{1,2}(?:\.\d+)?)\s*([NS])?\s*(-?\d{1,3}(?:\.\d+)?)\s*([WE])?/;
     const ddMatch = input.match(ddRegex);
     if (ddMatch) {
         let [, latStr, latDir, lonStr, lonDir] = ddMatch;
@@ -41,12 +41,9 @@ function parseCoordinates(input: string): CoordinatesDD | null {
         let lat = parseFloat(latStr);
         let lon = parseFloat(lonStr);
         
-        // If directions are provided, they override the sign
-        if (latDir && lat < 0) lat *= -1;
-        if (lonDir && lon < 0) lon *= -1;
-        
-        if (latDir === 'S') lat *= -1;
-        if (lonDir === 'W') lon *= -1;
+        // If directions are provided, they override any sign
+        if (latDir) lat = Math.abs(lat) * (latDir === 'S' ? -1 : 1);
+        if (lonDir) lon = Math.abs(lon) * (lonDir === 'W' ? -1 : 1);
         
         return { lat, lon };
     }
@@ -128,12 +125,12 @@ export default function CalculadoraPage() {
                             <Alert>
                                 <Calculator className="h-4 w-4" />
                                 <AlertTitle>Grados, Minutos Decimales (DDM)</AlertTitle>
-                                <AlertDescription className="font-mono">{result.ddm}</AlertDescription>
+                                <AlertDescription className="font-mono text-lg">{result.ddm}</AlertDescription>
                             </Alert>
                              <Alert>
                                 <Calculator className="h-4 w-4" />
                                 <AlertTitle>Grados, Minutos, Segundos (DMS)</AlertTitle>
-                                <AlertDescription className="font-mono">{result.dms}</AlertDescription>
+                                <AlertDescription className="font-mono text-lg">{result.dms}</AlertDescription>
                             </Alert>
                         </div>
                     )}
