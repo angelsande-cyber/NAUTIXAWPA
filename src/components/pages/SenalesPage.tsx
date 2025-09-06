@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { IALA_BUOY_DATA, LIGHT_CHARACTERISTIC_TERMS } from "@/lib/data/senales";
-import { COLREG_RULES_DATA } from "@/lib/data/buques.tsx";
+import { COLREG_RULES_DATA } from "@/lib/data/buques";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -464,7 +464,7 @@ const BuquesSimulator = () => {
         blue: '#3B82F6',
     };
     
-    const lightColor = (color: string) => isNight ? colorMap[color] : 'hsl(var(--muted-foreground))';
+    const lightColor = (color: string) => isNight ? colorMap[color] : 'transparent';
     const lightEffect = (color: string) => {
         if (!isNight) return '';
         switch(color) {
@@ -516,10 +516,10 @@ const BuquesSimulator = () => {
                 case 'ball': markSvg = <circle cx="12" cy="12" r="10" fill={C} />; break;
                 case 'cone-up': markSvg = <polygon points="2,22 22,22 12,2" fill={C}/>; break;
                 case 'cone-down': markSvg = <polygon points="2,2 22,2 12,22" fill={C}/>; break;
-                case 'diamond': markSvg = <polygon points="12,2 22,12 12,22 2,12" fill={C}/>; break;
+                case 'diamond': markSvg = <><polygon points="2,12 22,12 12,2" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
                 case 'cylinder': markSvg = <rect x="4" y="2" width="16" height="20" fill={C}/>; break;
                 case 'basket': markSvg = <rect x="4" y="2" width="16" height="16" stroke={C} strokeWidth="2" fill="transparent"/>; break;
-                case 'bicone-point-together': markSvg = <><polygon points="2,12 22,12 12,2" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
+                case 'bicone-vertex-together': markSvg = <><polygon points="2,2 22,2 12,12" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
             }
             return (
                  <div key={mark.id} className="absolute w-6 h-6" style={style}>
