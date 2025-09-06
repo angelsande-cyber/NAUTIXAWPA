@@ -14,6 +14,7 @@ interface CoordinatesDD {
     lon: number;
 }
 
+
 function parseCoordinates(input: string): CoordinatesDD | null {
     input = input.trim().toUpperCase().replace(/,/g, '');
 
@@ -30,6 +31,15 @@ function parseCoordinates(input: string): CoordinatesDD | null {
         return { lat, lon };
     }
 
+    // Simple numeric sequence: 43 43 001 43 -> 43°43'N 001°43'E
+    const numericSequence = input.match(/^(\d{1,2})\s+(\d{1,2}(?:\.\d+)?)\s+(\d{1,3})\s+(\d{1,2}(?:\.\d+)?)$/);
+    if(numericSequence) {
+        const [, latDeg, latMin, lonDeg, lonMin] = numericSequence;
+        const lat = parseFloat(latDeg) + parseFloat(latMin) / 60;
+        const lon = parseFloat(lonDeg) + parseFloat(lonMin) / 60;
+        return { lat, lon };
+    }
+
     // Regex for DD (Decimal Degrees)
     // Supports formats like: 40.7128 -74.0060 | 40.7128N 74.0060W
     const ddRegex = /(-?\d{1,2}(?:\.\d+)?)\s*([NS])?\s*(-?\d{1,3}(?:\.\d+)?)\s*([WE])?/;
@@ -41,12 +51,12 @@ function parseCoordinates(input: string): CoordinatesDD | null {
         let lat = parseFloat(latStr);
         let lon = parseFloat(lonStr);
         
-        // If directions are provided, they override any sign
         if (latDir) lat = Math.abs(lat) * (latDir === 'S' ? -1 : 1);
         if (lonDir) lon = Math.abs(lon) * (lonDir === 'W' ? -1 : 1);
         
         return { lat, lon };
     }
+
 
     return null;
 }
@@ -89,7 +99,7 @@ export default function CalculadoraPage() {
         const coords = parseCoordinates(rawInput);
         
         if (!coords) {
-            toast({ title: "Formato no reconocido", description: "Use DD, DDM o DMS. Ej: 40.5 N, 8.5 W", variant: "destructive" });
+            toast({ title: "Formato no reconocido", description: "Use DD, DDM o DMS. Ej: 40.5 N, 8.5 W o 43 43 001 43", variant: "destructive" });
             setResult(null);
             return;
         }
@@ -112,7 +122,7 @@ export default function CalculadoraPage() {
                 <CardContent>
                     <div className="flex w-full items-center space-x-2">
                         <Input
-                            placeholder="Ej: 43 21.5 N, 8 25.2 W  o  40.123, -8.456"
+                            placeholder="Ej: 43 43 001 43 o 40.123 N, -8.456 W"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleConvert()}
