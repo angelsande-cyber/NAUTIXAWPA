@@ -4,10 +4,10 @@ import React from 'react';
 
 // --- Flag SVG Components ---
 
-const FlagA = () => <svg viewBox="0 0 20 12"><polygon points="0,0 20,0 15,6 20,12 0,12" fill="#fff" /><polygon points="20,0 15,6 20,12" fill="#0058a7" /></svg>;
+const FlagA = () => <svg viewBox="0 0 20 12"><path d="M0,0 H10 V12 H0Z" fill="#fff" /><polygon points="10,0 20,0 15,6 20,12 10,12" fill="#0058a7" /></svg>;
 const FlagB = () => <svg viewBox="0 0 20 12"><polygon points="0,0 20,0 15,6 20,12 0,12" fill="#d72828" /></svg>;
-const FlagC = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V2.2 H0Z" fill="#0058a7"/><path d="M0,2.2 H15 V4.4 H0Z" fill="#fff"/><path d="M0,4.4 H15 V7.6 H0Z" fill="#d72828"/><path d="M0,7.6 H15 V9.8 H0Z" fill="#fff"/><path d="M0,9.8 H15 V12 H0Z" fill="#0058a7"/></svg>;
-const FlagD = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V3 H0Z" fill="#ffcd00" /><path d="M0,3 H15 V9 H0Z" fill="#0058a7" /><path d="M0,9 H15 V12 H0Z" fill="#ffcd00" /></svg>;
+const FlagC = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V2.5 H0Z M0,9.5 H15 V12 H0Z" fill="#0058a7" /><path d="M0,2.5 H15 V4.5 H0Z M0,7.5 H15 V9.5 H0Z" fill="#fff" /><path d="M0,4.5 H15 V7.5 H0Z" fill="#d72828" /></svg>;
+const FlagD = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V3 H0Z M0,9 H15 V12 H0Z" fill="#ffcd00" /><path d="M0,3 H15 V9 H0Z" fill="#0058a7" /></svg>;
 const FlagE = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V6 H0Z" fill="#0058a7"/><path d="M0,6 H15 V12 H0Z" fill="#d72828"/></svg>;
 const FlagF = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M7.5 0 L15 6 L7.5 12 L0 6 Z" fill="#d72828"/></svg>;
 const FlagG = () => <svg viewBox="0 0 15 12"><path d="M0,0 H2.5 V12 H0Z M5,0 H7.5 V12 H5Z M10,0 H12.5 V12 H10Z" fill="#ffcd00" /><path d="M2.5,0 H5 V12 H2.5Z M7.5,0 H10 V12 H7.5Z M12.5,0 H15 V12 H12.5Z" fill="#0058a7" /></svg>;
@@ -29,7 +29,7 @@ const FlagV = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#f
 const FlagW = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#0058a7"/><path d="M2 2 H13 V10 H2Z" fill="#fff"/><path d="M4 4 H11 V8 H4Z" fill="#d72828"/></svg>;
 const FlagX = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0 6 H15 M7.5 0 V12" stroke="#0058a7" strokeWidth="2.5"/></svg>;
 const FlagY = () => <svg viewBox="0 0 15 12"><defs><pattern id="pattern-y" width="3.4" height="2.4" patternUnits="userSpaceOnUse" patternTransform="rotate(45 50 50)"><rect width="1.7" height="2.4" fill="#d72828"/><rect x="1.7" width="1.7" height="2.4" fill="#ffcd00"/></pattern></defs><rect width="15" height="12" fill="url(#pattern-y)"/></svg>;
-const FlagZ = () => <svg viewBox="0 0 15 12"><path d="M0,0 L15,0 L7.5,6 Z" fill="#ffcd00" /><path d="M0,12 L0,0 L7.5,6 Z" fill="#000" /><path d="M15,0 L15,12 L7.5,6 Z" fill="#0058a7" /><path d="M15,12 L0,12 L7.5,6 Z" fill="#d72828" /></svg>;
+const FlagZ = () => <svg viewBox="0 0 15 12"><path d="M0,0 L15,0 L7.5,6 Z" fill="#ffcd00" /><path d="M15,12 L0,12 L7.5,6 Z" fill="#d72828" /><path d="M15,0 L15,12 L7.5,6 Z" fill="#0058a7" /><path d="M0,12 L0,0 L7.5,6 Z" fill="#000" /></svg>;
 
 // --- Pennants ---
 const pennantShape = "M0 0 H15 L20 6 L15 12 H0 Z";
