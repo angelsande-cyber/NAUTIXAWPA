@@ -612,19 +612,27 @@ const BuquesSimulator = () => {
                  <div className="text-left mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
                     <h4 className="font-bold">{ruleData?.title}</h4>
                     <p className="text-sm text-muted-foreground italic mb-2">{ruleData?.description}</p>
-                    <div className="text-sm border-t pt-2">
-                        <strong className="block mb-1">{isNight ? "Luces Requeridas:" : "Marcas Requeridas:"}</strong>
-                        {isNight ? (
-                             <ul className="list-disc list-inside space-y-1">
-                                {ruleData?.lights.map(l => <li key={l.id}>{l.desc}</li>)}
-                            </ul>
-                        ) : (
-                             <ul className="list-disc list-inside space-y-1">
-                                {ruleData?.marks && ruleData.marks.length > 0 ? 
-                                    ruleData.marks.map(m => <li key={m.id}>{m.desc}</li>) :
-                                    <li>Ninguna marca requerida.</li>
-                                }
-                            </ul>
+                    <div className="text-sm border-t pt-2 space-y-3">
+                        <div>
+                            <strong className="block mb-1">{isNight ? "Luces Requeridas:" : "Marcas Requeridas:"}</strong>
+                            {isNight ? (
+                                <ul className="list-disc list-inside space-y-1">
+                                    {ruleData?.lights.map(l => l.desc && <li key={l.id}>{l.desc}</li>)}
+                                </ul>
+                            ) : (
+                                <ul className="list-disc list-inside space-y-1">
+                                    {ruleData?.marks && ruleData.marks.length > 0 ? 
+                                        ruleData.marks.map(m => m.desc && <li key={m.id}>{m.desc}</li>) :
+                                        <li>Ninguna marca requerida.</li>
+                                    }
+                                </ul>
+                            )}
+                        </div>
+                        {ruleData?.explanation && (
+                            <div className="border-t pt-2">
+                                <strong className="block mb-1">Explicación y Excepciones:</strong>
+                                <p className="text-xs text-muted-foreground whitespace-pre-line">{ruleData.explanation}</p>
+                            </div>
                         )}
                     </div>
                 </div>
