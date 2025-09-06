@@ -16,7 +16,7 @@ interface CoordinatesDD {
 
 
 function parseCoordinates(input: string): CoordinatesDD | null {
-    input = input.trim().toUpperCase().replace(/,/g, '');
+    input = input.trim().toUpperCase().replace(/,/g, '.');
 
     // Regex for DDM (Degrees Decimal Minutes) or DMS (Degrees Minutes Seconds)
     // Supports formats like: 40 20.5 N 003 30.1 W | 40°20.5'N 003°30.1'W | 40° 20' 25" N 003° 30' 05" W
@@ -31,21 +31,32 @@ function parseCoordinates(input: string): CoordinatesDD | null {
         return { lat, lon };
     }
 
-    // Simple numeric sequence: 43 43 001 43 -> 43°43'N 001°43'E
-    const numericSequence = input.match(/^(\d{1,2})\s+(\d{1,2}(?:\.\d+)?)\s+(\d{1,3})\s+(\d{1,2}(?:\.\d+)?)$/);
-    if(numericSequence) {
-        const [, latDeg, latMin, lonDeg, lonMin] = numericSequence;
-        const lat = parseFloat(latDeg) + parseFloat(latMin) / 60;
-        const lon = parseFloat(lonDeg) + parseFloat(lonMin) / 60;
+    // Simple numeric sequence: 43 43.123 N 001 43.456 W or 43 43 001 43.67
+    const numericSequence = input.match(/^(-?\d{1,2})\s+(\d{1,2}(?:\.\d+)?)\s*([NS])?\s+(-?\d{1,3})\s+(\d{1,2}(?:\.\d+)?)\s*([WE])?$/);
+    if (numericSequence) {
+        let [, latDeg, latMin, latDir, lonDeg, lonMin, lonDir] = numericSequence;
+        let lat = parseFloat(latDeg) + parseFloat(latMin) / 60;
+        let lon = parseFloat(lonDeg) + parseFloat(lonMin) / 60;
+
+        if (latDir === 'S') lat *= -1;
+        if (lonDir === 'W') lon *= -1;
+        // Assume N/E if not specified
+        if (!latDir && lat < 0) lat *= -1;
+        if (!lonDir && lon < 0) lon *= -1;
+        
         return { lat, lon };
     }
-
+    
     // Regex for DD (Decimal Degrees)
     // Supports formats like: 40.7128 -74.0060 | 40.7128N 74.0060W
-    const ddRegex = /(-?\d{1,2}(?:\.\d+)?)\s*([NS])?\s*(-?\d{1,3}(?:\.\d+)?)\s*([WE])?/;
+    const ddRegex = /^(-?\d{1,2}(?:\.\d+)?)\s*([NS])?\s*(-?\d{1,3}(?:\.\d+)?)\s*([WE])?$/;
     const ddMatch = input.match(ddRegex);
-    if (ddMatch) {
+     if (ddMatch) {
         let [, latStr, latDir, lonStr, lonDir] = ddMatch;
+
+        // This check prevents matching the numeric sequence regex which is less specific.
+        if (input.split(/\s+/).length > 2 && !latDir && !lonDir) return null;
+
         if (!latStr || !lonStr) return null;
         
         let lat = parseFloat(latStr);
@@ -99,7 +110,7 @@ export default function CalculadoraPage() {
         const coords = parseCoordinates(rawInput);
         
         if (!coords) {
-            toast({ title: "Formato no reconocido", description: "Use DD, DDM o DMS. Ej: 40.5 N, 8.5 W o 43 43 001 43", variant: "destructive" });
+            toast({ title: "Formato no reconocido", description: "Use DD, DDM o DMS. Ej: 43 43.1 N, 008 25.2 W o 40.7 -74.0", variant: "destructive" });
             setResult(null);
             return;
         }
@@ -122,7 +133,7 @@ export default function CalculadoraPage() {
                 <CardContent>
                     <div className="flex w-full items-center space-x-2">
                         <Input
-                            placeholder="Ej: 43 43 001 43 o 40.123 N, -8.456 W"
+                            placeholder="Ej: 43 43.123 N 001 43.456 W o 40.712 -74.006"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && handleConvert()}
