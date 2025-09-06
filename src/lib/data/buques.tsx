@@ -1,3 +1,4 @@
+
 // COLREG rules for vessel lights and shapes simulator.
 // Note: Positions are simplified for a 2D representation.
 
@@ -53,34 +54,13 @@ export const COLREG_RULES_DATA = [
         category: 'Propulsión Mecánica',
         rules: [
             {
-                id: 'R23a-gt50',
-                title: 'Buque de P.M. en navegación (>50m)',
-                description: 'Buque de eslora > 50m en navegación.',
+                id: 'R23a',
+                title: 'Buque de P.M. en navegación',
+                description: 'Buque de propulsión mecánica en navegación.',
                 svg: commonSVG.power_gt50,
                 lights: PDV_LIGHTS,
                 marks: [],
-                explanation: "Un buque de P.M. de eslora igual o superior a 50m debe exhibir:\n- Dos luces de tope (la de proa más baja que la de popa).\n- Luces de costado.\n- Luz de alcance."
-            },
-            {
-                id: 'R23a-lt50',
-                title: 'Buque de P.M. en navegación (<50m)',
-                description: 'Buque de eslora < 50m en navegación.',
-                svg: commonSVG.power_lt50,
-                lights: [PDV_LIGHTS[0], PDV_LIGHTS[2], PDV_LIGHTS[3], PDV_LIGHTS[4]],
-                marks: [],
-                explanation: "Un buque de P.M. de eslora inferior a 50m debe exhibir:\n- Una luz de tope (la segunda es opcional).\n- Luces de costado.\n- Luz de alcance."
-            },
-            {
-                id: 'R23a-lt12',
-                title: 'Buque de P.M. en navegación (<12m)',
-                description: 'Buque de eslora < 12m en navegación.',
-                svg: commonSVG.power_lt12,
-                lights: [
-                    { id: 'allround-white', color: 'white', desc: 'Luz blanca todo horizonte', arc: { bow: true, starboard: true, stern: true}, position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } },
-                    PDV_LIGHTS[2], PDV_LIGHTS[3]
-                ],
-                marks: [],
-                explanation: "Un buque de P.M. de eslora inferior a 12m puede exhibir, en lugar de las luces de un buque mayor, una luz blanca todo horizonte y las luces de costado."
+                explanation: "Un buque de propulsión mecánica (P.M.) en navegación exhibirá:\n- Una luz de tope en proa (dos si >50m, la de popa más alta).\n- Luces de costado.\n- Una luz de alcance.\n\nExcepciones:\n- **<50m:** La segunda luz de tope es opcional.\n- **<12m:** Puede exhibir una luz blanca todo horizonte y luces de costado.\n- **<7m y vel. max <7kn:** Puede exhibir una luz blanca todo horizonte y, si es posible, luces de costado."
             },
              {
                 id: 'R23c',
@@ -100,9 +80,9 @@ export const COLREG_RULES_DATA = [
         category: 'Remolque y Empuje',
         rules: [
             {
-                id: 'R24a-lt200',
-                title: 'Remolcando (remolque < 200m)',
-                description: 'Buque remolcando y longitud de remolque < 200m.',
+                id: 'R24a',
+                title: 'Remolcando',
+                description: 'Buque de P.M. remolcando por la popa.',
                 svg: commonSVG.tug,
                 lights: [
                     { ...PDV_LIGHTS[0], desc: 'Luz de tope #1 (vertical)', position: { bow: { x: 50, y: 25 }, starboard: { x: 30, y: 25 }, stern: { x: 0, y: 0 } } },
@@ -111,35 +91,18 @@ export const COLREG_RULES_DATA = [
                     { id: 'towing-light', color: 'yellow', desc: 'Luz de remolque (135°)', arc: { bow: false, starboard: true, stern: true }, position: { bow: { x: 0, y: 0 }, starboard: { x: 95, y: 45 }, stern: { x: 50, y: 45 } } },
                 ],
                 marks: [
-                     { id: 'diamond-tow', shape: 'diamond', desc: 'Una marca bicónica donde mejor pueda verse (solo si remolque > 200m).', position: { bow: { x: 0, y: 0 }, starboard: { x: 0, y: 0 }, stern: { x: 0, y: 0 } } },
+                     { id: 'diamond-tow', shape: 'diamond', desc: 'Una marca bicónica donde mejor pueda verse (solo si remolque > 200m).', position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "Un buque remolcando exhibe dos luces de tope en línea vertical. La luz de alcance es reemplazada por una luz de remolque amarilla. El objeto remolcado debe exhibir luces de costado y de alcance."
-            },
-            {
-                id: 'R24a-gt200',
-                title: 'Remolcando (remolque > 200m)',
-                description: 'Buque remolcando y longitud de remolque > 200m.',
-                svg: commonSVG.tug,
-                lights: [
-                    { ...PDV_LIGHTS[0], desc: 'Luz de tope #1 (vertical)', position: { bow: { x: 50, y: 25 }, starboard: { x: 30, y: 25 }, stern: { x: 0, y: 0 } } },
-                    { id: 'masthead-2', color: 'white', desc: 'Luz de tope #2 (vertical)', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 32 }, starboard: { x: 30, y: 32 }, stern: { x: 0, y: 0 } } },
-                    { id: 'masthead-3', color: 'white', desc: 'Luz de tope #3 (vertical)', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 39 }, starboard: { x: 30, y: 39 }, stern: { x: 0, y: 0 } } },
-                    PDV_LIGHTS[2], PDV_LIGHTS[3],
-                    { id: 'towing-light', color: 'yellow', desc: 'Luz de remolque (135°)', arc: { bow: false, starboard: true, stern: true }, position: { bow: { x: 0, y: 0 }, starboard: { x: 95, y: 45 }, stern: { x: 50, y: 45 } } },
-                ],
-                marks: [
-                    { id: 'diamond-tow', shape: 'diamond', desc: 'Una marca bicónica en el remolcador y en el remolcado.', position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } },
-                ],
-                explanation: "Si la longitud del remolque (desde la popa del remolcador al extremo del remolcado) es mayor de 200m, se exhiben tres luces de tope en vertical. De día, tanto el remolcador como el remolcado exhiben una marca bicónica."
+                explanation: "Un buque remolcando exhibe:\n- Dos luces de tope en línea vertical (tres si el remolque >200m).\n- Luces de costado.\n- Una luz de remolque (amarilla) por encima de la luz de alcance.\n\nDe día, si el remolque >200m, tanto el remolcador como el remolcado exhibirán una marca bicónica. El buque remolcado exhibe luces de costado y de alcance."
             },
              {
                 id: 'R24c',
-                title: 'Buque que empuja',
-                description: 'Unidad que empuja conectada de forma rígida.',
+                title: 'Buque que empuja o remolca por el costado',
+                description: 'Unidad que empuja o remolca abarloada.',
                 svg: commonSVG.tug,
                 lights: PDV_LIGHTS,
                 marks: [],
-                explanation: "Un buque que empuja y la unidad empujada, si están conectados de forma rígida formando una unidad compuesta, se consideran como un solo buque de propulsión mecánica y exhiben las luces correspondientes a su eslora."
+                explanation: "Un buque que empuja y la unidad empujada, si están conectados de forma rígida formando una unidad compuesta, se consideran como un solo buque de P.M. y exhiben las luces correspondientes a su eslora.\nUn buque remolcando por el costado exhibe las luces de un buque de P.M., más dos luces de tope en vertical."
             },
         ]
     },
@@ -155,20 +118,7 @@ export const COLREG_RULES_DATA = [
                     PDV_LIGHTS[2], PDV_LIGHTS[3], PDV_LIGHTS[4]
                 ],
                 marks: [],
-                explanation: "Debe exhibir luces de costado y luz de alcance. Puede llevarlas en un farol combinado en el tope del palo (para esloras < 20m)."
-            },
-            {
-                id: 'R25a-optional',
-                title: 'Buque de vela (con luces opcionales)',
-                description: 'Un buque de vela con luces opcionales en el palo.',
-                svg: commonSVG.sailing,
-                lights: [
-                    PDV_LIGHTS[2], PDV_LIGHTS[3], PDV_LIGHTS[4],
-                    { id: 'allround-red-sail', color: 'red', desc: 'Luz roja todo horizonte (opcional)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 15 }, starboard: { x: 90, y: 15 }, stern: { x: 50, y: 15 } } },
-                    { id: 'allround-green-sail', color: 'green', desc: 'Luz verde todo horizonte (opcional, debajo)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 22 }, starboard: { x: 90, y: 22 }, stern: { x: 50, y: 22 } } },
-                ],
-                marks: [],
-                explanation: "Además de las luces básicas, un velero puede exhibir en el tope del palo dos luces todo horizonte en línea vertical: roja sobre verde. Estas luces no deben mostrarse junto con el farol combinado."
+                explanation: "Debe exhibir luces de costado y luz de alcance. \n\nOpcionalmente puede llevar:\n- Un farol combinado en el tope del palo (si <20m).\n- Dos luces todo horizonte en el tope del palo (roja sobre verde). Estas no deben mostrarse junto con el farol combinado."
             },
             {
                 id: 'R25e',
@@ -179,7 +129,7 @@ export const COLREG_RULES_DATA = [
                 marks: [
                     { id: 'cone-down', shape: 'cone-down', desc: 'Un cono con el vértice hacia abajo.', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "Un buque que navega a vela y simultáneamente a motor se considera un buque de propulsión mecánica. De día debe exhibir, en el lugar más visible, una marca cónica con el vértice hacia abajo."
+                explanation: "Un buque que navega a vela y simultáneamente a motor se considera un buque de propulsión mecánica a efectos de luces y marcas. De día debe exhibir, en el lugar más visible, una marca cónica con el vértice hacia abajo."
             }
         ]
     },
@@ -194,7 +144,7 @@ export const COLREG_RULES_DATA = [
                 lights: [
                     { id: 'trawl-g', color: 'green', desc: 'Luz verde todo horizonte', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                     { id: 'trawl-w', color: 'white', desc: 'Luz blanca todo horizonte (debajo)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
-                    { ...PDV_LIGHTS[0], desc: "Luz de tope adicional (detrás y más alta que la verde)"},
+                    { ...PDV_LIGHTS[0], desc: "Luz de tope adicional (si >50m, detrás y más alta que la verde)"},
                     { ...PDV_LIGHTS[2], desc: 'Luz de costado de estribor (con arrancada)' },
                     { ...PDV_LIGHTS[3], desc: 'Luz de costado de babor (con arrancada)' },
                     { ...PDV_LIGHTS[4], desc: 'Luz de alcance (con arrancada)' },
@@ -202,7 +152,7 @@ export const COLREG_RULES_DATA = [
                 marks: [
                     { id: 'trawl-mark', shape: 'bicone-point-together', desc: 'Dos conos unidos por sus vértices.', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "Señales para un buque de arrastre: dos luces todo horizonte en línea vertical, verde sobre blanca. Si tiene arrancada, también muestra luces de costado y alcance. Si es >50m, debe mostrar una luz de tope a popa y más elevada que la luz verde."
+                explanation: "Un buque de arrastre muestra dos luces todo horizonte en vertical: verde sobre blanca.\n- Si tiene arrancada, también muestra luces de costado y alcance.\n- Si es >50m, debe mostrar una luz de tope a popa y más elevada que la luz verde.\n- De día exhibe dos conos unidos por el vértice."
             },
             {
                 id: 'R26c',
@@ -219,23 +169,7 @@ export const COLREG_RULES_DATA = [
                 marks: [
                     { id: 'trawl-mark', shape: 'bicone-point-together', desc: 'Dos conos unidos por sus vértices.', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "Señales para un buque de pesca que no sea de arrastre: dos luces todo horizonte en línea vertical, roja sobre blanca. Si tiene arrancada, también muestra luces de costado y alcance."
-            },
-            {
-                id: 'R26d',
-                title: 'Pesca (aparejo > 150m)',
-                description: 'Pesca con aparejo extendido más de 150m horizontalmente.',
-                svg: commonSVG.fishing,
-                lights: [
-                    { id: 'fish-r', color: 'red', desc: 'Luz roja todo horizonte', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
-                    { id: 'fish-w', color: 'white', desc: 'Luz blanca todo horizonte (debajo)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
-                    { id: 'gear-light', color: 'white', desc: 'Luz blanca todo horizonte hacia el aparejo', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 80, y: 40 }, starboard: { x: 150, y: 40 }, stern: { x: 80, y: 40 } } },
-                ],
-                marks: [
-                    { id: 'trawl-mark', shape: 'bicone-point-together', desc: 'Dos conos unidos por sus vértices.', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
-                    { id: 'gear-mark', shape: 'cone-up', desc: 'Cono con vértice hacia arriba en dirección al aparejo.', position: { bow: { x: 80, y: 40 }, starboard: { x: 150, y: 40 }, stern: { x: 80, y: 40 } } },
-                ],
-                explanation: "Cuando un buque de pesca tiene su aparejo extendido más de 150m horizontalmente desde el buque, debe exhibir una luz blanca todo horizonte (noche) o un cono con el vértice hacia arriba (día) en la dirección del aparejo."
+                explanation: "Un pesquero que no sea de arrastre muestra dos luces todo horizonte en vertical: roja sobre blanca.\n- Si tiene arrancada, también muestra luces de costado y alcance.\n- Si el aparejo se extiende >150m, debe exhibir una luz blanca o un cono en la dirección del mismo."
             },
         ]
     },
@@ -258,7 +192,7 @@ export const COLREG_RULES_DATA = [
                     { id: 'nuc-b1', shape: 'ball', desc: 'Dos bolas en línea vertical.', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                     { id: 'nuc-b2', shape: 'ball', desc: '', position: { bow: { x: 50, y: 35 }, starboard: { x: 40, y: 35 }, stern: { x: 50, y: 35 } } },
                 ],
-                explanation: "Un buque sin gobierno, por alguna circunstancia excepcional, es incapaz de maniobrar. Si tiene arrancada, deberá mostrar adicionalmente las luces de costado y de alcance."
+                explanation: "Un buque sin gobierno (NUC), por una circunstancia excepcional, es incapaz de maniobrar. Si tiene arrancada, deberá mostrar adicionalmente las luces de costado y de alcance. De lo contrario, no mostrará ni luces de tope ni de alcance."
             },
             {
                 id: 'R27b',
@@ -282,8 +216,8 @@ export const COLREG_RULES_DATA = [
             },
             {
                 id: 'R27d',
-                title: 'Operaciones de buceo',
-                description: 'Buque dedicado a operaciones de buceo.',
+                title: 'Operaciones de buceo o submarinas',
+                description: 'Buque dedicado a operaciones que restringen maniobra, como buceo o dragado.',
                 svg: commonSVG.power_lt50,
                 lights: [
                      { id: 'ram-r1', color: 'red', desc: 'Roja-Blanca-Roja todo horizonte en vertical.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 50, y: 20 } } },
@@ -296,7 +230,7 @@ export const COLREG_RULES_DATA = [
                     { id: 'ram-b2', shape: 'ball', desc: '', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
                     { id: 'flag-a', shape: 'ball', desc: 'Copia rígida de la bandera "A" del C.I.S.', position: { bow: {x:70, y:25}, starboard: {x:70, y:25}, stern: {x:70, y:25}} },
                 ],
-                explanation: "Un buque dedicado a operaciones de buceo debe mostrar las señales de maniobra restringida. Además, de día, una copia rígida de la bandera 'A' del Código Internacional de Señales. Los buques <12m que no puedan exhibir las marcas y luces de maniobra restringida, mostrarán solo la bandera 'A'."
+                explanation: "Aplica a dragaminas, dragas, buques de buceo, etc.\nDeben mostrar las señales de maniobra restringida. Los buques de buceo, si su tamaño lo impide, deben mostrar una copia rígida de la bandera 'A' del Código Internacional, de al menos 1m de altura."
             },
             {
                 id: 'R28',
@@ -312,7 +246,7 @@ export const COLREG_RULES_DATA = [
                 marks: [
                     { id: 'cylinder', shape: 'cylinder', desc: 'Un cilindro.', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "Un buque restringido por su calado, además de las luces de un buque de P.M., puede exhibir tres luces rojas todo horizonte en línea vertical (noche) o un cilindro (día)."
+                explanation: "Un buque restringido por su calado (CBD), además de las luces de un buque de P.M., puede exhibir tres luces rojas todo horizonte en línea vertical (noche) o un cilindro (día)."
             },
         ]
     },
@@ -337,16 +271,16 @@ export const COLREG_RULES_DATA = [
             {
                 id: 'R30a',
                 title: 'Buque fondeado',
-                description: 'Buque > 50m fondeado.',
+                description: 'Buque fondeado.',
                 svg: commonSVG.power_gt50,
                 lights: [
                     { id: 'anchor-fwd', color: 'white', desc: 'Luz de fondeo todo horizonte en proa.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 20, y: 25 }, stern: { x: 50, y: 25 } } },
-                    { id: 'anchor-aft', color: 'white', desc: 'Luz de fondeo todo horizonte en popa (más baja).', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 40 }, starboard: { x: 85, y: 40 }, stern: { x: 50, y: 40 } } },
+                    { id: 'anchor-aft', color: 'white', desc: 'Luz de fondeo todo horizonte en popa (más baja, si >50m).', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 40 }, starboard: { x: 85, y: 40 }, stern: { x: 50, y: 40 } } },
                 ],
                 marks: [
                     { id: 'ball', shape: 'ball', desc: 'Una bola en la proa.', position: { bow: { x: 50, y: 25 }, starboard: { x: 20, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "Un buque fondeado de eslora >= 50m exhibe dos luces blancas todo horizonte (proa y popa, la de proa más alta) y de día una bola en la proa. Los buques de eslora < 50m pueden mostrar solo una luz blanca todo horizonte. Opcionalmente pueden iluminar sus cubiertas."
+                explanation: "Un buque fondeado exhibe una luz blanca todo horizonte (dos si >= 50m, la de proa más alta). De día, una bola en la proa. Opcionalmente pueden iluminar sus cubiertas.\nExcepciones: Buques <7m fondeados fuera de un canal o zona de tráfico pueden no exhibir señales."
             },
             {
                 id: 'R30d',
@@ -354,7 +288,7 @@ export const COLREG_RULES_DATA = [
                 description: 'Buque varado.',
                 svg: commonSVG.power_gt50,
                 lights: [
-                    { id: 'anchor-fwd', color: 'white', desc: 'Dos luces blancas de fondeo.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 20, y: 25 }, stern: { x: 50, y: 25 } } },
+                    { id: 'anchor-fwd', color: 'white', desc: 'Las dos luces blancas de fondeo.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 20, y: 25 }, stern: { x: 50, y: 25 } } },
                     { id: 'aground-r1', color: 'red', desc: 'Dos luces rojas todo horizonte en vertical.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 30 }, starboard: { x: 45, y: 30 }, stern: { x: 55, y: 30 } } },
                     { id: 'aground-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 38 }, starboard: { x: 45, y: 38 }, stern: { x: 55, y: 38 } } },
                 ],
