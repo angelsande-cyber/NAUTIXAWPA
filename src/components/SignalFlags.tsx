@@ -29,7 +29,7 @@ const FlagU = () => <svg viewBox="0 0 15 12"><rect width="7.5" height="6" fill="
 const FlagV = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0 0 L15 12 M0 12 L15 0" stroke="#d72828" strokeWidth="2.5"/></svg>;
 const FlagW = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#0058a7"/><path d="M2 2 H13 V10 H2Z" fill="#fff"/><path d="M4 4 H11 V8 H4Z" fill="#d72828"/></svg>;
 const FlagX = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0 6 H15 M7.5 0 V12" stroke="#0058a7" strokeWidth="2.5"/></svg>;
-const FlagY = () => <svg viewBox="0 0 15 12"><g fill="#d72828"><path d="M0 2.4L2.5 0h2.5L0 6v-3.6zM7.5 0h2.5L0 12v-2.4L7.5 0zM12.5 0H15l-10 12h-2.5L12.5 0z"/></g><g fill="#ffcd00"><path d="M5 0h2.5L0 8.4V6L5 0zM10 0h2.5L2.5 12H0l10-12zM15 0v2.4L5 12H2.5L15 0z"/></g></svg>;
+const FlagY = () => <svg viewBox="0 0 15 12" xmlns="http://www.w3.org/2000/svg"><defs><path id="y-stripe" d="M0,0 L2.72,0 L0,3.27Z" fill="#d72828"/></defs><rect width="15" height="12" fill="#ffcd00"/><use href="#y-stripe" transform="translate(0,0)"/><use href="#y-stripe" transform="translate(5.45,0)"/><use href="#y-stripe" transform="translate(10.9,0)"/><use href="#y-stripe" transform="translate(0,6.53)"/><use href="#y-stripe" transform="translate(5.45,6.53)"/><use href="#y-stripe" transform="translate(10.9,6.53)"/></svg>;
 const FlagZ = () => <svg viewBox="0 0 15 12"><path d="M0 0 L7.5 0 L15 6 L7.5 12 L0 12 L7.5 6 Z" fill="#000" /><path d="M0 0 L7.5 0 L0 6 Z" fill="#ffcd00" /><path d="M7.5 0 L15 0 L15 6 Z" fill="#0058a7" /><path d="M15 12 L7.5 12 L15 6 Z" fill="#d72828" /></svg>;
 
 
