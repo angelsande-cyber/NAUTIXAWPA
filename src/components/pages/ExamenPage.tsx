@@ -15,7 +15,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { cn } from "@/lib/utils";
 
 const LoadingSkeleton = () => (
-    <div className="flex flex-col items-center justify-center h-[calc(100vh-10rem)] p-8 text-center">
+    <div className="flex flex-col items-center justify-center h-full p-8 text-center">
         <Card className="w-full max-w-md p-8">
             <div className="animate-spin mb-4">
                 <RefreshCw className="mx-auto h-12 w-12 text-primary" />
@@ -23,9 +23,9 @@ const LoadingSkeleton = () => (
             <h2 className="text-xl font-semibold">Generando examen con IA</h2>
             <p className="mt-2 text-muted-foreground">Por favor, espera un momento...</p>
              <div className="w-full max-w-sm space-y-4 mt-8">
-              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-6 w-full" />
               <Skeleton className="h-4 w-3/4 mx-auto" />
-              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-10 w-full mt-4" />
             </div>
         </Card>
     </div>
@@ -42,6 +42,7 @@ export default function ExamenPage() {
   const loadQuiz = useCallback(async () => {
     setLoading(true);
     setError(null);
+    setQuiz(null);
     setShowResults(false);
     setUserAnswers({});
     setCurrentQuestionIndex(0);
@@ -140,8 +141,9 @@ export default function ExamenPage() {
                      </AccordionTrigger>
                      <AccordionContent className="space-y-4">
                         <div className="pl-8 text-sm">
-                           <p>Tu respuesta: <span className={cn("font-semibold", !isCorrect && "text-destructive")}>{userAnswer !== undefined ? q.options[userAnswer] : 'No respondida'}</span></p>
-                           {!isCorrect && <p>Respuesta correcta: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
+                           <p>Tu respuesta: <span className={cn("font-semibold", userAnswer === undefined ? "italic" : "", !isCorrect && "text-destructive")}>{userAnswer !== undefined ? q.options[userAnswer] : 'No respondida'}</span></p>
+                           {!isCorrect && userAnswer !== undefined && <p>Respuesta correcta: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
+                           {userAnswer === undefined && <p>Respuesta correcta: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
                         </div>
                         <Alert>
                            <HelpCircle className="h-4 w-4" />
@@ -204,7 +206,7 @@ export default function ExamenPage() {
                 Siguiente
               </Button>
             ) : (
-              <Button onClick={() => setShowResults(true)} disabled={Object.keys(userAnswers).length !== totalQuestions}>
+              <Button onClick={() => setShowResults(true)}>
                 Finalizar y Corregir
               </Button>
             )}
