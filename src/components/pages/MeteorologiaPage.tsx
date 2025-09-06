@@ -156,6 +156,7 @@ export default function MeteorologiaPage() {
                             <div className="grid grid-cols-1 md:grid-cols-3">
                                 <div className="md:col-span-1">
                                     <Image
+                                        unoptimized={true}
                                         src={cloud.imageUrl}
                                         alt={`Imagen de nubes tipo ${cloud.type}`}
                                         width={400}
