@@ -34,7 +34,7 @@ const PDV_LIGHTS = [
     { id: 'masthead-aft', color: 'white', desc: 'Luz de tope de popa (225°)', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 20 }, starboard: { x: 70, y: 20 }, stern: { x: 0, y: 0 } } },
     { id: 'sidelight-stbd', color: 'green', desc: 'Luz de costado de estribor (112.5°)', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 80, y: 50 }, starboard: { x: 50, y: 50 }, stern: { x: 0, y: 0 } } },
     { id: 'sidelight-port', color: 'red', desc: 'Luz de costado de babor (112.5°)', arc: { bow: true, starboard: false, stern: false }, position: { bow: { x: 20, y: 50 }, starboard: { x: 0, y: 0 }, stern: { x: 0, y: 0 } } },
-    { id: 'sternlight', color: 'white', desc: 'Luz de alcance (135°)', arc: { bow: false, starboard: true, stern: true }, position: { bow: { x: 0, y: 0 }, starboard: { x: 95, y: 45 }, stern: { x: 50, y: 45 } } },
+    { id: 'sternlight', color: 'white', desc: 'Luz de alcance (135°)', arc: { bow: false, starboard: false, stern: true }, position: { bow: { x: 0, y: 0 }, starboard: { x: 95, y: 45 }, stern: { x: 50, y: 45 } } },
 ];
 
 export const COLREG_RULES_DATA = [
@@ -56,7 +56,7 @@ export const COLREG_RULES_DATA = [
             { ...PDV_LIGHTS[0], desc: 'Luz de tope #1 (vertical)', position: { bow: { x: 50, y: 25 }, starboard: { x: 30, y: 25 }, stern: { x: 0, y: 0 } } },
             { id: 'masthead-2', color: 'white', desc: 'Luz de tope #2 (vertical)', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 32 }, starboard: { x: 30, y: 32 }, stern: { x: 0, y: 0 } } },
             PDV_LIGHTS[2], PDV_LIGHTS[3],
-            { id: 'towing-light', color: 'yellow', desc: 'Luz de remolque (135°)', arc: { bow: false, starboard: true, stern: true }, position: { bow: { x: 0, y: 0 }, starboard: { x: 95, y: 45 }, stern: { x: 50, y: 45 } } },
+            { id: 'towing-light', color: 'yellow', desc: 'Luz de remolque (135°)', arc: { bow: false, starboard: false, stern: true }, position: { bow: { x: 0, y: 0 }, starboard: { x: 95, y: 45 }, stern: { x: 50, y: 45 } } },
         ],
         marks: [
              { id: 'diamond-tow', shape: 'diamond', desc: 'Una marca bicónica si el remolque supera los 200m.', position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } },
@@ -71,7 +71,9 @@ export const COLREG_RULES_DATA = [
         lights: [
             PDV_LIGHTS[2], PDV_LIGHTS[3], PDV_LIGHTS[4]
         ],
-        marks: [],
+        marks: [
+            { id: 'cone-sailing-motor', shape: 'cone-down', desc: 'Marca cónica (si navega a motor).', position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } },
+        ],
         explanation: "Debe exhibir luces de costado y luz de alcance. \n\nOpcionalmente puede llevar dos luces todo horizonte en el tope del palo (roja sobre verde).\n\nSi navega a motor, se considera buque de P.M. y debe exhibir de día una marca cónica con el vértice hacia abajo."
     },
     {
@@ -83,6 +85,7 @@ export const COLREG_RULES_DATA = [
             { id: 'trawl-g', color: 'green', desc: 'Luz verde todo horizonte (Arrastre)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
             { id: 'trawl-w', color: 'white', desc: 'Luz blanca todo horizonte (debajo)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
             { ...PDV_LIGHTS[2], desc: 'Luces de costado (con arrancada)' },
+            { ...PDV_LIGHTS[3], desc: 'Luces de costado (con arrancada)' },
             { ...PDV_LIGHTS[4], desc: 'Luz de alcance (con arrancada)' },
         ],
         marks: [
@@ -100,6 +103,10 @@ export const COLREG_RULES_DATA = [
             { id: 'ram-w', color: 'white', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
             { id: 'ram-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 50, y: 36 } } },
             {...PDV_LIGHTS[0], desc: "Luces de P.M. (solo si tiene arrancada)"},
+            {...PDV_LIGHTS[1], desc: "Luces de P.M. (solo si tiene arrancada)"},
+            {...PDV_LIGHTS[2], desc: "Luces de P.M. (solo si tiene arrancada)"},
+            {...PDV_LIGHTS[3], desc: "Luces de P.M. (solo si tiene arrancada)"},
+            {...PDV_LIGHTS[4], desc: "Luces de P.M. (solo si tiene arrancada)"},
         ],
         marks: [
             { id: 'ram-b1', shape: 'ball', desc: 'Bola-Bicónica-Bola en vertical.', position: { bow: { x: 50, y: 15 }, starboard: { x: 40, y: 15 }, stern: { x: 50, y: 15 } } },
@@ -147,6 +154,7 @@ export const COLREG_RULES_DATA = [
             { id: 'pilot-w', color: 'white', desc: 'Luz blanca todo horizonte.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
             { id: 'pilot-r', color: 'red', desc: 'Luz roja todo horizonte (debajo).', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
             { ...PDV_LIGHTS[2], desc: 'Luces de costado (si navega).' },
+            { ...PDV_LIGHTS[3], desc: 'Luces de costado (si navega).' },
             { ...PDV_LIGHTS[4], desc: 'Luz de alcance (si navega).' },
         ],
         marks: [],
