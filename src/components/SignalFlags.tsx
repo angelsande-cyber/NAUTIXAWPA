@@ -4,9 +4,9 @@ import React from 'react';
 
 // --- Flag SVG Components ---
 
-// NOTE: Using a 15:12 aspect ratio for flags, and 20:12 for pennants to give them a bit more length.
-const FlagA = () => <svg viewBox="0 0 20 12"><path d="M0,0 h10 v12 h-10 z" fill="#fff" /><path d="M10,0 h5 l5,6 l-5,6 h-5 z" fill="#0058a7" /></svg>;
-const FlagB = () => <svg viewBox="0 0 20 12"><path d="M0,0 h15 l5,6 l-5,6 h-15 z" fill="#d72828" /></svg>;
+// NOTE: Using a 20:12 aspect ratio for flags, and 20:12 for pennants to give them a bit more length.
+const FlagA = () => <svg viewBox="0 0 20 12"><path d="M0,0 H10 V12 H0Z" fill="#fff" /><path d="M10,0 H20 L15,6 L20,12 H10Z" fill="#0058a7" /></svg>;
+const FlagB = () => <svg viewBox="0 0 20 12"><path d="M0,0 H20 L15,6 L20,12 H0Z" fill="#d72828" /></svg>;
 const FlagC = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V2.4 H0Z" fill="#0058a7"/><path d="M0,2.4 H15 V4.8 H0Z" fill="#fff"/><path d="M0,4.8 H15 V7.2 H0Z" fill="#d72828"/><path d="M0,7.2 H15 V9.6 H0Z" fill="#fff"/><path d="M0,9.6 H15 V12 H0Z" fill="#0058a7"/></svg>;
 const FlagD = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V12 H0Z" fill="#ffcd00"/><path d="M0,4 H15 V8 H0Z" fill="#0058a7"/></svg>;
 const FlagE = () => <svg viewBox="0 0 15 12"><path d="M0,0 H15 V6 H0Z" fill="#0058a7"/><path d="M0,6 H15 V12 H0Z" fill="#d72828"/></svg>;
