@@ -13,9 +13,9 @@ const Num0 = () => (
             </clipPath>
         </defs>
         <g clipPath="url(#clipPennant0)">
-            <path d="M0,0 H6.66 V12 H0Z" fill="#ffcd00" />
-            <path d="M6.66,0 H13.33 V12 H6.66Z" fill="#d72828" />
-            <path d="M13.33,0 H20 V12 H13.33Z" fill="#ffcd00" />
+            <rect x="0" y="0" width="6.66" height="12" fill="#ffcd00" />
+            <rect x="6.66" y="0" width="6.67" height="12" fill="#d72828" />
+            <rect x="13.33" y="0" width="6.67" height="12" fill="#ffcd00" />
         </g>
         <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
@@ -30,9 +30,9 @@ const Num3 = () => (
             </clipPath>
         </defs>
         <g clipPath="url(#clipPennant3)">
-            <path d="M0,0 H6.6 V12 H0Z" fill="#d72828" />
-            <path d="M6.6,0 H13.3 V12 H6.6Z" fill="#fff" />
-            <path d="M13.3,0 H20 V12 H13.3Z" fill="#0058a7" />
+            <rect x="0" y="0" width="6.6" height="12" fill="#d72828" />
+            <rect x="6.6" y="0" width="6.8" height="12" fill="#fff" />
+            <rect x="13.4" y="0" width="6.6" height="12" fill="#0058a7" />
         </g>
         <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
@@ -44,10 +44,11 @@ const Num4 = () => (
                 <path d={pennantShapeTapered} />
             </clipPath>
         </defs>
-        <path d={pennantShapeTapered} fill="#d72828" stroke="#4A4A4A" strokeWidth="0.5" />
         <g clipPath="url(#clipPennant4)">
+            <path d="M0,0 H20 V12 H0 Z" fill="#d72828" />
             <path d="M-1 6 H21 M10 -1 V13" stroke="#fff" strokeWidth="2.5" />
         </g>
+        <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
 );
 const Num5 = () => (
@@ -99,10 +100,11 @@ const Num8 = () => (
                 <path d={pennantShapeTapered} />
             </clipPath>
         </defs>
-        <path d={pennantShapeTapered} fill="#fff" stroke="#4A4A4A" strokeWidth="0.5" />
         <g clipPath="url(#clipPennant8)">
+            <path d="M0,0 H20 V12 H0 Z" fill="#fff" />
             <path d="M-1 6 H21 M10 -1 V13" stroke="#d72828" strokeWidth="2.5" />
         </g>
+        <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
 );
 const Num9 = () => (
@@ -114,9 +116,9 @@ const Num9 = () => (
         </defs>
         <g clipPath="url(#clipPennant9)">
             <path d="M0,0 H10 V6 H0Z" fill="#fff" />
-            <path d="M10,0 H20 V6 H10Z" fill="#d72828" />
-            <path d="M0,6 H10 V12 H0Z" fill="#ffcd00" />
-            <path d="M10,6 H20 V12 H10Z" fill="#000" />
+            <path d="M10,0 H20 V6 H10Z" fill="#000" />
+            <path d="M0,6 H10 V12 H0Z" fill="#d72828" />
+            <path d="M10,6 H20 V12 H10Z" fill="#ffcd00" />
         </g>
         <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
