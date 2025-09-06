@@ -448,16 +448,12 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
 // --- Buques Simulator Component ---
 
 const BuquesSimulator = () => {
-    const [selectedRule, setSelectedRule] = useState(COLREG_RULES_DATA[0].rules[0].id);
+    const [selectedRule, setSelectedRule] = useState(COLREG_RULES_DATA[0].id);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
 
     const ruleData = useMemo(() => {
-        for (const category of COLREG_RULES_DATA) {
-            const foundRule = category.rules.find(r => r.id === selectedRule);
-            if (foundRule) return foundRule;
-        }
-        return null;
+        return COLREG_RULES_DATA.find(r => r.id === selectedRule) || null;
     }, [selectedRule]);
 
     const colorMap: { [key: string]: string } = {
@@ -543,13 +539,8 @@ const BuquesSimulator = () => {
                             <SelectValue placeholder="Selecciona una regla..." />
                         </SelectTrigger>
                         <SelectContent>
-                             {COLREG_RULES_DATA.map(category => (
-                                <SelectGroup key={category.category}>
-                                    <Label className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">{category.category}</Label>
-                                    {category.rules.map(rule => (
-                                        <SelectItem key={rule.id} value={rule.id}>{rule.title}</SelectItem>
-                                    ))}
-                                </SelectGroup>
+                             {COLREG_RULES_DATA.map(rule => (
+                                <SelectItem key={rule.id} value={rule.id}>{rule.title}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
