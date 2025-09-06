@@ -167,8 +167,6 @@ export default function ExamenPage() {
     );
   }
 
-  const isAnswered = userAnswers.hasOwnProperty(currentQuestionIndex);
-
   return (
     <div className="p-4 md:p-6">
       <Card className="w-full max-w-3xl mx-auto">
