@@ -448,13 +448,25 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
 // --- Buques Simulator Component ---
 
 const BuquesSimulator = () => {
-    const [selectedRule, setSelectedRule] = useState(COLREG_RULES_DATA[0].id);
+    const [selectedRuleId, setSelectedRuleId] = useState(COLREG_RULES_DATA[0].id);
+    const [selectedStateId, setSelectedStateId] = useState(0);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
 
     const ruleData = useMemo(() => {
-        return COLREG_RULES_DATA.find(r => r.id === selectedRule) || null;
-    }, [selectedRule]);
+        return COLREG_RULES_DATA.find(r => r.id === selectedRuleId) || null;
+    }, [selectedRuleId]);
+
+    const stateData = useMemo(() => {
+        if (!ruleData) return null;
+        return ruleData.states?.[selectedStateId] || ruleData;
+    }, [ruleData, selectedStateId]);
+    
+    // Reset state index when rule changes
+    useEffect(() => {
+        setSelectedStateId(0);
+    }, [selectedRuleId]);
+
 
     const colorMap: { [key: string]: string } = {
         white: 'white',
@@ -478,9 +490,9 @@ const BuquesSimulator = () => {
     }
 
     const renderLights = () => {
-        if (!ruleData) return null;
+        if (!stateData || !stateData.lights) return null;
         
-        return ruleData.lights.map(light => {
+        return stateData.lights.map(light => {
             const isVisible = light.arc[view];
             if (!isVisible) return null;
             
@@ -502,9 +514,9 @@ const BuquesSimulator = () => {
     }
     
     const renderMarks = () => {
-        if (!ruleData || !ruleData.marks) return null;
+        if (!stateData || !stateData.marks) return null;
 
-        return ruleData.marks.map(mark => {
+        return stateData.marks.map(mark => {
             const style = { 
                 left: `${mark.position[view].x}%`, 
                 top: `${mark.position[view].y}%`,
@@ -519,7 +531,7 @@ const BuquesSimulator = () => {
                 case 'diamond': markSvg = <><polygon points="2,12 22,12 12,2" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
                 case 'cylinder': markSvg = <rect x="4" y="2" width="16" height="20" fill={C}/>; break;
                 case 'basket': markSvg = <rect x="4" y="2" width="16" height="16" stroke={C} strokeWidth="2" fill="transparent"/>; break;
-                case 'bicone-vertex-together': markSvg = <><polygon points="2,2 22,2 12,12" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
+                case 'cones-vertex-together': markSvg = <><polygon points="2,12 22,12 12,2" fill={C} /><polygon points="2,12 22,12 12,22" fill={C} transform="translate(0, 0)" /></>; break;
             }
             return (
                  <div key={mark.id} className="absolute w-6 h-6" style={style}>
@@ -534,7 +546,7 @@ const BuquesSimulator = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                  <div className="md:col-span-2">
                     <Label>Situación / Tipo de Buque</Label>
-                    <Select value={selectedRule} onValueChange={setSelectedRule}>
+                    <Select value={selectedRuleId} onValueChange={setSelectedRuleId}>
                         <SelectTrigger className="w-full mt-2">
                             <SelectValue placeholder="Selecciona una regla..." />
                         </SelectTrigger>
@@ -545,6 +557,18 @@ const BuquesSimulator = () => {
                         </SelectContent>
                     </Select>
                  </div>
+                 {ruleData?.states && ruleData.states.length > 1 && (
+                     <div>
+                        <Label>Caso Específico</Label>
+                        <div className="flex flex-wrap gap-2 mt-2">
+                            {ruleData.states.map((state, index) => (
+                                <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} className="flex-1" onClick={() => setSelectedStateId(index)}>
+                                    {state.title}
+                                </Button>
+                            ))}
+                        </div>
+                     </div>
+                 )}
                  <div>
                     <Label>Vista</Label>
                      <div className="flex flex-wrap gap-2 mt-2">
@@ -555,7 +579,7 @@ const BuquesSimulator = () => {
                         ))}
                     </div>
                  </div>
-                 <div>
+                 <div className={cn(ruleData?.states && ruleData.states.length > 1 ? 'md:col-start-2' : '')}>
                     <Label>Condición</Label>
                     <div className="flex flex-wrap gap-2 mt-2 h-10">
                         <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/> Día</Button>
@@ -584,13 +608,13 @@ const BuquesSimulator = () => {
 
                     {/* Ship Schematic */}
                     <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'starboard' ? 'opacity-100' : 'opacity-0')}>
-                        {ruleData?.svg.side}
+                        {stateData?.svg?.side}
                     </div>
                     <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'bow' ? 'opacity-100' : 'opacity-0')}>
-                        {ruleData?.svg.front}
+                        {stateData?.svg?.front}
                     </div>
                     <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'stern' ? 'opacity-100' : 'opacity-0')}>
-                        {ruleData?.svg.back}
+                        {stateData?.svg?.back}
                     </div>
 
                     {/* Lights & Marks */}
@@ -601,28 +625,28 @@ const BuquesSimulator = () => {
                  </div>
 
                  <div className="text-left mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
-                    <h4 className="font-bold">{ruleData?.title}</h4>
-                    <p className="text-sm text-muted-foreground italic mb-2">{ruleData?.description}</p>
+                    <h4 className="font-bold">{ruleData?.title}: {stateData?.title}</h4>
+                    <p className="text-sm text-muted-foreground italic mb-2">{stateData?.description}</p>
                     <div className="text-sm border-t pt-2 space-y-3">
                         <div>
                             <strong className="block mb-1">{isNight ? "Luces Requeridas:" : "Marcas Requeridas:"}</strong>
                             {isNight ? (
                                 <ul className="list-disc list-inside space-y-1">
-                                    {ruleData?.lights.map(l => l.desc && <li key={l.id}>{l.desc}</li>)}
+                                    {stateData?.lights?.map(l => l.desc && <li key={l.id}>{l.desc}</li>)}
                                 </ul>
                             ) : (
                                 <ul className="list-disc list-inside space-y-1">
-                                    {ruleData?.marks && ruleData.marks.length > 0 ? 
-                                        ruleData.marks.map(m => m.desc && <li key={m.id}>{m.desc}</li>) :
+                                    {stateData?.marks && stateData.marks.length > 0 ? 
+                                        stateData.marks.map(m => m.desc && <li key={m.id}>{m.desc}</li>) :
                                         <li>Ninguna marca requerida.</li>
                                     }
                                 </ul>
                             )}
                         </div>
-                        {ruleData?.explanation && (
+                        {stateData?.explanation && (
                             <div className="border-t pt-2">
                                 <strong className="block mb-1">Explicación y Excepciones:</strong>
-                                <p className="text-xs text-muted-foreground whitespace-pre-line">{ruleData.explanation}</p>
+                                <p className="text-xs text-muted-foreground whitespace-pre-line">{stateData.explanation}</p>
                             </div>
                         )}
                     </div>
