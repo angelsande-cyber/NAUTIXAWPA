@@ -7,7 +7,7 @@ export const QuestionSchema = z.object({
   explanation: z.string().describe("Una explicación breve y clara de la respuesta correcta."),
 });
 
-export const QuizOutputSchema = z.array(QuestionSchema).length(10);
+export const QuizOutputSchema = z.array(QuestionSchema);
 
 export type PerQuestion = z.infer<typeof QuestionSchema>;
 export type QuizOutput = z.infer<typeof QuizOutputSchema>;

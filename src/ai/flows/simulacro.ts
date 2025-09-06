@@ -10,6 +10,7 @@ import { QuizOutput, QuizOutputSchema } from '@/ai/schemas/simulacro-schema';
 
 const quizPrompt = ai.definePrompt({
     name: 'perQuizPrompt',
+    model: 'googleai/gemini-2.5-pro',
     output: { schema: QuizOutputSchema },
     prompt: `
             Eres un experto instructor náutico y examinador para la titulación de Patrón de Embarcaciones de Recreo (PER) en España.
