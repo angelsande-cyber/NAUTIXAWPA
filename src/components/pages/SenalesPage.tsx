@@ -7,8 +7,11 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { IALA_BUOY_DATA, LIGHT_CHARACTERISTIC_TERMS } from "@/lib/data/senales";
-import { useEffect, useState, useCallback } from "react";
+import { COLREG_RULES_DATA } from "@/lib/data/buques.tsx";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Eye, Moon, Sun } from "lucide-react";
 
 
 // --- Helper Functions (moved from simulation.ts) ---
@@ -148,7 +151,7 @@ function runSimulation(
     };
 
     runSequence();
-    simulationTimeout = window.setInterval(runSequence, char.period * 1000);
+    simulationTimeout = window.setInterval(runSequence, char.period! * 1000);
     
     const esDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.es || char.rhythm} ${char.group ? `de grupo (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.es).join(' y ')} con un período de ${char.period}s.`;
     const enDesc = `${LIGHT_CHARACTERISTIC_TERMS[char.rhythm]?.en || char.rhythm} ${char.group ? `group (${char.group})` : ''} ${char.colors.map(c => LIGHT_CHARACTERISTIC_TERMS[c]?.en).join(' & ')} with a period of ${char.period}s.`;
@@ -195,9 +198,6 @@ const LighthouseSimulator = () => {
         if(manualChar){
             handleSimulate();
         }
-    }, [manualChar, handleSimulate]);
-    
-    useEffect(() => {
         // Cleanup on component unmount
         return () => {
             if (simulationTimeout) {
@@ -205,7 +205,7 @@ const LighthouseSimulator = () => {
                 simulationTimeout = null;
             }
         }
-    }, []);
+    }, [manualChar, handleSimulate]);
 
     const controlSections = [
         { label: "RITMO / RHYTHM", stateSetter: setRhythm, selectedValue: rhythm, options: ['F', 'FL', 'LFL', 'OC', 'ISO', 'Q', 'VQ', 'MO'] },
@@ -333,6 +333,16 @@ const BuoySimulator = () => {
             if(buoySchematicEl) buoySchematicEl.innerHTML = '';
         }
     }, [region, activeCategory]);
+    
+     useEffect(() => {
+        // Cleanup on component unmount
+        return () => {
+            if (simulationTimeout) {
+                clearInterval(simulationTimeout);
+                simulationTimeout = null;
+            }
+        }
+    }, []);
 
     const buoyTypesForCategory = IALA_BUOY_DATA.filter(b => {
         if (b.category !== activeCategory) return false;
@@ -435,27 +445,206 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
 };
 
 
+// --- Buques Simulator Component ---
+
+const BuquesSimulator = () => {
+    const [selectedRule, setSelectedRule] = useState(COLREG_RULES_DATA[0].rule);
+    const [isNight, setIsNight] = useState(true);
+    const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
+
+    const ruleData = useMemo(() => COLREG_RULES_DATA.find(r => r.rule === selectedRule), [selectedRule]);
+
+    const colorMap: { [key: string]: string } = {
+        white: 'hsl(var(--foreground))',
+        red: '#EF4444',
+        green: '#22C55E',
+        yellow: '#EAB308',
+        blue: '#3B82F6',
+    };
+    
+    const lightColor = (color: string) => isNight ? colorMap[color] : 'hsl(var(--muted-foreground))';
+    const lightEffect = (color: string) => {
+        if (!isNight) return '';
+        switch(color) {
+            case 'white': return 'w-on';
+            case 'red': return 'r-on';
+            case 'green': return 'g-on';
+            case 'yellow': return 'y-on';
+            case 'blue': return 'bu-on';
+            default: return '';
+        }
+    }
+
+    const renderLights = () => {
+        if (!ruleData) return null;
+        
+        return ruleData.lights.map(light => {
+            const isVisible = light.arc[view];
+            if (!isVisible) return null;
+
+            const baseClasses = "light-element absolute rounded-full";
+            const onClasses = isVisible ? lightEffect(light.color) : '';
+            const style = { 
+                left: `${light.position[view].x}%`, 
+                top: `${light.position[view].y}%`,
+                width: '8px', height: '8px',
+                transform: 'translate(-50%, -50%)',
+                backgroundColor: lightColor(light.color),
+            };
+
+            return <div key={light.id} className={cn(baseClasses, isVisible && 'on', onClasses)} style={style} />;
+        })
+    }
+    
+    const renderMarks = () => {
+        if (!ruleData || !ruleData.marks) return null;
+
+        return ruleData.marks.map(mark => {
+            const style = { 
+                left: `${mark.position[view].x}%`, 
+                top: `${mark.position[view].y}%`,
+                transform: 'translate(-50%, -50%)',
+            };
+            const C = 'hsl(var(--foreground))';
+            let markSvg;
+            switch(mark.shape) {
+                case 'ball': markSvg = <circle cx="12" cy="12" r="10" fill={C} />; break;
+                case 'cone-up': markSvg = <polygon points="2,22 22,22 12,2" fill={C}/>; break;
+                case 'cone-down': markSvg = <polygon points="2,2 22,2 12,22" fill={C}/>; break;
+                case 'diamond': markSvg = <polygon points="12,2 22,12 12,22 2,12" fill={C}/>; break;
+                case 'cylinder': markSvg = <rect x="4" y="2" width="16" height="20" fill={C}/>; break;
+                case 'basket': markSvg = <rect x="4" y="2" width="16" height="16" stroke={C} strokeWidth="2" fill="transparent"/>; break;
+                default: return null;
+            }
+            return (
+                 <div key={mark.id} className="absolute w-6 h-6" style={style}>
+                    <svg viewBox="0 0 24 24">{markSvg}</svg>
+                 </div>
+            )
+        })
+    }
+
+    return (
+        <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                 <div className="md:col-span-2">
+                    <Label>Situación / Tipo de Buque</Label>
+                    <Select value={selectedRule} onValueChange={setSelectedRule}>
+                        <SelectTrigger className="w-full mt-2">
+                            <SelectValue placeholder="Selecciona una regla..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {COLREG_RULES_DATA.map(rule => (
+                                <SelectItem key={rule.rule} value={rule.rule}>{rule.title}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                 </div>
+                 <div>
+                    <Label>Vista</Label>
+                     <div className="flex flex-wrap gap-2 mt-2">
+                        {(['bow', 'starboard', 'stern'] as const).map(v => (
+                            <Button key={v} variant={view === v ? 'default' : 'outline'} className="flex-1" onClick={() => setView(v)}>
+                                {v === 'bow' ? 'Proa' : v === 'starboard' ? 'Estribor' : 'Popa'}
+                            </Button>
+                        ))}
+                    </div>
+                 </div>
+                 <div>
+                    <Label>Condición</Label>
+                    <div className="flex flex-wrap gap-2 mt-2 h-10">
+                        <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/> Día</Button>
+                        <Button variant={isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(true)}><Moon className="mr-2 h-4 w-4"/> Noche</Button>
+                    </div>
+                 </div>
+            </div>
+
+            <div className="mt-6 flex flex-col items-center">
+                 <div className="relative w-full aspect-video bg-muted rounded-lg overflow-hidden">
+                    {/* Background */}
+                    <div className={cn("absolute inset-0 transition-colors duration-500", isNight ? 'bg-indigo-950' : 'bg-blue-200')}>
+                        {isNight && <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-700/20 via-transparent to-black" />}
+                        <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-black/20 to-transparent" />
+                    </div>
+                    
+                    {/* Water */}
+                    <div className="absolute bottom-[30%] left-0 right-0 h-[33%]">
+                        <svg width="100%" height="100%" preserveAspectRatio="none" viewBox="0 0 1440 120">
+                            <path d="M0,48L48,53.3C96,59,192,75,288,80C384,85,480,80,576,69.3C672,59,768,43,864,42.7C960,43,1056,59,1152,64C1248,69,1344,64,1392,61.3L1440,59L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z" 
+                            fill={isNight ? 'hsl(var(--primary)/0.3)' : 'hsl(var(--primary)/0.5)'}
+                            className="opacity-50"
+                            ></path>
+                        </svg>
+                    </div>
+
+                    {/* Ship Schematic */}
+                    <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'starboard' ? 'opacity-100' : 'opacity-0')}>
+                        {ruleData?.svg.side}
+                    </div>
+                    <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'bow' ? 'opacity-100' : 'opacity-0')}>
+                        {ruleData?.svg.front}
+                    </div>
+                    <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'stern' ? 'opacity-100' : 'opacity-0')}>
+                        {ruleData?.svg.back}
+                    </div>
+
+                    {/* Lights & Marks */}
+                    <div className="absolute inset-0">
+                        {isNight && renderLights()}
+                        {!isNight && renderMarks()}
+                    </div>
+                 </div>
+
+                 <div className="text-left mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
+                    <h4 className="font-bold">{ruleData?.title}</h4>
+                    <p className="text-sm text-muted-foreground italic mb-2">{ruleData?.description}</p>
+                    <div className="text-sm border-t pt-2">
+                        <strong className="block mb-1">{isNight ? "Luces Requeridas:" : "Marcas Requeridas:"}</strong>
+                        {isNight ? (
+                             <ul className="list-disc list-inside space-y-1">
+                                {ruleData?.lights.map(l => <li key={l.id}>{l.desc}</li>)}
+                            </ul>
+                        ) : (
+                             <ul className="list-disc list-inside space-y-1">
+                                {ruleData?.marks && ruleData.marks.length > 0 ? 
+                                    ruleData.marks.map(m => <li key={m.id}>{m.desc}</li>) :
+                                    <li>Ninguna marca requerida.</li>
+                                }
+                            </ul>
+                        )}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+
+}
+
 // --- Main Page Component ---
 export default function SenalesPage() {
     return (
         <div className="p-4 md:p-6">
-            <Card className="w-full max-w-2xl mx-auto">
+            <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
                     <CardTitle>Simulador de Señales Marítimas</CardTitle>
                      <CardDescription>
-                        Herramienta interactiva para aprender a identificar las características de las luces de faros y las marcas de balizamiento IALA.
+                        Herramienta interactiva para aprender a identificar las características de luces y marcas de faros, boyas y buques.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Tabs defaultValue="lighthouse" className="w-full">
-                        <TabsList className="grid w-full grid-cols-2 gap-2 h-auto bg-transparent p-0">
-                            <TabsTrigger value="lighthouse" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros</TabsTrigger>
-                            <TabsTrigger value="buoys" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Boyas y Marcas</TabsTrigger>
+                    <Tabs defaultValue="buques" className="w-full">
+                        <TabsList className="grid w-full grid-cols-3 gap-2 h-auto bg-transparent p-0">
+                            <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Buques</TabsTrigger>
+                            <TabsTrigger value="boyas" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Boyas</TabsTrigger>
+                            <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="lighthouse" className="pt-6">
+                        <TabsContent value="buques" className="pt-6">
+                           <BuquesSimulator />
+                        </TabsContent>
+                        <TabsContent value="faros" className="pt-6">
                             <LighthouseSimulator />
                         </TabsContent>
-                        <TabsContent value="buoys" className="pt-6">
+                        <TabsContent value="boyas" className="pt-6">
                             <BuoySimulator />
                         </TabsContent>
                     </Tabs>
