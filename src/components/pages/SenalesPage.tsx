@@ -542,10 +542,12 @@ const BuquesSimulator = () => {
         })
     }
 
+    const hasStates = ruleData?.states && ruleData.states.length > 1;
+
     return (
         <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                 <div className="md:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                 <div className="md:col-span-3">
                     <Label>Situación / Tipo de Buque</Label>
                     <Select value={selectedRuleId} onValueChange={setSelectedRuleId}>
                         <SelectTrigger className="w-full mt-2">
@@ -558,8 +560,20 @@ const BuquesSimulator = () => {
                         </SelectContent>
                     </Select>
                  </div>
-                 {ruleData?.states && ruleData.states.length > 1 && (
-                     <div>
+                 
+                 <div className={cn(hasStates ? 'md:col-span-1' : 'md:col-span-2')}>
+                    <Label>Vista</Label>
+                     <div className="flex flex-wrap gap-2 mt-2">
+                        {(['bow', 'starboard', 'stern'] as const).map(v => (
+                            <Button key={v} variant={view === v ? 'default' : 'outline'} className="flex-1" onClick={() => setView(v)}>
+                                {v === 'bow' ? 'Proa' : v === 'starboard' ? 'Estribor' : 'Popa'}
+                            </Button>
+                        ))}
+                    </div>
+                 </div>
+
+                 {hasStates && (
+                     <div className="md:col-span-2">
                         <Label>Caso Específico</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {ruleData.states.map((state, index) => (
@@ -570,17 +584,8 @@ const BuquesSimulator = () => {
                         </div>
                      </div>
                  )}
-                 <div>
-                    <Label>Vista</Label>
-                     <div className="flex flex-wrap gap-2 mt-2">
-                        {(['bow', 'starboard', 'stern'] as const).map(v => (
-                            <Button key={v} variant={view === v ? 'default' : 'outline'} className="flex-1" onClick={() => setView(v)}>
-                                {v === 'bow' ? 'Proa' : v === 'starboard' ? 'Estribor' : 'Popa'}
-                            </Button>
-                        ))}
-                    </div>
-                 </div>
-                 <div className={cn(ruleData?.states && ruleData.states.length > 1 ? 'md:col-start-2' : '')}>
+
+                 <div className="md:col-span-3">
                     <Label>Condición</Label>
                     <div className="flex flex-wrap gap-2 mt-2 h-10">
                         <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/> Día</Button>
