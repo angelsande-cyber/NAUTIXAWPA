@@ -10,6 +10,8 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, Moon, Sun } from "lucide-react";
+import SonidosSimulator from "./SonidosSimulator";
+
 
 interface LightCharacteristicTerm {
     [key: string]: {
@@ -713,6 +715,8 @@ export default function SenalesPage() {
         vesselSvgs: any;
     } | null>(null);
 
+     const [sonidosData, setSonidosData] = useState<any[] | null>(null);
+
     useEffect(() => {
         fetch('/data/senales.json')
             .then(res => res.json())
@@ -720,9 +724,12 @@ export default function SenalesPage() {
         fetch('/data/buques.json')
             .then(res => res.json())
             .then(setBuquesData);
+        fetch('/data/sonidos.json')
+            .then(res => res.json())
+            .then(setSonidosData);
     }, []);
 
-    if (!senalesData || !buquesData) {
+    if (!senalesData || !buquesData || !sonidosData) {
         return (
             <div className="p-4 md:p-6">
                 <Card className="w-full max-w-4xl mx-auto">
@@ -740,18 +747,22 @@ export default function SenalesPage() {
                 <CardHeader>
                     <CardTitle>Simulador de Señales Marítimas</CardTitle>
                     <CardDescription>
-                        Herramienta interactiva para aprender a identificar las características de luces y marcas de faros, boyas y buques.
+                        Herramienta interactiva para aprender a identificar las características de luces, marcas y sonidos de faros, boyas y buques.
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="buques" className="w-full">
-                        <TabsList className="grid w-full grid-cols-3 gap-2 h-auto bg-transparent p-0">
+                        <TabsList className="grid w-full grid-cols-4 gap-2 h-auto bg-transparent p-0">
                             <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Luces y Marcas</TabsTrigger>
+                            <TabsTrigger value="sonidos" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Señales Acústicas</TabsTrigger>
                             <TabsTrigger value="balizamiento" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Balizamiento</TabsTrigger>
                             <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros y Boyas</TabsTrigger>
                         </TabsList>
                         <TabsContent value="buques" className="pt-6">
                            <BuquesSimulator colregRules={buquesData.colregRules} vesselSvgs={buquesData.vesselSvgs} />
+                        </TabsContent>
+                         <TabsContent value="sonidos" className="pt-6">
+                           <SonidosSimulator sonidosData={sonidosData} />
                         </TabsContent>
                         <TabsContent value="balizamiento" className="pt-6">
                             <BuoySimulator buoyData={senalesData.ialaBuoyData} lightTerms={senalesData.lightTerms} />
