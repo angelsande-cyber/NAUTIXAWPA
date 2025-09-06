@@ -1,3 +1,4 @@
+
 export const BEAUFORT_SCALE_DATA = [
     { force: 0, denomination: 'Calma', speedKnots: '< 1', seaState: 'Espejo', waveHeight: '0m' },
     { force: 1, denomination: 'Ventolina', speedKnots: '1-3', seaState: 'Rizos', waveHeight: '0.1m' },
@@ -81,15 +82,15 @@ export const CLOUD_TYPES_DATA = [
         type: 'Stratocumulus (Sc)',
         altitude: 'Bajas (<2000m)',
         description: 'Banco, capa o faja de nubes grises o blanquecinas que casi siempre tienen partes oscuras. Con aspecto de mosaico, masas redondeadas, etc.',
-        imageUrl: 'https://picsum.photos/id/531/400/200',
-        hint: 'stratocumulus low'
+        imageUrl: 'https://images.pexels.com/photos/33175900/pexels-photo-33175900.jpeg?auto=compress&cs=tinysrgb&w=400',
+        hint: 'dramatic sky'
     },
     {
         type: 'Stratus (St)',
         altitude: 'Bajas (<2000m)',
         description: 'Capa nubosa generalmente gris, con base bastante uniforme, pudiendo dar lugar a llovizna, prismas de hielo o cinarra. Similar a la niebla, pero sin tocar el suelo.',
-        imageUrl: 'https://picsum.photos/id/488/400/200',
-        hint: 'stratus fog'
+        imageUrl: 'https://images.pexels.com/photos/3797929/pexels-photo-3797929.jpeg?auto=compress&cs=tinysrgb&w=400',
+        hint: 'cloudy sky'
     },
     {
         type: 'Cumulus (Cu)',
