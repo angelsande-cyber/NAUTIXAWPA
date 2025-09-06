@@ -48,7 +48,7 @@ export const CLOUD_TYPES_DATA = [
         type: 'Cirrocumulus (Cc)',
         altitude: 'Altas (>6000m)',
         description: 'Bancos o capas delgadas de nubes blancas, sin sombras, compuestas por elementos muy pequeños en forma de granos, rizos, etc. (cielo aborregado).',
-        imageUrl: 'https://picsum.photos/id/219/400/200',
+        imageUrl: 'https://images.pexels.com/photos/3329095/pexels-photo-3329095.jpeg?auto=compress&cs=tinysrgb&w=400',
         hint: 'cirrocumulus sky'
     },
     {
