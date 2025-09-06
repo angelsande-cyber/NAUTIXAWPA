@@ -68,7 +68,7 @@ export const CLOUD_TYPES_DATA = [
         type: 'Altostratus (As)',
         altitude: 'Medias (2000-6000m)',
         description: 'Capa nubosa grisácea o azulada, de aspecto estriado, fibroso o uniforme, que cubre total o parcialmente el cielo. El sol puede verse como a través de un vidrio esmerilado.',
-        imageUrl: 'https://picsum.photos/id/415/400/200',
+        imageUrl: 'https://images.pexels.com/photos/29056965/pexels-photo-29056965.jpeg?auto=compress&cs=tinysrgb&w=400',
         hint: 'altostratus layer'
     },
     {
@@ -107,3 +107,4 @@ export const CLOUD_TYPES_DATA = [
         hint: 'cumulonimbus storm'
     },
 ];
+
