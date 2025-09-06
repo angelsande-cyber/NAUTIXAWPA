@@ -61,7 +61,7 @@ export const CLOUD_TYPES_DATA = [
         type: 'Altocumulus (Ac)',
         altitude: 'Medias (2000-6000m)',
         description: 'Banco o capa de nubes blancas o grises, que tienen generalmente sombras propias. Pueden tener aspecto de losas, rodillos, etc.',
-        imageUrl: 'https://picsum.photos/id/249/400/200',
+        imageUrl: 'https://images.pexels.com/photos/19808316/pexels-photo-19808316.jpeg?auto=compress&cs=tinysrgb&w=400',
         hint: 'altocumulus clouds'
     },
     {
