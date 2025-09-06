@@ -10,7 +10,7 @@ import { IALA_BUOY_DATA, LIGHT_CHARACTERISTIC_TERMS } from "@/lib/data/senales";
 import { COLREG_RULES_DATA } from "@/lib/data/buques.tsx";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, Moon, Sun } from "lucide-react";
 
 
@@ -448,11 +448,17 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
 // --- Buques Simulator Component ---
 
 const BuquesSimulator = () => {
-    const [selectedRule, setSelectedRule] = useState(COLREG_RULES_DATA[0].rule);
+    const [selectedRule, setSelectedRule] = useState(COLREG_RULES_DATA.find(r => r.category === 'Propulsión Mecánica')!.rules[0].id);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
 
-    const ruleData = useMemo(() => COLREG_RULES_DATA.find(r => r.rule === selectedRule), [selectedRule]);
+    const ruleData = useMemo(() => {
+        for (const category of COLREG_RULES_DATA) {
+            const foundRule = category.rules.find(r => r.id === selectedRule);
+            if (foundRule) return foundRule;
+        }
+        return null;
+    }, [selectedRule]);
 
     const colorMap: { [key: string]: string } = {
         white: 'hsl(var(--foreground))',
@@ -481,18 +487,21 @@ const BuquesSimulator = () => {
         return ruleData.lights.map(light => {
             const isVisible = light.arc[view];
             if (!isVisible) return null;
-
+            
+            const isFlashing = light.flash;
             const baseClasses = "light-element absolute rounded-full";
             const onClasses = isVisible ? lightEffect(light.color) : '';
+            const flashingClass = isFlashing ? 'animate-pulse' : '';
             const style = { 
                 left: `${light.position[view].x}%`, 
                 top: `${light.position[view].y}%`,
                 width: '8px', height: '8px',
                 transform: 'translate(-50%, -50%)',
                 backgroundColor: lightColor(light.color),
+                animationDuration: isFlashing ? '1s' : undefined,
             };
 
-            return <div key={light.id} className={cn(baseClasses, isVisible && 'on', onClasses)} style={style} />;
+            return <div key={light.id} className={cn(baseClasses, isVisible && 'on', onClasses, flashingClass)} style={style} />;
         })
     }
     
@@ -515,7 +524,6 @@ const BuquesSimulator = () => {
                 case 'cylinder': markSvg = <rect x="4" y="2" width="16" height="20" fill={C}/>; break;
                 case 'basket': markSvg = <rect x="4" y="2" width="16" height="16" stroke={C} strokeWidth="2" fill="transparent"/>; break;
                 case 'bicone-point-together': markSvg = <><polygon points="2,12 22,12 12,2" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
-                default: return null;
             }
             return (
                  <div key={mark.id} className="absolute w-6 h-6" style={style}>
@@ -535,8 +543,13 @@ const BuquesSimulator = () => {
                             <SelectValue placeholder="Selecciona una regla..." />
                         </SelectTrigger>
                         <SelectContent>
-                            {COLREG_RULES_DATA.map(rule => (
-                                <SelectItem key={rule.rule} value={rule.rule}>{rule.title}</SelectItem>
+                             {COLREG_RULES_DATA.map(category => (
+                                <SelectGroup key={category.category}>
+                                    <Label className="px-2 py-1.5 text-xs font-semibold text-muted-foreground">{category.category}</Label>
+                                    {category.rules.map(rule => (
+                                        <SelectItem key={rule.id} value={rule.id}>{rule.title}</SelectItem>
+                                    ))}
+                                </SelectGroup>
                             ))}
                         </SelectContent>
                     </Select>
