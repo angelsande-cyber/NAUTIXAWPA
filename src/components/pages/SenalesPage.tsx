@@ -434,8 +434,7 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
             case 'cones-up': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
             case 'cones-down': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill}/><polygon points="40,80 60,80 50,96" ${tmFill}/>`; break;
             case 'cones-base-base': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/><polygon points="40,64 60,64 50,80" ${tmFill}/>`; break;
-            case 'cones-point-point': topmarkSvg = `<polygon points="2,12 12,2 22,12" fill="${colorMap[tm.color]}" stroke="${stroke}" stroke-width="1.5"/><polygon points="2,12 12,22 22,12" fill="${colorMap[tm.color]}" stroke="${stroke}" stroke-width="1.5"/>`; break;
-            case 'cones-vertex-together': topmarkSvg = `<polygon points="40,80 60,80 50,96" ${tmFill}/><polygon points="40,80 60,80 50,64" ${tmFill}/>`; break;
+            case 'cones-vertex-together': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill} /><polygon points="40,96 60,96 50,80" ${tmFill} />`; break;
         }
     }
     const lightY = buoy.topmark ? 60 : 88;
@@ -546,8 +545,8 @@ const BuquesSimulator = () => {
 
     return (
         <div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                 <div className="md:col-span-3">
+            <div className="space-y-4 mb-4">
+                 <div>
                     <Label>Situación / Tipo de Buque</Label>
                     <Select value={selectedRuleId} onValueChange={setSelectedRuleId}>
                         <SelectTrigger className="w-full mt-2">
@@ -560,20 +559,9 @@ const BuquesSimulator = () => {
                         </SelectContent>
                     </Select>
                  </div>
-                 
-                 <div className={cn(hasStates ? 'md:col-span-1' : 'md:col-span-2')}>
-                    <Label>Vista</Label>
-                     <div className="flex flex-wrap gap-2 mt-2">
-                        {(['bow', 'starboard', 'stern'] as const).map(v => (
-                            <Button key={v} variant={view === v ? 'default' : 'outline'} className="flex-1" onClick={() => setView(v)}>
-                                {v === 'bow' ? 'Proa' : v === 'starboard' ? 'Estribor' : 'Popa'}
-                            </Button>
-                        ))}
-                    </div>
-                 </div>
 
                  {hasStates && (
-                     <div className="md:col-span-2">
+                     <div>
                         <Label>Caso Específico</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {ruleData.states.map((state, index) => (
@@ -585,11 +573,23 @@ const BuquesSimulator = () => {
                      </div>
                  )}
 
-                 <div className="md:col-span-3">
-                    <Label>Condición</Label>
-                    <div className="flex flex-wrap gap-2 mt-2 h-10">
-                        <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/> Día</Button>
-                        <Button variant={isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(true)}><Moon className="mr-2 h-4 w-4"/> Noche</Button>
+                 <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <Label>Vista</Label>
+                         <div className="flex flex-wrap gap-2 mt-2">
+                            {(['bow', 'starboard', 'stern'] as const).map(v => (
+                                <Button key={v} variant={view === v ? 'default' : 'outline'} className="flex-1" onClick={() => setView(v)}>
+                                    {v === 'bow' ? 'Proa' : v === 'starboard' ? 'Estribor' : 'Popa'}
+                                </Button>
+                            ))}
+                        </div>
+                    </div>
+                    <div>
+                        <Label>Condición</Label>
+                        <div className="flex flex-wrap gap-2 mt-2 h-10">
+                            <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/> Día</Button>
+                            <Button variant={isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(true)}><Moon className="mr-2 h-4 w-4"/> Noche</Button>
+                        </div>
                     </div>
                  </div>
             </div>
@@ -696,7 +696,3 @@ export default function SenalesPage() {
         </div>
     );
 }
-
-    
-
-    
