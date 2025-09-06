@@ -40,7 +40,7 @@ const Num6 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v5H0l-2-2.5z" fill="
 const Num7 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v5H0l-2-2.5z" fill="#ffcd00"/><path d="M0 5h12v5H0l-2-2.5z" fill="#d72828"/></svg>;
 const Num8 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#fff"/><path d="M1 1h1v8H1zM1 5h10v-1h-10z" stroke="#d72828" strokeWidth="1"/></svg>;
 const Num9 = () => <svg viewBox="0 0 12 10"><path d="M0 0h6v5H0l-2-2.5z" fill="#fff"/><path d="M6 0h6v5H6l-2-2.5z" fill="#000"/><path d="M0 5h6v5H0l-2-2.5z" fill="#d72828"/><path d="M6 5h6v5H6l-2-2.5z" fill="#ffcd00"/></svg>;
-const Num0 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#ffcd00" /><path d="M2.5 2.5h7v5h-7z" fill="none" stroke="#d72828" stroke-width="1.5" /></svg>;
+const Num0 = () => <svg viewBox="0 0 12 10"><path d="M0 0h12v10H0l-2-5z" fill="#ffcd00" /><path d="M2.5 2.5h7v5h-7z" fill="none" stroke="#d72828" strokeWidth="1.5" /></svg>;
 
 // --- Data Arrays ---
 
