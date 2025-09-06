@@ -434,7 +434,8 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
             case 'cones-up': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
             case 'cones-down': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill}/><polygon points="40,80 60,80 50,96" ${tmFill}/>`; break;
             case 'cones-base-base': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/><polygon points="40,64 60,64 50,80" ${tmFill}/>`; break;
-            case 'cones-point-point': topmarkSvg = `<polygon points="40,80 60,80 50,96" ${tmFill}/><polygon points="40,80 60,80 50,64" ${tmFill}/>`; break;
+            case 'cones-point-point': topmarkSvg = `<polygon points="2,12 12,2 22,12" fill="${colorMap[tm.color]}" stroke="${stroke}" stroke-width="1.5"/><polygon points="2,12 12,22 22,12" fill="${colorMap[tm.color]}" stroke="${stroke}" stroke-width="1.5"/>`; break;
+            case 'cones-vertex-together': topmarkSvg = `<polygon points="40,80 60,80 50,96" ${tmFill}/><polygon points="40,80 60,80 50,64" ${tmFill}/>`; break;
         }
     }
     const lightY = buoy.topmark ? 60 : 88;
@@ -528,10 +529,10 @@ const BuquesSimulator = () => {
                 case 'ball': markSvg = <circle cx="12" cy="12" r="10" fill={C} />; break;
                 case 'cone-up': markSvg = <polygon points="2,22 22,22 12,2" fill={C}/>; break;
                 case 'cone-down': markSvg = <polygon points="2,2 22,2 12,22" fill={C}/>; break;
-                case 'diamond': markSvg = <><polygon points="2,12 22,12 12,2" fill={C}/><polygon points="2,12 22,12 12,22" fill={C}/></>; break;
+                case 'diamond': markSvg = <><polygon points="2,12 12,2 22,12" fill={C}/><polygon points="2,12 12,22 22,12" fill={C}/></>; break;
                 case 'cylinder': markSvg = <rect x="4" y="2" width="16" height="20" fill={C}/>; break;
                 case 'basket': markSvg = <rect x="4" y="2" width="16" height="16" stroke={C} strokeWidth="2" fill="transparent"/>; break;
-                case 'cones-vertex-together': markSvg = <><polygon points="2,2 12,11 22,2" fill={C}/><polygon points="2,13 12,22 22,13" fill={C} /></>; break;
+                case 'cones-vertex-together': markSvg = <><polygon points="2,11 12,2 22,11" fill={C}/><polygon points="2,13 12,22 22,13" fill={C} /></>; break;
             }
             return (
                  <div key={mark.id} className="absolute w-6 h-6" style={style}>
@@ -671,18 +672,18 @@ export default function SenalesPage() {
                 <CardContent>
                     <Tabs defaultValue="buques" className="w-full">
                         <TabsList className="grid w-full grid-cols-3 gap-2 h-auto bg-transparent p-0">
-                            <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Buques</TabsTrigger>
-                            <TabsTrigger value="boyas" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Boyas</TabsTrigger>
-                            <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros</TabsTrigger>
+                            <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Luces y Marcas</TabsTrigger>
+                            <TabsTrigger value="balizamiento" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Balizamiento</TabsTrigger>
+                            <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros y Boyas</TabsTrigger>
                         </TabsList>
                         <TabsContent value="buques" className="pt-6">
                            <BuquesSimulator />
                         </TabsContent>
+                        <TabsContent value="balizamiento" className="pt-6">
+                            <BuoySimulator />
+                        </TabsContent>
                         <TabsContent value="faros" className="pt-6">
                             <LighthouseSimulator />
-                        </TabsContent>
-                        <TabsContent value="boyas" className="pt-6">
-                            <BuoySimulator />
                         </TabsContent>
                     </Tabs>
                 </CardContent>
@@ -690,5 +691,7 @@ export default function SenalesPage() {
         </div>
     );
 }
+
+    
 
     
