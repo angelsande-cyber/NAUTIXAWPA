@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { LETTERS, NUMBERS } from "@/components/SignalFlags";
+import { LETTERS } from "@/components/LetterFlags";
+import { NUMBERS } from "@/components/SignalFlags";
 
 export default function AlfabetoPage() {
     return (
