@@ -448,7 +448,7 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
 // --- Buques Simulator Component ---
 
 const BuquesSimulator = () => {
-    const [selectedRule, setSelectedRule] = useState(COLREG_RULES_DATA.find(r => r.category === 'Propulsión Mecánica')!.rules[0].id);
+    const [selectedRule, setSelectedRule] = useState(COLREG_RULES_DATA[0].rules[0].id);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
 

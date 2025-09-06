@@ -1,4 +1,3 @@
-
 // COLREG rules for vessel lights and shapes simulator.
 // Note: Positions are simplified for a 2D representation.
 
@@ -100,9 +99,13 @@ export const COLREG_RULES_DATA = [
                 title: 'Buque que empuja o remolca por el costado',
                 description: 'Unidad que empuja o remolca abarloada.',
                 svg: commonSVG.tug,
-                lights: PDV_LIGHTS,
+                lights: [
+                    { ...PDV_LIGHTS[0], desc: 'Luz de tope #1 (vertical)', position: { bow: { x: 50, y: 25 }, starboard: { x: 30, y: 25 }, stern: { x: 0, y: 0 } } },
+                    { id: 'masthead-2', color: 'white', desc: 'Luz de tope #2 (vertical)', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 32 }, starboard: { x: 30, y: 32 }, stern: { x: 0, y: 0 } } },
+                    PDV_LIGHTS[2], PDV_LIGHTS[3], PDV_LIGHTS[4]
+                ],
                 marks: [],
-                explanation: "Un buque que empuja y la unidad empujada, si están conectados de forma rígida formando una unidad compuesta, se consideran como un solo buque de P.M. y exhiben las luces correspondientes a su eslora.\nUn buque remolcando por el costado exhibe las luces de un buque de P.M., más dos luces de tope en vertical."
+                explanation: "Un buque que empuja y la unidad empujada, si están conectados de forma rígida formando una unidad compuesta, se consideran como un solo buque de P.M. y exhiben las luces correspondientes a su eslora.\nSi remolca por el costado, exhibirá dos luces de tope en vertical, luces de costado y luz de alcance."
             },
         ]
     },
