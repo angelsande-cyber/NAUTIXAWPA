@@ -29,7 +29,22 @@ const FlagU = () => <svg viewBox="0 0 15 12"><rect width="7.5" height="6" fill="
 const FlagV = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0 0 L15 12 M0 12 L15 0" stroke="#d72828" strokeWidth="2.5"/></svg>;
 const FlagW = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#0058a7"/><path d="M2 2 H13 V10 H2Z" fill="#fff"/><path d="M4 4 H11 V8 H4Z" fill="#d72828"/></svg>;
 const FlagX = () => <svg viewBox="0 0 15 12"><path d="M0 0 H15 V12 H0Z" fill="#fff"/><path d="M0 6 H15 M7.5 0 V12" stroke="#0058a7" strokeWidth="2.5"/></svg>;
-const FlagY = () => <svg viewBox="0 0 15 12" xmlns="http://www.w3.org/2000/svg"><defs><path id="y-stripe" d="M0,0 L2.72,0 L0,3.27Z" fill="#d72828"/></defs><rect width="15" height="12" fill="#ffcd00"/><use href="#y-stripe" transform="translate(0,0)"/><use href="#y-stripe" transform="translate(5.45,0)"/><use href="#y-stripe" transform="translate(10.9,0)"/><use href="#y-stripe" transform="translate(0,6.53)"/><use href="#y-stripe" transform="translate(5.45,6.53)"/><use href="#y-stripe" transform="translate(10.9,6.53)"/></svg>;
+const FlagY = () => (
+    <svg viewBox="0 0 15 12">
+        <path d="M-1,1 L1, -1 L16,11 L14,13 Z" fill="#d72828" />
+        <path d="M1, -1 L3, -3 L18,9 L16,11 Z" fill="#ffcd00" />
+        <path d="M3, -3 L5, -5 L20,7 L18,9 Z" fill="#d72828" />
+        <path d="M5, -5 L7, -7 L22,5 L20,7 Z" fill="#ffcd00" />
+        <path d="M7, -7 L9, -9 L24,3 L22,5 Z" fill="#d72828" />
+        <path d="M9, -9 L11,-11 L26,1 L24,3 Z" fill="#ffcd00" />
+        <path d="M11,-11 L13,-13 L28,-1 L26,1 Z" fill="#d72828" />
+        <path d="M13,-13 L15,-15 L30,-3 L28,-1 Z" fill="#ffcd00" />
+        <path d="M15,-15 L17,-17 L32,-5 L30,-3 Z" fill="#d72828" />
+        <path d="M17,-17 L19,-19 L34,-7 L32,-5 Z" fill="#ffcd00" />
+        <path d="M19,-19 L21,-21 L36,-9 L34,-7 Z" fill="#d72828" />
+        <path d="M0,0 H15 V12 H0 Z" fill="none" stroke="hsl(var(--foreground))" stroke-width="0.2"/>
+    </svg>
+);
 const FlagZ = () => <svg viewBox="0 0 15 12"><path d="M0 0 L7.5 0 L15 6 L7.5 12 L0 12 L7.5 6 Z" fill="#000" /><path d="M0 0 L7.5 0 L0 6 Z" fill="#ffcd00" /><path d="M7.5 0 L15 0 L15 6 Z" fill="#0058a7" /><path d="M15 12 L7.5 12 L15 6 Z" fill="#d72828" /></svg>;
 
 
