@@ -1,5 +1,6 @@
 export const PHONE_DIRECTORY_DATA = [
   { name: 'Emergencias Marítimas (España)', phones: ['900 202 202', '112'], email: 'cncs@sasemar.es', keywords: ['españa', 'nacional', 'emergencia', 'salvamento'] },
+  { name: 'Servicio Radiomédico Español (Madrid)', phones: ['+34 91 310 34 75'], email: 'cr-madrid@mitramiss.es', keywords: ['medico', 'consulta', 'doctor', 'radiomedico', 'madrid', 'ism'] },
   { name: 'CCS Tarifa (Estrecho)', phones: ['956 684 757'], email: 'tarifa@sasemar.es', keywords: ['gibraltar', 'estrecho', 'cadiz'] },
   { name: 'CCS Finisterre (Galicia)', phones: ['981 767 738'], email: 'finisterre@sasemar.es', keywords: ['galicia', 'costa da morte', 'coruña'] },
   { name: 'CCS Palma (Baleares)', phones: ['971 724 562'], email: 'palma@sasemar.es', keywords: ['baleares', 'mallorca', 'ibiza'] },
