@@ -3,10 +3,25 @@
 import React from 'react';
 
 // --- Pennants ---
-const pennantShapeTapered = "M0,0 L20,3 L20,9 L0,12 Z";
-const Num0 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d="M0 0 H6.6 V12 H0Z" fill="#ffcd00" /><path d="M6.6 0 H13.3 V12 H6.6Z" fill="#d72828" /><path d="M13.3 0 L20 3 L20 9 L13.3 12Z" fill="#ffcd00" /><path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none"/></svg>;
-const Num1 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d={pennantShapeTapered} fill="#fff"/><circle cx="8" cy="6" r="2.5" fill="#d72828"/><path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none"/></svg>;
-const Num2 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d={pennantShapeTapered} fill="#0058a7"/><circle cx="8" cy="6" r="2.5" fill="#fff"/><path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none"/></svg>;
+const pennantShapeTapered = "M0,0 H20 L16,6 L20,12 H0 Z";
+
+const Num0 = () => (
+    <svg viewBox="-0.5 -0.5 21 13" fill="none">
+        <defs>
+            <clipPath id="clipPennant0">
+                <path d={pennantShapeTapered} />
+            </clipPath>
+        </defs>
+        <g clipPath="url(#clipPennant0)">
+            <path d="M0,0 H6.66 V12 H0Z" fill="#ffcd00" />
+            <path d="M6.66,0 H13.33 V12 H6.66Z" fill="#d72828" />
+            <path d="M13.33,0 H20 V12 H13.33Z" fill="#ffcd00" />
+        </g>
+        <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
+    </svg>
+);
+const Num1 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d={pennantShapeTapered} fill="#fff" stroke="#4A4A4A" strokeWidth="0.5" /><circle cx="8" cy="6" r="2.5" fill="#d72828"/></svg>;
+const Num2 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d={pennantShapeTapered} fill="#0058a7" stroke="#4A4A4A" strokeWidth="0.5"/><circle cx="8" cy="6" r="2.5" fill="#fff"/></svg>;
 const Num3 = () => (
     <svg viewBox="-0.5 -0.5 21 13" fill="none">
         <defs>
@@ -92,7 +107,7 @@ const Num8 = () => (
         <path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none" />
     </svg>
 );
-const Num9 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d="M0 0 H10 V6 H0Z" fill="#fff" /><path d="M10 0 L20 3 L10 6 V0Z" fill="#d72828"/><path d="M0 6 H10 V12 H0Z" fill="#ffcd00"/><path d="M10 6 L20 9 L10 12 V6Z" fill="#000"/><path d={pennantShapeTapered} stroke="#4A4A4A" strokeWidth="0.5" fill="none"/></svg>;
+const Num9 = () => <svg viewBox="-0.5 -0.5 21 13" fill="none"><path d="M0 0 H10 V6 H0Z" fill="#fff" stroke="#4A4A4A" strokeWidth="0.5"/><path d="M10 0 L20 3 L10 6 V0Z" fill="#d72828" stroke="#4A4A4A" strokeWidth="0.5"/><path d="M0 6 H10 V12 H0Z" fill="#ffcd00" stroke="#4A4A4A" strokeWidth="0.5"/><path d="M10 6 L20 9 L10 12 V6Z" fill="#000" stroke="#4A4A4A" strokeWidth="0.5"/></svg>;
 
 
 // --- Data Arrays ---
