@@ -9,57 +9,66 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {QuizOutputSchema} from '../schemas/examen-schema';
 
+
+const PerQuizInputSchema = z.object({
+  language: z.enum(['es', 'en']).describe("The language to generate the quiz in ('es' or 'en')."),
+});
+
 const perQuizPrompt = ai.definePrompt({
   name: 'perQuizPrompt',
+  input: { schema: PerQuizInputSchema },
   model: 'googleai/gemini-2.5-pro',
   output: {
     schema: QuizOutputSchema,
   },
-  prompt: `Eres un experto instructor y examinador de la titulación de Patrón de Embarcaciones de Recreo (PER) en España.
+  prompt: `You are an expert instructor and examiner for the Spanish "Patrón de Embarcaciones de Recreo (PER)" boat master license.
 
-Tu tarea es generar un examen de práctica tipo test de 10 preguntas.
+Your task is to generate a 10-question multiple-choice practice exam in the specified language: {{{language}}}.
 
-Las preguntas deben cubrir de forma variada y equilibrada el temario oficial del PER, incluyendo pero no limitándose a:
-- Reglamento Internacional para Prevenir Abordajes (COLREG): reglas de rumbo y gobierno, luces y marcas.
-- Balizamiento (IALA A): marcas laterales, cardinales, peligros aislados, etc.
-- Maniobras y navegación: ciaboga, dar atrás, hombre al agua.
-- Seguridad en la mar: equipo de seguridad, emergencias, lucha contra incendios, abandono.
-- Meteorología: interpretación de boletines, escala Beaufort.
-- Nomenclatura náutica.
-- Legislación.
+The questions must cover the official PER syllabus in a varied and balanced way, including but not limited to:
+- International Regulations for Preventing Collisions at Sea (COLREGs): steering and sailing rules, lights and shapes.
+- Buoyage (IALA System A): lateral, cardinal, isolated danger marks, etc.
+- Maneuvering and navigation: turning in a tight space, going astern, man overboard.
+- Safety at sea: safety equipment, emergencies, firefighting, abandon ship.
+- Meteorology: interpreting forecasts, Beaufort scale.
+- Nautical terminology.
+- Legislation.
 
-Para cada pregunta:
-1.  Crea un enunciado claro y conciso.
-2.  Proporciona 4 opciones de respuesta (a, b, c, d).
-3.  Solo una de las opciones puede ser la correcta.
-4.  Indica el índice de la respuesta correcta (0 para a, 1 para b, 2 para c, 3 para d).
-5.  Proporciona una explicación breve pero fundamentada de por qué la respuesta correcta lo es, haciendo referencia a la normativa o concepto correspondiente si es posible. La explicación es muy importante para el aprendizaje del usuario.
+For each question:
+1.  Create a clear and concise question statement.
+2.  Provide 4 answer options (a, b, c, d).
+3.  Only one of the options can be correct.
+4.  Indicate the index of the correct answer (0 for a, 1 for b, 2 for c, 3 for d).
+5.  Provide a brief but well-founded explanation of why the correct answer is right, referencing the corresponding regulation or concept if possible. The explanation is very important for the user's learning.
 
-El examen debe ser un desafío realista para un aspirante al PER. Evita preguntas demasiado obvias o rebuscadas.`,
+The exam should be a realistic challenge for a PER candidate. Avoid questions that are too obvious or obscure.
+If the language is 'es', all output must be in Spanish. If the language is 'en', all output must be in English.
+`,
 });
 
 export const generatePerQuiz = ai.defineFlow(
   {
     name: 'generatePerQuizFlow',
+    inputSchema: PerQuizInputSchema,
     outputSchema: QuizOutputSchema,
   },
-  async () => {
-    console.log('Generating PER quiz...');
+  async (input) => {
+    console.log(`Generating PER quiz in ${input.language}...`);
     try {
-      const {output} = await perQuizPrompt({});
+      const {output} = await perQuizPrompt(input);
       if (!output || !output.questions || output.questions.length === 0) {
-        throw new Error('La IA no generó una respuesta válida o las preguntas están vacías.');
+        throw new Error('The AI did not generate a valid response or the questions are empty.');
       }
       // Basic validation for each question
       for (const q of output.questions) {
         if (q.correctAnswerIndex < 0 || q.correctAnswerIndex > 3) {
-            throw new Error(`Índice de respuesta fuera de rango para la pregunta: "${q.question}"`);
+            throw new Error(`Answer index out of range for question: "${q.question}"`);
         }
       }
       console.log(`Quiz generated successfully with ${output.questions.length} questions.`);
       return output;
     } catch (e) {
-      console.error("Error al generar el examen PER:", e);
+      console.error("Error generating PER quiz:", e);
       // Re-throw the error to be caught by the client-side caller
       throw e;
     }
