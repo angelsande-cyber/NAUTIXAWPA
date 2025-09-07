@@ -14,17 +14,14 @@ import { useState, useEffect, useCallback } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
-// --- Module-level state to preserve quiz across re-renders ---
-let quizState: {
-  quiz: QuizOutput | null;
+const QUIZ_SESSION_KEY = 'perQuizSession';
+
+interface QuizSession {
+  quiz: QuizOutput;
   userAnswers: Record<number, number | undefined>;
-  error: string | null;
-} = {
-  quiz: null,
-  userAnswers: {},
-  error: null,
-};
-// ---
+  currentQuestionIndex: number;
+  showResults: boolean;
+}
 
 const LoadingSkeleton = () => {
     return (
@@ -46,58 +43,83 @@ const LoadingSkeleton = () => {
 };
 
 export default function ExamenPage() {
-  const [loading, setLoading] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showResults, setShowResults] = useState(false);
-  
-  const [_, setRenderTrigger] = useState(0);
-  const forceRerender = () => setRenderTrigger(v => v + 1);
+  const [loading, setLoading] = useState(true);
+  const [quizSession, setQuizSession] = useState<QuizSession | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const loadQuiz = useCallback(async (forceNew = false) => {
-    if (quizState.quiz && !forceNew) {
-      forceRerender();
-      return;
-    }
-    
-    setLoading(true);
-    quizState.error = null;
-    quizState.quiz = null;
-    setShowResults(false);
-    setCurrentQuestionIndex(0);
-    quizState.userAnswers = {};
-    
+  // Load session from sessionStorage or create a new quiz
+  useEffect(() => {
     try {
-      const generatedQuiz = await generatePerQuiz({ language: 'es' });
-      quizState.quiz = generatedQuiz;
+      const savedSession = sessionStorage.getItem(QUIZ_SESSION_KEY);
+      if (savedSession) {
+        setQuizSession(JSON.parse(savedSession));
+        setLoading(false);
+      } else {
+        loadQuiz(true); // Force new quiz if nothing is saved
+      }
     } catch (e) {
-      console.error(e);
-      quizState.error = "No se pudo generar el examen. Por favor, inténtalo de nuevo.";
-    } finally {
-      setLoading(false);
-      forceRerender();
+      console.error("Failed to access sessionStorage or parse data, starting fresh.", e);
+      loadQuiz(true);
     }
   }, []);
 
+  // Save session to sessionStorage whenever it changes
   useEffect(() => {
-    if (!quizState.quiz && !quizState.error && !loading) {
-        loadQuiz();
+    if (quizSession) {
+      try {
+        sessionStorage.setItem(QUIZ_SESSION_KEY, JSON.stringify(quizSession));
+      } catch (e) {
+        console.error("Failed to save session to sessionStorage", e);
+      }
     }
-  }, [loadQuiz, loading]);
+  }, [quizSession]);
+
+  const updateSession = (updates: Partial<QuizSession>) => {
+    setQuizSession(prev => prev ? { ...prev, ...updates } : null);
+  };
+
+  const loadQuiz = useCallback(async (forceNew = false) => {
+    setLoading(true);
+    setError(null);
+    if(forceNew) {
+        try {
+            sessionStorage.removeItem(QUIZ_SESSION_KEY);
+        } catch (e) {
+            console.error("Failed to clear session storage", e);
+        }
+    }
+
+    try {
+      const generatedQuiz = await generatePerQuiz({ language: 'es' });
+      setQuizSession({
+        quiz: generatedQuiz,
+        userAnswers: {},
+        currentQuestionIndex: 0,
+        showResults: false,
+      });
+    } catch (e) {
+      console.error(e);
+      setError("No se pudo generar el examen. Por favor, inténtalo de nuevo.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const handleAnswerChange = (questionIndex: number, answerIndexStr: string) => {
+    if (!quizSession) return;
     const answerIndex = parseInt(answerIndexStr, 10);
-    quizState.userAnswers[questionIndex] = answerIndex;
-    forceRerender();
+    const newUserAnswers = { ...quizSession.userAnswers, [questionIndex]: answerIndex };
+    updateSession({ userAnswers: newUserAnswers });
   };
   
   const handleRestart = () => {
     loadQuiz(true);
-  }
+  };
 
   const calculateScore = () => {
-    if (!quizState.quiz) return 0;
-    return quizState.quiz.questions.reduce((score, question, index) => {
-      return quizState.userAnswers[index] === question.correctAnswerIndex ? score + 1 : score;
+    if (!quizSession) return 0;
+    return quizSession.quiz.questions.reduce((score, question, index) => {
+      return quizSession.userAnswers[index] === question.correctAnswerIndex ? score + 1 : score;
     }, 0);
   };
 
@@ -105,13 +127,13 @@ export default function ExamenPage() {
     return <LoadingSkeleton />;
   }
   
-  if (quizState.error) {
+  if (error) {
     return (
         <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <Card className="w-full max-w-md p-6">
                 <XCircle className="mx-auto h-12 w-12 text-destructive" />
                 <h2 className="mt-4 text-xl font-semibold">Error al generar</h2>
-                <p className="mt-2 text-muted-foreground">{quizState.error}</p>
+                <p className="mt-2 text-muted-foreground">{error}</p>
                 <Button onClick={handleRestart} className="mt-6">
                     <RefreshCw className="mr-2 h-4 w-4" />
                     Reintentar
@@ -121,8 +143,7 @@ export default function ExamenPage() {
     );
   }
 
-
-  if (!quizState.quiz || quizState.quiz.questions.length === 0) {
+  if (!quizSession || !quizSession.quiz || quizSession.quiz.questions.length === 0) {
     return (
         <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <Card className="w-full max-w-md p-6">
@@ -138,9 +159,10 @@ export default function ExamenPage() {
     );
   }
 
-  const currentQuestion = quizState.quiz.questions[currentQuestionIndex];
+  const { quiz, currentQuestionIndex, userAnswers, showResults } = quizSession;
+  const currentQuestion = quiz.questions[currentQuestionIndex];
   const score = calculateScore();
-  const totalQuestions = quizState.quiz.questions.length;
+  const totalQuestions = quiz.questions.length;
   
   if (showResults) {
     const passThreshold = Math.ceil(totalQuestions * 0.7);
@@ -158,8 +180,8 @@ export default function ExamenPage() {
           </CardHeader>
           <CardContent>
              <Accordion type="single" collapsible className="w-full">
-               {quizState.quiz.questions.map((q, index) => {
-                 const userAnswer = quizState.userAnswers[index];
+               {quiz.questions.map((q, index) => {
+                 const userAnswer = userAnswers[index];
                  const isCorrect = userAnswer === q.correctAnswerIndex;
                  return (
                    <AccordionItem value={`item-${index}`} key={index}>
@@ -210,7 +232,7 @@ export default function ExamenPage() {
             <p className="font-semibold text-lg">{currentQuestion.question}</p>
             <RadioGroup
               key={currentQuestionIndex}
-              value={quizState.userAnswers[currentQuestionIndex]?.toString()}
+              value={userAnswers[currentQuestionIndex]?.toString()}
               onValueChange={(value) => handleAnswerChange(currentQuestionIndex, value)}
               className="space-y-2"
             >
@@ -225,17 +247,17 @@ export default function ExamenPage() {
           <div className="mt-6 flex justify-between">
             <Button
               variant="outline"
-              onClick={() => setCurrentQuestionIndex(prev => prev - 1)}
+              onClick={() => updateSession({ currentQuestionIndex: currentQuestionIndex - 1 })}
               disabled={currentQuestionIndex === 0}
             >
               Anterior
             </Button>
             {currentQuestionIndex < totalQuestions - 1 ? (
-              <Button onClick={() => setCurrentQuestionIndex(prev => prev + 1)}>
+              <Button onClick={() => updateSession({ currentQuestionIndex: currentQuestionIndex + 1 })}>
                 Siguiente
               </Button>
             ) : (
-              <Button onClick={() => setShowResults(true)}>
+              <Button onClick={() => updateSession({ showResults: true })}>
                 Finalizar
               </Button>
             )}
