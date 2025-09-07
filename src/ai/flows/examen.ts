@@ -55,14 +55,7 @@ export const generatePerQuiz = ai.defineFlow(
   async (input) => {
     console.log(`Generating PER quiz in ${input.language}...`);
     
-    const { output } = await ai.generate({
-      prompt: perQuizPrompt.prompt,
-      input,
-      model: 'googleai/gemini-2.5-pro',
-      output: {
-          schema: perQuizPrompt.output.schema,
-      }
-    });
+    const { output } = await perQuizPrompt(input);
 
     if (!output || !output.questions || output.questions.length === 0) {
       throw new Error('The AI did not generate a valid response or the questions are empty.');
