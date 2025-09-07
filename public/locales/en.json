@@ -1,592 +1,496 @@
-
 {
-    "signIn": {
-        "tagline": "Your navigation and communications assistant for sailors.",
-        "button": "Sign in with Google",
-        "signingIn": "Signing in..."
-    },
-    "signOut": "Sign Out",
-    "backToHome": "Back to Home",
-    "titles": {
-        "home": "Home",
-        "sos": "SOS Generator",
-        "signals": "Maritime Signals",
-        "colreg": "COLREG Guide",
-        "quiz": "Practice Quiz",
-        "directory": "Directory",
-        "calculator": "Coordinate Calculator",
-        "alphabet": "Phonetic Alphabet",
-        "channels": "VHF Channels",
-        "qcodes": "Q-Codes",
-        "meteo": "Meteorology"
-    },
-    "dashboard": {
-        "sos": {
-            "label": "SOS Generator",
-            "description": "Generate standardized MAYDAY distress messages."
-        },
-        "signals": {
-            "label": "Signals Simulator",
-            "description": "Interactive lights, buoys, and sounds simulator."
-        },
-        "colreg": {
-            "label": "COLREG Guide",
-            "description": "Quick reference for collision regulations."
-        },
-        "quiz": {
-            "label": "PER Practice Quiz",
-            "description": "Test your knowledge for the PER exam."
-        },
-        "directory": {
-            "label": "Directory",
-            "description": "Emergency numbers and useful contacts."
-        },
-        "calculator": {
-            "label": "Calculator",
-            "description": "Convert between coordinate formats."
-        },
-        "alphabet": {
-            "label": "Alphabet & Flags",
-            "description": "International phonetic alphabet and signals."
-        },
-        "channels": {
-            "label": "VHF Channels",
-            "description": "Main marine VHF channels and their uses."
-        },
-        "qcodes": {
-            "label": "Q-Codes",
-            "description": "Common Q-codes in radiocommunications."
-        },
-        "meteo": {
-            "label": "Meteorology",
-            "description": "Beaufort, Douglas scales and cloud types."
-        }
-    },
+  "signIn": {
+    "button": "Sign in with Google",
+    "signingIn": "Signing In...",
+    "tagline": "Your navigation and communications assistant."
+  },
+  "signOut": "Sign Out",
+  "backToHome": "Back to Home",
+  "titles": {
+    "home": "Dashboard",
+    "sos": "SOS Message Generator",
+    "signals": "Maritime Signals Simulator",
+    "colreg": "COLREG Study Guide",
+    "quiz": "PER Practice Quiz",
+    "directory": "Emergency Directory",
+    "calculator": "Coordinate Calculator",
+    "alphabet": "Signal Flags & Alphabet",
+    "channels": "VHF Channels",
+    "qcodes": "Q-Codes",
+    "meteo": "Maritime Meteorology"
+  },
+  "dashboard": {
     "sos": {
-        "title": "Distress Message Generator (MAYDAY)",
-        "description": "Follow this procedure to correctly issue a distress call on VHF Channel 16.",
-        "procedure": {
-            "title": "MAYDAY Procedure (VHF Ch. 16)",
-            "alert": {
-                "title": "Important: Before Transmitting",
-                "description": "Activate the DSC (Digital Selective Calling) distress button on your VHF radio if available. Then, proceed with the voice call."
-            },
-            "explanation": {
-                "title": "Explanation of the Procedure",
-                "step1": { "title": "MAYDAY, MAYDAY, MAYDAY:", "description": "The international signal for grave and imminent danger. Say it three times clearly." },
-                "step2": { "title": "THIS IS [Ship's Name] (x3):", "description": "Identify your vessel, repeating its name three times." },
-                "step3": { "title": "CALL SIGN / MMSI:", "description": "State your vessel's call sign and MMSI number for positive identification." },
-                "step4": { "title": "MAYDAY [Ship's Name]:", "description": "Repeat MAYDAY and your ship's name to confirm the start of the message." },
-                "step5": { "title": "MY POSITION IS...:", "description": "Give your position as accurately as possible (Latitude/Longitude or reference to a known point)." },
-                "step6": { "title": "I AM...:", "description": "State the nature of the distress (e.g., 'on fire', 'sinking', 'aground', 'medical emergency')." },
-                "step7": { "title": "I REQUIRE IMMEDIATE ASSISTANCE:", "description": "Clearly state that you need help." },
-                "step8": { "title": "I HAVE [X] PERSONS ON BOARD:", "description": "State the number of people on board. Crucial for rescue teams." },
-                "step9": { "title": "OTHER INFORMATION:", "description": "Provide any other useful information (e.g., 'abandoning ship', 'vessel is a 40-foot blue sailboat')." },
-                "step10": { "title": "OVER:", "description": "End of transmission. Now listen for a response." }
-            }
-        },
-        "systems": {
-            "title": "Other Distress Alerting Systems",
-            "vhf": {
-                "title": "VHF Radio with DSC",
-                "description": "The primary method for distress calls at sea. Use Channel 16 for voice and Channel 70 for DSC alerts.",
-                "channel": "Channels: 16 (Voice), 70 (DSC)"
-            },
-            "epirb": {
-                "title": "EPIRB (Emergency Position-Indicating Radio Beacon)",
-                "description": "Automatically or manually activated beacon that transmits a distress signal via satellite.",
-                "channel": "Frequency: 406 MHz (to Cospas-Sarsat)"
-            },
-            "visual": {
-                "title": "Visual Signals",
-                "description": "Flares, distress flags (NC), smoke signals. Use them when you believe you are in sight of other vessels.",
-                "channel": "Visual Contact"
-            },
-            "mobile": {
-                "title": "Mobile Phone",
-                "description": "A last resort if in coastal areas with coverage. Call the emergency number (112 in Europe).",
-                "channel": "Call: 112 or local equivalent"
-            }
-        },
-        "placeholders": {
-            "shipName": "SHIP'S NAME",
-            "callSign": "CALL SIGN",
-            "position": "LAT/LON or REFERENCE",
-            "natureOfDistress": "NATURE OF DISTRESS",
-            "pob": "X",
-            "otherInfo": "OTHER INFO (e.g., abandoning ship)"
-        },
-        "thisIs": "This is",
-        "callSign": "Call sign",
-        "myPosition": "My position is",
-        "iam": "I am",
-        "iRequire": "I require immediate assistance.",
-        "iHave": "I have",
-        "personsOnBoard": "persons on board.",
-        "over": "Over."
-    },
-    "directory": {
-        "title": "Emergency Directory",
-        "description": "Main emergency and information telephone numbers for Spain.",
-        "searchPlaceholder": "Search by name, number, or keyword...",
-        "noResults": "No results found for '{searchTerm}'.",
-        "entries": {
-            "maritime_rescue": {
-                "name": "Maritime Rescue (Spain)",
-                "keywords": ["Emergency", "Rescue", "Coast Guard", "Sasemar", "Distress"]
-            },
-            "civil_guard": {
-                "name": "Civil Guard (Maritime Service)",
-                "keywords": ["Police", "Guardia Civil", "Law", "Security"]
-            },
-            "red_cross": {
-                "name": "Red Cross of the Sea",
-                "keywords": ["Medical", "Assistance", "First Aid", "Humanitarian"]
-            },
-            "national_police": {
-                "name": "National Police",
-                "keywords": ["Police", "Security", "Report"]
-            },
-            "cnmc": {
-                "name": "CNMC (Radio Spectrum)",
-                "keywords": ["License", "Radio", "MMSI", "Inspection"]
-            },
-            "aemet": {
-                "name": "AEMET (State Met. Agency)",
-                "keywords": ["Weather", "Forecast", "Meteorology", "Warning"]
-            }
-        }
-    },
-    "channels": {
-        "title": "VHF Marine Channels",
-        "description": "Commonly used VHF channels in Spain and their purpose.",
-        "columns": {
-            "channel": "Channel",
-            "usage": "Usage"
-        }
-    },
-    "qcodes": {
-        "title": "Common Q-Codes",
-        "description": "A selection of Q-codes frequently used in maritime radio communication.",
-        "columns": {
-            "code": "Code",
-            "question": "Question",
-            "answer": "Answer / Meaning"
-        }
-    },
-    "alphabet": {
-        "letters": {
-            "title": "Phonetic Alphabet (ICAO)",
-            "description": "Letters, keywords, and single-letter meanings from the International Code of Signals."
-        },
-        "numbers": {
-            "title": "Number Pronunciation",
-            "description": "Standard pronunciation for digits to avoid confusion in voice communications."
-        },
-        "columns": {
-            "flag": "Flag",
-            "letter": "Letter",
-            "keyword": "Keyword",
-            "meaning": "Meaning (when flown singly)",
-            "pennant": "Pennant",
-            "number": "Number",
-            "pronunciation": "Pronunciation"
-        }
-    },
-    "meteo": {
-        "beaufort": {
-            "title": "Beaufort Wind Scale",
-            "description": "Relates wind speed to observed conditions at sea and on land.",
-            "headers": {
-                "force": "Force",
-                "denomination": "Denomination",
-                "speed": "Speed (knots)",
-                "waves": "Waves (m)",
-                "sea": "Sea State"
-            },
-            "denominations": {
-                "0": "Calm",
-                "1": "Light air",
-                "2": "Light breeze",
-                "3": "Gentle breeze",
-                "4": "Moderate breeze",
-                "5": "Fresh breeze",
-                "6": "Strong breeze",
-                "7": "Near gale",
-                "8": "Gale",
-                "9": "Strong gale",
-                "10": "Storm",
-                "11": "Violent storm",
-                "12": "Hurricane"
-            },
-            "speedKnots": {
-                "0": "< 1", "1": "1-3", "2": "4-6", "3": "7-10", "4": "11-16", "5": "17-21",
-                "6": "22-27", "7": "28-33", "8": "34-40", "9": "41-47", "10": "48-55",
-                "11": "56-63", "12": "> 63"
-            },
-            "waveHeight": {
-                "0": "0", "1": "0.1", "2": "0.2-0.5", "3": "0.6-1.0", "4": "1-2", "5": "2-3",
-                "6": "3-4", "7": "4-5.5", "8": "5.5-7.5", "9": "7-10", "10": "9-12.5",
-                "11": "11.5-16", "12": "> 14"
-            },
-            "seaState": {
-                "0": "Mirror-like", "1": "Ripples", "2": "Small wavelets", "3": "Large wavelets, crests begin to break", "4": "Small waves, numerous whitecaps", "5": "Moderate waves, many whitecaps, some spray",
-                "6": "Large waves, whitecaps everywhere, more spray", "7": "High waves, foam streaks", "8": "Very high waves, dense foam streaks", "9": "Exceptionally high waves, sea covered in foam", "10": "Very high waves with overhanging crests, sea white with foam",
-                "11": "Exceptionally high waves, sea completely white", "12": "Air filled with foam and spray, sea completely white"
-            }
-        },
-        "douglas": {
-            "title": "Douglas Sea and Swell Scale",
-            "description": "Describes the state of the sea, differentiating between wind-sea (wind-generated waves) and swell (waves from distant storms).",
-            "sea": {
-                "title": "Sea State (Wind-Sea)"
-            },
-            "swell": {
-                "title": "Swell State"
-            },
-            "headers": {
-                "degree": "Degree",
-                "denomination": "Denomination",
-                "height": "Height (m)"
-            },
-            "seaDenominations": {
-                "d0": "Calm", "d1": "Rippled", "d2": "Smooth", "d3": "Slight", "d4": "Moderate",
-                "d5": "Rough", "d6": "Very rough", "d7": "High", "d8": "Very high", "d9": "Phenomenal"
-            },
-            "seaWaveHeight": {
-                "0": "0", "1": "0-0.1", "2": "0.1-0.5", "3": "0.5-1.25", "4": "1.25-2.5", "5": "2.5-4",
-                "6": "4-6", "7": "6-9", "8": "9-14", "9": "> 14"
-            },
-            "swellDenominations": {
-                "d0": "No swell", "d1": "Short and low", "d2": "Short and moderate", "d3": "Long and low"
-            },
-            "swellWaveHeight": {
-                "0": "0", "1": "0-2", "2": "> 2", "3": "0-2"
-            }
-        },
-        "clouds": {
-            "title": "Cloud Types",
-            "description": "Main cloud genera, classified by altitude, and their meteorological significance.",
-            "alt_prefix": "Image of {cloudType} clouds",
-            "types": {
-                "cirrus": { "name": "Cirrus (Ci)", "altitude": "High Clouds (6-12 km)", "description": "Detached clouds in the form of white, delicate filaments or white or mostly white patches or narrow bands. Often associated with fair weather, but can indicate an approaching warm front.", "hint": "wispy clouds" },
-                "cirrocumulus": { "name": "Cirrocumulus (Cc)", "altitude": "High Clouds (6-12 km)", "description": "Thin, white patch, sheet, or layer of cloud without shading, composed of very small elements in the form of grains, ripples, etc. (mackerel sky). Can indicate instability at high altitudes.", "hint": "rippled clouds" },
-                "cirrostratus": { "name": "Cirrostratus (Cs)", "altitude": "High Clouds (6-12 km)", "description": "Transparent, whitish cloud veil of fibrous or smooth appearance, totally or partly covering the sky, and generally producing halo phenomena. Often precedes a warm front.", "hint": "halo sun" },
-                "altocumulus": { "name": "Altocumulus (Ac)", "altitude": "Middle Clouds (2-6 km)", "description": "White or greyish patch, sheet, or layer of cloud, generally with shading, composed of laminae, rounded masses, rolls, etc., which are sometimes partly fibrous or diffuse.", "hint": "fluffy clouds" },
-                "altostratus": { "name": "Altostratus (As)", "altitude": "Middle Clouds (2-6 km)", "description": "Greyish or bluish cloud sheet or layer of striated, fibrous, or uniform appearance, totally or partly covering the sky. The sun or moon may be visible as if through ground glass. Often precedes continuous rain or snow.", "hint": "grey sheet" },
-                "nimbostratus": { "name": "Nimbostratus (Ns)", "altitude": "Low to Middle (0-7 km)", "description": "Grey cloud layer, often dark, the appearance of which is rendered diffuse by more or less continuously falling rain or snow, which in most cases reaches the ground. It is thick enough throughout to blot out the sun.", "hint": "rainy clouds" },
-                "stratus": { "name": "Stratus (St)", "altitude": "Low Clouds (0-2 km)", "description": "Generally grey cloud layer with a fairly uniform base, which may give drizzle, ice prisms, or snow grains. When the sun is visible through the cloud, its outline is clearly discernible.", "hint": "fog clouds" },
-                "stratocumulus": { "name": "Stratocumulus (Sc)", "altitude": "Low Clouds (0-2 km)", "description": "Grey or whitish patch, sheet, or layer of cloud which almost always has dark parts, composed of tessellations, rounded masses, rolls, etc. which are non-fibrous. Usually indicates stable weather.", "hint": "lumpy clouds" },
-                "cumulus": { "name": "Cumulus (Cu)", "altitude": "Low Clouds (0-2 km)", "description": "Detached clouds, generally dense and with sharp outlines, developing vertically in the form of rising mounds, domes, or towers, of which the bulging upper part often resembles a cauliflower. The sunlit parts are mostly brilliant white. Indicates fair weather, but can grow.", "hint": "puffy clouds" },
-                "cumulonimbus": { "name": "Cumulonimbus (Cb)", "altitude": "Vertical (0-12 km)", "description": "Heavy and dense cloud, with a considerable vertical extent, in the form of a mountain or huge towers. The upper portion is usually smooth, fibrous, or striated, and nearly always flattened (anvil). Associated with thunderstorms, heavy rain, hail, and strong winds.", "hint": "storm cloud" }
-            }
-        }
+      "label": "SOS Generator",
+      "description": "Create formatted Mayday distress messages."
     },
     "signals": {
-        "description": "Interactive simulators for lights, buoyage, and sound signals according to COLREG.",
-        "tabs": {
-            "vessels": "Vessels",
-            "sounds": "Sounds",
-            "buoyage": "Buoyage",
-            "lighthouses": "Lighthouses"
-        },
-        "terms": {
-            "F": "Fixed", "FL": "Flashing", "LFL": "Long-Flashing", "OC": "Occulting", "ISO": "Isophase",
-            "Q": "Quick", "VQ": "Very Quick", "IQ": "Interrupted Quick", "MO": "Morse Code", "AL": "Alternating",
-            "W": "White", "R": "Red", "G": "Green", "Y": "Yellow", "BU": "Blue", "VI": "Violet"
-        },
-        "lighthouses": {
-            "invalidCharacteristic": "Invalid characteristic",
-            "groupText": "group {group}",
-            "colorSeparator": ", ",
-            "periodText": "every {period}s",
-            "start": "Adjust controls or enter a characteristic to start simulation.",
-            "manualInput": "OR ENTER MANUALLY",
-            "controls": {
-                "rhythm": "Rhythm",
-                "color": "Color",
-                "group": "Group / Composition",
-                "groupPlaceholder": "e.g. 2 or 2+1",
-                "period": "Period (seconds)",
-                "periodPlaceholder": "e.g. 10"
-            }
-        },
-        "buoys": {
-            "start": "Select a category and type to view the buoy.",
-            "ialaRegion": "IALA Region:",
-            "category": "Category",
-            "type": "Type",
-            "region": "Region",
-            "rule": "Mnemonic",
-            "mnemonic": "Mnemonic"
-        },
-        "buoyage": {
-            "categories": {
-                "lateral": "Lateral Marks",
-                "cardinal": "Cardinal Marks",
-                "special": "Other Marks"
-            },
-            "types": {
-                "port": "Port", "starboard": "Starboard", "north": "North", "south": "South", "east": "East", "west": "West",
-                "isolated_danger": "Isolated Danger", "safe_water": "Safe Water", "special_mark": "Special Mark"
-            },
-            "purposes": {
-                "port_a": "Indicates the port side of a channel when returning from sea.",
-                "starboard_a": "Indicates the starboard side of a channel when returning from sea.",
-                "port_b": "Indicates the port side of a channel when returning from sea.",
-                "starboard_b": "Indicates the starboard side of a channel when returning from sea.",
-                "north": "Indicates that safe water lies to the North.",
-                "south": "Indicates that safe water lies to the South.",
-                "east": "Indicates that safe water lies to the East.",
-                "west": "Indicates that safe water lies to the West.",
-                "isolated_danger": "Erected on a danger of limited extent.",
-                "safe_water": "Indicates navigable water all around the mark, such as a channel entrance.",
-                "special_mark": "Indicates a special area or feature (military zone, cable, pipeline, ODAS)."
-            },
-            "mnemonics": {
-                "port_a": "When returning, green to starboard (green with green), red to port (red with red).",
-                "starboard_a": "When returning, green to starboard (green with green), red to port (red with red).",
-                "port_b": "Red Right Returning.",
-                "starboard_b": "Red Right Returning.",
-                "north": "Two cones pointing up (North). Continuous quick white flashing light.",
-                "south": "Two cones pointing down (South). 6 flashes + 1 long flash.",
-                "east": "Cones opposite by base (like an Easter egg). 3 flashes every 5s.",
-                "west": "Cones joined by vertex (like a wine glass). 9 flashes every 10s.",
-                "isolated_danger": "Two black spheres, two white flashes.",
-                "safe_water": "Spherical mark with vertical stripes. White isophase, occulting, or long-flashing light.",
-                "special_mark": "Completely yellow, with an 'X' as a topmark. Yellow light."
-            }
-        },
-        "vessels": {
-            "situation": "Situation / Vessel Type",
-            "selectSituation": "Select a situation",
-            "specificCase": "Specific Case",
-            "view": "View",
-            "views": {
-                "bow": "Bow",
-                "starboard": "Starboard",
-                "stern": "Stern"
-            },
-            "condition": "Condition",
-            "day": "Day",
-            "night": "Night",
-            "requiredLights": "Required Lights:",
-            "requiredMarks": "Required Marks:",
-            "noMarks": "No marks required.",
-            "explanation": "Explanation & Exceptions:",
-            "rules": {
-                "R23": {
-                    "title": "Power-driven Vessel Underway",
-                    "description": "Vessel > 50m in length.",
-                    "explanation": "Vessels under 50m may show one masthead light. Vessels under 12m may show an all-round white light and sidelights. Vessels under 7m and max speed 7 kts may show an all-round white light."
-                },
-                "R24": {
-                    "title": "Towing and Pushing",
-                    "states": {
-                        "towing_gt200": {
-                            "title": "Towing, tow > 200m",
-                            "description": "A power-driven vessel when towing and the length of the tow exceeds 200m.",
-                            "explanation": "The towed vessel must show sidelights and a sternlight. In an inconspicuous, partly submerged vessel is towed, it must show specific lights and marks."
-                        },
-                        "towing_lt200": {
-                            "title": "Towing, tow < 200m",
-                            "description": "A power-driven vessel when towing and the length of the tow is less than 200m.",
-                            "explanation": "The towed vessel must show sidelights and a sternlight."
-                        },
-                        "pushing": {
-                            "title": "Pushing Ahead or Alongside",
-                            "description": "A power-driven vessel when pushing ahead or towing alongside.",
-                            "explanation": "When pushing ahead in a composite unit, they are considered as a single power-driven vessel."
-                        }
-                    }
-                },
-                "R25": {
-                    "title": "Sailing Vessel & Under Oars",
-                    "description": "Sailing vessel underway.",
-                    "explanation": "May also show two all-round lights at the masthead (red over green). When under power, must show a conical shape, apex downwards."
-                },
-                "R26": {
-                    "title": "Fishing Vessels",
-                    "states": {
-                        "trawling": {
-                            "title": "Engaged in Trawling",
-                            "description": "Dragging a demersal or pelagic net through the water.",
-                            "explanation": "If making way, also shows sidelights and a sternlight. If gear extends more than 150m horizontally, a white light in that direction."
-                        },
-                        "fishing_not_trawling": {
-                            "title": "Fishing (not trawling)",
-                            "description": "Engaged in fishing with gear other than trawling.",
-                            "explanation": "If making way, also shows sidelights and a sternlight. If gear extends more than 150m horizontally, a white light in that direction."
-                        }
-                    }
-                },
-                "R27": {
-                    "title": "Vessels NUC or RAM",
-                    "states": {
-                        "nuc": {
-                            "title": "Not Under Command (NUC)",
-                            "description": "Unable to maneuver as required by the Rules.",
-                            "explanation": "If making way through the water, must also exhibit sidelights and a sternlight."
-                        },
-                        "ram": {
-                            "title": "Restricted in Ability to Manoeuvre (RAM)",
-                            "description": "Limited in her ability to manoeuvre due to the nature of her work.",
-                            "explanation": "If making way, must also show masthead lights, sidelights and a sternlight. If at anchor, shows anchor lights instead of PDV lights."
-                        }
-                    }
-                },
-                "R28": {
-                    "title": "Vessel Constrained by Draught (CBD)",
-                    "description": "A power-driven vessel which because of her draught in relation to the available depth of water is severely restricted in her ability to deviate from the course she is following.",
-                    "explanation": "This signal is optional and does not grant special privileges, it serves as a warning to other vessels."
-                },
-                "R29": {
-                    "title": "Pilot Vessel",
-                    "description": "Vessel on pilotage duty.",
-                    "explanation": "When not on duty, shall exhibit the lights or shapes for a similar vessel of her length."
-                },
-                "R30": {
-                    "title": "Anchored and Aground",
-                    "states": {
-                        "anchored": {
-                            "title": "Vessel at Anchor",
-                            "description": "Vessel > 50m at anchor. May also illuminate her decks.",
-                            "explanation": "Vessels < 50m may show a single all-round white light. Vessels < 7m are not required to exhibit lights if not in a channel or fairway."
-                        },
-                        "aground": {
-                            "title": "Vessel Aground",
-                            "description": "Vessel > 50m aground.",
-                            "explanation": "Must show the two all-round red lights in a vertical line, plus the lights prescribed for a vessel at anchor."
-                        }
-                    }
-                }
-            },
-            "lights": {
-                "masthead_fwd": "Masthead light, forward",
-                "masthead_aft": "Second masthead light, abaft and higher than the forward one",
-                "sidelight_stbd": "Starboard sidelight (green)",
-                "sidelight_port": "Port sidelight (red)",
-                "sternlight": "Sternlight",
-                "masthead_1": "First masthead light",
-                "masthead_2": "Second masthead light",
-                "masthead_3": "Third masthead light",
-                "towing_light": "Towing light (yellow)",
-                "sidelights_making_way": "Sidelights (if making way)",
-                "sternlight_making_way": "Sternlight (if making way)",
-                "trawl_g": "All-round green light",
-                "trawl_w": "All-round white light",
-                "fish_r": "All-round red light",
-                "fish_w": "All-round white light",
-                "nuc_lights": "Two all-round red lights in a vertical line",
-                "sidelights_stern_making_way": "Sidelights and a sternlight (if making way)",
-                "ram_lights": "Three all-round lights in a vertical line (red, white, red)",
-                "pdv_lights_making_way": "Masthead lights, sidelights and sternlight (if making way)",
-                "cbd_lights": "Three all-round red lights in a vertical line",
-                "anchor_fwd": "All-round white light, forward",
-                "anchor_aft": "All-round white light, aft and lower",
-                "anchor_lights": "Anchor lights",
-                "aground_lights": "Two all-round red lights (in addition to anchor lights)",
-                "pilot_w": "All-round white light",
-                "pilot_r": "All-round red light",
-                "sidelights_navigating": "Sidelights (if underway)",
-                "sternlight_navigating": "Sternlight (if underway)"
-            },
-            "marks": {
-                "cone_sailing_motor": "Conical shape, apex downwards",
-                "diamond_tow": "Diamond shape (if tow > 200m)",
-                "trawl_mark": "Two cones with their apexes together in a vertical line",
-                "nuc_marks": "Two balls in a vertical line",
-                "ram_marks": "Ball, diamond, ball in a vertical line",
-                "cylinder": "Cylinder",
-                "ball": "Ball",
-                "aground_marks": "Three balls in a vertical line"
-            }
-        },
-        "sounds": {
-            "selectSituation": "Select a sound signal",
-            "acousticSignal": "Acoustic Signal",
-            "play": "Play Sound",
-            "stop": "Stop Sound",
-            "maneuver_stbd": {
-                "title": "Maneuvering to Starboard",
-                "description": "A power-driven vessel underway, when maneuvering as authorized or required by these Rules.",
-                "signal": "● (One short blast)"
-            },
-            "maneuver_port": {
-                "title": "Maneuvering to Port",
-                "description": "A power-driven vessel underway, when maneuvering as authorized or required by these Rules.",
-                "signal": "● ● (Two short blasts)"
-            },
-            "maneuver_astern": {
-                "title": "Operating Astern Propulsion",
-                "description": "A power-driven vessel underway, when her engines are going astern.",
-                "signal": "● ● ● (Three short blasts)"
-            },
-            "overtake_stbd": {
-                "title": "Overtaking on Starboard Side",
-                "description": "Intention to overtake another vessel on her starboard side.",
-                "signal": "▬ ▬ ● (Two prolonged and one short blast)"
-            },
-            "overtake_port": {
-                "title": "Overtaking on Port Side",
-                "description": "Intention to overtake another vessel on her port side.",
-                "signal": "▬ ▬ ● ● (Two prolonged and two short blasts)"
-            },
-            "overtake_agree": {
-                "title": "Agreement to be Overtaken",
-                "description": "Reply from the vessel to be overtaken, if in agreement.",
-                "signal": "▬ ● ▬ ● (Prolonged, short, prolonged, short blast)"
-            },
-            "warning_doubt": {
-                "title": "Warning / Doubt Signal",
-                "description": "When a vessel fails to understand the intentions or actions of another, or is in doubt whether sufficient action is being taken by the other to avoid collision.",
-                "signal": "● ● ● ● ● (Five or more short and rapid blasts)"
-            },
-            "warning_bend": {
-                "title": "Warning in a Bend",
-                "description": "A vessel nearing a bend or an area of a channel or fairway where other vessels may be obscured by an intervening obstruction.",
-                "signal": "▬ (One prolonged blast)"
-            },
-            "restricted_vis_power_making_way": {
-                "title": "PDV, Making Way (Restricted Vis.)",
-                "description": "A power-driven vessel making way through the water in restricted visibility.",
-                "signal": "▬ (One prolonged blast at intervals ≤ 2 min)"
-            },
-            "restricted_vis_power_stopped": {
-                "title": "PDV, Stopped (Restricted Vis.)",
-                "description": "A power-driven vessel underway but stopped and making no way through the water in restricted visibility.",
-                "signal": "▬ ▬ (Two prolonged blasts at intervals ≤ 2 min)"
-            },
-            "restricted_vis_special": {
-                "title": "Special Condition Vessel (Restricted Vis.)",
-                "description": "Vessel NUC, RAM, CBD, sailing, fishing, or towing/pushing.",
-                "signal": "▬ ● ● (One prolonged and two short blasts at intervals ≤ 2 min)"
-            },
-            "restricted_vis_towed": {
-                "title": "Towed Vessel (if manned) (Restricted Vis.)",
-                "description": "The last vessel of a tow, if manned.",
-                "signal": "▬ ● ● ● (One prolonged and three short blasts at intervals ≤ 2 min)"
-            },
-            "restricted_vis_anchored_lt100": {
-                "title": "Anchored, < 100m (Restricted Vis.)",
-                "description": "A vessel at anchor, less than 100m in length.",
-                "signal": "🔔 (Rapid ringing of the bell for 5s at intervals ≤ 1 min)"
-            },
-            "restricted_vis_anchored_gt100": {
-                "title": "Anchored, ≥ 100m (Restricted Vis.)",
-                "description": "A vessel at anchor, 100m or more in length.",
-                "signal": "🔔 (Bell forward) + 🔔🔔🔔 (Gong aft) (At intervals ≤ 1 min)"
-            },
-            "restricted_vis_aground": {
-                "title": "Aground (Restricted Vis.)",
-                "description": "A vessel aground.",
-                "signal": "●● 🔔 ●● (Two bell strokes, rapid ringing, two bell strokes)"
-            },
-            "pilot": {
-                "title": "Pilot Vessel",
-                "description": "A vessel on pilotage duty.",
-                "signal": "● ● ● ● (Four short blasts)"
-            }
-        }
+      "label": "Signals Simulator",
+      "description": "Interactive lights, buoys, and sounds."
+    },
+    "colreg": {
+      "label": "COLREG Guide",
+      "description": "A summary of the collision regulations."
+    },
+    "quiz": {
+      "label": "Practice Quiz",
+      "description": "Test your PER knowledge with an AI quiz."
+    },
+    "directory": {
+      "label": "Directory",
+      "description": "Quick access to emergency numbers."
+    },
+    "calculator": {
+      "label": "Coordinate Converter",
+      "description": "Convert between DD, DDM, and DMS."
+    },
+    "alphabet": {
+      "label": "Phonetic Alphabet",
+      "description": "International code of signals and flags."
+    },
+    "channels": {
+      "label": "VHF Channels",
+      "description": "List of common marine channels."
+    },
+    "qcodes": {
+      "label": "Q-Codes",
+      "description": "Common radiocommunication codes."
+    },
+    "meteo": {
+      "label": "Meteorology",
+      "description": "Beaufort and Douglas scales, clouds."
     }
+  },
+  "sos": {
+    "title": "SOS Distress Message Generator",
+    "description": "Use this guide to correctly formulate a distress call on VHF channel 16. Fill in the placeholders with your specific information.",
+    "procedure": {
+      "title": "MAYDAY Procedure (VHF)",
+      "alert": {
+        "title": "For Real Emergencies Only",
+        "description": "Transmitting a false distress signal is illegal and dangerous. Use only in situations of grave and imminent danger."
+      },
+      "explanation": {
+        "title": "Explanation of each step",
+        "step1": { "title": "MAYDAY, MAYDAY, MAYDAY", "description": "The international signal for grave and imminent danger. Repeat it three times to ensure it's heard and distinguished from less urgent calls." },
+        "step2": { "title": "This is...", "description": "State the name of your vessel three times and your call sign or other identification once. Repeating the name helps in noisy conditions." },
+        "step3": { "title": "MAYDAY", "description": "Repeat the distress signal once more, followed by your vessel's name." },
+        "step4": { "title": "Position", "description": "Give your position as accurately as possible. Use latitude/longitude, a landmark, or bearing and distance from a known point." },
+        "step5": { "title": "Nature of Distress", "description": "Clearly and concisely state what is wrong. E.g., 'on fire', 'sinking', 'medical emergency'." },
+        "step6": { "title": "Assistance Required", "description": "State the type of help you need. E.g., 'require immediate assistance'." },
+        "step7": { "title": "Persons on Board (POB)", "description": "State the number of people on board. This is critical information for rescue teams." },
+        "step8": { "title": "Other Information", "description": "Provide any other details that could help rescuers, such as 'abandoning to liferaft', 'vessel is a blue sailboat', '4-meter waves'." },
+        "step9": { "title": "Over", "description": "Indicates the end of your transmission, inviting a response." },
+        "step10": { "title": "Wait", "description": "Release the transmit button and listen. Wait for at least 15-20 seconds for a response before repeating the call, starting from the second MAYDAY." }
+      }
+    },
+    "systems": {
+      "title": "Other Distress Alerting Systems",
+      "vhf": { "title": "VHF DSC (Channel 70)", "description": "Digitally sends a distress signal with your MMSI and position to all nearby vessels and shore stations.", "channel": "CHANNEL 70 (DSC)" },
+      "epirb": { "title": "EPIRB / PLB", "description": "Emergency Position-Indicating Radio Beacon. Automatically activates on contact with water or manually, sending a signal to satellites.", "channel": "406 MHz (SATELLITE)" },
+      "visual": { "title": "Visual Signals", "description": "Use flares (red parachute, red handheld), orange smoke signals, or a distress flag.", "channel": "VISUAL" },
+      "mobile": { "title": "Mobile Phone", "description": "Call emergency services (112, 911). Unreliable at sea, but can be a valid option if in coastal range.", "channel": "PHONE (112/911)" }
+    },
+    "thisIs": "This is",
+    "callSign": "Call sign",
+    "myPosition": "My position is",
+    "iam": "I am",
+    "iRequire": "I require immediate assistance",
+    "iHave": "I have",
+    "personsOnBoard": "persons on board",
+    "over": "Over",
+    "placeholders": {
+      "shipName": "VESSEL NAME",
+      "callSign": "CALL SIGN",
+      "position": "LATITUDE AND LONGITUDE / BEARING AND DISTANCE",
+      "natureOfDistress": "NATURE OF DISTRESS (sinking, fire...)",
+      "pob": "NUMBER",
+      "otherInfo": "OTHER INFO (abandoning ship...)"
+    }
+  },
+  "directory": {
+    "title": "Emergency Directory",
+    "description": "Quick access to essential maritime and emergency services in Spain. These numbers are for use from Spanish territory.",
+    "searchPlaceholder": "Search by name, number, or keyword...",
+    "noResults": "No results found for '{searchTerm}'.",
+    "entries": {
+      "maritime_rescue": {
+        "name": "Maritime Rescue",
+        "keywords": ["emergency", "coast guard", "sar", "distress", "rescue"]
+      },
+      "civil_guard": {
+        "name": "Civil Guard (Sea Service)",
+        "keywords": ["police", "law", "security", "guardia"]
+      },
+      "red_cross": {
+        "name": "Red Cross of the Sea",
+        "keywords": ["medical", "first aid", "assistance", "cruz roja"]
+      },
+      "national_police": {
+        "name": "National Police",
+        "keywords": ["police", "crime", "policia"]
+      },
+      "cnmc": {
+        "name": "CNMC (Radioelectric Spectrum)",
+        "keywords": ["license", "radio", "vhf", "mmsi"]
+      },
+      "aemet": {
+        "name": "AEMET (State Met. Agency)",
+        "keywords": ["weather", "forecast", "meteo", "aemet"]
+      }
+    }
+  },
+  "alphabet": {
+    "letters": {
+      "title": "International Signal Flags",
+      "description": "The phonetic alphabet and flags used in maritime communication."
+    },
+    "numbers": {
+      "title": "Number Pennants",
+      "description": "Pennants representing numbers 0 through 9."
+    },
+    "columns": {
+      "flag": "Flag",
+      "letter": "Letter",
+      "keyword": "Keyword",
+      "meaning": "Single Letter Meaning",
+      "pennant": "Pennant",
+      "number": "Number",
+      "pronunciation": "Pronunciation"
+    }
+  },
+  "channels": {
+    "title": "Common Marine VHF Channels (Spain)",
+    "description": "A list of the most common VHF channels and their primary use in Spanish waters.",
+    "columns": {
+      "channel": "Channel",
+      "usage": "Primary Usage"
+    }
+  },
+  "qcodes": {
+    "title": "Common Q-Codes",
+    "description": "A selection of Q-Codes commonly used in maritime radiocommunications.",
+    "columns": {
+      "code": "Code",
+      "question": "Question",
+      "answer": "Answer / Meaning"
+    }
+  },
+  "meteo": {
+    "beaufort": {
+      "title": "Beaufort Wind Scale",
+      "description": "Relates wind speed to observed conditions at sea and on land.",
+      "headers": {
+        "force": "Force",
+        "denomination": "Denomination",
+        "speed": "Speed (Knots)",
+        "waves": "Waves (m)",
+        "sea": "Sea State"
+      },
+      "denominations": {
+        "0": "Calm", "1": "Light air", "2": "Light breeze", "3": "Gentle breeze", "4": "Moderate breeze", "5": "Fresh breeze", "6": "Strong breeze", "7": "Near gale", "8": "Gale", "9": "Strong gale", "10": "Storm", "11": "Violent storm", "12": "Hurricane"
+      },
+      "speedKnots": {
+        "0": "< 1", "1": "1-3", "2": "4-6", "3": "7-10", "4": "11-16", "5": "17-21", "6": "22-27", "7": "28-33", "8": "34-40", "9": "41-47", "10": "48-55", "11": "56-63", "12": "> 63"
+      },
+      "waveHeight": {
+        "0": "0", "1": "0.1", "2": "0.2-0.5", "3": "0.5-1", "4": "1-2", "5": "2-3", "6": "3-4", "7": "4-5.5", "8": "5.5-7.5", "9": "7-10", "10": "9-12.5", "11": "11.5-16", "12": "> 14"
+      },
+      "seaState": {
+        "0": "Mirror-like", "1": "Ripples", "2": "Small wavelets", "3": "Large wavelets", "4": "Slight waves", "5": "Moderate waves", "6": "Large waves", "7": "High waves", "8": "Very high waves", "9": "Exceptionally high waves", "10": "Very high waves with overhanging crests", "11": "Exceptionally high waves", "12": "Sea covered with foam and spray"
+      }
+    },
+    "douglas": {
+      "title": "Douglas Sea and Swell Scale",
+      "description": "Describes the state of the sea, distinguishing between the wind-driven sea and the swell.",
+      "headers": {
+        "degree": "Degree",
+        "denomination": "Denomination",
+        "height": "Height (m)"
+      },
+      "sea": {
+        "title": "Sea State (Wind Sea)",
+        "d0": "Calm (glassy)", "d1": "Calm (rippled)", "d2": "Smooth", "d3": "Slight", "d4": "Moderate", "d5": "Rough", "d6": "Very rough", "d7": "High", "d8": "Very high", "d9": "Phenomenal",
+        "waveHeight": {
+          "0": "0", "1": "0 - 0.1", "2": "0.1 - 0.5", "3": "0.5 - 1.25", "4": "1.25 - 2.5", "5": "2.5 - 4", "6": "4 - 6", "7": "6 - 9", "8": "9 - 14", "9": "> 14"
+        }
+      },
+      "swell": {
+        "title": "Swell State",
+        "d0": "No swell", "d1": "Short or average, low", "d2": "Long, low", "d3": "Short, moderate",
+        "waveHeight": {
+          "0": "0", "1": "0 - 2", "2": "0 - 2", "3": "> 2"
+        }
+      }
+    },
+    "clouds": {
+      "title": "Cloud Types",
+      "description": "Basic identification of clouds by altitude and appearance.",
+      "alt_prefix": "Image of {cloudType} clouds",
+      "types": {
+        "cirrus": { "name": "Cirrus (Ci)", "altitude": "High Clouds (5-13 km)", "description": "Detached clouds in the form of white, delicate filaments or white or mostly white patches or narrow bands. They have a fibrous (hair-like) appearance, or a silky sheen, or both.", "hint": "wispy clouds" },
+        "cirrocumulus": { "name": "Cirrocumulus (Cc)", "altitude": "High Clouds (5-13 km)", "description": "Thin, white patch, sheet, or layer of cloud without shading, composed of very small elements in the form of grains, ripples, etc., merged or separate, and more or less regularly arranged; most of the elements have an apparent width of less than one degree.", "hint": "small cloudlets" },
+        "cirrostratus": { "name": "Cirrostratus (Cs)", "altitude": "High Clouds (5-13 km)", "description": "Transparent, whitish cloud veil of fibrous (hair-like) or smooth appearance, totally or partly covering the sky, and generally producing halo phenomena.", "hint": "halo sun" },
+        "altocumulus": { "name": "Altocumulus (Ac)", "altitude": "Middle Clouds (2-7 km)", "description": "White or grayish, or both white and grayish, patch, sheet or layer of cloud, generally with shading, composed of laminae, rounded masses, rolls, etc., which are sometimes partly fibrous or diffuse and which may or may not be merged.", "hint": "midlevel clouds" },
+        "altostratus": { "name": "Altostratus (As)", "altitude": "Middle Clouds (2-7 km)", "description": "Grayish or bluish cloud sheet or layer of striated, fibrous or uniform appearance, totally or partly covering the sky, and having parts thin enough to reveal the sun at least vaguely, as through ground glass. Does not show halo phenomena.", "hint": "grey veil" },
+        "nimbostratus": { "name": "Nimbostratus (Ns)", "altitude": "Multi-level (0-7 km)", "description": "Gray cloud layer, often dark, the appearance of which is rendered diffuse by more or less continuously falling rain or snow, which in most cases reaches the ground. It is thick enough throughout to blot out the sun.", "hint": "rain cloud" },
+        "stratus": { "name": "Stratus (St)", "altitude": "Low Clouds (0-2 km)", "description": "Generally gray cloud layer with a fairly uniform base, which may give drizzle, ice prisms, or snow grains. When the sun is visible through the cloud, its outline is clearly discernible.", "hint": "fog bank" },
+        "stratocumulus": { "name": "Stratocumulus (Sc)", "altitude": "Low Clouds (0-2 km)", "description": "Gray or whitish, or both gray and whitish, patch, sheet or layer of cloud which almost always has dark parts, composed of tessellations, rounded masses, rolls, etc., which are non-fibrous and which may or may not be merged.", "hint": "low lumpy" },
+        "cumulus": { "name": "Cumulus (Cu)", "altitude": "Low Clouds (0-2 km)", "description": "Detached clouds, generally dense and with sharp outlines, developing vertically in the form of rising mounds, domes or towers, of which the bulging upper part often resembles a cauliflower. The sunlit parts of these clouds are mostly brilliant white; their base is relatively dark and nearly horizontal.", "hint": "puffy clouds" },
+        "cumulonimbus": { "name": "Cumulonimbus (Cb)", "altitude": "Multi-level (0-13 km)", "description": "Heavy and dense cloud, with a considerable vertical extent, in the form of a mountain or huge towers. At least part of its upper portion is usually smooth, fibrous or striated, and nearly always flattened; this part often spreads out in the shape of an anvil or vast plume.", "hint": "thunderstorm cloud" }
+      }
+    }
+  },
+  "signals": {
+    "description": "Learn to identify maritime signals through interactive simulators for lights, buoys, sounds and vessels.",
+    "tabs": {
+      "vessels": "Vessels",
+      "sounds": "Sounds",
+      "buoyage": "Buoyage",
+      "lighthouses": "Lighthouses"
+    },
+    "terms": {
+      "F": "Fixed", "FL": "Flashing", "LFL": "Long-Flashing", "OC": "Occulting", "ISO": "Isophase", "Q": "Quick", "VQ": "Very Quick", "IQ": "Interrupted Quick", "MO": "Morse Code", "AL": "Alternating",
+      "W": "White", "R": "Red", "G": "Green", "Y": "Yellow", "BU": "Blue", "VI": "Violet"
+    },
+    "lighthouses": {
+      "invalidCharacteristic": "Invalid light characteristic",
+      "groupText": "group {group}",
+      "colorSeparator": ", ",
+      "periodText": "every {period} seconds",
+      "manualInput": "or enter manually",
+      "start": "Adjust the controls or type a characteristic to start the simulation.",
+      "controls": {
+        "rhythm": "Rhythm",
+        "color": "Color",
+        "group": "Group (e.g. 2, 2+1)",
+        "period": "Period (seconds)",
+        "groupPlaceholder": "e.g., 2, 2+1",
+        "periodPlaceholder": "e.g., 10"
+      }
+    },
+    "buoys": {
+      "start": "Select a category and type to start the simulation.",
+      "ialaRegion": "IALA Region",
+      "category": "Category",
+      "type": "Type",
+      "region": "Region",
+      "rule": "Mnemonic"
+    },
+    "buoyage": {
+      "categories": {
+        "lateral": "Lateral",
+        "cardinal": "Cardinal",
+        "special": "Special"
+      },
+      "types": {
+        "port": "Port",
+        "starboard": "Starboard",
+        "north": "North",
+        "south": "South",
+        "east": "East",
+        "west": "West",
+        "isolated_danger": "Isolated Danger",
+        "safe_water": "Safe Water",
+        "special_mark": "Special Mark"
+      },
+      "purposes": {
+        "port_a": "Indicates the port side of a channel when returning from sea (Region A).",
+        "starboard_a": "Indicates the starboard side of a channel when returning from sea (Region A).",
+        "port_b": "Indicates the port side of a channel when returning from sea (Region B).",
+        "starboard_b": "Indicates the starboard side of a channel when returning from sea (Region B).",
+        "north": "Indicates that safe water lies to the North.",
+        "south": "Indicates that safe water lies to the South.",
+        "east": "Indicates that safe water lies to the East.",
+        "west": "Indicates that safe water lies to the West.",
+        "isolated_danger": "Erected on a danger of limited extent which has navigable water all around it.",
+        "safe_water": "Indicates that there is navigable water all around the mark, such as a mid-channel or landfall buoy.",
+        "special_mark": "Indicates a special area or feature whose nature may be found by consulting charts or sailing directions."
+      },
+      "mnemonics": {
+        "port_a": "On returning, green to starboard (green with green), red to port (red with red).",
+        "starboard_a": "On returning, green to starboard (green with green), red to port (red with red).",
+        "port_b": "Red Right Returning. The red buoy is on your starboard side when returning from sea.",
+        "starboard_b": "Red Right Returning. The red buoy is on your starboard side when returning from sea.",
+        "north": "Two cones pointing up (North). Continuous very quick or quick white flashing light.",
+        "south": "Two cones pointing down (South). 6 very quick flashes + 1 long flash.",
+        "east": "Cones point away from each other (base to base). 3 very quick flashes.",
+        "west": "Cones point towards each other (vertex to vertex). 9 very quick flashes.",
+        "isolated_danger": "Two black spheres, two white flashes in a group.",
+        "safe_water": "Spherical mark with vertical stripes. One long white flash every 10 seconds.",
+        "special_mark": "Yellow color, 'X' topmark. Yellow light, any rhythm not conflicting with others."
+      }
+    },
+    "vessels": {
+      "situation": "Situation / Rule",
+      "selectSituation": "Select a situation",
+      "specificCase": "Specific Case",
+      "view": "View",
+      "views": {
+        "bow": "Bow",
+        "starboard": "Starboard",
+        "stern": "Stern"
+      },
+      "condition": "Condition",
+      "day": "Day",
+      "night": "Night",
+      "requiredLights": "Required Lights:",
+      "requiredMarks": "Required Marks:",
+      "noMarks": "No daylight marks are required for this situation.",
+      "explanation": "Explanation",
+      "rules": {
+        "R23": {
+          "title": "R23 - Power-driven vessel underway",
+          "description": "Standard lights for a power-driven vessel over 50m in length.",
+          "explanation": "Vessels over 50m must show two masthead lights, the aft one higher than the forward one. Vessels under 50m may, but are not required to, show the second masthead light."
+        },
+        "R24": {
+          "title": "R24 - Towing and pushing",
+          "description": "Lights and marks for vessels engaged in towing operations.",
+          "states": {
+            "towing_gt200": {
+              "title": "Towing, tow > 200m",
+              "description": "A power-driven vessel when towing, and the length of the tow exceeds 200 meters.",
+              "explanation": "Three masthead lights in a vertical line indicate a long tow. A towing light (yellow) is shown at the stern above the sternlight."
+            },
+            "towing_lt200": {
+              "title": "Towing, tow < 200m",
+              "description": "A power-driven vessel when towing, and the length of the tow is less than 200 meters.",
+              "explanation": "Two masthead lights in a vertical line indicate a standard towing operation. A towing light (yellow) is shown at the stern."
+            },
+            "pushing": {
+              "title": "Pushing ahead",
+              "description": "A power-driven vessel when pushing another vessel ahead in a composite unit.",
+              "explanation": "When rigidly connected in a composite unit, they are regarded as a single power-driven vessel and exhibit the lights for Rule 23."
+            }
+          }
+        },
+        "R25": {
+          "title": "R25 - Sailing vessel underway",
+          "description": "Lights for a sailing vessel underway. May also show optional tricolor or all-round lights.",
+          "explanation": "Standard configuration is sidelights and a sternlight. A tricolor light at the masthead is a common option for sailboats under 20m. When motoring, even with sails up, it must display the lights of a power-driven vessel and a cone shape, apex downwards, during the day."
+        },
+        "R26": {
+          "title": "R26 - Fishing vessels",
+          "description": "Lights and marks for vessels engaged in fishing.",
+          "states": {
+            "trawling": {
+              "title": "Trawling",
+              "description": "Engaged in trawling (dragging a net through the water).",
+              "explanation": "Green over white all-round lights. 'Green over white, trawling at night'. When making way, also shows sidelights and sternlight."
+            },
+            "fishing_not_trawling": {
+              "title": "Fishing (not trawling)",
+              "description": "Engaged in fishing other than trawling, with gear extending more than 150m.",
+              "explanation": "Red over white all-round lights. 'Red over white, fishing at night'. When making way, also shows sidelights and sternlight."
+            }
+          }
+        },
+        "R27": {
+          "title": "R27 - Vessels Not Under Command or Restricted",
+          "description": "Vessels that cannot maneuver as required by the rules.",
+          "states": {
+            "nuc": {
+              "title": "Not Under Command (NUC)",
+              "description": "Unable to maneuver due to some exceptional circumstance.",
+              "explanation": "Two all-round red lights in a vertical line. 'Red over red, the Captain is dead'. If making way, also shows sidelights and sternlight. By day, two balls in a vertical line."
+            },
+            "ram": {
+              "title": "Restricted in Ability to Maneuver (RAM)",
+              "description": "Unable to keep out of the way of another vessel due to the nature of her work (e.g., dredging, survey, replenishment).",
+              "explanation": "Red-white-red all-round lights in a vertical line. By day, ball-diamond-ball in a vertical line. If making way, also shows normal power-driven vessel lights."
+            }
+          }
+        },
+        "R28": {
+          "title": "R28 - Vessel constrained by her draft",
+          "description": "A power-driven vessel which because of her draft is severely restricted in her ability to deviate from her course.",
+          "explanation": "In addition to normal power-driven vessel lights, a vessel constrained by her draft may exhibit three all-round red lights in a vertical line. By day, a cylinder."
+        },
+        "R29": {
+          "title": "R29 - Pilot vessel",
+          "description": "A vessel on pilotage duty.",
+          "explanation": "When on duty, shows white over red all-round lights. 'White over red, pilot ahead'. When underway, also shows normal sidelights and sternlight. When at anchor, shows anchor lights in addition to the pilot lights."
+        },
+        "R30": {
+          "title": "R30 - Anchored vessels and vessels aground",
+          "description": "Lights and marks for vessels at anchor or aground.",
+          "states": {
+            "anchored": {
+              "title": "At Anchor",
+              "description": "A vessel at anchor. Vessels over 50m show two all-round white lights; vessels under 50m show one.",
+              "explanation": "An all-round white light where it can best be seen. If over 50m, a second, lower all-round white light at or near the stern. By day, a single ball."
+            },
+            "aground": {
+              "title": "Aground",
+              "description": "A vessel aground.",
+              "explanation": "In addition to anchor lights, a vessel aground shows two all-round red lights in a vertical line. By day, three balls in a vertical line."
+            }
+          }
+        }
+      },
+      "lights": {
+        "masthead_fwd": "Masthead light (forward)",
+        "masthead_aft": "Masthead light (aft, higher)",
+        "masthead_1": "Masthead light 1",
+        "masthead_2": "Masthead light 2",
+        "masthead_3": "Masthead light 3",
+        "sidelight_stbd": "Starboard sidelight (green)",
+        "sidelight_port": "Port sidelight (red)",
+        "sternlight": "Sternlight (white)",
+        "sidelights_making_way": "Sidelights (if making way)",
+        "sternlight_making_way": "Sternlight (if making way)",
+        "sidelights_stern_making_way": "Sidelights & Sternlight (if making way)",
+        "pdv_lights_making_way": "Masthead, side & stern lights (if making way)",
+        "towing_light": "Towing light (yellow)",
+        "trawl_g": "All-round green light",
+        "trawl_w": "All-round white light",
+        "fish_r": "All-round red light",
+        "fish_w": "All-round white light",
+        "nuc_lights": "Two all-round red lights",
+        "ram_lights": "Red-White-Red all-round lights",
+        "cbd_lights": "Three all-round red lights",
+        "anchor_fwd": "Anchor light (forward)",
+        "anchor_aft": "Anchor light (aft, lower)",
+        "anchor_lights": "Anchor lights",
+        "aground_lights": "Two all-round red lights",
+        "pilot_w": "All-round white light",
+        "pilot_r": "All-round red light",
+        "sidelights_navigating": "Sidelights",
+        "sternlight_navigating": "Sternlight"
+      },
+      "marks": {
+        "cone_sailing_motor": "Cone, apex downwards (sailing & motoring)",
+        "diamond_tow": "Diamond shape (towing > 200m)",
+        "trawl_mark": "Two cones, apexes together (trawling)",
+        "nuc_marks": "Two balls in a vertical line (NUC)",
+        "ram_marks": "Ball-Diamond-Ball in a vertical line (RAM)",
+        "cylinder": "Cylinder (Constrained by draft)",
+        "ball": "Ball (at anchor)",
+        "aground_marks": "Three balls in a vertical line (aground)"
+      }
+    },
+    "sounds": {
+      "selectSituation": "Select a sound signal",
+      "acousticSignal": "Acoustic Signal",
+      "play": "Play",
+      "stop": "Stop",
+      "maneuver_stbd": { "title": "Maneuvering to Starboard", "description": "A power-driven vessel underway, when maneuvering as authorized or required, in sight of another.", "signal": "● (One short blast)" },
+      "maneuver_port": { "title": "Maneuvering to Port", "description": "A power-driven vessel underway, when maneuvering as authorized or required, in sight of another.", "signal": "● ● (Two short blasts)" },
+      "maneuver_astern": { "title": "Operating Astern Propulsion", "description": "A power-driven vessel underway, when her engines are going astern.", "signal": "● ● ● (Three short blasts)" },
+      "overtake_stbd": { "title": "Intend to Overtake on Starboard", "description": "Signal to indicate the intention to overtake another vessel on its starboard side.", "signal": "▬ ▬ ● (Two long, one short)" },
+      "overtake_port": { "title": "Intend to Overtake on Port", "description": "Signal to indicate the intention to overtake another vessel on its port side.", "signal": "▬ ▬ ● ● (Two long, two short)" },
+      "overtake_agree": { "title": "Agreement to be Overtaken", "description": "The vessel to be overtaken signals its agreement.", "signal": "▬ ● ▬ ● (Long, short, long, short)" },
+      "warning_doubt": { "title": "Warning / Doubt Signal", "description": "When vessels in sight of one another are approaching, and one fails to understand the intentions or actions of the other.", "signal": "● ● ● ● ● (Five or more short blasts)" },
+      "warning_bend": { "title": "Warning in Bend/Blind Channel", "description": "A vessel nearing a bend or an area of a channel where other vessels may be obscured.", "signal": "▬ (One long blast)" },
+      "restricted_vis_power_making_way": { "title": "PDV Making Way (Restricted Vis.)", "description": "In or near an area of restricted visibility. Power-driven vessel making way through the water.", "signal": "▬ (One long blast at intervals ≤ 2 min)" },
+      "restricted_vis_power_stopped": { "title": "PDV Stopped (Restricted Vis.)", "description": "In or near an area of restricted visibility. Power-driven vessel stopped and not making way.", "signal": "▬ ▬ (Two long blasts at intervals ≤ 2 min)" },
+      "restricted_vis_special": { "title": "Special Vessel (Restricted Vis.)", "description": "In restricted visibility. Vessels NUC, RAM, CBD, sailing, fishing, or towing.", "signal": "▬ ● ● (One long, two short at intervals ≤ 2 min)" },
+      "restricted_vis_towed": { "title": "Towed Vessel (Restricted Vis.)", "description": "In restricted visibility. The last vessel of a tow, if manned.", "signal": "▬ ● ● ● (One long, three short at intervals ≤ 2 min)" },
+      "restricted_vis_anchored_lt100": { "title": "Anchored <100m (Restricted Vis.)", "description": "In restricted visibility. Vessel at anchor, less than 100m in length.", "signal": "🔔 (Rapid ringing of bell for 5s at intervals ≤ 1 min)" },
+      "restricted_vis_anchored_gt100": { "title": "Anchored >100m (Restricted Vis.)", "description": "In restricted visibility. Vessel at anchor, 100m or more in length.", "signal": "🔔 (Fwd) + 🔔🔔🔔 (Aft) (Bell + Gong at intervals ≤ 1 min)" },
+      "restricted_vis_aground": { "title": "Aground (Restricted Vis.)", "description": "In restricted visibility. A vessel aground.", "signal": "●● 🔔 ●● (Two bell strokes, bell ringing, two bell strokes)" },
+      "pilot": { "title": "Pilot Vessel", "description": "A vessel engaged on pilotage duty.", "signal": "● ● ● ● (Four short blasts)" }
+    }
+  }
 }
