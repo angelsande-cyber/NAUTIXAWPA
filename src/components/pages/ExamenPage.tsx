@@ -64,7 +64,8 @@ export default function ExamenPage() {
     loadQuiz();
   }, [loadQuiz]);
 
-  const handleAnswerChange = (questionIndex: number, answerIndex: number) => {
+  const handleAnswerChange = (questionIndex: number, answerIndexStr: string) => {
+    const answerIndex = parseInt(answerIndexStr, 10);
     setUserAnswers(prev => ({ ...prev, [questionIndex]: answerIndex }));
   };
 
@@ -184,7 +185,7 @@ export default function ExamenPage() {
             <p className="font-semibold text-lg">{currentQuestion.question}</p>
             <RadioGroup
               value={userAnswers[currentQuestionIndex]?.toString()}
-              onValueChange={(value) => handleAnswerChange(currentQuestionIndex, parseInt(value))}
+              onValueChange={(value) => handleAnswerChange(currentQuestionIndex, value)}
               className="space-y-2"
             >
               {currentQuestion.options.map((option, index) => (
