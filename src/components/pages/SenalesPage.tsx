@@ -301,13 +301,13 @@ const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
     let fill = `fill="${colorMap[buoy.colors[0]]}"`;
     if (buoy.colors.length > 1) {
         const gradientId = `grad-${buoy.colors.join('-').replace(/\s/g, '')}`;
-        const isVertical = buoy.shape === 'spherical'; 
+        const isVertical = buoy.shape !== 'pillar'; // Horizontal bands for pillars
         const stops = buoy.colors.map((color:string, index:number) => {
             const step = 100 / buoy.colors.length;
             return `<stop offset="${index * step}%" stop-color="${colorMap[color]}" /><stop offset="${(index + 1) * step}%" stop-color="${colorMap[color]}" />`;
         }).join('');
         
-        defs = `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="${isVertical ? '100%' : '0%'}" y2="${isVertical ? '0%' : '100%'}">${stops}</linearGradient></defs>`;
+        defs = `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="${isVertical ? '0%' : '100%'}" y2="${isVertical ? '100%' : '0%'}">${stops}</linearGradient></defs>`;
         fill = `fill="url(#${gradientId})"`;
     }
 
@@ -331,7 +331,7 @@ const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
             case 'cross': topmarkSvg = `<path d="M45 80 L55 90 M55 80 L45 90" stroke="${colorMap[tm.color]}" stroke-width="3"/>`; break;
             case 'cones-up': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
             case 'cones-down': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill}/><polygon points="40,80 60,80 50,96" ${tmFill}/>`; break;
-            case 'cones-base-base': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/><polygon points="40,64 60,64 50,80" ${tmFill}/>`; break;
+            case 'cones-base-base': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
             case 'cones-vertex-together': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill} /><polygon points="40,96 60,96 50,80" ${tmFill} />`; break;
         }
     }
@@ -565,7 +565,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
 
     const renderVesselSvg = (svgName: string, view: 'side' | 'front' | 'back') => {
         if (!vesselSvgs[svgName] || !vesselSvgs[svgName][view]) return null;
-        return <div dangerouslySetInnerHTML={{ __html: vesselSvgs[svgName][view] }} />;
+        return <div className={cn(isNight && "ship-outline")} dangerouslySetInnerHTML={{ __html: vesselSvgs[svgName][view] }} />;
     }
 
     const hasStates = ruleData?.states && ruleData.states.length > 1;
@@ -642,13 +642,13 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                     {/* Ship Schematic */}
                     {stateData &&
                         <>
-                        <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'starboard' ? 'opacity-100' : 'opacity-0')}>
+                        <div className={cn("absolute text-gray-800 dark:text-gray-900 w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'starboard' ? 'opacity-100' : 'opacity-0')}>
                             {renderVesselSvg(stateData.svg, 'side')}
                         </div>
-                        <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'bow' ? 'opacity-100' : 'opacity-0')}>
+                        <div className={cn("absolute text-gray-800 dark:text-gray-900 w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'bow' ? 'opacity-100' : 'opacity-0')}>
                             {renderVesselSvg(stateData.svg, 'front')}
                         </div>
-                        <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'stern' ? 'opacity-100' : 'opacity-0')}>
+                        <div className={cn("absolute text-gray-800 dark:text-gray-900 w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'stern' ? 'opacity-100' : 'opacity-0')}>
                             {renderVesselSvg(stateData.svg, 'back')}
                         </div>
                         </>
@@ -720,10 +720,10 @@ const LoadingSkeleton = () => (
 
 // --- Main Page Component ---
 export default function SenalesPage() {
-    const { t } = useTranslation();
+    const { t, isLoaded } = useTranslation();
     const { data, isLoading } = useSignalsData();
     
-    if (isLoading || !data) {
+    if (isLoading || !isLoaded || !data) {
         return <LoadingSkeleton />;
     }
     

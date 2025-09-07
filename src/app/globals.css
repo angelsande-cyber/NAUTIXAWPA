@@ -71,3 +71,8 @@
 .light-element.on.y-on { filter: drop-shadow(0 0 5px #FDE047) drop-shadow(0 0 10px #EAB308) drop-shadow(0 0 15px #A16207); fill: #EAB308; }
 .light-element.on.bu-on { filter: drop-shadow(0 0 5px #93C5FD) drop-shadow(0 0 10px #3B82F6) drop-shadow(0 0 15px #1E40AF); fill: #3B82F6; }
 .light-element.on.vi-on { filter: drop-shadow(0 0 5px #C4B5FD) drop-shadow(0 0 10px #8B5CF6) drop-shadow(0 0 15px #6D28D9); fill: #8B5CF6; }
+
+/* Ship outline for night mode */
+.ship-outline {
+  filter: url(#ship-glow);
+}
