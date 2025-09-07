@@ -2,28 +2,38 @@
 /**
  * @fileOverview Flujo para generar un examen de práctica para el PER.
  *
- * - generatePerQuiz - Genera un quiz de 10 preguntas.
+ * - generatePerQuizFlow - Genera un quiz de 10 preguntas.
  */
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
-import {QuizOutputSchema} from '../schemas/examen-schema';
+import {QuizOutput, QuizOutputSchema} from '../schemas/examen-schema';
 
 const PerQuizInputSchema = z.object({
-  language: z.enum(['es', 'en']).describe("The language to generate the quiz in ('es' or 'en')."),
+  language: z
+    .enum(['es', 'en'])
+    .describe("The language to generate the quiz in ('es' or 'en')."),
 });
 export type PerQuizInput = z.infer<typeof PerQuizInputSchema>;
 
-
-// Renombramos el prompt para claridad
-const perQuizPrompt = ai.definePrompt({
-  name: 'perQuizPrompt',
-  input: { schema: PerQuizInputSchema },
-  model: 'googleai/gemini-2.5-pro',
-  output: {
-    schema: QuizOutputSchema,
+// Este es el flow que se exportará a la ruta de la API
+export const generatePerQuizFlow = ai.defineFlow(
+  {
+    name: 'generatePerQuizFlow',
+    inputSchema: PerQuizInputSchema,
+    outputSchema: QuizOutputSchema,
   },
-  prompt: `You are an expert instructor and examiner for the Spanish "Patrón de Embarcaciones de Recreo (PER)" boat master license.
+  async (input): Promise<QuizOutput> => {
+    console.log(`Generating PER quiz in ${input.language}...`);
+
+    const {output} = await ai.generate({
+      model: 'googleai/gemini-2.5-pro',
+      input: {schema: PerQuizInputSchema},
+      output: {
+        schema: QuizOutputSchema,
+        format: 'json',
+      },
+      prompt: `You are an expert instructor and examiner for the Spanish "Patrón de Embarcaciones de Recreo (PER)" boat master license.
 
 Your task is to generate a 10-question multiple-choice practice exam in the specified language: {{{language}}}.
 
@@ -46,38 +56,27 @@ For each question:
 The exam should be a realistic challenge for a PER candidate. Avoid questions that are too obvious or obscure.
 If the language is 'es', all output must be in Spanish. If the language is 'en', all output must be in English.
 `,
-});
-
-// Definimos el flow
-export const generatePerQuizFlow = ai.defineFlow(
-  {
-    name: 'generatePerQuizFlow',
-    inputSchema: PerQuizInputSchema,
-    outputSchema: QuizOutputSchema,
-  },
-  async (input) => {
-    console.log(`Generating PER quiz in ${input.language}...`);
-    
-    const { output } = await perQuizPrompt(input);
+      context: [input],
+    });
 
     if (!output || !output.questions || output.questions.length === 0) {
-      throw new Error('The AI did not generate a valid response or the questions are empty.');
+      throw new Error(
+        'The AI did not generate a valid response or the questions are empty.'
+      );
     }
-    
+
     // Basic validation for each question
     for (const q of output.questions) {
       if (q.correctAnswerIndex < 0 || q.correctAnswerIndex > 3) {
-          throw new Error(`Answer index out of range for question: "${q.question}"`);
+        throw new Error(
+          `Answer index out of range for question: "${q.question}"`
+        );
       }
     }
-    
-    console.log(`Quiz generated successfully with ${output.questions.length} questions.`);
+
+    console.log(
+      `Quiz generated successfully with ${output.questions.length} questions.`
+    );
     return output;
   }
 );
-
-
-// Creamos la función exportada que SÍ es una Action
-export async function generatePerQuiz(input: PerQuizInput) {
-    return await generatePerQuizFlow(input);
-}

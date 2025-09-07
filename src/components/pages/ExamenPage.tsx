@@ -95,7 +95,7 @@ export default function ExamenPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          input: { language: 'es' },
+          language: 'es',
         }),
       });
 
