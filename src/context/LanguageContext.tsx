@@ -10,7 +10,8 @@ type Language = 'es' | 'en';
 interface LanguageContextType {
   language: Language;
   setLanguage: (language: Language) => void;
-  t: (key: string) => string;
+  t: (key: string, options?: any) => string;
+  isLoaded: boolean;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -37,20 +38,27 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
     fetchTranslations();
   }, []);
   
-  const t = useCallback((key: string): string => {
-      if (!isLoaded) return key; // Return key if translations are not loaded
+  const t = useCallback((key: string, options: any = {}): string => {
+      if (!isLoaded) return key; 
       const keys = key.split('.');
       let result = translations[language];
       for (const k of keys) {
           result = result?.[k];
-          if (result === undefined) return key; // Return key if not found
+          if (result === undefined) return key; 
       }
+      
+      if (typeof result === 'string') {
+        return Object.entries(options).reduce((acc, [optKey, optValue]) => {
+            return acc.replace(`{${optKey}}`, String(optValue));
+        }, result);
+      }
+
       return result || key;
   }, [language, isLoaded]);
 
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, isLoaded }}>
       {children}
     </LanguageContext.Provider>
   );

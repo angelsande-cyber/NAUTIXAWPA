@@ -1,7 +1,10 @@
 
 import { useTranslation } from '@/context/LanguageContext';
+import { METEO_DATA } from '@/lib/data/meteorologia';
+import { useMemo } from 'react';
 
-interface BeaufortData {
+
+export interface BeaufortData {
     force: number;
     denomination: string;
     speedKnots: string;
@@ -9,13 +12,13 @@ interface BeaufortData {
     seaState: string;
 }
 
-interface DouglasData {
+export interface DouglasData {
     degree: number;
     denomination: string;
     waveHeight: string;
 }
 
-interface CloudData {
+export interface CloudData {
     type: string;
     altitude: string;
     description: string;
@@ -30,39 +33,39 @@ export interface MeteoData {
     cloudTypes: CloudData[];
 }
 
-export const useMeteoData = (): MeteoData => {
-    const { t } = useTranslation();
+export const useMeteoData = () => {
+    const { t, isLoaded } = useTranslation();
 
-    const getMeteoData = (): MeteoData => ({
-        beaufortScale: Array.from({ length: 13 }, (_, i) => ({
-            force: i,
-            denomination: t(`meteo.beaufort.denominations.${i}`),
-            speedKnots: t(`meteo.beaufort.speedKnots.${i}`),
-            waveHeight: t(`meteo.beaufort.waveHeight.${i}`),
-            seaState: t(`meteo.beaufort.seaState.${i}`),
-        })),
-        douglasSeaScale: Array.from({ length: 10 }, (_, i) => ({
-            degree: i,
-            denomination: t(`meteo.douglas.sea.d${i}`),
-            waveHeight: t(`meteo.douglas.sea.waveHeight.${i}`),
-        })),
-        douglasSwellScale: Array.from({ length: 4 }, (_, i) => ({
-            degree: i,
-            denomination: t(`meteo.douglas.swell.d${i}`),
-            waveHeight: t(`meteo.douglas.swell.waveHeight.${i}`),
-        })),
-        cloudTypes: [
-            'cirrus', 'cirrocumulus', 'cirrostratus', 'altocumulus', 'altostratus',
-            'nimbostratus', 'stratus', 'stratocumulus', 'cumulus', 'cumulonimbus'
-        ].map(type => ({
-            type: t(`meteo.clouds.types.${type}.name`),
-            altitude: t(`meteo.clouds.types.${type}.altitude`),
-            description: t(`meteo.clouds.types.${type}.description`),
-            imageUrl: `/images/clouds/${type.toLowerCase()}.jpg`,
-            hint: t(`meteo.clouds.types.${type}.hint`),
-        }))
-    });
+    const data = useMemo(() => {
+        if (!isLoaded) return null;
+        
+        return {
+            beaufortScale: METEO_DATA.beaufortScaleKeys.map(key => ({
+                force: key.force,
+                denomination: t(key.denomination),
+                speedKnots: t(key.speedKnots),
+                waveHeight: t(key.waveHeight),
+                seaState: t(key.seaState),
+            })),
+            douglasSeaScale: METEO_DATA.douglasSeaScaleKeys.map(key => ({
+                degree: key.degree,
+                denomination: t(key.denomination),
+                waveHeight: t(key.waveHeight),
+            })),
+            douglasSwellScale: METEO_DATA.douglasSwellScaleKeys.map(key => ({
+                degree: key.degree,
+                denomination: t(key.denomination),
+                waveHeight: t(key.waveHeight),
+            })),
+            cloudTypes: METEO_DATA.cloudTypeKeys.map(key => ({
+                type: t(key.type),
+                altitude: t(key.altitude),
+                description: t(key.description),
+                imageUrl: key.imageUrl,
+                hint: key.hint,
+            }))
+        };
+    }, [t, isLoaded]);
 
-    // We call getMeteoData inside the hook to ensure it's re-evaluated when language changes.
-    return getMeteoData();
+    return { data, isLoading: !isLoaded };
 };

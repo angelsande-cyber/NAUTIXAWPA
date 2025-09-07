@@ -1,27 +1,38 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AtSign, Phone, Search } from 'lucide-react';
 import { useTranslation } from '@/context/LanguageContext';
+import { useDirectoryData } from '@/hooks/useDirectoryData';
+import { Skeleton } from '../ui/skeleton';
 
-interface PhoneEntry {
-    name: string;
-    phones: string[];
-    email: string | null;
-    keywords: string[];
-}
+const LoadingSkeleton = () => (
+     <div className="p-4 md:p-6">
+        <Card className="w-full max-w-4xl mx-auto">
+            <CardHeader>
+                <Skeleton className="h-8 w-1/2" />
+                <Skeleton className="h-4 w-3/4" />
+            </CardHeader>
+            <CardContent>
+                 <Skeleton className="h-10 w-full mb-6" />
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {[...Array(6)].map((_, i) => <Skeleton key={i} className="h-28 w-full" />)}
+                </div>
+            </CardContent>
+        </Card>
+     </div>
+)
+
 
 export default function DirectorioPage() {
     const [searchTerm, setSearchTerm] = useState('');
-    const [phoneEntries, setPhoneEntries] = useState<PhoneEntry[]>([]);
     const { t } = useTranslation();
-
-    useEffect(() => {
-        fetch('/data/directorio.json')
-            .then(res => res.json())
-            .then(data => setPhoneEntries(data));
-    }, []);
+    const { data: phoneEntries, isLoading } = useDirectoryData();
+    
+    if (isLoading) {
+        return <LoadingSkeleton />;
+    }
 
     const filteredData = phoneEntries.filter(entry =>
         entry.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

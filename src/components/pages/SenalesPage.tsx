@@ -13,49 +13,8 @@ import { Moon, Sun } from "lucide-react";
 import SonidosSimulator from "./SonidosSimulator";
 import { useTranslation } from "@/context/LanguageContext";
 import { Skeleton } from "../ui/skeleton";
-
-
-interface LightCharacteristicTerm {
-    [key: string]: {
-        es: string;
-        en: string;
-    };
-}
-
-interface BuoyData {
-    category: string;
-    type: {
-      es: string;
-      en: string;
-    };
-    region?: string;
-    shape: string;
-    colors: string[];
-    topmark: {
-        shape: string;
-        color: string;
-    } | null;
-    characteristic: string;
-    purpose: {
-      es: string;
-      en: string;
-    };
-    mnemonic: {
-      es: string;
-      en: string;
-    };
-}
-
-interface ColregRule {
-    id: string;
-    title: string;
-    description?: string;
-    svg: string; 
-    lights: any[];
-    marks: any[];
-    explanation: string;
-    states?: any[];
-}
+import { useSignalsData } from "@/hooks/useSignalsData";
+import type { BuoyData, ColregRule, LightCharacteristicTerm } from "@/hooks/useSignalsData";
 
 
 // --- Helper Functions (moved from simulation.ts) ---
@@ -114,8 +73,7 @@ function runSimulation(
     infoEl: HTMLElement | null, 
     char: LightCharacteristic | null,
     lightTerms: LightCharacteristicTerm,
-    t: (key: string) => string,
-    language: string,
+    t: (key: string, options?: any) => string,
     prependInfo?: string
 ) {
     if (simulationTimeout) clearInterval(simulationTimeout);
@@ -200,10 +158,10 @@ function runSimulation(
     runSequence();
     simulationTimeout = window.setInterval(runSequence, char.period! * 1000);
     
-    const rhythmText = lightTerms[char.rhythm]?.[language as 'es' | 'en'] || char.rhythm;
-    const groupText = char.group ? t(language === 'es' ? 'signals.lighthouses.groupText.es' : 'signals.lighthouses.groupText.en', { group: char.group }) : '';
-    const colorsText = char.colors.map(c => lightTerms[c]?.[language as 'es' | 'en']).join(t('signals.lighthouses.colorSeparator'));
-    const periodText = t(language === 'es' ? 'signals.lighthouses.periodText.es' : 'signals.lighthouses.periodText.en', { period: char.period });
+    const rhythmText = lightTerms[char.rhythm] || char.rhythm;
+    const groupText = char.group ? t('signals.lighthouses.groupText', { group: char.group }) : '';
+    const colorsText = char.colors.map(c => lightTerms[c]).join(t('signals.lighthouses.colorSeparator'));
+    const periodText = t('signals.lighthouses.periodText', { period: char.period });
     
     const desc = `${rhythmText} ${groupText} ${colorsText} ${periodText}`;
 
@@ -214,7 +172,7 @@ function runSimulation(
 
 // --- Lighthouse Simulator Component ---
 const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTerm }) => {
-    const { t, language } = useTranslation();
+    const { t } = useTranslation();
     const [rhythm, setRhythm] = useState('FL');
     const [color, setColor] = useState('W');
     const [group, setGroup] = useState('1');
@@ -225,8 +183,8 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
         const lightEl = document.getElementById('lighthouse-svg-light') as SVGElement | null;
         const infoEl = document.getElementById('lighthouse-simulation-info') as HTMLElement | null;
         const char = parseLighthouseCharacteristic(manualChar);
-        runSimulation(lightEl, infoEl, char, lightTerms, t, language);
-    }, [manualChar, lightTerms, t, language]);
+        runSimulation(lightEl, infoEl, char, lightTerms, t);
+    }, [manualChar, lightTerms, t]);
 
     useEffect(() => {
         let groupStr = '';
@@ -337,25 +295,19 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
 
 // --- Buoy Simulator Component ---
 const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTerms: LightCharacteristicTerm }) => {
-    const { t, language } = useTranslation();
+    const { t } = useTranslation();
     const [region, setRegion] = useState('A');
-    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+    const [activeCategoryKey, setActiveCategoryKey] = useState<string | null>(null);
     const [activeType, setActiveType] = useState<string | null>(null);
 
-    const getLocalized = useCallback((obj: any, key: string) => {
-        if (!obj) return '';
-        const value = obj[key];
-        if (typeof value === 'object' && value !== null && 'es' in value && 'en' in value) {
-            return value[language as 'es' | 'en'];
-        }
-        return value;
-    }, [language]);
-
-
-    const categories = useMemo(() => Array.from(new Set(buoyData.map(b => t(b.category)))), [buoyData, t]);
+    const categories = useMemo(() => {
+        const uniqueCategories = new Map<string, string>();
+        buoyData.forEach(b => uniqueCategories.set(b.category, t(b.category)));
+        return Array.from(uniqueCategories.entries());
+    }, [buoyData, t]);
     
-    const handleCategoryClick = useCallback((category: string) => {
-        setActiveCategory(category);
+    const handleCategoryClick = useCallback((categoryKey: string) => {
+        setActiveCategoryKey(categoryKey);
         setActiveType(null);
         if (simulationTimeout) clearInterval(simulationTimeout);
         const buoyInfoEl = document.getElementById('buoy-info-panel');
@@ -365,8 +317,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, [t]);
 
     const handleTypeClick = useCallback((buoy: BuoyData) => {
-        const localizedType = getLocalized(buoy, 'type');
-        setActiveType(localizedType);
+        setActiveType(buoy.type);
         const schematicContainer = document.getElementById('buoy-schematic-container');
         const infoPanel = document.getElementById('buoy-info-panel');
         if (schematicContainer && infoPanel) {
@@ -374,31 +325,28 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
             const lightEl = schematicContainer.querySelector<SVGElement>('#buoy-svg-light');
             if (lightEl) {
                 const char = parseLighthouseCharacteristic(buoy.characteristic);
-                const purposeText = getLocalized(buoy, 'purpose');
-                const mnemonicText = getLocalized(buoy, 'mnemonic');
-                const mnemonicHtml = mnemonicText ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${mnemonicText}</p>` : '';
-                const infoTitle = `<h4 class="font-bold">${localizedType}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${purposeText}</p>${mnemonicHtml}<hr class="my-2"/>`;
-                runSimulation(lightEl, infoPanel, char, lightTerms, t, language, infoTitle);
+                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${buoy.mnemonic}</p>` : '';
+                const infoTitle = `<h4 class="font-bold">${buoy.type}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
+                runSimulation(lightEl, infoPanel, char, lightTerms, t, infoTitle);
             }
         }
-    }, [lightTerms, t, getLocalized, language]);
+    }, [lightTerms, t]);
     
     useEffect(() => {
-        if(categories.length > 0 && !activeCategory) {
-            handleCategoryClick(categories[0]);
+        if(categories.length > 0 && !activeCategoryKey) {
+            handleCategoryClick(categories[0][0]);
         }
-    }, [categories, activeCategory, handleCategoryClick]);
+    }, [categories, activeCategoryKey, handleCategoryClick]);
 
      useEffect(() => {
-        const lateralMarkCategory = t("signals.buoyage.categories.lateral");
-        if (activeCategory === lateralMarkCategory) {
+        if (activeCategoryKey === "signals.buoyage.categories.lateral") {
             setActiveType(null);
             const buoyInfoEl = document.getElementById('buoy-info-panel');
             const buoySchematicEl = document.getElementById('buoy-schematic-container');
             if(buoyInfoEl) buoyInfoEl.innerHTML = `<p class="text-muted-foreground">${t('signals.buoys.start')}</p>`;
             if(buoySchematicEl) buoySchematicEl.innerHTML = '';
         }
-    }, [region, activeCategory, t]);
+    }, [region, activeCategoryKey, t]);
     
      useEffect(() => {
         return () => {
@@ -410,16 +358,15 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, []);
 
     const buoyTypesForCategory = useMemo(() => buoyData.filter(b => {
-        if (t(b.category) !== activeCategory) return false;
-        const lateralMarkCategory = t("signals.buoyage.categories.lateral");
-        if (activeCategory === lateralMarkCategory) return b.region === region;
+        if (b.category !== activeCategoryKey) return false;
+        if (activeCategoryKey === "signals.buoyage.categories.lateral") return b.region === region;
         return true;
-    }), [buoyData, activeCategory, region, t]);
+    }), [buoyData, activeCategoryKey, region]);
 
     return (
         <div>
             <div className="space-y-4">
-                {activeCategory === t("signals.buoyage.categories.lateral") && (
+                {activeCategoryKey === "signals.buoyage.categories.lateral" && (
                     <div className="flex items-center space-x-2 p-3 bg-muted rounded-lg">
                         <Label htmlFor="iala-region" className="font-semibold">{t('signals.buoys.ialaRegion')}</Label>
                         <span className={cn(region === 'A' ? '' : 'text-muted-foreground', "font-bold")}>A</span>
@@ -430,9 +377,9 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                  <div>
                     <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.category')}</Label>
                     <div className="flex flex-wrap gap-2 mt-2">
-                        {categories.map(cat => (
-                            <Button key={cat} variant={activeCategory === cat ? 'default' : 'outline'} onClick={() => handleCategoryClick(cat)}>
-                                {cat}
+                        {categories.map(([key, text]) => (
+                            <Button key={key} variant={activeCategoryKey === key ? 'default' : 'outline'} onClick={() => handleCategoryClick(key)}>
+                                {text}
                             </Button>
                         ))}
                     </div>
@@ -441,14 +388,11 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                     <div>
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.type')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
-                            {buoyTypesForCategory.map(buoy => {
-                                const localizedType = getLocalized(buoy, 'type');
-                                return (
-                                    <Button key={`${localizedType}-${buoy.region || ''}`} variant={activeType === localizedType ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
-                                        {localizedType}
-                                    </Button>
-                                )
-                            })}
+                            {buoyTypesForCategory.map(buoy => (
+                                <Button key={`${buoy.type}-${buoy.region || ''}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                    {buoy.type}
+                                </Button>
+                            ))}
                         </div>
                     </div>
                 )}
@@ -643,7 +587,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                     </Select>
                  </div>
 
-                 {hasStates && (
+                 {hasStates && stateData && (
                      <div>
                         <Label>{t('signals.vessels.specificCase')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
@@ -696,15 +640,19 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                     </div>
 
                     {/* Ship Schematic */}
-                    <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'starboard' ? 'opacity-100' : 'opacity-0')}>
-                        {stateData && renderVesselSvg(stateData.svg, 'side')}
-                    </div>
-                    <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'bow' ? 'opacity-100' : 'opacity-0')}>
-                        {stateData && renderVesselSvg(stateData.svg, 'front')}
-                    </div>
-                    <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'stern' ? 'opacity-100' : 'opacity-0')}>
-                         {stateData && renderVesselSvg(stateData.svg, 'back')}
-                    </div>
+                    {stateData &&
+                        <>
+                        <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'starboard' ? 'opacity-100' : 'opacity-0')}>
+                            {renderVesselSvg(stateData.svg, 'side')}
+                        </div>
+                        <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'bow' ? 'opacity-100' : 'opacity-0')}>
+                            {renderVesselSvg(stateData.svg, 'front')}
+                        </div>
+                        <div className={cn("absolute w-[80%] h-[40%] left-1/2 top-1/2 -translate-x-1/2 -translate-y-[40%] transition-opacity duration-300", view === 'stern' ? 'opacity-100' : 'opacity-0')}>
+                            {renderVesselSvg(stateData.svg, 'back')}
+                        </div>
+                        </>
+                    }
 
                     {/* Lights & Marks */}
                     <div className="absolute inset-0">
@@ -714,31 +662,36 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                  </div>
 
                  <div className="text-left mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
-                    <h4 className="font-bold">{t(stateData?.title || '')}</h4>
-                    <p className="text-sm text-muted-foreground italic mb-2">{t(stateData?.description || '')}</p>
-                    <div className="text-sm border-t pt-2 space-y-3">
-                        <div>
-                            <strong className="block mb-1">{isNight ? t('signals.vessels.requiredLights') : t('signals.vessels.requiredMarks')}</strong>
-                            {isNight ? (
-                                <ul className="list-disc list-inside space-y-1">
-                                    {stateData?.lights?.map((l: any) => l.desc && <li key={l.id}>{t(l.desc)}</li>)}
-                                </ul>
-                            ) : (
-                                <ul className="list-disc list-inside space-y-1">
-                                    {stateData?.marks && stateData.marks.length > 0 ? 
-                                        stateData.marks.map((m: any) => m.desc && <li key={m.id}>{t(m.desc)}</li>) :
-                                        <li>{t('signals.vessels.noMarks')}</li>
-                                    }
-                                </ul>
+                    {stateData ? 
+                        <>
+                        <h4 className="font-bold">{t(stateData.title)}</h4>
+                        <p className="text-sm text-muted-foreground italic mb-2">{t(stateData.description)}</p>
+                        <div className="text-sm border-t pt-2 space-y-3">
+                            <div>
+                                <strong className="block mb-1">{isNight ? t('signals.vessels.requiredLights') : t('signals.vessels.requiredMarks')}</strong>
+                                {isNight ? (
+                                    <ul className="list-disc list-inside space-y-1">
+                                        {stateData.lights?.map((l: any) => l.desc && <li key={l.id}>{t(l.desc)}</li>)}
+                                    </ul>
+                                ) : (
+                                    <ul className="list-disc list-inside space-y-1">
+                                        {stateData.marks && stateData.marks.length > 0 ? 
+                                            stateData.marks.map((m: any) => m.desc && <li key={m.id}>{t(m.desc)}</li>) :
+                                            <li>{t('signals.vessels.noMarks')}</li>
+                                        }
+                                    </ul>
+                                )}
+                            </div>
+                            {stateData.explanation && (
+                                <div className="border-t pt-2">
+                                    <strong className="block mb-1">{t('signals.vessels.explanation')}</strong>
+                                    <p className="text-xs text-muted-foreground whitespace-pre-line">{t(stateData.explanation)}</p>
+                                </div>
                             )}
                         </div>
-                        {stateData?.explanation && (
-                            <div className="border-t pt-2">
-                                <strong className="block mb-1">{t('signals.vessels.explanation')}</strong>
-                                <p className="text-xs text-muted-foreground whitespace-pre-line">{t(stateData.explanation)}</p>
-                            </div>
-                        )}
-                    </div>
+                        </>
+                    : <Skeleton className="h-24 w-full" />
+                    }
                 </div>
             </div>
         </div>
@@ -768,51 +721,14 @@ const LoadingSkeleton = () => (
 // --- Main Page Component ---
 export default function SenalesPage() {
     const { t } = useTranslation();
-    const [loading, setLoading] = useState(true);
-    const [senalesData, setSenalesData] = useState<{
-        lightTerms: LightCharacteristicTerm;
-        ialaBuoyData: BuoyData[];
-    } | null>(null);
-
-    const [buquesData, setBuquesData] = useState<{
-        colregRules: ColregRule[];
-        vesselSvgs: any;
-    } | null>(null);
-
-     const [sonidosData, setSonidosData] = useState<any[] | null>(null);
-
-    useEffect(() => {
-        Promise.all([
-            fetch('/data/senales.json').then(res => res.json()),
-            fetch('/data/buques.json').then(res => res.json()),
-            fetch('/data/sonidos.json').then(res => res.json())
-        ]).then(([senales, buques, sonidos]) => {
-            setSenalesData(senales);
-            setBuquesData(buques);
-            setSonidosData(sonidos);
-            setLoading(false);
-        }).catch(err => {
-            console.error("Failed to load signals data", err);
-            setLoading(false);
-        });
-    }, []);
-
-    if (loading) {
+    const { data, isLoading } = useSignalsData();
+    
+    if (isLoading || !data) {
         return <LoadingSkeleton />;
     }
     
-    if (!senalesData || !buquesData || !sonidosData) {
-        return (
-            <div className="p-4 md:p-6">
-                <Card className="w-full max-w-4xl mx-auto">
-                    <CardHeader>
-                        <CardTitle>{t('loadingError')}</CardTitle>
-                    </CardHeader>
-                </Card>
-            </div>
-        );
-    }
-    
+    const { lightTerms, ialaBuoyData, colregRules, vesselSvgs, sonidosData } = data;
+
     return (
         <div className="p-4 md:p-6">
             <Card className="w-full max-w-4xl mx-auto">
@@ -829,16 +745,16 @@ export default function SenalesPage() {
                             <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">{t('signals.tabs.lighthouses')}</TabsTrigger>
                         </TabsList>
                         <TabsContent value="buques" className="pt-6">
-                           <BuquesSimulator colregRules={buquesData.colregRules} vesselSvgs={buquesData.vesselSvgs} />
+                           <BuquesSimulator colregRules={colregRules} vesselSvgs={vesselSvgs} />
                         </TabsContent>
                          <TabsContent value="sonidos" className="pt-6">
                            <SonidosSimulator sonidosData={sonidosData} />
                          </TabsContent>
                         <TabsContent value="balizamiento" className="pt-6">
-                            <BuoySimulator buoyData={senalesData.ialaBuoyData} lightTerms={senalesData.lightTerms} />
+                            <BuoySimulator buoyData={ialaBuoyData} lightTerms={lightTerms} />
                         </TabsContent>
                         <TabsContent value="faros" className="pt-6">
-                            <LighthouseSimulator lightTerms={senalesData.lightTerms} />
+                            <LighthouseSimulator lightTerms={lightTerms} />
                         </TabsContent>
                     </Tabs>
                 </CardContent>

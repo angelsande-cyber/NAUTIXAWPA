@@ -4,60 +4,11 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useTranslation } from "@/context/LanguageContext";
-import { useEffect, useState } from "react";
-import { Skeleton } from "../ui/skeleton";
-
-interface QCode {
-    code: string;
-    question: string;
-    answer: string;
-}
-
-const LoadingSkeleton = () => (
-    <div className="p-4 md:p-6">
-        <Card className="w-full max-w-3xl mx-auto">
-            <CardHeader>
-                <Skeleton className="h-8 w-1/2 mb-2" />
-                <Skeleton className="h-4 w-3/4" />
-            </CardHeader>
-            <CardContent>
-                <div className="space-y-4">
-                    {[...Array(10)].map((_, i) => (
-                        <div key={i} className="flex items-center space-x-4 p-2">
-                            <Skeleton className="h-6 w-20" />
-                            <Skeleton className="h-6 flex-1" />
-                            <Skeleton className="h-6 flex-1" />
-                        </div>
-                    ))}
-                </div>
-            </CardContent>
-        </Card>
-    </div>
-);
+import { Q_CODES_DATA } from "@/lib/data/qcodes";
 
 export default function CodigosQPage() {
     const { t, language } = useTranslation();
-    const [qCodes, setQCodes] = useState<QCode[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchQCodes = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch('/data/qcodes.json');
-                const data = await response.json();
-                setQCodes(data[language] || data['en']);
-            } catch (error) {
-                console.error("Failed to load Q-codes:", error);
-            }
-            setLoading(false);
-        };
-        fetchQCodes();
-    }, [language]);
-
-    if (loading) {
-        return <LoadingSkeleton />;
-    }
+    const qCodes = Q_CODES_DATA[language];
 
     return (
         <div className="p-4 md:p-6">

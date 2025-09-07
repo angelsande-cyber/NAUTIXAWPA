@@ -5,13 +5,53 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Image from "next/image";
 import { useTranslation } from "@/context/LanguageContext";
 import { useMeteoData } from "@/hooks/useMeteoData";
+import { Skeleton } from "../ui/skeleton";
+
+const LoadingSkeleton = () => (
+    <div className="p-4 md:p-6 space-y-6">
+        <Card className="w-full max-w-4xl mx-auto">
+            <CardHeader>
+                <Skeleton className="h-8 w-1/2 mb-2" />
+                <Skeleton className="h-4 w-3/4" />
+            </CardHeader>
+            <CardContent>
+                <Skeleton className="h-48 w-full" />
+            </CardContent>
+        </Card>
+        <Card className="w-full max-w-4xl mx-auto">
+            <CardHeader>
+                <Skeleton className="h-8 w-1/2 mb-2" />
+                <Skeleton className="h-4 w-3/4" />
+            </CardHeader>
+            <CardContent>
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <Skeleton className="h-64 w-full" />
+                    <Skeleton className="h-64 w-full" />
+                </div>
+            </CardContent>
+        </Card>
+         <Card className="w-full max-w-4xl mx-auto">
+            <CardHeader>
+                <Skeleton className="h-8 w-1/2 mb-2" />
+                <Skeleton className="h-4 w-3/4" />
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                    <Skeleton className="h-32 w-full" />
+                    <Skeleton className="h-32 w-full" />
+                </div>
+            </CardContent>
+        </Card>
+    </div>
+);
+
 
 export default function MeteorologiaPage() {
     const { t } = useTranslation();
-    const meteoData = useMeteoData();
+    const { data: meteoData, isLoading } = useMeteoData();
 
-    if (!meteoData) {
-        return <div className="p-6">{t('loadingError')}</div>;
+    if (isLoading || !meteoData) {
+        return <LoadingSkeleton />;
     }
 
     const { beaufortScale, douglasSeaScale, douglasSwellScale, cloudTypes } = meteoData;
@@ -114,7 +154,7 @@ export default function MeteorologiaPage() {
                                 <div className="md:col-span-1 relative h-48">
                                     <Image
                                         src={cloud.imageUrl}
-                                        alt={`${t('meteo.clouds.alt_prefix')} ${cloud.type}`}
+                                        alt={t('meteo.clouds.alt_prefix', { cloudType: cloud.type })}
                                         fill
                                         sizes="(max-width: 768px) 100vw, 33vw"
                                         className="object-cover"
