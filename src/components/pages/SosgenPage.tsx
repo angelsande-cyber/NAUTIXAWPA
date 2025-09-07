@@ -1,7 +1,6 @@
 "use client";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Radio, Siren, HelpCircle, PhoneOutgoing, Satellite } from "lucide-react";
 
 
@@ -71,23 +70,23 @@ export default function SosgenPage() {
                            <MaydayProcedure />
                         </div>
                         
-                        <Accordion type="single" collapsible className="w-full mt-4">
-                            <AccordionItem value="item-1">
-                                <AccordionTrigger>Explicación del Procedimiento</AccordionTrigger>
-                                <AccordionContent className="space-y-2 text-muted-foreground">
-                                   <p><strong>1. MAYDAY (x3):</strong> Declara la emergencia de forma clara e inequívoca.</p>
-                                   <p><strong>2. AQUÍ...:</strong> Identifica tu embarcación repitiendo su nombre tres veces.</p>
-                                   <p><strong>3. INDICATIVO / MMSI:</strong> Proporciona tu identificador único de radio.</p>
-                                   <p><strong>4. MAYDAY:</strong> Repite la palabra de socorro para reafirmar la emergencia.</p>
-                                   <p><strong>5. POSICIÓN:</strong> La información más crucial. Dala en coordenadas (Lat/Lon) o como demora y distancia a un punto conocido.</p>
-                                   <p><strong>6. NATURALEZA DEL PELIGRO:</strong> Describe brevemente el problema (ej: incendio, vía de agua, colisión, etc.).</p>
-                                   <p><strong>7. AYUDA REQUERIDA:</strong> Especifica qué tipo de asistencia necesitas (ej: remolque, evacuación médica).</p>
-                                   <p><strong>8. PERSONAS A BORDO:</strong> Indica el número total de personas en tu embarcación.</p>
-                                   <p><strong>9. OTRA INFORMACIÓN:</strong> Cualquier dato útil (ej: intención de abandonar el barco, si llevas balsa salvavidas, descripción del barco).</p>
-                                   <p><strong>10. TERMINADO:</strong> Indica que has finalizado tu transmisión y quedas a la escucha.</p>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
+                        <Card className="w-full mt-4">
+                            <CardHeader>
+                                <CardTitle className="text-lg">Explicación del Procedimiento</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-2 text-muted-foreground">
+                                <p><strong>1. MAYDAY (x3):</strong> Declara la emergencia de forma clara e inequívoca.</p>
+                                <p><strong>2. AQUÍ...:</strong> Identifica tu embarcación repitiendo su nombre tres veces.</p>
+                                <p><strong>3. INDICATIVO / MMSI:</strong> Proporciona tu identificador único de radio.</p>
+                                <p><strong>4. MAYDAY:</strong> Repite la palabra de socorro para reafirmar la emergencia.</p>
+                                <p><strong>5. POSICIÓN:</strong> La información más crucial. Dala en coordenadas (Lat/Lon) o como demora y distancia a un punto conocido.</p>
+                                <p><strong>6. NATURALEZA DEL PELIGRO:</strong> Describe brevemente el problema (ej: incendio, vía de agua, colisión, etc.).</p>
+                                <p><strong>7. AYUDA REQUERIDA:</strong> Especifica qué tipo de asistencia necesitas (ej: remolque, evacuación médica).</p>
+                                <p><strong>8. PERSONAS A BORDO:</strong> Indica el número total de personas en tu embarcación.</p>
+                                <p><strong>9. OTRA INFORMACIÓN:</strong> Cualquier dato útil (ej: intención de abandonar el barco, si llevas balsa salvavidas, descripción del barco).</p>
+                                <p><strong>10. TERMINADO:</strong> Indica que has finalizado tu transmisión y quedas a la escucha.</p>
+                            </CardContent>
+                        </Card>
                     </div>
 
                      <div className="pt-6 border-t">
