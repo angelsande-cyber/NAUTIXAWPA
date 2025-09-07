@@ -2,13 +2,6 @@ import { useMemo } from 'react';
 import { useTranslation } from '@/context/LanguageContext';
 import { DIRECTORY_DATA } from '@/lib/data/directorio';
 
-interface PhoneEntry {
-    name: string;
-    phones: string[];
-    email: string | null;
-    keywords: string[];
-}
-
 export const useDirectoryData = () => {
     const { t, isLoaded } = useTranslation();
 

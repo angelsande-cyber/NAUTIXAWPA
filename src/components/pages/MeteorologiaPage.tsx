@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -5,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import Image from "next/image";
 import { useTranslation } from "@/context/LanguageContext";
 import { Skeleton } from "../ui/skeleton";
-import { METEO_DATA, douglasSeaScaleKeys, douglasSwellScaleKeys } from "@/lib/data/meteorologia";
+import { METEO_DATA } from "@/lib/data/meteorologia";
 
 const LoadingSkeleton = () => (
     <div className="p-4 md:p-6 space-y-6">
@@ -53,7 +54,7 @@ export default function MeteorologiaPage() {
         return <LoadingSkeleton />;
     }
 
-    const { beaufortScaleKeys, cloudTypeKeys } = METEO_DATA;
+    const { beaufortScaleKeys, douglasSeaScaleKeys, douglasSwellScaleKeys, cloudTypeKeys } = METEO_DATA;
 
     return (
         <div className="p-4 md:p-6 space-y-6">
