@@ -324,9 +324,18 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     const [region, setRegion] = useState('A');
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [activeType, setActiveType] = useState<string | null>(null);
-    const { t } = useTranslation();
+    const { t, language } = useTranslation();
 
     const categories = useMemo(() => Array.from(new Set(buoyData.map(b => b.category))), [buoyData]);
+    
+    const getLocalized = useCallback((obj: any, key: string) => {
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null) {
+            return value[language] || value['es'];
+        }
+        return t(value);
+    }, [language, t]);
+
 
     const handleCategoryClick = useCallback((category: string) => {
         setActiveCategory(category);
@@ -339,7 +348,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, [t]);
 
     const handleTypeClick = useCallback((buoy: any) => {
-        setActiveType(buoy.type);
+        setActiveType(getLocalized(buoy, 'type'));
         const schematicContainer = document.getElementById('buoy-schematic-container');
         const infoPanel = document.getElementById('buoy-info-panel');
         if (schematicContainer && infoPanel) {
@@ -347,12 +356,12 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
             const lightEl = schematicContainer.querySelector<SVGElement>('#buoy-svg-light');
             if (lightEl) {
                 const char = parseLighthouseCharacteristic(buoy.characteristic);
-                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${buoy.mnemonic}</p>` : '';
-                const infoTitle = `<h4 class="font-bold">${buoy.type}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
+                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${getLocalized(buoy,'mnemonic')}</p>` : '';
+                const infoTitle = `<h4 class="font-bold">${getLocalized(buoy, 'type')}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${getLocalized(buoy, 'purpose')}</p>${mnemonicHtml}<hr class="my-2"/>`;
                 runSimulation(lightEl, infoPanel, char, lightTerms, infoTitle);
             }
         }
-    }, [lightTerms, t]);
+    }, [lightTerms, t, getLocalized]);
     
     useEffect(() => {
         if(categories.length > 0 && !activeCategory) {
@@ -362,7 +371,8 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
 
      useEffect(() => {
         // When region changes, if the current category is lateral marks, reset it.
-        if (activeCategory === 'Marcas Laterales') {
+        const lateralMarkCategory = "Lateral Marks"
+        if (activeCategory === lateralMarkCategory) {
             setActiveType(null);
             const buoyInfoEl = document.getElementById('buoy-info-panel');
             const buoySchematicEl = document.getElementById('buoy-schematic-container');
@@ -382,15 +392,16 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, []);
 
     const buoyTypesForCategory = useMemo(() => buoyData.filter(b => {
-        if (b.category !== activeCategory) return false;
-        if (activeCategory === 'Marcas Laterales') return b.region === region;
+        if (getLocalized(b, 'category') !== activeCategory) return false;
+        const lateralMarkCategory = "Lateral Marks";
+        if (activeCategory === lateralMarkCategory) return b.region === region;
         return true;
-    }), [buoyData, activeCategory, region]);
+    }), [buoyData, activeCategory, region, getLocalized]);
 
     return (
         <div>
             <div className="space-y-4">
-                {activeCategory === 'Marcas Laterales' && (
+                {activeCategory === "Lateral Marks" && (
                     <div className="flex items-center space-x-2 p-3 bg-muted rounded-lg">
                         <Label htmlFor="iala-region" className="font-semibold">{t('signals.buoys.ialaRegion')}</Label>
                         <span className={cn(region === 'A' ? '' : 'text-muted-foreground', "font-bold")}>A</span>
@@ -401,9 +412,9 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                  <div>
                     <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.category')}</Label>
                     <div className="flex flex-wrap gap-2 mt-2">
-                        {categories.map(cat => (
-                            <Button key={cat} variant={activeCategory === cat ? 'default' : 'outline'} onClick={() => handleCategoryClick(cat)}>
-                                {cat}
+                        {categories.map(catKey => (
+                            <Button key={catKey} variant={activeCategory === getLocalized({catKey}, 'catKey') ? 'default' : 'outline'} onClick={() => handleCategoryClick(getLocalized({catKey}, 'catKey'))}>
+                                {getLocalized({catKey}, 'catKey')}
                             </Button>
                         ))}
                     </div>
@@ -413,8 +424,8 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.type')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map(buoy => (
-                                <Button key={`${buoy.type}-${buoy.region || ''}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
-                                    {buoy.type}
+                                <Button key={`${getLocalized(buoy, 'type')}-${buoy.region || ''}`} variant={activeType === getLocalized(buoy, 'type') ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                    {getLocalized(buoy, 'type')}
                                 </Button>
                             ))}
                         </div>
@@ -489,7 +500,15 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
     const [selectedStateId, setSelectedStateId] = useState(0);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
-    const { t } = useTranslation();
+    const { t, language } = useTranslation();
+
+    const getLocalized = useCallback((obj: any, key: string) => {
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null) {
+            return value[language] || value['es'];
+        }
+        return t(value) || value;
+    }, [language, t]);
 
     const ruleData = useMemo(() => {
         return colregRules.find(r => r.id === selectedRuleId) || null;
@@ -596,7 +615,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                         </SelectTrigger>
                         <SelectContent>
                              {colregRules.map(rule => (
-                                <SelectItem key={rule.id} value={rule.id}>{rule.title}</SelectItem>
+                                <SelectItem key={rule.id} value={rule.id}>{getLocalized(rule, 'title')}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
@@ -608,7 +627,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                         <div className="flex flex-wrap gap-2 mt-2">
                             {ruleData.states.map((state, index) => (
                                 <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} className="flex-1" onClick={() => setSelectedStateId(index)}>
-                                    {state.title}
+                                    {getLocalized(state, 'title')}
                                 </Button>
                             ))}
                         </div>
@@ -673,19 +692,19 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                  </div>
 
                  <div className="text-left mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
-                    <h4 className="font-bold">{stateData?.title}</h4>
-                    <p className="text-sm text-muted-foreground italic mb-2">{stateData?.description}</p>
+                    <h4 className="font-bold">{stateData ? getLocalized(stateData, 'title') : ''}</h4>
+                    <p className="text-sm text-muted-foreground italic mb-2">{stateData ? getLocalized(stateData, 'description') : ''}</p>
                     <div className="text-sm border-t pt-2 space-y-3">
                         <div>
                             <strong className="block mb-1">{isNight ? t('signals.vessels.requiredLights') : t('signals.vessels.requiredMarks')}</strong>
                             {isNight ? (
                                 <ul className="list-disc list-inside space-y-1">
-                                    {stateData?.lights?.map((l: any) => l.desc && <li key={l.id}>{l.desc}</li>)}
+                                    {stateData?.lights?.map((l: any) => getLocalized(l, 'desc') && <li key={l.id}>{getLocalized(l, 'desc')}</li>)}
                                 </ul>
                             ) : (
                                 <ul className="list-disc list-inside space-y-1">
                                     {stateData?.marks && stateData.marks.length > 0 ? 
-                                        stateData.marks.map((m: any) => m.desc && <li key={m.id}>{m.desc}</li>) :
+                                        stateData.marks.map((m: any) => getLocalized(m, 'desc') && <li key={m.id}>{getLocalized(m, 'desc')}</li>) :
                                         <li>{t('signals.vessels.noMarks')}</li>
                                     }
                                 </ul>
@@ -694,7 +713,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                         {stateData?.explanation && (
                             <div className="border-t pt-2">
                                 <strong className="block mb-1">{t('signals.vessels.explanation')}</strong>
-                                <p className="text-xs text-muted-foreground whitespace-pre-line">{stateData.explanation}</p>
+                                <p className="text-xs text-muted-foreground whitespace-pre-line">{getLocalized(stateData, 'explanation')}</p>
                             </div>
                         )}
                     </div>
