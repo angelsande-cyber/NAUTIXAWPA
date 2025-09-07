@@ -64,15 +64,15 @@ export const useSignalsData = () => {
             title: t(rule.title),
             description: t(rule.description),
             explanation: rule.explanation ? t(rule.explanation) : '',
-            lights: rule.lights.map(light => ({...light, desc: light.desc ? t(light.desc) : ''})),
-            marks: rule.marks.map(mark => ({...mark, desc: mark.desc ? t(mark.desc) : ''})),
+            lights: rule.lights ? rule.lights.map(light => ({...light, desc: light.desc ? t(light.desc) : ''})) : [],
+            marks: rule.marks ? rule.marks.map(mark => ({...mark, desc: mark.desc ? t(mark.desc) : ''})) : [],
             states: rule.states?.map(state => ({
                 ...state,
                 title: t(state.title),
                 description: t(state.description),
                 explanation: state.explanation ? t(state.explanation) : '',
-                lights: state.lights.map(light => ({...light, desc: light.desc ? t(light.desc) : ''})),
-                marks: state.marks.map(mark => ({...mark, desc: mark.desc ? t(mark.desc) : ''})),
+                lights: state.lights ? state.lights.map(light => ({...light, desc: light.desc ? t(light.desc) : ''})) : [],
+                marks: state.marks ? state.marks.map(mark => ({...mark, desc: mark.desc ? t(mark.desc) : ''})) : [],
             }))
         }));
 
