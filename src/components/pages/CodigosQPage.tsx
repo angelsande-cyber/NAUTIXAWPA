@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Q_CODES_DATA } from "@/lib/data/qcodes";
 
 export default function CodigosQPage() {
-    const qCodes = Q_CODES_DATA;
+    const qCodes = Q_CODES_DATA.es;
 
     return (
         <div className="p-4 md:p-6">
@@ -16,24 +16,26 @@ export default function CodigosQPage() {
                 </CardHeader>
                 <CardContent>
                     <div className="overflow-hidden rounded-lg border">
-                         <Table>
-                            <TableHeader>
-                                <TableRow className="bg-muted/50 hover:bg-muted/50">
-                                    <TableHead className="uppercase">Código</TableHead>
-                                    <TableHead className="uppercase">Pregunta</TableHead>
-                                    <TableHead className="uppercase">Respuesta / Significado</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {qCodes.map((item, index) => (
-                                    <TableRow key={item.code} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
-                                        <TableCell className="font-bold text-lg">{item.code}</TableCell>
-                                        <TableCell className="italic">"{item.question}"</TableCell>
-                                        <TableCell>{item.answer}</TableCell>
+                         <div className="relative w-full overflow-auto">
+                             <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                        <TableHead className="uppercase">Código</TableHead>
+                                        <TableHead className="uppercase">Pregunta</TableHead>
+                                        <TableHead className="uppercase">Respuesta / Significado</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {qCodes.map((item, index) => (
+                                        <TableRow key={item.code} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
+                                            <TableCell className="font-bold text-lg">{item.code}</TableCell>
+                                            <TableCell className="italic">"{item.question}"</TableCell>
+                                            <TableCell>{item.answer}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                         </div>
                     </div>
                 </CardContent>
             </Card>

@@ -7,7 +7,7 @@ import { numberFlags } from "@/components/SignalFlags";
 import { ALPHABET_DATA } from "@/lib/data/alphabet";
 
 export default function AlfabetoPage() {
-    const { letters, numbers } = ALPHABET_DATA;
+    const { letters, numbers } = ALPHABET_DATA.es;
 
     const combinedLetters = letters.map((item) => ({
         ...item,
