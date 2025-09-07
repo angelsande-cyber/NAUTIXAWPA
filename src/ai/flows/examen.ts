@@ -12,6 +12,7 @@ import {QuizOutputSchema} from '../schemas/examen-schema';
 const PerQuizInputSchema = z.object({
   language: z.enum(['es', 'en']).describe("The language to generate the quiz in ('es' or 'en')."),
 });
+export type PerQuizInput = z.infer<typeof PerQuizInputSchema>;
 
 const perQuizPrompt = ai.definePrompt({
   name: 'perQuizPrompt',
@@ -53,23 +54,17 @@ export const generatePerQuiz = ai.defineFlow(
   },
   async (input) => {
     console.log(`Generating PER quiz in ${input.language}...`);
-    try {
-      const {output} = await perQuizPrompt(input);
-      if (!output || !output.questions || output.questions.length === 0) {
-        throw new Error('The AI did not generate a valid response or the questions are empty.');
-      }
-      // Basic validation for each question
-      for (const q of output.questions) {
-        if (q.correctAnswerIndex < 0 || q.correctAnswerIndex > 3) {
-            throw new Error(`Answer index out of range for question: "${q.question}"`);
-        }
-      }
-      console.log(`Quiz generated successfully with ${output.questions.length} questions.`);
-      return output;
-    } catch (e) {
-      console.error("Error generating PER quiz:", e);
-      // Re-throw the error to be caught by the client-side caller
-      throw e;
+    const {output} = await perQuizPrompt(input);
+    if (!output || !output.questions || output.questions.length === 0) {
+      throw new Error('The AI did not generate a valid response or the questions are empty.');
     }
+    // Basic validation for each question
+    for (const q of output.questions) {
+      if (q.correctAnswerIndex < 0 || q.correctAnswerIndex > 3) {
+          throw new Error(`Answer index out of range for question: "${q.question}"`);
+      }
+    }
+    console.log(`Quiz generated successfully with ${output.questions.length} questions.`);
+    return output;
   }
 );

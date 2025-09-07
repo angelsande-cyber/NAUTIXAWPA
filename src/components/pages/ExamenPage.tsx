@@ -7,7 +7,6 @@ import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Label } from "@/components/ui/label";
-import { generatePerQuiz } from "@/ai/flows/examen";
 import type { QuizOutput } from "@/ai/schemas/examen-schema";
 import { CheckCircle, FileText, HelpCircle, RefreshCw, XCircle } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
@@ -90,16 +89,32 @@ export default function ExamenPage() {
     setError(null);
 
     try {
-      const generatedQuiz = await generatePerQuiz({ language: 'es' });
+      const response = await fetch('/api/examen', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          input: { language: 'es' },
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+
+      const generatedQuiz: QuizOutput = await response.json();
+
       setQuizSession({
         quiz: generatedQuiz,
         userAnswers: {},
         currentQuestionIndex: 0,
       });
       setView('quiz');
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
-      setError("No se pudo generar el examen. Por favor, inténtalo de nuevo.");
+      setError(e.message || "No se pudo generar el examen. Por favor, inténtalo de nuevo.");
       setView('error');
     }
   }, []);
