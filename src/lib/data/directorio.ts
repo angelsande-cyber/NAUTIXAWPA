@@ -54,7 +54,9 @@ export const DIRECTORY_DATA: DirectoryData = {
                 { name: "Monte Real Club de Yates de Baiona", phones: ["986 38 50 00"], email: "secretaria@mrcyb.es", keywords: ["Baiona", "Pontevedra", "Club"] },
                 { name: "Puerto Banús", phones: ["952 90 98 00"], email: "info@puertobanus.com", keywords: ["Marbella", "Marina", "Puerto"] },
                 { name: "Marina de Valencia", phones: ["963 46 20 07"], email: "info@marinadevalencia.com", keywords: ["Valencia", "Marina", "Puerto"] },
-                { name: "Puerto Deportivo de Sotogrande", phones: ["956 79 00 00"], email: "info@puertosotogrande.com", keywords: ["Cadiz", "Sotogrande", "Marina"] }
+                { name: "Puerto Deportivo de Sotogrande", phones: ["956 79 00 00"], email: "info@puertosotogrande.com", keywords: ["Cadiz", "Sotogrande", "Marina"] },
+                { name: "Real Club Marítimo del Abra", phones: ["944 63 76 00"], email: "rcma-rsc@rcma-rsc.com", keywords: ["Getxo", "Bilbao", "Bizkaia", "Abra"] },
+                { name: "Marina de Dénia", phones: ["966 42 43 07"], email: "info@marinadedenia.com", keywords: ["Alicante", "Denia", "Marina"] }
             ]
         },
         {
@@ -62,7 +64,16 @@ export const DIRECTORY_DATA: DirectoryData = {
             items: [
                 { name: "Varadero de Palma", phones: ["971 45 46 00"], email: "info@varaderodepalma.com", keywords: ["Palma", "Reparacion", "Astillero"] },
                 { name: "Astilleros de Mallorca", phones: ["971 71 06 45"], email: "info@astillerosdemallorca.com", keywords: ["Mallorca", "Astillero", "Mantenimiento"] },
-                { name: "Rodman Polyships", phones: ["986 81 18 11"], email: "rodman@rodman.es", keywords: ["Pontevedra", "Astillero", "Construccion"] }
+                { name: "Rodman Polyships", phones: ["986 81 18 11"], email: "rodman@rodman.es", keywords: ["Pontevedra", "Astillero", "Construccion"] },
+                { name: "MB92 Barcelona", phones: ["932 24 10 40"], email: "info@mb92.com", keywords: ["Barcelona", "Superyate", "Reparacion", "Mantenimiento"] },
+                { name: "Astilleros Gondán", phones: ["985 63 62 50"], email: "gondan@gondan.com", keywords: ["Asturias", "Figueras", "Construccion"] }
+            ]
+        },
+        {
+            category: "Tiendas y Efectos Navales",
+            items: [
+                 { name: "Accastillage Diffusion", phones: [], email: "info@accastillage-diffusion.es", keywords: ["Tienda", "Efectos", "Nautica", "AD"] },
+                 { name: "Plastimo", phones: [], email: null, keywords: ["Tienda", "Seguridad", "Defensas", "Compas"] }
             ]
         }
     ]

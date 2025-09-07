@@ -7,22 +7,22 @@ import { DIRECTORY_DATA } from '@/lib/data/directorio';
 import { Separator } from '../ui/separator';
 
 const EmergencyContactCard = ({ entry }: { entry: { name: string, phones: string[], email: string | null }}) => (
-    <Card className="bg-destructive/10 border-destructive/20">
+    <Card className="bg-primary/10 border-primary/20">
         <CardHeader className="pb-2">
-            <CardTitle className="text-lg text-destructive flex items-center gap-2">
+            <CardTitle className="text-lg text-primary flex items-center gap-2">
                 <LifeBuoy className="h-5 w-5"/>
                 {entry.name}
             </CardTitle>
         </CardHeader>
         <CardContent>
             {entry.phones.map(phone => (
-                <div key={phone} className="flex items-center gap-2 text-sm text-destructive/90 mb-1">
+                <div key={phone} className="flex items-center gap-2 text-sm text-primary/90 mb-1">
                     <Phone className="h-4 w-4" />
                     <a href={`tel:${phone.replace(/\s/g, '')}`} className="hover:underline font-semibold text-base">{phone}</a>
                 </div>
             ))}
             {entry.email && (
-                <div className="flex items-center gap-2 text-sm text-destructive/90">
+                <div className="flex items-center gap-2 text-sm text-primary/90">
                     <AtSign className="h-4 w-4" />
                      <a href={`mailto:${entry.email}`} className="hover:underline">{entry.email}</a>
                 </div>
@@ -104,7 +104,7 @@ export default function DirectorioPage() {
              <div className="w-full max-w-4xl mx-auto space-y-6">
                 {filteredEmergencyData.length > 0 && (
                     <div>
-                        <h3 className="text-lg font-semibold mb-3 flex items-center gap-2 text-destructive"><LifeBuoy />Emergencias</h3>
+                        <h3 className="text-lg font-semibold mb-3 flex items-center gap-2 text-primary"><LifeBuoy />Emergencias</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             {filteredEmergencyData.map(entry => <EmergencyContactCard key={entry.name} entry={entry} />)}
                         </div>
@@ -115,7 +115,7 @@ export default function DirectorioPage() {
 
                 {filteredOtherData.length > 0 && (
                      <div>
-                        <h3 className="text-lg font-semibold mb-3 flex items-center gap-2 text-primary"><Sailboat />Otros Contactos</h3>
+                        <h3 className="text-lg font-semibold mb-3 flex items-center gap-2 text-foreground"><Sailboat />Otros Contactos</h3>
                         <div className="space-y-6">
                         {filteredOtherData.map(category => (
                             <div key={category.category}>
