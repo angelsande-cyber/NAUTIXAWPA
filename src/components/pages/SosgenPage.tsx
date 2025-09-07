@@ -1,20 +1,39 @@
 "use client";
+import { useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Radio, Siren, HelpCircle, PhoneOutgoing, Satellite } from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { cn } from "@/lib/utils";
 
-const MaydayProcedure = () => (
+const MaydayProcedureEs = () => (
     <div className="sos-message p-4 rounded-lg bg-muted font-mono text-sm leading-relaxed space-y-1">
         <p className="font-bold text-destructive">MAYDAY, MAYDAY, MAYDAY</p>
-        <p>THIS IS <span className="placeholder">NOMBRE DEL BARCO (x3)</span></p>
-        <p>CALL SIGN <span className="placeholder">INDICATIVO</span> MMSI <span className="placeholder">MMSI</span></p>
+        <p>AQUÍ <span className="placeholder">NOMBRE DEL BARCO (x3)</span></p>
+        <p>INDICATIVO <span className="placeholder">INDICATIVO</span> MMSI <span className="placeholder">MMSI</span></p>
         <p className="font-bold text-destructive pt-2">MAYDAY</p>
-        <p>POSITION <span className="placeholder">POSICIÓN (LAT/LON O REFERENCIA)</span></p>
-        <p>I AM <span className="placeholder">NATURALEZA DEL PELIGRO (HUNDIMIENTO, INCENDIO...)</span></p>
+        <p>MI POSICIÓN ES <span className="placeholder">POSICIÓN (LAT/LON O REFERENCIA)</span></p>
+        <p>ESTOY <span className="placeholder">NATURALEZA DEL PELIGRO (HUNDIMIENTO, INCENDIO...)</span></p>
+        <p>NECESITO ASISTENCIA INMEDIATA</p>
+        <p>TENGO <span className="placeholder">NÚMERO DE PERSONAS</span> PERSONAS A BORDO</p>
+        <p><span className="placeholder">OTRA INFORMACIÓN (ABANDONO, BENGALAS...)</span></p>
+        <p>CAMBIO</p>
+    </div>
+);
+
+const MaydayProcedureEn = () => (
+    <div className="sos-message p-4 rounded-lg bg-muted font-mono text-sm leading-relaxed space-y-1">
+        <p className="font-bold text-destructive">MAYDAY, MAYDAY, MAYDAY</p>
+        <p>THIS IS <span className="placeholder">VESSEL NAME (x3)</span></p>
+        <p>CALL SIGN <span className="placeholder">CALL SIGN</span> MMSI <span className="placeholder">MMSI</span></p>
+        <p className="font-bold text-destructive pt-2">MAYDAY</p>
+        <p>MY POSITION IS <span className="placeholder">POSITION (LAT/LON OR REFERENCE)</span></p>
+        <p>I AM <span className="placeholder">NATURE OF DISTRESS (SINKING, FIRE...)</span></p>
         <p>I REQUIRE IMMEDIATE ASSISTANCE</p>
-        <p>I HAVE <span className="placeholder">NÚMERO DE PERSONAS</span> PERSONS ON BOARD</p>
-        <p><span className="placeholder">CUALQUIER OTRA INFORMACIÓN (ABANDONO, BENGALAS...)</span></p>
+        <p>I HAVE <span className="placeholder">NUMBER OF PERSONS</span> PERSONS ON BOARD</p>
+        <p><span className="placeholder">ANY OTHER INFORMATION (ABANDONING, FLARES...)</span></p>
         <p>OVER</p>
     </div>
 );
@@ -47,6 +66,8 @@ const distressSystems = [
 ];
 
 export default function SosgenPage() {
+    const [language, setLanguage] = useState<'es' | 'en'>('es');
+
     return (
         <div className="p-4 md:p-6 space-y-6">
             <Card className="w-full max-w-4xl mx-auto">
@@ -68,7 +89,16 @@ export default function SosgenPage() {
                         </Alert>
 
                         <div className="mt-4">
-                            <MaydayProcedure />
+                             <div className="flex items-center justify-center space-x-3 mb-4 p-2 bg-background rounded-lg border">
+                                <Label htmlFor="lang-switch" className={cn(language === 'es' ? 'text-primary font-bold' : 'text-muted-foreground')}>Español</Label>
+                                <Switch
+                                    id="lang-switch"
+                                    checked={language === 'en'}
+                                    onCheckedChange={(checked) => setLanguage(checked ? 'en' : 'es')}
+                                />
+                                <Label htmlFor="lang-switch" className={cn(language === 'en' ? 'text-primary font-bold' : 'text-muted-foreground')}>English</Label>
+                            </div>
+                            {language === 'es' ? <MaydayProcedureEs /> : <MaydayProcedureEn />}
                         </div>
                         
                         <Accordion type="single" collapsible className="w-full mt-4">
