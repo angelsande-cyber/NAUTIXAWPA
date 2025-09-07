@@ -214,12 +214,12 @@ function runSimulation(
 
 // --- Lighthouse Simulator Component ---
 const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTerm }) => {
+    const { t, language } = useTranslation();
     const [rhythm, setRhythm] = useState('FL');
     const [color, setColor] = useState('W');
     const [group, setGroup] = useState('1');
     const [period, setPeriod] = useState('10');
     const [manualChar, setManualChar] = useState('');
-    const { t, language } = useTranslation();
 
     const handleSimulate = useCallback(() => {
         const lightEl = document.getElementById('lighthouse-svg-light') as SVGElement | null;
@@ -337,16 +337,16 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
 
 // --- Buoy Simulator Component ---
 const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTerms: LightCharacteristicTerm }) => {
+    const { t, language } = useTranslation();
     const [region, setRegion] = useState('A');
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [activeType, setActiveType] = useState<string | null>(null);
-    const { t, language } = useTranslation();
 
     const getLocalized = useCallback((obj: any, key: string) => {
         if (!obj) return '';
         const value = obj[key];
         if (typeof value === 'object' && value !== null && 'es' in value && 'en' in value) {
-            return value[language];
+            return value[language as 'es' | 'en'];
         }
         return value;
     }, [language]);
@@ -374,9 +374,10 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
             const lightEl = schematicContainer.querySelector<SVGElement>('#buoy-svg-light');
             if (lightEl) {
                 const char = parseLighthouseCharacteristic(buoy.characteristic);
-                const mnemonicText = getLocalized(buoy.mnemonic, language);
+                const purposeText = getLocalized(buoy, 'purpose');
+                const mnemonicText = getLocalized(buoy, 'mnemonic');
                 const mnemonicHtml = mnemonicText ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${mnemonicText}</p>` : '';
-                const infoTitle = `<h4 class="font-bold">${localizedType}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${getLocalized(buoy.purpose, language)}</p>${mnemonicHtml}<hr class="my-2"/>`;
+                const infoTitle = `<h4 class="font-bold">${localizedType}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${purposeText}</p>${mnemonicHtml}<hr class="my-2"/>`;
                 runSimulation(lightEl, infoPanel, char, lightTerms, t, language, infoTitle);
             }
         }
