@@ -6,15 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Play, Pause } from "lucide-react";
 import { useTranslation } from '@/context/LanguageContext';
+import type { SoundSignal } from '@/hooks/useSignalsData';
 
-interface SoundSignal {
-    id: string;
-    title: string;
-    description: string;
-    signal: string;
-    sequence: string[];
-    rule: string;
-}
 
 export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSignal[] }) {
     const { t } = useTranslation();
@@ -30,7 +23,7 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
             long: '/sounds/long-blast.mp3',
             bell: '/sounds/bell.mp3',
             gong: '/sounds/gong.mp3',
-            'bell-stroke': '/sounds/bell.mp3', // Use bell for single stroke
+            'bell-stroke': '/sounds/bell-stroke.mp3',
         };
 
         Object.keys(soundFiles).forEach(key => {
@@ -45,7 +38,7 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
         return () => {
             Object.values(audioRefs.current).forEach(audio => {
                 audio.pause();
-                audio.src = '';
+                audio.srcObject = null;
             });
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
@@ -66,27 +59,38 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
     }, []);
 
     const playSequence = useCallback((sequence: string[]) => {
+        setIsPlaying(true);
         let cumulativeDelay = 0;
         const playNext = (index: number) => {
             if (index >= sequence.length) {
-                setIsPlaying(false); // Sequence finished
+                 const signal = sonidosData.find(s => s.id === selectedSignalId);
+                 if (signal && signal.rule.includes('35')) { // Loop for restricted visibility
+                    timeoutRef.current = setTimeout(() => playNext(0), 120000); // 2 minutes
+                 } else {
+                    setIsPlaying(false); // Sequence finished
+                 }
                 return;
             }
             const sound = sequence[index];
             const audio = audioRefs.current[sound];
+
             if (audio) {
                 audio.currentTime = 0;
                 audio.play().catch(e => console.error("Error playing sound:", e));
                 
-                let delay = 1000; // Default delay for short blast
-                if (sound === 'long') delay = 2500;
-                if (sound === 'bell' || sound === 'gong') delay = 5500;
+                let delay = 1000; // Pause after short blast
+                if (sound === 'long') delay = 2500; // Duration of long blast + pause
+                if (sound === 'bell') delay = 5500; // Duration of bell + pause
+                if (sound === 'gong') delay = 5500; // Duration of gong + pause
+                if (sound === 'bell-stroke') delay = 500; // Duration of stroke + pause
                 
                 timeoutRef.current = setTimeout(() => playNext(index + 1), delay);
+            } else {
+                 playNext(index + 1); // Skip if sound not found
             }
         };
         playNext(0);
-    }, []);
+    }, [selectedSignalId, sonidosData]);
 
 
     const handlePlayPause = () => {
@@ -95,7 +99,6 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
         } else {
             const signal = sonidosData.find(s => s.id === selectedSignalId);
             if (signal) {
-                setIsPlaying(true);
                 playSequence(signal.sequence);
             }
         }
