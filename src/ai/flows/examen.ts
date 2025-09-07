@@ -54,16 +54,24 @@ export const generatePerQuiz = ai.defineFlow(
   },
   async (input) => {
     console.log(`Generating PER quiz in ${input.language}...`);
-    const {output} = await perQuizPrompt(input);
+    
+    const { output } = await ai.generate({
+      prompt: perQuizPrompt,
+      input,
+      model: 'googleai/gemini-2.5-pro',
+    });
+
     if (!output || !output.questions || output.questions.length === 0) {
       throw new Error('The AI did not generate a valid response or the questions are empty.');
     }
+    
     // Basic validation for each question
     for (const q of output.questions) {
       if (q.correctAnswerIndex < 0 || q.correctAnswerIndex > 3) {
           throw new Error(`Answer index out of range for question: "${q.question}"`);
       }
     }
+    
     console.log(`Quiz generated successfully with ${output.questions.length} questions.`);
     return output;
   }
