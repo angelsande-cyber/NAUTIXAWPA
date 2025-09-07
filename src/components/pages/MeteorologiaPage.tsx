@@ -159,7 +159,6 @@ export default function MeteorologiaPage() {
                                         sizes="(max-width: 768px) 100vw, 33vw"
                                         className="object-cover"
                                         data-ai-hint={cloud.hint}
-                                        unoptimized
                                     />
                                 </div>
                                 <div className="md:col-span-2 p-4">
