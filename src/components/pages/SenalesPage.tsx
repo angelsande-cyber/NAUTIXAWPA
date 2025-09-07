@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Eye, Moon, Sun } from "lucide-react";
 import SonidosSimulator from "./SonidosSimulator";
+import { useTranslation } from "@/context/LanguageContext";
 
 
 interface LightCharacteristicTerm {
@@ -39,7 +40,7 @@ interface ColregRule {
     id: string;
     title: string;
     description: string;
-    svg: { [key: string]: React.ReactNode }; // Simplified for client-side
+    svg: string; 
     lights: any[];
     marks: any[];
     explanation: string;
@@ -202,6 +203,7 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
     const [group, setGroup] = useState('1');
     const [period, setPeriod] = useState('10');
     const [manualChar, setManualChar] = useState('');
+    const { t } = useTranslation();
 
     const handleSimulate = useCallback(() => {
         const lightEl = document.getElementById('lighthouse-svg-light') as SVGElement | null;
@@ -242,7 +244,7 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
     }, [manualChar, handleSimulate]);
 
     const controlSections = [
-        { label: "RITMO / RHYTHM", stateSetter: setRhythm, selectedValue: rhythm, options: ['F', 'FL', 'LFL', 'OC', 'ISO', 'Q', 'VQ', 'MO'] },
+        { label: "RHYTHM", stateSetter: setRhythm, selectedValue: rhythm, options: ['F', 'FL', 'LFL', 'OC', 'ISO', 'Q', 'VQ', 'MO'] },
         { label: "COLOR", stateSetter: setColor, selectedValue: color, options: ['W', 'R', 'G', 'Y', 'BU'] }
     ];
 
@@ -251,7 +253,7 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-4">
                 {controlSections.map(section => (
                     <div key={section.label}>
-                        <Label className="text-xs uppercase text-muted-foreground tracking-wider">{section.label}</Label>
+                        <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t(`signals.lighthouses.controls.${section.label.toLowerCase()}`)}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {section.options.map(opt => (
                                 <Button
@@ -267,12 +269,12 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
                     </div>
                 ))}
                  <div>
-                    <Label htmlFor="group-input" className="text-xs uppercase text-muted-foreground tracking-wider">GRUPO / GROUP</Label>
-                    <Input id="group-input" value={group} onChange={e => setGroup(e.target.value)} className="mt-2" placeholder="Ej: 2 or 2+1"/>
+                    <Label htmlFor="group-input" className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.lighthouses.controls.group')}</Label>
+                    <Input id="group-input" value={group} onChange={e => setGroup(e.target.value)} className="mt-2" placeholder={t('signals.lighthouses.controls.groupPlaceholder')}/>
                 </div>
                  <div>
-                    <Label htmlFor="period-input" className="text-xs uppercase text-muted-foreground tracking-wider">PERÍODO / PERIOD (S)</Label>
-                    <Input id="period-input" type="number" value={period} onChange={e => setPeriod(e.target.value)} className="mt-2" placeholder="Ej: 15"/>
+                    <Label htmlFor="period-input" className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.lighthouses.controls.period')}</Label>
+                    <Input id="period-input" type="number" value={period} onChange={e => setPeriod(e.target.value)} className="mt-2" placeholder={t('signals.lighthouses.controls.periodPlaceholder')}/>
                 </div>
             </div>
 
@@ -281,7 +283,7 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
                     <span className="w-full border-t" />
                 </div>
                 <div className="relative bg-card px-4 text-sm text-muted-foreground">
-                    O introducir manualmente
+                    {t('signals.lighthouses.manualInput')}
                 </div>
             </div>
 
@@ -310,7 +312,7 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
                     </svg>
                 </div>
                 <div id="lighthouse-simulation-info" className="text-center mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
-                    <p className="text-muted-foreground">Introduzca una característica para iniciar la simulación.</p>
+                    <p className="text-muted-foreground">{t('signals.lighthouses.start')}</p>
                 </div>
             </div>
         </div>
@@ -322,21 +324,21 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     const [region, setRegion] = useState('A');
     const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [activeType, setActiveType] = useState<string | null>(null);
+    const { t } = useTranslation();
 
-    const categories = Array.from(new Set(buoyData.map(b => b.category)));
+    const categories = useMemo(() => Array.from(new Set(buoyData.map(b => b.category))), [buoyData]);
 
-    const handleCategoryClick = (category: string) => {
+    const handleCategoryClick = useCallback((category: string) => {
         setActiveCategory(category);
         setActiveType(null);
         if (simulationTimeout) clearInterval(simulationTimeout);
         const buoyInfoEl = document.getElementById('buoy-info-panel');
         const buoySchematicEl = document.getElementById('buoy-schematic-container');
-        if(buoyInfoEl) buoyInfoEl.innerHTML = '<p class="text-muted-foreground">Seleccione un tipo de señal para comenzar.</p>';
+        if(buoyInfoEl) buoyInfoEl.innerHTML = `<p class="text-muted-foreground">${t('signals.buoys.start')}</p>`;
         if(buoySchematicEl) buoySchematicEl.innerHTML = '';
+    }, [t]);
 
-    };
-
-    const handleTypeClick = (buoy: any) => {
+    const handleTypeClick = useCallback((buoy: any) => {
         setActiveType(buoy.type);
         const schematicContainer = document.getElementById('buoy-schematic-container');
         const infoPanel = document.getElementById('buoy-info-panel');
@@ -345,19 +347,18 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
             const lightEl = schematicContainer.querySelector<SVGElement>('#buoy-svg-light');
             if (lightEl) {
                 const char = parseLighthouseCharacteristic(buoy.characteristic);
-                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>Regla:</strong> ${buoy.mnemonic}</p>` : '';
-                const infoTitle = `<h4 class="font-bold">${buoy.type}${buoy.region ? ` (Región ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
+                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${buoy.mnemonic}</p>` : '';
+                const infoTitle = `<h4 class="font-bold">${buoy.type}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
                 runSimulation(lightEl, infoPanel, char, lightTerms, infoTitle);
             }
         }
-    };
+    }, [lightTerms, t]);
     
     useEffect(() => {
-        if(categories.length > 0) {
+        if(categories.length > 0 && !activeCategory) {
             handleCategoryClick(categories[0]);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [categories]);
+    }, [categories, activeCategory, handleCategoryClick]);
 
      useEffect(() => {
         // When region changes, if the current category is lateral marks, reset it.
@@ -365,10 +366,10 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
             setActiveType(null);
             const buoyInfoEl = document.getElementById('buoy-info-panel');
             const buoySchematicEl = document.getElementById('buoy-schematic-container');
-            if(buoyInfoEl) buoyInfoEl.innerHTML = '<p class="text-muted-foreground">Seleccione un tipo de señal para comenzar.</p>';
+            if(buoyInfoEl) buoyInfoEl.innerHTML = `<p class="text-muted-foreground">${t('signals.buoys.start')}</p>`;
             if(buoySchematicEl) buoySchematicEl.innerHTML = '';
         }
-    }, [region, activeCategory]);
+    }, [region, activeCategory, t]);
     
      useEffect(() => {
         // Cleanup on component unmount
@@ -380,25 +381,25 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
         }
     }, []);
 
-    const buoyTypesForCategory = buoyData.filter(b => {
+    const buoyTypesForCategory = useMemo(() => buoyData.filter(b => {
         if (b.category !== activeCategory) return false;
         if (activeCategory === 'Marcas Laterales') return b.region === region;
         return true;
-    });
+    }), [buoyData, activeCategory, region]);
 
     return (
         <div>
             <div className="space-y-4">
                 {activeCategory === 'Marcas Laterales' && (
                     <div className="flex items-center space-x-2 p-3 bg-muted rounded-lg">
-                        <Label htmlFor="iala-region" className="font-semibold">Región IALA</Label>
+                        <Label htmlFor="iala-region" className="font-semibold">{t('signals.buoys.ialaRegion')}</Label>
                         <span className={cn(region === 'A' ? '' : 'text-muted-foreground', "font-bold")}>A</span>
                         <Switch id="iala-region" checked={region === 'B'} onCheckedChange={(checked) => setRegion(checked ? 'B' : 'A')} />
                         <span className={cn(region === 'B' ? '' : 'text-muted-foreground', "font-bold")}>B</span>
                     </div>
                 )}
                  <div>
-                    <Label className="text-xs uppercase text-muted-foreground tracking-wider">Categoría</Label>
+                    <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.category')}</Label>
                     <div className="flex flex-wrap gap-2 mt-2">
                         {categories.map(cat => (
                             <Button key={cat} variant={activeCategory === cat ? 'default' : 'outline'} onClick={() => handleCategoryClick(cat)}>
@@ -409,7 +410,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                 </div>
                 {buoyTypesForCategory.length > 0 && (
                     <div>
-                        <Label className="text-xs uppercase text-muted-foreground tracking-wider">Tipo</Label>
+                        <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.type')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map(buoy => (
                                 <Button key={`${buoy.type}-${buoy.region || ''}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
@@ -424,7 +425,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
             <div className="mt-6 flex flex-col items-center">
                 <div id="buoy-schematic-container" className="w-32 h-48"></div>
                 <div id="buoy-info-panel" className="text-center mt-4 p-4 bg-muted rounded-lg w-full min-h-[140px]">
-                    <p className="text-muted-foreground">Seleccione una categoría y tipo de señal para comenzar.</p>
+                    <p className="text-muted-foreground">{t('signals.buoys.start')}</p>
                 </div>
             </div>
         </div>
@@ -488,6 +489,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
     const [selectedStateId, setSelectedStateId] = useState(0);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
+    const { t } = useTranslation();
 
     const ruleData = useMemo(() => {
         return colregRules.find(r => r.id === selectedRuleId) || null;
@@ -587,10 +589,10 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
         <div>
             <div className="space-y-4 mb-4">
                  <div>
-                    <Label>Situación / Tipo de Buque</Label>
+                    <Label>{t('signals.vessels.situation')}</Label>
                     <Select value={selectedRuleId} onValueChange={setSelectedRuleId}>
                         <SelectTrigger className="w-full mt-2">
-                            <SelectValue placeholder="Selecciona una regla..." />
+                            <SelectValue placeholder={t('signals.vessels.selectSituation')} />
                         </SelectTrigger>
                         <SelectContent>
                              {colregRules.map(rule => (
@@ -602,7 +604,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
 
                  {hasStates && (
                      <div>
-                        <Label>Caso Específico</Label>
+                        <Label>{t('signals.vessels.specificCase')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {ruleData.states.map((state, index) => (
                                 <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} className="flex-1" onClick={() => setSelectedStateId(index)}>
@@ -615,20 +617,20 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
 
                  <div className="grid grid-cols-2 gap-4">
                     <div>
-                        <Label>Vista</Label>
+                        <Label>{t('signals.vessels.view')}</Label>
                          <div className="flex flex-wrap gap-2 mt-2">
                             {(['bow', 'starboard', 'stern'] as const).map(v => (
                                 <Button key={v} variant={view === v ? 'default' : 'outline'} className="flex-1" onClick={() => setView(v)}>
-                                    {v === 'bow' ? 'Proa' : v === 'starboard' ? 'Estribor' : 'Popa'}
+                                    {t(`signals.vessels.views.${v}`)}
                                 </Button>
                             ))}
                         </div>
                     </div>
                     <div>
-                        <Label>Condición</Label>
+                        <Label>{t('signals.vessels.condition')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2 h-10">
-                            <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/> Día</Button>
-                            <Button variant={isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(true)}><Moon className="mr-2 h-4 w-4"/> Noche</Button>
+                            <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/>{t('signals.vessels.day')}</Button>
+                            <Button variant={isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(true)}><Moon className="mr-2 h-4 w-4"/>{t('signals.vessels.night')}</Button>
                         </div>
                     </div>
                  </div>
@@ -671,11 +673,11 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                  </div>
 
                  <div className="text-left mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
-                    <h4 className="font-bold">{ruleData?.title}: {stateData?.title}</h4>
+                    <h4 className="font-bold">{stateData?.title}</h4>
                     <p className="text-sm text-muted-foreground italic mb-2">{stateData?.description}</p>
                     <div className="text-sm border-t pt-2 space-y-3">
                         <div>
-                            <strong className="block mb-1">{isNight ? "Luces Requeridas:" : "Marcas Requeridas:"}</strong>
+                            <strong className="block mb-1">{isNight ? t('signals.vessels.requiredLights') : t('signals.vessels.requiredMarks')}</strong>
                             {isNight ? (
                                 <ul className="list-disc list-inside space-y-1">
                                     {stateData?.lights?.map((l: any) => l.desc && <li key={l.id}>{l.desc}</li>)}
@@ -684,14 +686,14 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                                 <ul className="list-disc list-inside space-y-1">
                                     {stateData?.marks && stateData.marks.length > 0 ? 
                                         stateData.marks.map((m: any) => m.desc && <li key={m.id}>{m.desc}</li>) :
-                                        <li>Ninguna marca requerida.</li>
+                                        <li>{t('signals.vessels.noMarks')}</li>
                                     }
                                 </ul>
                             )}
                         </div>
                         {stateData?.explanation && (
                             <div className="border-t pt-2">
-                                <strong className="block mb-1">Explicación y Excepciones:</strong>
+                                <strong className="block mb-1">{t('signals.vessels.explanation')}</strong>
                                 <p className="text-xs text-muted-foreground whitespace-pre-line">{stateData.explanation}</p>
                             </div>
                         )}
@@ -705,6 +707,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
 
 // --- Main Page Component ---
 export default function SenalesPage() {
+    const { t } = useTranslation();
     const [senalesData, setSenalesData] = useState<{
         lightTerms: LightCharacteristicTerm;
         ialaBuoyData: BuoyData[];
@@ -718,15 +721,9 @@ export default function SenalesPage() {
      const [sonidosData, setSonidosData] = useState<any[] | null>(null);
 
     useEffect(() => {
-        fetch('/data/senales.json')
-            .then(res => res.json())
-            .then(setSenalesData);
-        fetch('/data/buques.json')
-            .then(res => res.json())
-            .then(setBuquesData);
-        fetch('/data/sonidos.json')
-            .then(res => res.json())
-            .then(setSonidosData);
+        fetch('/data/senales.json').then(res => res.json()).then(setSenalesData);
+        fetch('/data/buques.json').then(res => res.json()).then(setBuquesData);
+        fetch('/data/sonidos.json').then(res => res.json()).then(setSonidosData);
     }, []);
 
     if (!senalesData || !buquesData || !sonidosData) {
@@ -734,7 +731,7 @@ export default function SenalesPage() {
             <div className="p-4 md:p-6">
                 <Card className="w-full max-w-4xl mx-auto">
                     <CardHeader>
-                        <CardTitle>Cargando Simulador...</CardTitle>
+                        <CardTitle>{t('loading')}</CardTitle>
                     </CardHeader>
                 </Card>
             </div>
@@ -745,18 +742,16 @@ export default function SenalesPage() {
         <div className="p-4 md:p-6">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Simulador de Señales Marítimas</CardTitle>
-                    <CardDescription>
-                        Herramienta interactiva para aprender a identificar las características de luces, marcas y sonidos de faros, boyas y buques.
-                    </CardDescription>
+                    <CardTitle>{t('titles.signals')}</CardTitle>
+                    <CardDescription>{t('signals.description')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="buques" className="w-full">
                         <TabsList className="grid w-full grid-cols-4 gap-2 h-auto bg-transparent p-0">
-                            <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Luces y Marcas</TabsTrigger>
-                            <TabsTrigger value="sonidos" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Señales Acústicas</TabsTrigger>
-                            <TabsTrigger value="balizamiento" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Balizamiento</TabsTrigger>
-                            <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros y Boyas</TabsTrigger>
+                            <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">{t('signals.tabs.vessels')}</TabsTrigger>
+                            <TabsTrigger value="sonidos" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">{t('signals.tabs.sounds')}</TabsTrigger>
+                            <TabsTrigger value="balizamiento" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">{t('signals.tabs.buoyage')}</TabsTrigger>
+                            <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">{t('signals.tabs.lighthouses')}</TabsTrigger>
                         </TabsList>
                         <TabsContent value="buques" className="pt-6">
                            <BuquesSimulator colregRules={buquesData.colregRules} vesselSvgs={buquesData.vesselSvgs} />
