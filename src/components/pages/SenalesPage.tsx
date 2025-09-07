@@ -162,7 +162,7 @@ function runSimulation(
     
     const rhythmText = lightTerms[char.rhythm] || char.rhythm;
     const groupText = char.group ? t('signals.lighthouses.groupText', { group: char.group }) : '';
-    const colorsText = char.colors.map(c => lightTerms[c]).join(t('signals.lighthouses.colorSeparator'));
+    const colorsText = char.colors.map(c => lightTerms[c]).join(' ');
     const periodText = t('signals.lighthouses.periodText', { period: char.period });
     
     const desc = `${rhythmText} ${groupText} ${colorsText} ${periodText}`;
@@ -238,7 +238,7 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
                                     className="flex-1"
                                     onClick={() => section.stateSetter(opt)}
                                 >
-                                    {opt}
+                                    {lightTerms[opt] || opt}
                                 </Button>
                             ))}
                         </div>
