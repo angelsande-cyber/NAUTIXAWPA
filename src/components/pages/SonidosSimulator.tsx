@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Volume2, Play, Pause } from "lucide-react";
+import { useTranslation } from '@/context/LanguageContext';
 
 interface SoundSignal {
     id: string;
@@ -12,11 +13,11 @@ interface SoundSignal {
     description: string;
     signal: string;
     sequence: string[];
-    interval: number;
     rule: string;
 }
 
 export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSignal[] }) {
+    const { t } = useTranslation();
     const [selectedSignalId, setSelectedSignalId] = useState<string>(sonidosData[0]?.id || '');
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRefs = useRef<{ [key: string]: HTMLAudioElement }>({});
@@ -34,9 +35,19 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
 
         Object.keys(soundFiles).forEach(key => {
             if (!audioRefs.current[key]) {
-                audioRefs.current[key] = new Audio(soundFiles[key]);
+                const audio = new Audio(soundFiles[key]);
+                audio.preload = 'auto';
+                audioRefs.current[key] = audio;
             }
         });
+
+         // Cleanup audio resources on component unmount
+        return () => {
+            Object.values(audioRefs.current).forEach(audio => {
+                audio.pause();
+                audio.src = '';
+            });
+        };
     }, []);
 
     const stopAllSounds = useCallback(() => {
@@ -88,12 +99,12 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
             <div className="space-y-4 mb-6">
                 <Select value={selectedSignalId} onValueChange={setSelectedSignalId}>
                     <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Selecciona una situación..." />
+                        <SelectValue placeholder={t('signals.sounds.selectSituation')} />
                     </SelectTrigger>
                     <SelectContent>
                         {sonidosData.map(signal => (
                             <SelectItem key={signal.id} value={signal.id}>
-                                {signal.title}
+                                {t(signal.title)}
                             </SelectItem>
                         ))}
                     </SelectContent>
@@ -103,20 +114,20 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
             {selectedSignal && (
                 <Card>
                     <CardHeader>
-                        <CardTitle>{selectedSignal.title}</CardTitle>
-                        <CardDescription>{selectedSignal.description}</CardDescription>
+                        <CardTitle>{t(selectedSignal.title)}</CardTitle>
+                        <CardDescription>{t(selectedSignal.description)}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                         <div className="text-center p-4 bg-muted rounded-lg">
-                            <p className="font-semibold text-lg">Señal Acústica:</p>
-                            <p className="text-muted-foreground">{selectedSignal.signal}</p>
+                            <p className="font-semibold text-lg">{t('signals.sounds.acousticSignal')}:</p>
+                            <p className="text-muted-foreground">{t(selectedSignal.signal)}</p>
                             <p className="text-xs font-mono mt-2">{selectedSignal.rule}</p>
                         </div>
                         
                         <div className="text-center">
                             <Button onClick={handlePlayPause} size="lg">
                                 {isPlaying ? <Pause className="mr-2 h-5 w-5" /> : <Play className="mr-2 h-5 w-5" />}
-                                {isPlaying ? 'Detener' : 'Reproducir Señal'}
+                                {isPlaying ? t('signals.sounds.stop') : t('signals.sounds.play')}
                             </Button>
                         </div>
 

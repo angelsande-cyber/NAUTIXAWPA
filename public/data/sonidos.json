@@ -1,131 +1,130 @@
-`[
+[
     {
         "id": "maneuver_stbd",
-        "title": "Maniobra a Estribor",
-        "description": "Un buque de propulsión mecánica en navegación, cuando maniobra estando a la vista de otro.",
-        "signal": "● (Una pitada corta)",
+        "title": "signals.sounds.maneuver_stbd.title",
+        "description": "signals.sounds.maneuver_stbd.description",
+        "signal": "● (signals.sounds.one_short)",
         "sequence": ["short"],
         "rule": "Regla 34(a)"
     },
     {
         "id": "maneuver_port",
-        "title": "Maniobra a Babor",
-        "description": "Un buque de propulsión mecánica en navegación, cuando maniobra estando a la vista de otro.",
-        "signal": "● ● (Dos pitadas cortas)",
+        "title": "signals.sounds.maneuver_port.title",
+        "description": "signals.sounds.maneuver_port.description",
+        "signal": "● ● (signals.sounds.two_short)",
         "sequence": ["short", "short"],
         "rule": "Regla 34(a)"
     },
     {
         "id": "maneuver_astern",
-        "title": "Dando Atrás",
-        "description": "Un buque de propulsión mecánica en navegación, cuando sus máquinas dan atrás.",
-        "signal": "● ● ● (Tres pitadas cortas)",
+        "title": "signals.sounds.maneuver_astern.title",
+        "description": "signals.sounds.maneuver_astern.description",
+        "signal": "● ● ● (signals.sounds.three_short)",
         "sequence": ["short", "short", "short"],
         "rule": "Regla 34(a)"
     },
     {
         "id": "overtake_stbd",
-        "title": "Adelanto por Estribor",
-        "description": "Intención de adelantar a otro buque por su banda de estribor.",
-        "signal": "▬ ▬ ● (Dos largas y una corta)",
+        "title": "signals.sounds.overtake_stbd.title",
+        "description": "signals.sounds.overtake_stbd.description",
+        "signal": "▬ ▬ ● (signals.sounds.two_long_one_short)",
         "sequence": ["long", "long", "short"],
         "rule": "Regla 34(c)"
     },
     {
         "id": "overtake_port",
-        "title": "Adelanto por Babor",
-        "description": "Intención de adelantar a otro buque por su banda de babor.",
-        "signal": "▬ ▬ ● ● (Dos largas y dos cortas)",
+        "title": "signals.sounds.overtake_port.title",
+        "description": "signals.sounds.overtake_port.description",
+        "signal": "▬ ▬ ● ● (signals.sounds.two_long_two_short)",
         "sequence": ["long", "long", "short", "short"],
         "rule": "Regla 34(c)"
     },
     {
         "id": "overtake_agree",
-        "title": "Conformidad al Adelantamiento",
-        "description": "Respuesta del buque que va a ser adelantado, si está de acuerdo.",
-        "signal": "▬ ● ▬ ● (Larga, corta, larga, corta)",
+        "title": "signals.sounds.overtake_agree.title",
+        "description": "signals.sounds.overtake_agree.description",
+        "signal": "▬ ● ▬ ● (signals.sounds.long_short_long_short)",
         "sequence": ["long", "short", "long", "short"],
         "rule": "Regla 34(c)"
     },
     {
         "id": "warning_doubt",
-        "title": "Señal de Duda / Advertencia",
-        "description": "Cuando un buque no comprende las intenciones del otro, o duda de si el otro está tomando la acción debida.",
-        "signal": "● ● ● ● ● (Cinco o más pitadas cortas)",
+        "title": "signals.sounds.warning_doubt.title",
+        "description": "signals.sounds.warning_doubt.description",
+        "signal": "● ● ● ● ● (signals.sounds.five_short)",
         "sequence": ["short", "short", "short", "short", "short"],
         "rule": "Regla 34(d)"
     },
     {
         "id": "warning_bend",
-        "title": "Advertencia en Recodo",
-        "description": "Buque acercándose a un recodo o zona de un canal donde otros buques pueden quedar ocultos.",
-        "signal": "▬ (Una pitada larga)",
+        "title": "signals.sounds.warning_bend.title",
+        "description": "signals.sounds.warning_bend.description",
+        "signal": "▬ (signals.sounds.one_long)",
         "sequence": ["long"],
         "rule": "Regla 34(e)"
     },
     {
         "id": "restricted_vis_power_making_way",
-        "title": "Buque de P.M. con arrancada",
-        "description": "Visibilidad reducida. Buque de propulsión mecánica con arrancada.",
-        "signal": "▬ (Una pitada larga a intervalos <= 2 min)",
+        "title": "signals.sounds.restricted_vis_power_making_way.title",
+        "description": "signals.sounds.restricted_vis_power_making_way.description",
+        "signal": "▬ (signals.sounds.one_long_interval)",
         "sequence": ["long"],
         "rule": "Regla 35(a)"
     },
     {
         "id": "restricted_vis_power_stopped",
-        "title": "Buque de P.M. parado",
-        "description": "Visibilidad reducida. Buque de propulsión mecánica parado y sin arrancada.",
-        "signal": "▬ ▬ (Dos pitadas largas a intervalos <= 2 min)",
+        "title": "signals.sounds.restricted_vis_power_stopped.title",
+        "description": "signals.sounds.restricted_vis_power_stopped.description",
+        "signal": "▬ ▬ (signals.sounds.two_long_interval)",
         "sequence": ["long", "long"],
         "rule": "Regla 35(b)"
     },
     {
         "id": "restricted_vis_special",
-        "title": "Buque especial (Vela, Pesca, NUC, RAM...)",
-        "description": "Visibilidad reducida. Buques sin gobierno, con maniobra restringida, restringido por su calado, de vela, de pesca o remolcador.",
-        "signal": "▬ ● ● (Una larga y dos cortas a intervalos <= 2 min)",
+        "title": "signals.sounds.restricted_vis_special.title",
+        "description": "signals.sounds.restricted_vis_special.description",
+        "signal": "▬ ● ● (signals.sounds.one_long_two_short_interval)",
         "sequence": ["long", "short", "short"],
         "rule": "Regla 35(c)"
     },
     {
         "id": "restricted_vis_towed",
-        "title": "Buque remolcado (si hay tripulación)",
-        "description": "Visibilidad reducida. Último buque de un remolque, si va tripulado.",
-        "signal": "▬ ● ● ● (Una larga y tres cortas a intervalos <= 2 min)",
+        "title": "signals.sounds.restricted_vis_towed.title",
+        "description": "signals.sounds.restricted_vis_towed.description",
+        "signal": "▬ ● ● ● (signals.sounds.one_long_three_short_interval)",
         "sequence": ["long", "short", "short", "short"],
         "rule": "Regla 35(e)"
     },
     {
         "id": "restricted_vis_anchored_lt100",
-        "title": "Fondeado (< 100m)",
-        "description": "Visibilidad reducida. Buque fondeado, eslora inferior a 100m.",
-        "signal": "🔔 (Campanadas rápidas por 5s a intervalos <= 1 min)",
+        "title": "signals.sounds.restricted_vis_anchored_lt100.title",
+        "description": "signals.sounds.restricted_vis_anchored_lt100.description",
+        "signal": "🔔 (signals.sounds.bell_rapid)",
         "sequence": ["bell"],
         "rule": "Regla 35(g)"
     },
     {
         "id": "restricted_vis_anchored_gt100",
-        "title": "Fondeado (> 100m)",
-        "description": "Visibilidad reducida. Buque fondeado, eslora igual o superior a 100m.",
-        "signal": "🔔 (Proa) + 🔔🔔🔔 (Popa) (Campanadas + Gong a intervalos <= 1 min)",
+        "title": "signals.sounds.restricted_vis_anchored_gt100.title",
+        "description": "signals.sounds.restricted_vis_anchored_gt100.description",
+        "signal": "🔔 (Proa) + 🔔🔔🔔 (Popa) (signals.sounds.bell_gong_interval)",
         "sequence": ["bell", "gong"],
         "rule": "Regla 35(g)"
     },
     {
         "id": "restricted_vis_aground",
-        "title": "Varado",
-        "description": "Visibilidad reducida. Buque varado.",
-        "signal": "●● 🔔 ●● (Dos golpes de campana, campanada, dos golpes)",
+        "title": "signals.sounds.restricted_vis_aground.title",
+        "description": "signals.sounds.restricted_vis_aground.description",
+        "signal": "●● 🔔 ●● (signals.sounds.bell_strokes_bell)",
         "sequence": ["bell-stroke", "bell-stroke", "bell", "bell-stroke", "bell-stroke"],
         "rule": "Regla 35(h)"
     },
     {
         "id": "pilot",
-        "title": "Buque de Práctico",
-        "description": "Buque en servicio de practicaje.",
-        "signal": "● ● ● ● (Cuatro pitadas cortas)",
+        "title": "signals.sounds.pilot.title",
+        "description": "signals.sounds.pilot.description",
+        "signal": "● ● ● ● (signals.sounds.four_short)",
         "sequence": ["short", "short", "short", "short"],
         "rule": "Regla 35(k)"
     }
 ]
-`

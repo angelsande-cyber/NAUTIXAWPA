@@ -24,7 +24,10 @@ interface LightCharacteristicTerm {
 
 interface BuoyData {
     category: string;
-    type: string;
+    type: {
+      es: string;
+      en: string;
+    };
     region?: string;
     shape: string;
     colors: string[];
@@ -33,14 +36,20 @@ interface BuoyData {
         color: string;
     } | null;
     characteristic: string;
-    purpose: string;
-    mnemonic: string;
+    purpose: {
+      es: string;
+      en: string;
+    };
+    mnemonic: {
+      es: string;
+      en: string;
+    };
 }
 
 interface ColregRule {
     id: string;
     title: string;
-    description: string;
+    description?: string;
     svg: string; 
     lights: any[];
     marks: any[];
@@ -512,6 +521,8 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
     const getLocalized = useCallback((obj: any, key: string) => {
         if (!obj || !key) return '';
         const value = obj[key];
+        if (!value) return '';
+
         if (typeof value === 'object' && value !== null) {
             return value[language] || value['es'] || '';
         }
@@ -565,8 +576,8 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
             const onClasses = isVisible ? lightEffect(light.color) : '';
             const flashingClass = isFlashing ? 'animate-pulse' : '';
             const style = { 
-                left: `${light.position[view].x}%`, 
-                top: `${light.position[view].y}%`,
+                left: `${light.position[view]?.x}%`, 
+                top: `${light.position[view]?.y}%`,
                 width: '8px', height: '8px',
                 transform: 'translate(-50%, -50%)',
                 backgroundColor: lightColor(light.color),
@@ -581,6 +592,9 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
         if (!stateData || !stateData.marks) return null;
 
         return stateData.marks.map((mark: any) => {
+             const isVisible = mark.position[view];
+             if (!isVisible) return null;
+
             const style = { 
                 left: `${mark.position[view].x}%`, 
                 top: `${mark.position[view].y}%`,
@@ -623,7 +637,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                         </SelectTrigger>
                         <SelectContent>
                              {colregRules.map(rule => (
-                                <SelectItem key={rule.id} value={rule.id}>{getLocalized(rule, 'title')}</SelectItem>
+                                <SelectItem key={rule.id} value={rule.id}>{t(rule.title)}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
@@ -635,7 +649,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                         <div className="flex flex-wrap gap-2 mt-2">
                             {ruleData.states.map((state, index) => (
                                 <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} className="flex-1" onClick={() => setSelectedStateId(index)}>
-                                    {getLocalized(state, 'title')}
+                                    {t(state.title)}
                                 </Button>
                             ))}
                         </div>
@@ -700,28 +714,28 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                  </div>
 
                  <div className="text-left mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
-                    <h4 className="font-bold">{stateData ? getLocalized(stateData, 'title') : ''}</h4>
-                    <p className="text-sm text-muted-foreground italic mb-2">{stateData ? getLocalized(stateData, 'description') : ''}</p>
+                    <h4 className="font-bold">{t(stateData?.title || '')}</h4>
+                    <p className="text-sm text-muted-foreground italic mb-2">{t(stateData?.description || '')}</p>
                     <div className="text-sm border-t pt-2 space-y-3">
                         <div>
                             <strong className="block mb-1">{isNight ? t('signals.vessels.requiredLights') : t('signals.vessels.requiredMarks')}</strong>
                             {isNight ? (
                                 <ul className="list-disc list-inside space-y-1">
-                                    {stateData?.lights?.map((l: any) => getLocalized(l, 'desc') && <li key={l.id}>{getLocalized(l, 'desc')}</li>)}
+                                    {stateData?.lights?.map((l: any) => l.desc && <li key={l.id}>{t(l.desc)}</li>)}
                                 </ul>
                             ) : (
                                 <ul className="list-disc list-inside space-y-1">
                                     {stateData?.marks && stateData.marks.length > 0 ? 
-                                        stateData.marks.map((m: any) => getLocalized(m, 'desc') && <li key={m.id}>{getLocalized(m, 'desc')}</li>) :
+                                        stateData.marks.map((m: any) => m.desc && <li key={m.id}>{t(m.desc)}</li>) :
                                         <li>{t('signals.vessels.noMarks')}</li>
                                     }
                                 </ul>
                             )}
                         </div>
-                        {getLocalized(stateData, 'explanation') && (
+                        {stateData?.explanation && (
                             <div className="border-t pt-2">
                                 <strong className="block mb-1">{t('signals.vessels.explanation')}</strong>
-                                <p className="text-xs text-muted-foreground whitespace-pre-line">{getLocalized(stateData, 'explanation')}</p>
+                                <p className="text-xs text-muted-foreground whitespace-pre-line">{t(stateData.explanation)}</p>
                             </div>
                         )}
                     </div>
