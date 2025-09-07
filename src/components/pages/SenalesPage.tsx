@@ -353,20 +353,10 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     const [activeCategoryKey, setActiveCategoryKey] = useState<string | null>(null);
     const [activeType, setActiveType] = useState<string | null>(null);
 
-    const translatedBuoyData = useMemo(() => {
-        return buoyData.map(b => ({
-            ...b,
-            category: t(b.category),
-            type: t(b.type),
-            purpose: t(b.purpose),
-            mnemonic: t(b.mnemonic),
-        }))
-    }, [buoyData, t]);
-
     const categories = useMemo(() => {
-        const uniqueCategories = [...new Map(translatedBuoyData.map(b => [b.category, b])).keys()];
+        const uniqueCategories = [...new Map(buoyData.map(b => [b.category, b])).keys()];
         return uniqueCategories;
-    }, [translatedBuoyData]);
+    }, [buoyData]);
     
     const handleCategoryClick = useCallback((category: string) => {
         setActiveCategoryKey(category);
@@ -382,20 +372,19 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
         setActiveType(buoy.type);
         const schematicContainer = document.getElementById('buoy-schematic-container');
         const infoPanel = document.getElementById('buoy-info-panel');
-        const originalBuoyData = buoyData.find(b => t(b.type) === buoy.type && (!b.region || b.region === region));
-
-        if (schematicContainer && infoPanel && originalBuoyData) {
-            renderBuoySchematic(schematicContainer, originalBuoyData);
+        
+        if (schematicContainer && infoPanel) {
+            renderBuoySchematic(schematicContainer, buoy);
             const lightEl = schematicContainer.querySelector<SVGElement>('#buoy-svg-light');
             
             if (lightEl) {
-                const char = parseLighthouseCharacteristic(originalBuoyData.characteristic);
+                const char = parseLighthouseCharacteristic(buoy.characteristic);
                 const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${buoy.mnemonic}</p>` : '';
-                const infoTitle = `<h4 class="font-bold">${buoy.type}${originalBuoyData.region ? ` (${t('signals.buoys.region')} ${originalBuoyData.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
+                const infoTitle = `<h4 class="font-bold">${buoy.type}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${buoy.purpose}</p>${mnemonicHtml}<hr class="my-2"/>`;
                 runSimulation(lightEl, infoPanel, char, lightTerms, t, infoTitle);
             }
         }
-    }, [lightTerms, t, buoyData, region]);
+    }, [lightTerms, t]);
     
     useEffect(() => {
         if(categories.length > 0 && !activeCategoryKey) {
@@ -427,11 +416,9 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
         const lateralCategoryKey = "signals.buoyage.categories.lateral";
         return buoyData.filter(b => {
             if (b.category !== activeCategoryKey) {
-                // This is a direct comparison on the key, which might be wrong if activeCategoryKey is translated
-                // Let's compare the translated version instead.
                 if (t(b.category) !== activeCategoryKey) return false;
             }
-            if (b.category === lateralCategoryKey) {
+            if (t(b.category) === t(lateralCategoryKey)) {
                  return b.region === region;
             }
             return true;
@@ -465,8 +452,8 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.type')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map((buoy, index) => (
-                                <Button key={`${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === t(buoy.type) ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
-                                    {t(buoy.type)}
+                                <Button key={`${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                    {buoy.type}
                                 </Button>
                             ))}
                         </div>
@@ -607,7 +594,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                         </SelectTrigger>
                         <SelectContent>
                              {colregRules.map(rule => (
-                                <SelectItem key={rule.id} value={rule.id}>{t(rule.title)}</SelectItem>
+                                <SelectItem key={rule.id} value={rule.id}>{rule.title}</SelectItem>
                             ))}
                         </SelectContent>
                     </Select>
@@ -619,7 +606,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                         <div className="flex flex-wrap gap-2 mt-2">
                             {ruleData.states.map((state, index) => (
                                 <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} className="flex-1" onClick={() => setSelectedStateId(index)}>
-                                    {t(state.title)}
+                                    {state.title}
                                 </Button>
                             ))}
                         </div>
@@ -690,19 +677,19 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                  <div className="text-left mt-4 p-4 bg-muted rounded-lg w-full min-h-[110px]">
                     {stateData ? 
                         <>
-                        <h4 className="font-bold">{t(stateData.title)}</h4>
-                        <p className="text-sm text-muted-foreground italic mb-2">{t(stateData.description)}</p>
+                        <h4 className="font-bold">{stateData.title}</h4>
+                        <p className="text-sm text-muted-foreground italic mb-2">{stateData.description}</p>
                         <div className="text-sm border-t pt-2 space-y-3">
                             <div>
                                 <strong className="block mb-1">{isNight ? t('signals.vessels.requiredLights') : t('signals.vessels.requiredMarks')}</strong>
                                 {isNight ? (
                                     <ul className="list-disc list-inside space-y-1">
-                                        {stateData.lights?.map((l: any) => l.desc && <li key={l.id}>{t(l.desc)}</li>)}
+                                        {stateData.lights?.map((l: any) => l.desc && <li key={l.id}>{l.desc}</li>)}
                                     </ul>
                                 ) : (
                                     <ul className="list-disc list-inside space-y-1">
                                         {stateData.marks && stateData.marks.length > 0 ? 
-                                            stateData.marks.map((m: any) => m.desc && <li key={m.id}>{t(m.desc)}</li>) :
+                                            stateData.marks.map((m: any) => m.desc && <li key={m.id}>{m.desc}</li>) :
                                             <li>{t('signals.vessels.noMarks')}</li>
                                         }
                                     </ul>
@@ -711,7 +698,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                             {stateData.explanation && (
                                 <div className="border-t pt-2">
                                     <strong className="block mb-1">{t('signals.vessels.explanation')}</strong>
-                                    <p className="text-xs text-muted-foreground whitespace-pre-line">{t(stateData.explanation)}</p>
+                                    <p className="text-xs text-muted-foreground whitespace-pre-line">{stateData.explanation}</p>
                                 </div>
                             )}
                         </div>

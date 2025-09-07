@@ -53,17 +53,49 @@ export const useSignalsData = () => {
 
     const data = useMemo(() => {
         if (!isLoaded) return null;
-
+        
         const translatedLightTerms = Object.fromEntries(
             Object.entries(LIGHT_TERMS_DATA).map(([key, valueKey]) => [key, t(valueKey)])
         ) as LightCharacteristicTerm;
 
+        const translatedSoundSignals = SOUND_SIGNALS_DATA.map(signal => ({
+            ...signal,
+            title: t(signal.title),
+            description: t(signal.description),
+            signal: t(signal.signal),
+        }));
+        
+        const translatedColregRules = COLREG_RULES_DATA.map(rule => ({
+            ...rule,
+            title: t(rule.title),
+            description: t(rule.description),
+            explanation: rule.explanation ? t(rule.explanation) : undefined,
+            states: rule.states?.map(state => ({
+                ...state,
+                title: t(state.title),
+                description: t(state.description),
+                explanation: state.explanation ? t(state.explanation) : undefined,
+                lights: state.lights?.map((light: any) => ({...light, desc: light.desc ? t(light.desc) : ''})),
+                marks: state.marks?.map((mark: any) => ({...mark, desc: mark.desc ? t(mark.desc) : ''})),
+            })),
+            lights: rule.lights?.map((light: any) => ({...light, desc: light.desc ? t(light.desc) : ''})),
+            marks: rule.marks?.map((mark: any) => ({...mark, desc: mark.desc ? t(mark.desc) : ''})),
+        }));
+
+        const translatedIalaBuoyData = IALA_BUOY_DATA.map(buoy => ({
+            ...buoy,
+            category: t(buoy.category),
+            type: t(buoy.type),
+            purpose: t(buoy.purpose),
+            mnemonic: t(buoy.mnemonic),
+        }));
+
         return {
             lightTerms: translatedLightTerms,
-            ialaBuoyData: IALA_BUOY_DATA,
-            colregRules: COLREG_RULES_DATA,
+            ialaBuoyData: translatedIalaBuoyData,
+            colregRules: translatedColregRules,
             vesselSvgs: VESSEL_SVGS,
-            sonidosData: SOUND_SIGNALS_DATA,
+            sonidosData: translatedSoundSignals,
         };
 
     }, [t, isLoaded]);
