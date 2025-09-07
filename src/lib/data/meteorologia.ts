@@ -1,3 +1,4 @@
+
 // Data for meteorology page, using translation keys.
 
 export const METEO_DATA = {
