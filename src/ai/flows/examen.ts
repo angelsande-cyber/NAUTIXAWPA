@@ -56,9 +56,12 @@ export const generatePerQuiz = ai.defineFlow(
     console.log(`Generating PER quiz in ${input.language}...`);
     
     const { output } = await ai.generate({
-      prompt: perQuizPrompt,
+      prompt: perQuizPrompt.prompt,
       input,
       model: 'googleai/gemini-2.5-pro',
+      output: {
+          schema: perQuizPrompt.output.schema,
+      }
     });
 
     if (!output || !output.questions || output.questions.length === 0) {
