@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/context/LanguageContext";
 
 interface BeaufortScaleData {
     force: number;
@@ -37,6 +38,7 @@ interface MeteorologiaData {
 
 export default function MeteorologiaPage() {
     const [data, setData] = useState<MeteorologiaData | null>(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetch('/data/meteorologia.json')
@@ -49,11 +51,19 @@ export default function MeteorologiaPage() {
             <div className="p-4 md:p-6 space-y-6">
                 <Card className="w-full max-w-4xl mx-auto">
                     <CardHeader>
-                        <CardTitle>Cargando...</CardTitle>
+                        <CardTitle>{t('loading')}</CardTitle>
                     </CardHeader>
                 </Card>
             </div>
         )
+    }
+
+    const getLocalized = (obj: any, key: string) => {
+        const value = obj[key];
+        if (typeof value === 'string') {
+            return t(value);
+        }
+        return value;
     }
 
     return (
@@ -61,29 +71,29 @@ export default function MeteorologiaPage() {
             {/* Beaufort Scale Card */}
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Escala Beaufort</CardTitle>
-                    <CardDescription>Mide la intensidad del viento, basándose principalmente en el estado del mar, su oleaje y la fuerza del viento.</CardDescription>
+                    <CardTitle>{t('meteo.beaufort.title')}</CardTitle>
+                    <CardDescription>{t('meteo.beaufort.description')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="overflow-x-auto">
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Fuerza</TableHead>
-                                    <TableHead>Denominación</TableHead>
-                                    <TableHead>Velocidad (nudos)</TableHead>
-                                    <TableHead>Altura de Olas</TableHead>
-                                    <TableHead>Aspecto del Mar</TableHead>
+                                    <TableHead>{t('meteo.beaufort.headers.force')}</TableHead>
+                                    <TableHead>{t('meteo.beaufort.headers.denomination')}</TableHead>
+                                    <TableHead>{t('meteo.beaufort.headers.speed')}</TableHead>
+                                    <TableHead>{t('meteo.beaufort.headers.waves')}</TableHead>
+                                    <TableHead>{t('meteo.beaufort.headers.sea')}</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {data.beaufortScale.map((item) => (
                                     <TableRow key={item.force}>
                                         <TableCell className="font-bold text-center">{item.force}</TableCell>
-                                        <TableCell>{item.denomination}</TableCell>
+                                        <TableCell>{getLocalized(item, 'denomination')}</TableCell>
                                         <TableCell>{item.speedKnots}</TableCell>
                                         <TableCell>{item.waveHeight}</TableCell>
-                                        <TableCell>{item.seaState}</TableCell>
+                                        <TableCell>{getLocalized(item, 'seaState')}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -95,25 +105,25 @@ export default function MeteorologiaPage() {
             {/* Douglas Scale Card */}
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Escala Douglas</CardTitle>
-                    <CardDescription>Clasifica el estado del mar en dos escalas separadas: una para el "mar de viento" (oleaje local) y otra para el "mar de fondo" (oleaje distante o swell).</CardDescription>
+                    <CardTitle>{t('meteo.douglas.title')}</CardTitle>
+                    <CardDescription>{t('meteo.douglas.description')}</CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <h4 className="font-semibold mb-2">Mar de Viento (Sea)</h4>
+                        <h4 className="font-semibold mb-2">{t('meteo.douglas.sea.title')}</h4>
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Grado</TableHead>
-                                    <TableHead>Denominación</TableHead>
-                                    <TableHead>Altura</TableHead>
+                                    <TableHead>{t('meteo.douglas.headers.degree')}</TableHead>
+                                    <TableHead>{t('meteo.douglas.headers.denomination')}</TableHead>
+                                    <TableHead>{t('meteo.douglas.headers.height')}</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {data.douglasSeaScale.map((item) => (
                                     <TableRow key={item.degree}>
                                         <TableCell className="font-bold text-center">{item.degree}</TableCell>
-                                        <TableCell>{item.denomination}</TableCell>
+                                        <TableCell>{getLocalized(item, 'denomination')}</TableCell>
                                         <TableCell>{item.waveHeight}</TableCell>
                                     </TableRow>
                                 ))}
@@ -121,20 +131,20 @@ export default function MeteorologiaPage() {
                         </Table>
                     </div>
                     <div>
-                        <h4 className="font-semibold mb-2">Mar de Fondo (Swell)</h4>
+                        <h4 className="font-semibold mb-2">{t('meteo.douglas.swell.title')}</h4>
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>Grado</TableHead>
-                                    <TableHead>Denominación</TableHead>
-                                    <TableHead>Altura</TableHead>
+                                    <TableHead>{t('meteo.douglas.headers.degree')}</TableHead>
+                                    <TableHead>{t('meteo.douglas.headers.denomination')}</TableHead>
+                                    <TableHead>{t('meteo.douglas.headers.height')}</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {data.douglasSwellScale.map((item) => (
                                     <TableRow key={item.degree}>
                                         <TableCell className="font-bold text-center">{item.degree}</TableCell>
-                                        <TableCell>{item.denomination}</TableCell>
+                                         <TableCell>{getLocalized(item, 'denomination')}</TableCell>
                                         <TableCell>{item.waveHeight}</TableCell>
                                     </TableRow>
                                 ))}
@@ -147,8 +157,8 @@ export default function MeteorologiaPage() {
             {/* Cloud Identification Card */}
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Identificación de Nubes</CardTitle>
-                    <CardDescription>Guía visual para reconocer los géneros de nubes más comunes y su altitud típica.</CardDescription>
+                    <CardTitle>{t('meteo.clouds.title')}</CardTitle>
+                    <CardDescription>{t('meteo.clouds.description')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {data.cloudTypes.map((cloud) => (
@@ -158,7 +168,7 @@ export default function MeteorologiaPage() {
                                     <Image
                                         unoptimized={true}
                                         src={cloud.imageUrl}
-                                        alt={`Imagen de nubes tipo ${cloud.type}`}
+                                        alt={`${t('meteo.clouds.alt')} ${cloud.type}`}
                                         width={400}
                                         height={200}
                                         className="w-full h-full object-cover"
@@ -167,8 +177,8 @@ export default function MeteorologiaPage() {
                                 </div>
                                 <div className="md:col-span-2 p-4">
                                     <h3 className="font-bold text-lg">{cloud.type}</h3>
-                                    <p className="text-sm font-semibold text-primary">{cloud.altitude}</p>
-                                    <p className="text-sm text-muted-foreground mt-2">{cloud.description}</p>
+                                    <p className="text-sm font-semibold text-primary">{getLocalized(cloud, 'altitude')}</p>
+                                    <p className="text-sm text-muted-foreground mt-2">{getLocalized(cloud, 'description')}</p>
                                 </div>
                             </div>
                         </Card>
