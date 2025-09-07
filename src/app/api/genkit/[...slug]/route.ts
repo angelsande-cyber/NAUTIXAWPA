@@ -6,6 +6,8 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { createGenkitNextApi } from '@genkit-ai/next';
+import { startGenkitServer } from '@genkit-ai/next/server';
 
-export const { GET, POST } = createGenkitNextApi({ ai });
+const { GET, POST } = startGenkitServer({ ai });
+
+export { GET, POST };
