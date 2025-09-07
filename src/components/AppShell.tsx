@@ -1,33 +1,32 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
 import type { User } from "firebase/auth";
 import {
   LifeBuoy,
-  Target,
-  Book,
   LogOut,
   Home,
-  Lightbulb,
   Moon,
   Sun,
   ChevronLeft,
   Calculator,
   Radio,
-  Sailboat,
   Text,
   RadioTower,
   MessageSquareQuote,
   Cloud,
   FileText,
-  Languages,
+  Ship,
+  AudioLines,
+  Navigation,
+  TowerControl,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from "@/context/AuthContext";
 import SosgenPage from "./pages/SosgenPage";
 import DirectorioPage from "./pages/DirectorioPage";
-import SenalesPage from "./pages/SenalesPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
 import ColregPage from "./pages/ColregPage";
 import { useTheme } from "next-themes";
@@ -46,6 +45,10 @@ import CanalesPage from "./pages/CanalesPage";
 import CodigosQPage from "./pages/CodigosQPage";
 import MeteorologiaPage from "./pages/MeteorologiaPage";
 import ExamenPage from "./pages/ExamenPage";
+import BuquesPage from "./pages/BuquesPage";
+import SonidosPage from "./pages/SonidosPage";
+import BalizamientoPage from "./pages/BalizamientoPage";
+import FarosPage from "./pages/FarosPage";
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -80,25 +83,31 @@ export function AppShell({ user }: { user: User }) {
   const { signOut } = useAuth();
 
   const dashboardItems = [
-    { id: "sosgen", label: "Generador de Llamadas SOS", icon: Radio, description: "Crea y practica llamadas de socorro MAYDAY." },
-    { id: "senales", label: "Señales Marítimas", icon: Lightbulb, description: "Simulador de luces, marcas y sonidos de buques." },
-    { id: "colreg", label: "Reglamento (COLREG)", icon: Sailboat, description: "Consulta y estudia el reglamento de abordajes." },
-    { id: "examen", label: "Examen de Práctica", icon: FileText, description: "Genera un examen tipo test para el PER." },
-    { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de emergencia y servicios marítimos." },
-    { id: "calculadora", label: "Calculadora de Coordenadas", icon: Calculator, description: "Convierte entre formatos de coordenadas." },
-    { id: "alfabeto", label: "Alfabeto Fonético y Banderas", icon: Text, description: "Consulta el código internacional de señales." },
-    { id: "canales", label: "Canales VHF Marinos", icon: RadioTower, description: "Listado de canales VHF y sus usos." },
+    { id: "sosgen", label: "Llamadas SOS", icon: Radio, description: "Crea y practica llamadas de socorro MAYDAY." },
+    { id: "buques", label: "Buques", icon: Ship, description: "Simulador de luces y marcas de buques (COLREG)." },
+    { id: "sonidos", label: "Sonidos", icon: AudioLines, description: "Señales acústicas de maniobra y visibilidad reducida." },
+    { id: "balizamiento", label: "Balizas", icon: Navigation, description: "Sistema de balizamiento marítimo IALA A y B." },
+    { id: "faros", label: "Faros", icon: TowerControl, description: "Identifica y simula las características de las luces." },
+    { id: "examen", label: "Examen PER", icon: FileText, description: "Genera un examen tipo test para el PER." },
+    { id: "colreg", label: "Reglamento", icon: FileText, description: "Consulta y estudia el reglamento de abordajes." },
+    { id: "directorio", label: "Directorio", icon: LifeBuoy, description: "Contactos de emergencia y servicios marítimos." },
+    { id: "calculadora", label: "Calculadora", icon: Calculator, description: "Convierte entre formatos de coordenadas." },
+    { id: "alfabeto", label: "Alfabeto", icon: Text, description: "Consulta el código internacional de señales." },
+    { id: "canales", label: "Canales VHF", icon: RadioTower, description: "Listado de canales VHF y sus usos." },
     { id: "codigosq", label: "Códigos Q", icon: MessageSquareQuote, description: "Referencia de los códigos Q más comunes." },
     { id: "meteorologia", label: "Meteorología", icon: Cloud, description: "Escalas Beaufort, Douglas y tipos de nubes." },
   ];
   
   const iconColorStyles: { [key: string]: { bg: string, text: string, hoverBg: string } } = {
     sosgen: { bg: 'bg-rose-500/10', text: 'text-rose-500', hoverBg: 'group-hover:bg-rose-500/20' },
-    senales: { bg: 'bg-amber-500/10', text: 'text-amber-500', hoverBg: 'group-hover:bg-amber-500/20' },
-    colreg: { bg: 'bg-teal-500/10', text: 'text-teal-500', hoverBg: 'group-hover:bg-teal-500/20' },
+    buques: { bg: 'bg-teal-500/10', text: 'text-teal-500', hoverBg: 'group-hover:bg-teal-500/20' },
+    sonidos: { bg: 'bg-sky-500/10', text: 'text-sky-500', hoverBg: 'group-hover:bg-sky-500/20' },
+    balizamiento: { bg: 'bg-amber-500/10', text: 'text-amber-500', hoverBg: 'group-hover:bg-amber-500/20' },
+    faros: { bg: 'bg-violet-500/10', text: 'text-violet-500', hoverBg: 'group-hover:bg-violet-500/20' },
     examen: { bg: 'bg-indigo-500/10', text: 'text-indigo-500', hoverBg: 'group-hover:bg-indigo-500/20' },
-    directorio: { bg: 'bg-sky-500/10', text: 'text-sky-500', hoverBg: 'group-hover:bg-sky-500/20' },
-    calculadora: { bg: 'bg-slate-500/10', text: 'text-slate-500', hoverBg: 'group-hover:bg-slate-500/20' },
+    colreg: { bg: 'bg-slate-500/10', text: 'text-slate-500', hoverBg: 'group-hover:bg-slate-500/20' },
+    directorio: { bg: 'bg-red-500/10', text: 'text-red-500', hoverBg: 'group-hover:bg-red-500/20' },
+    calculadora: { bg: 'bg-gray-500/10', text: 'text-gray-500', hoverBg: 'group-hover:bg-gray-500/20' },
     alfabeto: { bg: 'bg-fuchsia-500/10', text: 'text-fuchsia-500', hoverBg: 'group-hover:bg-fuchsia-500/20' },
     canales: { bg: 'bg-cyan-500/10', text: 'text-cyan-500', hoverBg: 'group-hover:bg-cyan-500/20' },
     codigosq: { bg: 'bg-lime-500/10', text: 'text-lime-500', hoverBg: 'group-hover:bg-lime-500/20' },
@@ -108,11 +117,14 @@ export function AppShell({ user }: { user: User }) {
   const pageTitleMap: { [key: string]: string } = {
     dashboard: "Panel de Navegación",
     sosgen: "Llamada de Socorro",
-    senales: "Señales Marítimas",
-    colreg: "Reglamento (COLREG)",
+    buques: "Luces y Marcas de Buques",
+    sonidos: "Señales Acústicas",
+    balizamiento: "Balizamiento Marítimo (IALA)",
+    faros: "Faros y Luces",
     examen: "Examen de Práctica",
     directorio: "Directorio",
     calculadora: "Calculadora de Coordenadas",
+    colreg: "Reglamento (COLREG)",
     alfabeto: "Alfabeto y Banderas",
     canales: "Canales VHF",
     codigosq: "Códigos Q",
@@ -122,8 +134,11 @@ export function AppShell({ user }: { user: User }) {
   const renderContent = () => {
     switch (activePage) {
       case 'sosgen': return <SosgenPage />;
+      case 'buques': return <BuquesPage />;
+      case 'sonidos': return <SonidosPage />;
+      case 'balizamiento': return <BalizamientoPage />;
+      case 'faros': return <FarosPage />;
       case 'directorio': return <DirectorioPage />;
-      case 'senales': return <SenalesPage />;
       case 'colreg': return <ColregPage />;
       case 'calculadora': return <CalculadoraPage />;
       case 'alfabeto': return <AlfabetoPage />;
@@ -134,24 +149,22 @@ export function AppShell({ user }: { user: User }) {
       default:
         return (
           <div className="p-4 md:p-6 lg:p-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
               {dashboardItems.map((item) => {
                   const colors = iconColorStyles[item.id] || { bg: 'bg-primary/10', text: 'text-primary', hoverBg: 'group-hover:bg-primary/20' };
                   return (
                   <button
-                      key={item.id}
-                      onClick={() => setActivePage(item.id)}
-                      className="group text-left p-4 bg-card border rounded-lg hover:bg-card/90 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between"
-                  >
-                     <div className="flex items-start gap-4">
-                        <div className={cn("p-3 rounded-md transition-colors duration-200", colors.bg, colors.text, colors.hoverBg)}>
-                            <item.icon className="h-6 w-6"/>
-                        </div>
-                        <div className="flex-1">
-                            <p className="font-semibold text-card-foreground">{item.label}</p>
-                            <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
-                        </div>
-                     </div>
+                    key={item.id}
+                    onClick={() => setActivePage(item.id)}
+                    className="group flex flex-col items-center justify-start text-center p-3 bg-card border rounded-xl hover:bg-card/90 hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+                    >
+                    <div className={cn("flex items-center justify-center w-16 h-16 rounded-2xl transition-colors duration-200", colors.bg, colors.text, colors.hoverBg)}>
+                        <item.icon className="h-8 w-8"/>
+                    </div>
+                    <div className="mt-3">
+                        <p className="font-semibold text-sm text-card-foreground">{item.label}</p>
+                        <p className="text-xs text-muted-foreground mt-1 px-1">{item.description}</p>
+                    </div>
                   </button>
               )})}
             </div>
