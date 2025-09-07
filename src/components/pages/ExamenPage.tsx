@@ -9,18 +9,31 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Label } from "@/components/ui/label";
 import { generatePerQuiz } from "@/ai/flows/examen";
 import type { QuizOutput } from "@/ai/schemas/examen-schema";
-import { CheckCircle, HelpCircle, RefreshCw, XCircle } from "lucide-react";
+import { CheckCircle, FileText, HelpCircle, RefreshCw, XCircle } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
+
 
 const QUIZ_SESSION_KEY = 'perQuizSession';
+const QUIZ_RESULTS_KEY = 'perQuizResults';
+
+type ViewState = 'dashboard' | 'quiz' | 'loading' | 'error';
 
 interface QuizSession {
   quiz: QuizOutput;
   userAnswers: Record<number, number | undefined>;
   currentQuestionIndex: number;
-  showResults: boolean;
+}
+
+interface QuizResult {
+    score: number;
+    totalQuestions: number;
+    date: string;
+    isPass: boolean;
 }
 
 const LoadingSkeleton = () => {
@@ -43,51 +56,38 @@ const LoadingSkeleton = () => {
 };
 
 export default function ExamenPage() {
-  const [loading, setLoading] = useState(true);
+  const [view, setView] = useState<ViewState>('dashboard');
   const [quizSession, setQuizSession] = useState<QuizSession | null>(null);
+  const [lastResults, setLastResults] = useState<QuizResult[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [finalResults, setFinalResults] = useState<QuizResult | null>(null);
 
-  // Load session from sessionStorage or create a new quiz
+
   useEffect(() => {
     try {
-      const savedSession = sessionStorage.getItem(QUIZ_SESSION_KEY);
-      if (savedSession) {
-        setQuizSession(JSON.parse(savedSession));
-        setLoading(false);
-      } else {
-        loadQuiz(true); // Force new quiz if nothing is saved
+      const savedResults = localStorage.getItem(QUIZ_RESULTS_KEY);
+      if (savedResults) {
+        setLastResults(JSON.parse(savedResults));
       }
     } catch (e) {
-      console.error("Failed to access sessionStorage or parse data, starting fresh.", e);
-      loadQuiz(true);
+      console.error("Failed to load results from localStorage", e);
     }
   }, []);
 
-  // Save session to sessionStorage whenever it changes
-  useEffect(() => {
-    if (quizSession) {
-      try {
-        sessionStorage.setItem(QUIZ_SESSION_KEY, JSON.stringify(quizSession));
-      } catch (e) {
-        console.error("Failed to save session to sessionStorage", e);
-      }
+  const saveResults = (newResult: QuizResult) => {
+    try {
+      const newResults = [newResult, ...lastResults].slice(0, 10); // Keep last 10 results
+      setLastResults(newResults);
+      localStorage.setItem(QUIZ_RESULTS_KEY, JSON.stringify(newResults));
+    } catch (e) {
+        console.error("Failed to save results to localStorage", e);
     }
-  }, [quizSession]);
-
-  const updateSession = (updates: Partial<QuizSession>) => {
-    setQuizSession(prev => prev ? { ...prev, ...updates } : null);
   };
 
-  const loadQuiz = useCallback(async (forceNew = false) => {
-    setLoading(true);
+
+  const loadQuiz = useCallback(async () => {
+    setView('loading');
     setError(null);
-    if(forceNew) {
-        try {
-            sessionStorage.removeItem(QUIZ_SESSION_KEY);
-        } catch (e) {
-            console.error("Failed to clear session storage", e);
-        }
-    }
 
     try {
       const generatedQuiz = await generatePerQuiz({ language: 'es' });
@@ -95,13 +95,12 @@ export default function ExamenPage() {
         quiz: generatedQuiz,
         userAnswers: {},
         currentQuestionIndex: 0,
-        showResults: false,
       });
+      setView('quiz');
     } catch (e) {
       console.error(e);
       setError("No se pudo generar el examen. Por favor, inténtalo de nuevo.");
-    } finally {
-      setLoading(false);
+      setView('error');
     }
   }, []);
 
@@ -109,161 +108,157 @@ export default function ExamenPage() {
     if (!quizSession) return;
     const answerIndex = parseInt(answerIndexStr, 10);
     const newUserAnswers = { ...quizSession.userAnswers, [questionIndex]: answerIndex };
-    updateSession({ userAnswers: newUserAnswers });
+    setQuizSession(prev => prev ? { ...prev, userAnswers: newUserAnswers } : null);
   };
   
-  const handleRestart = () => {
-    loadQuiz(true);
-  };
-
-  const calculateScore = () => {
-    if (!quizSession) return 0;
-    return quizSession.quiz.questions.reduce((score, question, index) => {
+  const handleFinishQuiz = () => {
+    if(!quizSession) return;
+    
+    const score = quizSession.quiz.questions.reduce((score, question, index) => {
       return quizSession.userAnswers[index] === question.correctAnswerIndex ? score + 1 : score;
     }, 0);
-  };
+    
+    const totalQuestions = quizSession.quiz.questions.length;
+    const passThreshold = Math.ceil(totalQuestions * 0.7);
+    const isPass = score >= passThreshold;
 
-  if (loading) {
+    const result: QuizResult = {
+        score,
+        totalQuestions,
+        isPass,
+        date: new Date().toISOString(),
+    };
+
+    setFinalResults(result);
+    saveResults(result);
+    setQuizSession(null);
+    setView('dashboard');
+  }
+
+  if (view === 'loading') {
     return <LoadingSkeleton />;
   }
   
-  if (error) {
+  if (view === 'error') {
     return (
         <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <Card className="w-full max-w-md p-6">
                 <XCircle className="mx-auto h-12 w-12 text-destructive" />
                 <h2 className="mt-4 text-xl font-semibold">Error al generar</h2>
                 <p className="mt-2 text-muted-foreground">{error}</p>
-                <Button onClick={handleRestart} className="mt-6">
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    Reintentar
+                <Button onClick={() => setView('dashboard')} className="mt-6">
+                    Volver al Panel
                 </Button>
             </Card>
         </div>
     );
   }
 
-  if (!quizSession || !quizSession.quiz || quizSession.quiz.questions.length === 0) {
+  if (view === 'quiz' && quizSession) {
+    const { quiz, currentQuestionIndex, userAnswers } = quizSession;
+    const totalQuestions = quiz.questions.length;
+    const currentQuestion = quiz.questions[currentQuestionIndex];
+
     return (
-        <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-            <Card className="w-full max-w-md p-6">
-                 <HelpCircle className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h2 className="mt-4 text-xl font-semibold">Sin Preguntas</h2>
-                <p className="mt-2 text-muted-foreground">La IA no devolvió ninguna pregunta. Intenta generar un nuevo examen.</p>
-                <Button onClick={handleRestart} className="mt-6">
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                     Generar Nuevo Examen
-                </Button>
+        <div className="p-4 md:p-6">
+            <Card className="w-full max-w-3xl mx-auto">
+                <CardHeader>
+                    <CardTitle>Examen de Práctica PER</CardTitle>
+                    <CardDescription>{`Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`}</CardDescription>
+                    <Progress value={((currentQuestionIndex + 1) / totalQuestions) * 100} className="mt-2" />
+                </CardHeader>
+                <CardContent>
+                    <div className="space-y-4">
+                        <p className="font-semibold text-lg">{currentQuestion.question}</p>
+                        <RadioGroup
+                            key={currentQuestionIndex}
+                            value={userAnswers[currentQuestionIndex]?.toString()}
+                            onValueChange={(value) => handleAnswerChange(currentQuestionIndex, value)}
+                            className="space-y-2"
+                        >
+                            {currentQuestion.options.map((option, index) => (
+                                <div key={index} className="flex items-center space-x-3 p-3 border rounded-md has-[:checked]:bg-muted has-[:checked]:border-primary transition-all">
+                                    <RadioGroupItem value={index.toString()} id={`q${currentQuestionIndex}-o${index}`} />
+                                    <Label htmlFor={`q${currentQuestionIndex}-o${index}`} className="flex-1 cursor-pointer">{option}</Label>
+                                </div>
+                            ))}
+                        </RadioGroup>
+                    </div>
+                    <div className="mt-6 flex justify-between">
+                        <Button
+                            variant="outline"
+                            onClick={() => setQuizSession(s => s ? {...s, currentQuestionIndex: s.currentQuestionIndex - 1} : null)}
+                            disabled={currentQuestionIndex === 0}
+                        >
+                            Anterior
+                        </Button>
+                        {currentQuestionIndex < totalQuestions - 1 ? (
+                            <Button onClick={() => setQuizSession(s => s ? {...s, currentQuestionIndex: s.currentQuestionIndex + 1} : null)}>
+                                Siguiente
+                            </Button>
+                        ) : (
+                            <Button onClick={handleFinishQuiz}>
+                                Finalizar
+                            </Button>
+                        )}
+                    </div>
+                </CardContent>
             </Card>
         </div>
     );
   }
-
-  const { quiz, currentQuestionIndex, userAnswers, showResults } = quizSession;
-  const currentQuestion = quiz.questions[currentQuestionIndex];
-  const score = calculateScore();
-  const totalQuestions = quiz.questions.length;
   
-  if (showResults) {
-    const passThreshold = Math.ceil(totalQuestions * 0.7);
-    const isPass = score >= passThreshold;
-    return (
-      <div className="p-4 md:p-6">
-        <Card className="w-full max-w-3xl mx-auto">
-          <CardHeader className="text-center">
-            <CardTitle className="text-3xl">Resultados del Examen</CardTitle>
-            <CardDescription>{`Has respondido correctamente a ${score} de ${totalQuestions} preguntas.`}</CardDescription>
-            <div className={`mt-4 text-2xl font-bold ${isPass ? 'text-green-600' : 'text-destructive'}`}>
-                {isPass ? "¡APROBADO!" : "SUSPENSO"}
-            </div>
-            <p className="text-5xl font-bold mt-2">{score}/{totalQuestions}</p>
-          </CardHeader>
-          <CardContent>
-             <Accordion type="single" collapsible className="w-full">
-               {quiz.questions.map((q, index) => {
-                 const userAnswer = userAnswers[index];
-                 const isCorrect = userAnswer === q.correctAnswerIndex;
-                 return (
-                   <AccordionItem value={`item-${index}`} key={index}>
-                     <AccordionTrigger>
-                        <div className="flex items-center gap-3 w-full">
-                           {isCorrect ? <CheckCircle className="h-5 w-5 text-green-500 shrink-0"/> : <XCircle className="h-5 w-5 text-destructive shrink-0"/>}
-                           <span className="text-left flex-1">{`Pregunta ${index + 1}`}: {q.question}</span>
-                        </div>
-                     </AccordionTrigger>
-                     <AccordionContent className="space-y-4">
-                        <div className="pl-8 text-sm">
-                           <p>Tu respuesta: <span className={cn("font-semibold", userAnswer === undefined ? "italic" : "", !isCorrect && "text-destructive")}>{userAnswer !== undefined ? q.options[userAnswer] : 'No respondida'}</span></p>
-                           {!isCorrect && userAnswer !== undefined && <p>Respuesta correcta: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
-                           {userAnswer === undefined && <p>Respuesta correcta: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
-                        </div>
-                        <Alert>
-                           <HelpCircle className="h-4 w-4" />
-                           <AlertTitle>Explicación</AlertTitle>
-                           <AlertDescription>{q.explanation}</AlertDescription>
-                        </Alert>
-                     </AccordionContent>
-                   </AccordionItem>
-                 );
-               })}
-             </Accordion>
-             <div className="mt-6 text-center">
-                <Button onClick={handleRestart}>
-                    <RefreshCw className="mr-2 h-4 w-4" />
-                    Generar Nuevo Examen
-                </Button>
-             </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
   return (
-    <div className="p-4 md:p-6">
-      <Card className="w-full max-w-3xl mx-auto">
-        <CardHeader>
-          <CardTitle>Examen de Práctica PER</CardTitle>
-          <CardDescription>{`Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`}</CardDescription>
-          <Progress value={((currentQuestionIndex + 1) / totalQuestions) * 100} className="mt-2" />
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <p className="font-semibold text-lg">{currentQuestion.question}</p>
-            <RadioGroup
-              key={currentQuestionIndex}
-              value={userAnswers[currentQuestionIndex]?.toString()}
-              onValueChange={(value) => handleAnswerChange(currentQuestionIndex, value)}
-              className="space-y-2"
-            >
-              {currentQuestion.options.map((option, index) => (
-                <div key={index} className="flex items-center space-x-3 p-3 border rounded-md has-[:checked]:bg-muted has-[:checked]:border-primary transition-all">
-                  <RadioGroupItem value={index.toString()} id={`q${currentQuestionIndex}-o${index}`} />
-                  <Label htmlFor={`q${currentQuestionIndex}-o${index}`} className="flex-1 cursor-pointer">{option}</Label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
-          <div className="mt-6 flex justify-between">
-            <Button
-              variant="outline"
-              onClick={() => updateSession({ currentQuestionIndex: currentQuestionIndex - 1 })}
-              disabled={currentQuestionIndex === 0}
-            >
-              Anterior
-            </Button>
-            {currentQuestionIndex < totalQuestions - 1 ? (
-              <Button onClick={() => updateSession({ currentQuestionIndex: currentQuestionIndex + 1 })}>
-                Siguiente
-              </Button>
-            ) : (
-              <Button onClick={() => updateSession({ showResults: true })}>
-                Finalizar
-              </Button>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+    <div className="p-4 md:p-6 space-y-6">
+        <Card className="w-full max-w-3xl mx-auto">
+             <CardHeader>
+                <CardTitle>Examen de Práctica PER</CardTitle>
+                <CardDescription>Pon a prueba tus conocimientos y prepárate para el examen oficial.</CardDescription>
+             </CardHeader>
+             <CardContent className="text-center">
+                 <Button size="lg" onClick={() => loadQuiz()}>
+                    <FileText className="mr-2 h-5 w-5"/>
+                    Generar Nuevo Examen
+                 </Button>
+             </CardContent>
+        </Card>
+        
+        {lastResults.length > 0 && (
+            <Card className="w-full max-w-3xl mx-auto">
+                <CardHeader>
+                    <CardTitle>Resultados Recientes</CardTitle>
+                    <CardDescription>Tu historial de los últimos exámenes realizados.</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <div className="overflow-hidden rounded-lg border">
+                         <div className="relative w-full overflow-auto">
+                             <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                        <TableHead>Fecha</TableHead>
+                                        <TableHead>Puntuación</TableHead>
+                                        <TableHead className="text-right">Resultado</TableHead>
+                                    </TableRow>
+                                </TableHeader>
+                                <TableBody>
+                                     {lastResults.map((result, index) => (
+                                         <TableRow key={index}>
+                                            <TableCell>{format(new Date(result.date), "dd/MM/yyyy 'a las' HH:mm", { locale: es })}</TableCell>
+                                            <TableCell className="font-semibold">{result.score} / {result.totalQuestions}</TableCell>
+                                            <TableCell className="text-right">
+                                                <span className={cn("font-bold px-3 py-1 text-xs rounded-full", result.isPass ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200" : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200")}>
+                                                    {result.isPass ? "APROBADO" : "SUSPENSO"}
+                                                </span>
+                                            </TableCell>
+                                         </TableRow>
+                                     ))}
+                                </TableBody>
+                            </Table>
+                         </div>
+                    </div>
+                </CardContent>
+            </Card>
+        )}
     </div>
   );
 }
