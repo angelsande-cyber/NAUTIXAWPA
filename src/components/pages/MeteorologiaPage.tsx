@@ -20,21 +20,21 @@ export default function MeteorologiaPage() {
                     <CardDescription>Mide la intensidad del viento, basándose principalmente en el estado del mar.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-hidden rounded-lg border">
                         <Table>
                             <TableHeader>
-                                <TableRow>
-                                    <TableHead>Fuerza</TableHead>
-                                    <TableHead>Denominación</TableHead>
-                                    <TableHead>Velocidad (Nudos)</TableHead>
-                                    <TableHead>Altura Olas (m)</TableHead>
-                                    <TableHead>Aspecto del Mar</TableHead>
+                                <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                    <TableHead className="uppercase">Fuerza</TableHead>
+                                    <TableHead className="uppercase">Denominación</TableHead>
+                                    <TableHead className="uppercase">Velocidad (Nudos)</TableHead>
+                                    <TableHead className="uppercase">Altura Olas (m)</TableHead>
+                                    <TableHead className="uppercase">Aspecto del Mar</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {beaufortScale.map((item) => (
-                                    <TableRow key={item.force}>
-                                        <TableCell className="font-bold text-center">{item.force}</TableCell>
+                                {beaufortScale.map((item, index) => (
+                                    <TableRow key={item.force} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
+                                        <TableCell className="font-bold text-lg text-center">{item.force}</TableCell>
                                         <TableCell>{item.denomination}</TableCell>
                                         <TableCell>{item.speedKnots}</TableCell>
                                         <TableCell>{item.waveHeight}</TableCell>
@@ -55,45 +55,49 @@ export default function MeteorologiaPage() {
                 <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <h4 className="font-semibold mb-2">Escala de Mar de Viento</h4>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Grado</TableHead>
-                                    <TableHead>Denominación</TableHead>
-                                    <TableHead>Altura (m)</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {douglasSeaScale.map((item) => (
-                                    <TableRow key={item.degree}>
-                                        <TableCell className="font-bold text-center">{item.degree}</TableCell>
-                                        <TableCell>{item.denomination}</TableCell>
-                                        <TableCell>{item.waveHeight}</TableCell>
+                        <div className="overflow-hidden rounded-lg border">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                        <TableHead className="uppercase">Grado</TableHead>
+                                        <TableHead className="uppercase">Denominación</TableHead>
+                                        <TableHead className="uppercase">Altura (m)</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {douglasSeaScale.map((item, index) => (
+                                        <TableRow key={item.degree} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
+                                            <TableCell className="font-bold text-center">{item.degree}</TableCell>
+                                            <TableCell>{item.denomination}</TableCell>
+                                            <TableCell>{item.waveHeight}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                     </div>
                     <div>
                         <h4 className="font-semibold mb-2">Escala de Mar de Fondo</h4>
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Grado</TableHead>
-                                    <TableHead>Denominación</TableHead>
-                                    <TableHead>Altura (m)</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {douglasSwellScale.map((item) => (
-                                    <TableRow key={item.degree}>
-                                        <TableCell className="font-bold text-center">{item.degree}</TableCell>
-                                        <TableCell>{item.denomination}</TableCell>
-                                        <TableCell>{item.waveHeight}</TableCell>
+                         <div className="overflow-hidden rounded-lg border">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                        <TableHead className="uppercase">Grado</TableHead>
+                                        <TableHead className="uppercase">Denominación</TableHead>
+                                        <TableHead className="uppercase">Altura (m)</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {douglasSwellScale.map((item, index) => (
+                                        <TableRow key={item.degree} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
+                                            <TableCell className="font-bold text-center">{item.degree}</TableCell>
+                                            <TableCell>{item.denomination}</TableCell>
+                                            <TableCell>{item.waveHeight}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                     </div>
                 </CardContent>
             </Card>

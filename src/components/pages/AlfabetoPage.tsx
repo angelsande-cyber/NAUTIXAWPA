@@ -7,7 +7,7 @@ import { numberFlags } from "@/components/SignalFlags";
 import { ALPHABET_DATA } from "@/lib/data/alphabet";
 
 export default function AlfabetoPage() {
-    const { letters, numbers } = ALPHABET_DATA.es;
+    const { letters, numbers } = ALPHABET_DATA;
 
     const combinedLetters = letters.map((item) => ({
         ...item,
@@ -27,19 +27,19 @@ export default function AlfabetoPage() {
                     <CardDescription>Código Internacional de Señales: Alfabeto Fonético y Banderas de Letras.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-hidden rounded-lg border">
                         <Table>
                             <TableHeader>
-                                <TableRow>
-                                    <TableHead className="w-24">Bandera</TableHead>
-                                    <TableHead>Letra</TableHead>
-                                    <TableHead>Palabra Clave</TableHead>
-                                    <TableHead>Significado</TableHead>
+                                <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                    <TableHead className="w-24 uppercase">Bandera</TableHead>
+                                    <TableHead className="uppercase">Letra</TableHead>
+                                    <TableHead className="uppercase">Palabra Clave</TableHead>
+                                    <TableHead className="uppercase">Significado</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {combinedLetters.map((item) => (
-                                    <TableRow key={item.letter}>
+                                {combinedLetters.map((item, index) => (
+                                    <TableRow key={item.letter} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
                                         <TableCell>
                                             <div className="w-20 h-12 flex items-center justify-center">{item.flag}</div>
                                         </TableCell>
@@ -60,18 +60,18 @@ export default function AlfabetoPage() {
                     <CardDescription>Gallardetes numéricos y su pronunciación estándar.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="overflow-x-auto">
+                    <div className="overflow-hidden rounded-lg border">
                         <Table>
                             <TableHeader>
-                                <TableRow>
-                                    <TableHead className="w-24">Gallardete</TableHead>
-                                    <TableHead>Número</TableHead>
-                                    <TableHead>Pronunciación</TableHead>
+                                <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                    <TableHead className="w-24 uppercase">Gallardete</TableHead>
+                                    <TableHead className="uppercase">Número</TableHead>
+                                    <TableHead className="uppercase">Pronunciación</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {combinedNumbers.map((item) => (
-                                    <TableRow key={item.digit}>
+                                {combinedNumbers.map((item, index) => (
+                                    <TableRow key={item.digit} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
                                         <TableCell>
                                             <div className="w-20 h-12 flex items-center justify-center">{item.flag}</div>
                                         </TableCell>

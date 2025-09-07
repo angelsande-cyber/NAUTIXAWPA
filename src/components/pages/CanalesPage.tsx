@@ -3,9 +3,13 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { VHF_CHANNELS_DATA } from "@/lib/data/vhfchannels";
+import { Badge } from "../ui/badge";
+import { cn } from "@/lib/utils";
 
 export default function CanalesPage() {
-    const vhfChannels = VHF_CHANNELS_DATA.es;
+    const vhfChannels = VHF_CHANNELS_DATA;
+
+    const isPrimaryChannel = (channel: string) => ['16', '70'].includes(channel);
 
     return (
         <div className="p-4 md:p-6">
@@ -15,22 +19,29 @@ export default function CanalesPage() {
                     <CardDescription>Listado de los principales canales de VHF marino y sus usos asignados en España.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-[100px]">Canal</TableHead>
-                                <TableHead>Uso Principal</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {vhfChannels.map((item) => (
-                                <TableRow key={item.channel}>
-                                    <TableCell className="font-bold">{item.channel}</TableCell>
-                                    <TableCell>{item.usage}</TableCell>
+                    <div className="overflow-hidden rounded-lg border">
+                        <Table>
+                            <TableHeader>
+                                <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                    <TableHead className="w-[100px] uppercase">Canal</TableHead>
+                                    <TableHead className="uppercase">Uso Principal</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
+                            </TableHeader>
+                            <TableBody>
+                                {vhfChannels.map((item, index) => (
+                                    <TableRow key={item.channel} className={cn(index % 2 !== 0 && "bg-muted/25", isPrimaryChannel(item.channel) && "bg-primary/10")}>
+                                        <TableCell className="font-bold text-lg text-center">
+                                            <div className="flex items-center justify-center gap-2">
+                                                <span>{item.channel}</span>
+                                                {isPrimaryChannel(item.channel) && <Badge variant="default" className="text-xs">SOS</Badge>}
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>{item.usage}</TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </div>
                 </CardContent>
             </Card>
         </div>
