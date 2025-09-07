@@ -1,93 +1,131 @@
-
-[
+`[
     {
-        "id": "power_making_way",
-        "title": "Buque de propulsión mecánica con arrancada",
-        "description": "Un buque de propulsión mecánica en navegación, con arrancada.",
-        "signal": "Una pitada larga (—)",
+        "id": "maneuver_stbd",
+        "title": "Maniobra a Estribor",
+        "description": "Un buque de propulsión mecánica en navegación, cuando maniobra estando a la vista de otro.",
+        "signal": "● (Una pitada corta)",
+        "sequence": ["short"],
+        "rule": "Regla 34(a)"
+    },
+    {
+        "id": "maneuver_port",
+        "title": "Maniobra a Babor",
+        "description": "Un buque de propulsión mecánica en navegación, cuando maniobra estando a la vista de otro.",
+        "signal": "● ● (Dos pitadas cortas)",
+        "sequence": ["short", "short"],
+        "rule": "Regla 34(a)"
+    },
+    {
+        "id": "maneuver_astern",
+        "title": "Dando Atrás",
+        "description": "Un buque de propulsión mecánica en navegación, cuando sus máquinas dan atrás.",
+        "signal": "● ● ● (Tres pitadas cortas)",
+        "sequence": ["short", "short", "short"],
+        "rule": "Regla 34(a)"
+    },
+    {
+        "id": "overtake_stbd",
+        "title": "Adelanto por Estribor",
+        "description": "Intención de adelantar a otro buque por su banda de estribor.",
+        "signal": "▬ ▬ ● (Dos largas y una corta)",
+        "sequence": ["long", "long", "short"],
+        "rule": "Regla 34(c)"
+    },
+    {
+        "id": "overtake_port",
+        "title": "Adelanto por Babor",
+        "description": "Intención de adelantar a otro buque por su banda de babor.",
+        "signal": "▬ ▬ ● ● (Dos largas y dos cortas)",
+        "sequence": ["long", "long", "short", "short"],
+        "rule": "Regla 34(c)"
+    },
+    {
+        "id": "overtake_agree",
+        "title": "Conformidad al Adelantamiento",
+        "description": "Respuesta del buque que va a ser adelantado, si está de acuerdo.",
+        "signal": "▬ ● ▬ ● (Larga, corta, larga, corta)",
+        "sequence": ["long", "short", "long", "short"],
+        "rule": "Regla 34(c)"
+    },
+    {
+        "id": "warning_doubt",
+        "title": "Señal de Duda / Advertencia",
+        "description": "Cuando un buque no comprende las intenciones del otro, o duda de si el otro está tomando la acción debida.",
+        "signal": "● ● ● ● ● (Cinco o más pitadas cortas)",
+        "sequence": ["short", "short", "short", "short", "short"],
+        "rule": "Regla 34(d)"
+    },
+    {
+        "id": "warning_bend",
+        "title": "Advertencia en Recodo",
+        "description": "Buque acercándose a un recodo o zona de un canal donde otros buques pueden quedar ocultos.",
+        "signal": "▬ (Una pitada larga)",
         "sequence": ["long"],
-        "interval": 120,
+        "rule": "Regla 34(e)"
+    },
+    {
+        "id": "restricted_vis_power_making_way",
+        "title": "Buque de P.M. con arrancada",
+        "description": "Visibilidad reducida. Buque de propulsión mecánica con arrancada.",
+        "signal": "▬ (Una pitada larga a intervalos <= 2 min)",
+        "sequence": ["long"],
         "rule": "Regla 35(a)"
     },
     {
-        "id": "power_stopped",
-        "title": "Buque de propulsión mecánica parado y sin arrancada",
-        "description": "Un buque de propulsión mecánica en navegación, pero parado y sin arrancada.",
-        "signal": "Dos pitadas largas (— —)",
+        "id": "restricted_vis_power_stopped",
+        "title": "Buque de P.M. parado",
+        "description": "Visibilidad reducida. Buque de propulsión mecánica parado y sin arrancada.",
+        "signal": "▬ ▬ (Dos pitadas largas a intervalos <= 2 min)",
         "sequence": ["long", "long"],
-        "interval": 120,
         "rule": "Regla 35(b)"
     },
     {
-        "id": "restricted",
-        "title": "Buque sin gobierno, restringido, vela, pesca o remolque",
-        "description": "Buques sin gobierno, con maniobra restringida, restringido por su calado, de vela, de pesca, o remolcando/empujando a otro.",
-        "signal": "Una pitada larga y dos cortas (— • •)",
+        "id": "restricted_vis_special",
+        "title": "Buque especial (Vela, Pesca, NUC, RAM...)",
+        "description": "Visibilidad reducida. Buques sin gobierno, con maniobra restringida, restringido por su calado, de vela, de pesca o remolcador.",
+        "signal": "▬ ● ● (Una larga y dos cortas a intervalos <= 2 min)",
         "sequence": ["long", "short", "short"],
-        "interval": 120,
         "rule": "Regla 35(c)"
     },
     {
-        "id": "towed",
-        "title": "Buque remolcado",
-        "description": "Un buque remolcado (o el último si se remolca más de uno), si va tripulado.",
-        "signal": "Una pitada larga y tres cortas (— • • •)",
+        "id": "restricted_vis_towed",
+        "title": "Buque remolcado (si hay tripulación)",
+        "description": "Visibilidad reducida. Último buque de un remolque, si va tripulado.",
+        "signal": "▬ ● ● ● (Una larga y tres cortas a intervalos <= 2 min)",
         "sequence": ["long", "short", "short", "short"],
-        "interval": 120,
         "rule": "Regla 35(e)"
     },
     {
-        "id": "anchor_lt100",
-        "title": "Buque fondeado (< 100m)",
-        "description": "Un buque de eslora inferior a 100 metros, fondeado.",
-        "signal": "Repique rápido de campana (5s)",
+        "id": "restricted_vis_anchored_lt100",
+        "title": "Fondeado (< 100m)",
+        "description": "Visibilidad reducida. Buque fondeado, eslora inferior a 100m.",
+        "signal": "🔔 (Campanadas rápidas por 5s a intervalos <= 1 min)",
         "sequence": ["bell"],
-        "interval": 60,
         "rule": "Regla 35(g)"
     },
     {
-        "id": "anchor_gt100",
-        "title": "Buque fondeado (≥ 100m)",
-        "description": "Un buque de eslora igual o superior a 100 metros, fondeado.",
-        "signal": "Repique de campana en proa (5s) y son de gong en popa (5s)",
+        "id": "restricted_vis_anchored_gt100",
+        "title": "Fondeado (> 100m)",
+        "description": "Visibilidad reducida. Buque fondeado, eslora igual o superior a 100m.",
+        "signal": "🔔 (Proa) + 🔔🔔🔔 (Popa) (Campanadas + Gong a intervalos <= 1 min)",
         "sequence": ["bell", "gong"],
-        "interval": 60,
-        "rule": "Regla 35(g)"
-    },
-     {
-        "id": "anchor_warning",
-        "title": "Buque fondeado (señal adicional)",
-        "description": "Señal opcional de un buque fondeado para advertir de su posición y evitar un abordaje.",
-        "signal": "Una pitada corta, una larga y una corta (• — •)",
-        "sequence": ["short", "long", "short"],
-        "interval": 0,
         "rule": "Regla 35(g)"
     },
     {
-        "id": "aground_lt100",
-        "title": "Buque varado (< 100m)",
-        "description": "Un buque de eslora inferior a 100 metros, varado.",
-        "signal": "Tres golpes de campana, repique rápido (5s), tres golpes de campana",
-        "sequence": ["bell-stroke", "bell-stroke", "bell-stroke", "bell", "bell-stroke", "bell-stroke", "bell-stroke"],
-        "interval": 60,
-        "rule": "Regla 35(h)"
-    },
-    {
-        "id": "aground_gt100",
-        "title": "Buque varado (≥ 100m)",
-        "description": "Un buque de eslora igual o superior a 100 metros, varado.",
-        "signal": "Tres golpes de campana, repique en proa, tres golpes de campana, y son de gong en popa.",
-        "sequence": ["bell-stroke", "bell-stroke", "bell-stroke", "bell", "bell-stroke", "bell-stroke", "bell-stroke", "gong"],
-        "interval": 60,
+        "id": "restricted_vis_aground",
+        "title": "Varado",
+        "description": "Visibilidad reducida. Buque varado.",
+        "signal": "●● 🔔 ●● (Dos golpes de campana, campanada, dos golpes)",
+        "sequence": ["bell-stroke", "bell-stroke", "bell", "bell-stroke", "bell-stroke"],
         "rule": "Regla 35(h)"
     },
     {
         "id": "pilot",
-        "title": "Buque de práctico",
-        "description": "Un buque de práctico en servicio.",
-        "signal": "Cuatro pitadas cortas (• • • •)",
+        "title": "Buque de Práctico",
+        "description": "Buque en servicio de practicaje.",
+        "signal": "● ● ● ● (Cuatro pitadas cortas)",
         "sequence": ["short", "short", "short", "short"],
-        "interval": 0,
-        "rule": "Regla 35(i)"
+        "rule": "Regla 35(k)"
     }
 ]
+`

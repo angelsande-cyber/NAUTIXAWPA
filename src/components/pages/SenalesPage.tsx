@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Eye, Moon, Sun } from "lucide-react";
 import SonidosSimulator from "./SonidosSimulator";
 import { useTranslation } from "@/context/LanguageContext";
+import { Skeleton } from "../ui/skeleton";
 
 
 interface LightCharacteristicTerm {
@@ -326,7 +327,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     const [activeType, setActiveType] = useState<string | null>(null);
     const { t, language } = useTranslation();
 
-    const categories = useMemo(() => Array.from(new Set(buoyData.map(b => b.category))), [buoyData]);
+    const categories = useMemo(() => Array.from(new Set(buoyData.map(b => t(b.category)))), [buoyData, t]);
     
     const getLocalized = useCallback((obj: any, key: string) => {
         const value = obj[key];
@@ -371,7 +372,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
 
      useEffect(() => {
         // When region changes, if the current category is lateral marks, reset it.
-        const lateralMarkCategory = "Lateral Marks"
+        const lateralMarkCategory = t("signals.buoyage.categories.lateral");
         if (activeCategory === lateralMarkCategory) {
             setActiveType(null);
             const buoyInfoEl = document.getElementById('buoy-info-panel');
@@ -392,16 +393,16 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, []);
 
     const buoyTypesForCategory = useMemo(() => buoyData.filter(b => {
-        if (getLocalized(b, 'category') !== activeCategory) return false;
-        const lateralMarkCategory = "Lateral Marks";
+        if (t(b.category) !== activeCategory) return false;
+        const lateralMarkCategory = t("signals.buoyage.categories.lateral");
         if (activeCategory === lateralMarkCategory) return b.region === region;
         return true;
-    }), [buoyData, activeCategory, region, getLocalized]);
+    }), [buoyData, activeCategory, region, t]);
 
     return (
         <div>
             <div className="space-y-4">
-                {activeCategory === "Lateral Marks" && (
+                {activeCategory === t("signals.buoyage.categories.lateral") && (
                     <div className="flex items-center space-x-2 p-3 bg-muted rounded-lg">
                         <Label htmlFor="iala-region" className="font-semibold">{t('signals.buoys.ialaRegion')}</Label>
                         <span className={cn(region === 'A' ? '' : 'text-muted-foreground', "font-bold")}>A</span>
@@ -412,9 +413,9 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                  <div>
                     <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.category')}</Label>
                     <div className="flex flex-wrap gap-2 mt-2">
-                        {categories.map(catKey => (
-                            <Button key={catKey} variant={activeCategory === getLocalized({catKey}, 'catKey') ? 'default' : 'outline'} onClick={() => handleCategoryClick(getLocalized({catKey}, 'catKey'))}>
-                                {getLocalized({catKey}, 'catKey')}
+                        {categories.map(cat => (
+                            <Button key={cat} variant={activeCategory === cat ? 'default' : 'outline'} onClick={() => handleCategoryClick(cat)}>
+                                {cat}
                             </Button>
                         ))}
                     </div>
@@ -496,18 +497,25 @@ const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
 // --- Buques Simulator Component ---
 
 const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[], vesselSvgs: any }) => {
-    const [selectedRuleId, setSelectedRuleId] = useState(colregRules.length > 0 ? colregRules[0].id : '');
+    const [selectedRuleId, setSelectedRuleId] = useState<string | undefined>(undefined);
     const [selectedStateId, setSelectedStateId] = useState(0);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
     const { t, language } = useTranslation();
 
+    useEffect(() => {
+      if (colregRules.length > 0 && !selectedRuleId) {
+        setSelectedRuleId(colregRules[0].id);
+      }
+    }, [colregRules, selectedRuleId]);
+
     const getLocalized = useCallback((obj: any, key: string) => {
+        if (!obj || !key) return '';
         const value = obj[key];
         if (typeof value === 'object' && value !== null) {
-            return value[language] || value['es'];
+            return value[language] || value['es'] || '';
         }
-        return t(value) || value;
+        return t(value) || value || '';
     }, [language, t]);
 
     const ruleData = useMemo(() => {
@@ -710,7 +718,7 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
                                 </ul>
                             )}
                         </div>
-                        {stateData?.explanation && (
+                        {getLocalized(stateData, 'explanation') && (
                             <div className="border-t pt-2">
                                 <strong className="block mb-1">{t('signals.vessels.explanation')}</strong>
                                 <p className="text-xs text-muted-foreground whitespace-pre-line">{getLocalized(stateData, 'explanation')}</p>
@@ -724,9 +732,29 @@ const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[
 
 }
 
+const LoadingSkeleton = () => (
+    <div className="p-4 md:p-6">
+        <Card className="w-full max-w-4xl mx-auto">
+            <CardHeader>
+                <Skeleton className="h-8 w-1/2" />
+                <Skeleton className="h-4 w-3/4" />
+            </CardHeader>
+            <CardContent>
+                <Skeleton className="h-10 w-full mb-4" />
+                <div className="space-y-4">
+                    <Skeleton className="h-24 w-full" />
+                    <Skeleton className="h-32 w-full" />
+                </div>
+            </CardContent>
+        </Card>
+    </div>
+);
+
+
 // --- Main Page Component ---
 export default function SenalesPage() {
     const { t } = useTranslation();
+    const [loading, setLoading] = useState(true);
     const [senalesData, setSenalesData] = useState<{
         lightTerms: LightCharacteristicTerm;
         ialaBuoyData: BuoyData[];
@@ -740,17 +768,31 @@ export default function SenalesPage() {
      const [sonidosData, setSonidosData] = useState<any[] | null>(null);
 
     useEffect(() => {
-        fetch('/data/senales.json').then(res => res.json()).then(setSenalesData);
-        fetch('/data/buques.json').then(res => res.json()).then(setBuquesData);
-        fetch('/data/sonidos.json').then(res => res.json()).then(setSonidosData);
+        Promise.all([
+            fetch('/data/senales.json').then(res => res.json()),
+            fetch('/data/buques.json').then(res => res.json()),
+            fetch('/data/sonidos.json').then(res => res.json())
+        ]).then(([senales, buques, sonidos]) => {
+            setSenalesData(senales);
+            setBuquesData(buques);
+            setSonidosData(sonidos);
+            setLoading(false);
+        }).catch(err => {
+            console.error("Failed to load signals data", err);
+            setLoading(false);
+        });
     }, []);
 
+    if (loading) {
+        return <LoadingSkeleton />;
+    }
+    
     if (!senalesData || !buquesData || !sonidosData) {
         return (
             <div className="p-4 md:p-6">
                 <Card className="w-full max-w-4xl mx-auto">
                     <CardHeader>
-                        <CardTitle>{t('loading')}</CardTitle>
+                        <CardTitle>{t('loadingError')}</CardTitle>
                     </CardHeader>
                 </Card>
             </div>

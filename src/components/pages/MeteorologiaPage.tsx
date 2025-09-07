@@ -1,13 +1,87 @@
 "use client";
 
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
 import { useTranslation } from "@/context/LanguageContext";
-import { BEAUFORT_SCALE_DATA, DOUGLAS_SEA_SCALE, DOUGLAS_SWELL_SCALE, CLOUD_TYPES_DATA } from "@/lib/data/meteorologia";
+import { Skeleton } from '../ui/skeleton';
+
+interface BeaufortData {
+    force: number;
+    denomination: string;
+    speedKnots: string;
+    waveHeight: string;
+    seaState: string;
+}
+
+interface DouglasData {
+    degree: number;
+    denomination: string;
+    waveHeight: string;
+}
+
+interface CloudData {
+    type: string;
+    altitude: string;
+    description: string;
+    imageUrl: string;
+    hint: string;
+}
+
+interface MeteoData {
+    beaufortScale: BeaufortData[];
+    douglasSeaScale: DouglasData[];
+    douglasSwellScale: DouglasData[];
+    cloudTypes: CloudData[];
+}
+
+const LoadingSkeleton = () => (
+    <div className="p-4 md:p-6 space-y-6">
+        <Card className="w-full max-w-4xl mx-auto">
+            <CardHeader>
+                <Skeleton className="h-8 w-1/2" />
+                <Skeleton className="h-4 w-3/4" />
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-2">
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                    <Skeleton className="h-10 w-full" />
+                </div>
+            </CardContent>
+        </Card>
+    </div>
+);
+
 
 export default function MeteorologiaPage() {
     const { t } = useTranslation();
+    const [meteoData, setMeteoData] = useState<MeteoData | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('/data/meteorologia.json')
+            .then(res => res.json())
+            .then(data => {
+                setMeteoData(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Failed to load meteorologia.json", err);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <LoadingSkeleton />;
+    }
+
+    if (!meteoData) {
+        return <div className="p-6">Error al cargar los datos de meteorología.</div>;
+    }
+    
+    const { beaufortScale, douglasSeaScale, douglasSwellScale, cloudTypes } = meteoData;
 
     return (
         <div className="p-4 md:p-6 space-y-6">
@@ -29,7 +103,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {BEAUFORT_SCALE_DATA.map((item) => (
+                                {beaufortScale.map((item) => (
                                     <TableRow key={item.force}>
                                         <TableCell className="font-bold text-center">{item.force}</TableCell>
                                         <TableCell>{t(item.denomination)}</TableCell>
@@ -61,7 +135,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {DOUGLAS_SEA_SCALE.map((item) => (
+                                {douglasSeaScale.map((item) => (
                                     <TableRow key={item.degree}>
                                         <TableCell className="font-bold text-center">{item.degree}</TableCell>
                                         <TableCell>{t(item.denomination)}</TableCell>
@@ -82,7 +156,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {DOUGLAS_SWELL_SCALE.map((item) => (
+                                {douglasSwellScale.map((item) => (
                                     <TableRow key={item.degree}>
                                         <TableCell className="font-bold text-center">{item.degree}</TableCell>
                                         <TableCell>{t(item.denomination)}</TableCell>
@@ -101,7 +175,7 @@ export default function MeteorologiaPage() {
                     <CardDescription>{t('meteo.clouds.description')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    {CLOUD_TYPES_DATA.map((cloud) => (
+                    {cloudTypes.map((cloud) => (
                         <Card key={cloud.type} className="overflow-hidden">
                             <div className="grid grid-cols-1 md:grid-cols-3">
                                 <div className="md:col-span-1 relative h-48">
