@@ -101,7 +101,10 @@ export default function ExamenPage() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+        const errorMessage = typeof errorData.error === 'object' 
+            ? JSON.stringify(errorData.error)
+            : errorData.error || `HTTP error! status: ${response.status}`;
+        throw new Error(errorMessage);
       }
 
       const generatedQuiz: QuizOutput = await response.json();
