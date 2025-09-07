@@ -1,12 +1,12 @@
 'use server';
 
-import { generatePerQuiz } from '@/ai/flows/examen';
+import { generatePerQuizFlow } from '@/ai/flows/examen';
 import { appRoute } from '@genkit-ai/next';
 
 // Esta es la forma correcta de exponer el flujo a través de la API.
-// Pasamos la función 'generatePerQuiz', que es una acción válida de Genkit.
+// Pasamos el flow 'generatePerQuizFlow', que es una acción válida de Genkit con el método .run().
 export const POST = appRoute({
-  flow: generatePerQuiz,
+  flow: generatePerQuizFlow,
   // Opcional: habilitar CORS si se llama desde otro dominio
   // cors: {
   //   origin: '*'
