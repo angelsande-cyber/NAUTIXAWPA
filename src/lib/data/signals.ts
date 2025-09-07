@@ -1,4 +1,5 @@
 
+
 // This file contains all the static data for the signals simulator.
 // It uses translation keys that will be resolved by the useSignalsData hook.
 
@@ -272,8 +273,8 @@ export const COLREG_RULES_DATA = [
                     { id: 'trawl-g', color: 'green', desc: 'signals.vessels.lights.trawl_g', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                     { id: 'trawl-w', color: 'white', desc: 'signals.vessels.lights.trawl_w', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
                     { ...PDV_LIGHTS[2], desc: 'signals.vessels.lights.sidelights_making_way' },
-                    { ...PDV_LIGHTS[3], desc: 'signals.vessels.lights.sidelights_making_way' },
-                    { ...PDV_LIGHTS[4], desc: 'signals.vessels.lights.sternlight_making_way' },
+                    { ...PDV_LIGHTS[3], desc: '' },
+                    { ...PDV_LIGHTS[4], desc: '' },
                 ],
                 marks: [
                     { id: 'trawl-mark', shape: 'cones-vertex-together', desc: 'signals.vessels.marks.trawl_mark', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
@@ -288,8 +289,8 @@ export const COLREG_RULES_DATA = [
                     { id: 'fish-r', color: 'red', desc: 'signals.vessels.lights.fish_r', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                     { id: 'fish-w', color: 'white', desc: 'signals.vessels.lights.fish_w', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
                      { ...PDV_LIGHTS[2], desc: 'signals.vessels.lights.sidelights_making_way' },
-                    { ...PDV_LIGHTS[3], desc: 'signals.vessels.lights.sidelights_making_way' },
-                    { ...PDV_LIGHTS[4], desc: 'signals.vessels.lights.sternlight_making_way' },
+                    { ...PDV_LIGHTS[3], desc: '' },
+                    { ...PDV_LIGHTS[4], desc: '' },
                 ],
                 marks: [
                     { id: 'trawl-mark', shape: 'cones-vertex-together', desc: 'signals.vessels.marks.trawl_mark', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
@@ -309,14 +310,14 @@ export const COLREG_RULES_DATA = [
                 svg: "power_gt50",
                 lights: [
                     { id: 'nuc-r1', color: 'red', desc: 'signals.vessels.lights.nuc_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
-                    { id: 'nuc-r2', color: 'red', desc: 'signals.vessels.lights.nuc_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 50, y: 36 } } },
+                    { id: 'nuc-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 50, y: 36 } } },
                     {...PDV_LIGHTS[2], desc: "signals.vessels.lights.sidelights_stern_making_way"},
                     {...PDV_LIGHTS[3], desc: ""},
                     {...PDV_LIGHTS[4], desc: ""},
                 ],
                 marks: [
                     { id: 'nuc-b1', shape: 'ball', desc: 'signals.vessels.marks.nuc_marks', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
-                    { id: 'nuc-b2', shape: 'ball', desc: 'signals.vessels.marks.nuc_marks', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
+                    { id: 'nuc-b2', shape: 'ball', desc: '', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
                 ],
                 explanation: "signals.vessels.rules.R27.states.nuc.explanation"
             },
@@ -326,8 +327,8 @@ export const COLREG_RULES_DATA = [
                 svg: "power_gt50",
                 lights: [
                     { id: 'ram-r1', color: 'red', desc: 'signals.vessels.lights.ram_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 50, y: 20 } } },
-                    { id: 'ram-w', color: 'white', desc: 'signals.vessels.lights.ram_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
-                    { id: 'ram-r2', color: 'red', desc: 'signals.vessels.lights.ram_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 50, y: 36 } } },
+                    { id: 'ram-w', color: 'white', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
+                    { id: 'ram-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 50, y: 36 } } },
                     {...PDV_LIGHTS[0], desc: "signals.vessels.lights.pdv_lights_making_way"},
                     {...PDV_LIGHTS[1], desc: ""},
                     {...PDV_LIGHTS[2], desc: ""},
@@ -336,8 +337,8 @@ export const COLREG_RULES_DATA = [
                 ],
                 marks: [
                     { id: 'ram-b1', shape: 'ball', desc: 'signals.vessels.marks.ram_marks', position: { bow: { x: 50, y: 15 }, starboard: { x: 40, y: 15 }, stern: { x: 50, y: 15 } } },
-                    { id: 'ram-d', shape: 'diamond', desc: 'signals.vessels.marks.ram_marks', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
-                    { id: 'ram-b2', shape: 'ball', desc: 'signals.vessels.marks.ram_marks', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
+                    { id: 'ram-d', shape: 'diamond', desc: '', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
+                    { id: 'ram-b2', shape: 'ball', desc: '', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
                 ],
                 explanation: "signals.vessels.rules.R27.states.ram.explanation"
             }
@@ -351,8 +352,8 @@ export const COLREG_RULES_DATA = [
         lights: [
             ...PDV_LIGHTS,
             { id: 'cbd-r1', color: 'red', desc: 'signals.vessels.lights.cbd_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 55, y: 20 } } },
-            { id: 'cbd-r2', color: 'red', desc: 'signals.vessels.lights.cbd_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 55, y: 28 } } },
-            { id: 'cbd-r3', color: 'red', desc: 'signals.vessels.lights.cbd_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 55, y: 36 } } },
+            { id: 'cbd-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 55, y: 28 } } },
+            { id: 'cbd-r3', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 55, y: 36 } } },
         ],
         marks: [
             { id: 'cylinder', shape: 'cylinder', desc: 'signals.vessels.marks.cylinder', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
@@ -383,14 +384,14 @@ export const COLREG_RULES_DATA = [
                 svg: "power_gt50",
                 lights: [
                     { id: 'anchor-fwd', color: 'white', desc: 'signals.vessels.lights.anchor_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 30 }, starboard: { x: 20, y: 30 }, stern: { x: 50, y: 30 } } },
-                    { id: 'anchor-aft', color: 'white', desc: 'signals.vessels.lights.anchor_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 40 }, starboard: { x: 85, y: 55 }, stern: { x: 50, y: 40 } } },
+                    { id: 'anchor-aft', color: 'white', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 40 }, starboard: { x: 85, y: 55 }, stern: { x: 50, y: 40 } } },
                     { id: 'aground-r1', color: 'red', desc: 'signals.vessels.lights.aground_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 50, y: 20 } } },
-                    { id: 'aground-r2', color: 'red', desc: 'signals.vessels.lights.aground_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
+                    { id: 'aground-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
                 ],
                 marks: [
                     { id: 'aground-b1', shape: 'ball', desc: 'signals.vessels.marks.aground_marks', position: { bow: { x: 50, y: 15 }, starboard: { x: 40, y: 15 }, stern: { x: 50, y: 15 } } },
-                    { id: 'aground-b2', shape: 'ball', desc: 'signals.vessels.marks.aground_marks', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
-                    { id: 'aground-b3', shape: 'ball', desc: 'signals.vessels.marks.aground_marks', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
+                    { id: 'aground-b2', shape: 'ball', desc: '', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
+                    { id: 'aground-b3', shape: 'ball', desc: '', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
                 ],
                 explanation: "signals.vessels.rules.R30.states.aground.explanation"
             },
@@ -405,8 +406,8 @@ export const COLREG_RULES_DATA = [
             { id: 'pilot-w', color: 'white', desc: 'signals.vessels.lights.pilot_w', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
             { id: 'pilot-r', color: 'red', desc: 'signals.vessels.lights.pilot_r', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
             { ...PDV_LIGHTS[2], desc: 'signals.vessels.lights.sidelights_navigating' },
-            { ...PDV_LIGHTS[3], desc: 'signals.vessels.lights.sidelights_navigating' },
-            { ...PDV_LIGHTS[4], desc: 'signals.vessels.lights.sternlight_navigating' },
+            { ...PDV_LIGHTS[3], desc: '' },
+            { ...PDV_LIGHTS[4], desc: '' },
         ],
         marks: [],
         explanation: "signals.vessels.rules.R29.explanation"
@@ -543,3 +544,4 @@ export const SOUND_SIGNALS_DATA = [
         "rule": "Regla 35(k)"
     }
 ];
+

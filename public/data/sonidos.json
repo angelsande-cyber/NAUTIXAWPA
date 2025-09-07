@@ -1,9 +1,10 @@
+
 [
     {
         "id": "maneuver_stbd",
         "title": "signals.sounds.maneuver_stbd.title",
         "description": "signals.sounds.maneuver_stbd.description",
-        "signal": "● (signals.sounds.one_short)",
+        "signal": "signals.sounds.maneuver_stbd.signal",
         "sequence": ["short"],
         "rule": "Regla 34(a)"
     },
@@ -11,7 +12,7 @@
         "id": "maneuver_port",
         "title": "signals.sounds.maneuver_port.title",
         "description": "signals.sounds.maneuver_port.description",
-        "signal": "● ● (signals.sounds.two_short)",
+        "signal": "signals.sounds.maneuver_port.signal",
         "sequence": ["short", "short"],
         "rule": "Regla 34(a)"
     },
@@ -19,7 +20,7 @@
         "id": "maneuver_astern",
         "title": "signals.sounds.maneuver_astern.title",
         "description": "signals.sounds.maneuver_astern.description",
-        "signal": "● ● ● (signals.sounds.three_short)",
+        "signal": "signals.sounds.maneuver_astern.signal",
         "sequence": ["short", "short", "short"],
         "rule": "Regla 34(a)"
     },
@@ -27,7 +28,7 @@
         "id": "overtake_stbd",
         "title": "signals.sounds.overtake_stbd.title",
         "description": "signals.sounds.overtake_stbd.description",
-        "signal": "▬ ▬ ● (signals.sounds.two_long_one_short)",
+        "signal": "signals.sounds.overtake_stbd.signal",
         "sequence": ["long", "long", "short"],
         "rule": "Regla 34(c)"
     },
@@ -35,7 +36,7 @@
         "id": "overtake_port",
         "title": "signals.sounds.overtake_port.title",
         "description": "signals.sounds.overtake_port.description",
-        "signal": "▬ ▬ ● ● (signals.sounds.two_long_two_short)",
+        "signal": "signals.sounds.overtake_port.signal",
         "sequence": ["long", "long", "short", "short"],
         "rule": "Regla 34(c)"
     },
@@ -43,7 +44,7 @@
         "id": "overtake_agree",
         "title": "signals.sounds.overtake_agree.title",
         "description": "signals.sounds.overtake_agree.description",
-        "signal": "▬ ● ▬ ● (signals.sounds.long_short_long_short)",
+        "signal": "signals.sounds.overtake_agree.signal",
         "sequence": ["long", "short", "long", "short"],
         "rule": "Regla 34(c)"
     },
@@ -51,7 +52,7 @@
         "id": "warning_doubt",
         "title": "signals.sounds.warning_doubt.title",
         "description": "signals.sounds.warning_doubt.description",
-        "signal": "● ● ● ● ● (signals.sounds.five_short)",
+        "signal": "signals.sounds.warning_doubt.signal",
         "sequence": ["short", "short", "short", "short", "short"],
         "rule": "Regla 34(d)"
     },
@@ -59,7 +60,7 @@
         "id": "warning_bend",
         "title": "signals.sounds.warning_bend.title",
         "description": "signals.sounds.warning_bend.description",
-        "signal": "▬ (signals.sounds.one_long)",
+        "signal": "signals.sounds.warning_bend.signal",
         "sequence": ["long"],
         "rule": "Regla 34(e)"
     },
@@ -67,7 +68,7 @@
         "id": "restricted_vis_power_making_way",
         "title": "signals.sounds.restricted_vis_power_making_way.title",
         "description": "signals.sounds.restricted_vis_power_making_way.description",
-        "signal": "▬ (signals.sounds.one_long_interval)",
+        "signal": "signals.sounds.restricted_vis_power_making_way.signal",
         "sequence": ["long"],
         "rule": "Regla 35(a)"
     },
@@ -75,7 +76,7 @@
         "id": "restricted_vis_power_stopped",
         "title": "signals.sounds.restricted_vis_power_stopped.title",
         "description": "signals.sounds.restricted_vis_power_stopped.description",
-        "signal": "▬ ▬ (signals.sounds.two_long_interval)",
+        "signal": "signals.sounds.restricted_vis_power_stopped.signal",
         "sequence": ["long", "long"],
         "rule": "Regla 35(b)"
     },
@@ -83,7 +84,7 @@
         "id": "restricted_vis_special",
         "title": "signals.sounds.restricted_vis_special.title",
         "description": "signals.sounds.restricted_vis_special.description",
-        "signal": "▬ ● ● (signals.sounds.one_long_two_short_interval)",
+        "signal": "signals.sounds.restricted_vis_special.signal",
         "sequence": ["long", "short", "short"],
         "rule": "Regla 35(c)"
     },
@@ -91,7 +92,7 @@
         "id": "restricted_vis_towed",
         "title": "signals.sounds.restricted_vis_towed.title",
         "description": "signals.sounds.restricted_vis_towed.description",
-        "signal": "▬ ● ● ● (signals.sounds.one_long_three_short_interval)",
+        "signal": "signals.sounds.restricted_vis_towed.signal",
         "sequence": ["long", "short", "short", "short"],
         "rule": "Regla 35(e)"
     },
@@ -99,7 +100,7 @@
         "id": "restricted_vis_anchored_lt100",
         "title": "signals.sounds.restricted_vis_anchored_lt100.title",
         "description": "signals.sounds.restricted_vis_anchored_lt100.description",
-        "signal": "🔔 (signals.sounds.bell_rapid)",
+        "signal": "signals.sounds.restricted_vis_anchored_lt100.signal",
         "sequence": ["bell"],
         "rule": "Regla 35(g)"
     },
@@ -107,7 +108,7 @@
         "id": "restricted_vis_anchored_gt100",
         "title": "signals.sounds.restricted_vis_anchored_gt100.title",
         "description": "signals.sounds.restricted_vis_anchored_gt100.description",
-        "signal": "🔔 (Proa) + 🔔🔔🔔 (Popa) (signals.sounds.bell_gong_interval)",
+        "signal": "signals.sounds.restricted_vis_anchored_gt100.signal",
         "sequence": ["bell", "gong"],
         "rule": "Regla 35(g)"
     },
@@ -115,7 +116,7 @@
         "id": "restricted_vis_aground",
         "title": "signals.sounds.restricted_vis_aground.title",
         "description": "signals.sounds.restricted_vis_aground.description",
-        "signal": "●● 🔔 ●● (signals.sounds.bell_strokes_bell)",
+        "signal": "signals.sounds.restricted_vis_aground.signal",
         "sequence": ["bell-stroke", "bell-stroke", "bell", "bell-stroke", "bell-stroke"],
         "rule": "Regla 35(h)"
     },
@@ -123,7 +124,7 @@
         "id": "pilot",
         "title": "signals.sounds.pilot.title",
         "description": "signals.sounds.pilot.description",
-        "signal": "● ● ● ● (signals.sounds.four_short)",
+        "signal": "signals.sounds.pilot.signal",
         "sequence": ["short", "short", "short", "short"],
         "rule": "Regla 35(k)"
     }
