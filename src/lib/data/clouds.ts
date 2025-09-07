@@ -10,5 +10,5 @@ export const CLOUD_DATA = [
     { type: 'meteo.clouds.types.stratus.name', altitude: 'meteo.clouds.types.stratus.altitude', description: 'meteo.clouds.types.stratus.description', imageUrl: '/images/clouds/Stratus.png', hint: 'stratus layer' },
     { type: 'meteo.clouds.types.stratocumulus.name', altitude: 'meteo.clouds.types.stratocumulus.altitude', description: 'meteo.clouds.types.stratocumulus.description', imageUrl: '/images/clouds/Stratocumulus.png', hint: 'stratocumulus low' },
     { type: 'meteo.clouds.types.cumulus.name', altitude: 'meteo.clouds.types.cumulus.altitude', description: 'meteo.clouds.types.cumulus.description', imageUrl: '/images/clouds/Cumulus.png', hint: 'cumulus fluffy' },
-    { type: 'meteo.clouds.types.cumulonimbus.name', altitude: 'meteo.clouds.types.cumulonimbus.altitude', description: 'meteo.clouds.types.cumulonimbus.description', imageUrl: '/images/clouds/CUMULONIMBUS.png', hint: 'cumulonimbus storm' }
+    { type: 'meteo.clouds.types.cumulonimbus.name', altitude: 'meteo.clouds.types.cumulonimbus.altitude', description: 'meteo.clouds.types.cumulonimbus.description', imageUrl: '/images/clouds/CUMULoNIMBUS.png', hint: 'cumulonimbus storm' }
 ];
