@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -7,121 +6,101 @@ import { Radio, Siren, HelpCircle, PhoneOutgoing, Satellite } from "lucide-react
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
+import { useTranslation, LanguageToggle } from "@/context/LanguageContext";
 
-const MaydayProcedureEs = () => (
-    <div className="sos-message p-4 rounded-lg bg-muted font-mono text-sm leading-relaxed space-y-1">
-        <p className="font-bold text-destructive">MAYDAY, MAYDAY, MAYDAY</p>
-        <p>AQUÍ <span className="placeholder">NOMBRE DEL BARCO (x3)</span></p>
-        <p>INDICATIVO <span className="placeholder">INDICATIVO</span> MMSI <span className="placeholder">MMSI</span></p>
-        <p className="font-bold text-destructive pt-2">MAYDAY</p>
-        <p>MI POSICIÓN ES <span className="placeholder">POSICIÓN (LAT/LON O REFERENCIA)</span></p>
-        <p>ESTOY <span className="placeholder">NATURALEZA DEL PELIGRO (HUNDIMIENTO, INCENDIO...)</span></p>
-        <p>NECESITO ASISTENCIA INMEDIATA</p>
-        <p>TENGO <span className="placeholder">NÚMERO DE PERSONAS</span> PERSONAS A BORDO</p>
-        <p><span className="placeholder">OTRA INFORMACIÓN (ABANDONO, BENGALAS...)</span></p>
-        <p>CAMBIO</p>
-    </div>
-);
 
-const MaydayProcedureEn = () => (
-    <div className="sos-message p-4 rounded-lg bg-muted font-mono text-sm leading-relaxed space-y-1">
-        <p className="font-bold text-destructive">MAYDAY, MAYDAY, MAYDAY</p>
-        <p>THIS IS <span className="placeholder">VESSEL NAME (x3)</span></p>
-        <p>CALL SIGN <span className="placeholder">CALL SIGN</span> MMSI <span className="placeholder">MMSI</span></p>
-        <p className="font-bold text-destructive pt-2">MAYDAY</p>
-        <p>MY POSITION IS <span className="placeholder">POSITION (LAT/LON OR REFERENCE)</span></p>
-        <p>I AM <span className="placeholder">NATURE OF DISTRESS (SINKING, FIRE...)</span></p>
-        <p>I REQUIRE IMMEDIATE ASSISTANCE</p>
-        <p>I HAVE <span className="placeholder">NUMBER OF PERSONS</span> PERSONS ON BOARD</p>
-        <p><span className="placeholder">ANY OTHER INFORMATION (ABANDONING, FLARES...)</span></p>
-        <p>OVER</p>
-    </div>
-);
-
-const distressSystems = [
-    {
-        icon: <Radio className="h-6 w-6 text-primary" />,
-        title: "VHF Marino con LSD (Llamada Selectiva Digital)",
-        description: "El método más común y eficaz. El botón 'DISTRESS' (normalmente protegido por una tapa roja) envía una alerta automática con tu posición (si el GPS está conectado) y MMSI a todos los barcos y estaciones costeras en alcance. Tras la alerta LSD, se debe proceder con la llamada de voz MAYDAY en el Canal 16.",
-        channel: "Canal 70 (LSD), luego Canal 16 (Voz)"
-    },
-    {
-        icon: <Satellite className="h-6 w-6 text-primary" />,
-        title: "Radiobaliza de Localización de Siniestros (EPIRB/RLS)",
-        description: "Dispositivo que, al activarse (manual o automáticamente al contacto con el agua), transmite una señal de socorro a través del sistema de satélites Cospas-Sarsat. La señal, que contiene la identificación del buque y su posición, es recibida por los centros de coordinación de salvamento de todo el mundo.",
-        channel: "Satélite (406 MHz)"
-    },
-    {
-        icon: <Siren className="h-6 w-6 text-primary" />,
-        title: "Señales Visuales de Socorro",
-        description: "Cohetes o bengalas con paracaídas de luz roja, bengalas de mano de luz roja, y señales fumígenas de color naranja. Deben usarse cuando se tiene constancia de que hay barcos o aeronaves a la vista que puedan verlas.",
-        channel: "Visual"
-    },
-    {
-        icon: <PhoneOutgoing className="h-6 w-6 text-primary" />,
-        title: "Telefonía Móvil",
-        description: "En áreas con cobertura, se puede llamar directamente a los servicios de emergencia (112) o a un Centro de Coordinación de Salvamento (ej: 900 202 202 en España). Es un método útil pero limitado por el alcance de la cobertura.",
-        channel: "Llamada directa"
-    },
-];
+const MaydayProcedure = () => {
+    const { t } = useTranslation();
+    return (
+        <div className="sos-message p-4 rounded-lg bg-muted font-mono text-sm leading-relaxed space-y-1">
+            <p className="font-bold text-destructive">MAYDAY, MAYDAY, MAYDAY</p>
+            <p>{t('sos.thisIs')} <span className="placeholder">{t('sos.placeholders.shipName')} (x3)</span></p>
+            <p>{t('sos.callSign')} <span className="placeholder">{t('sos.placeholders.callSign')}</span> MMSI <span className="placeholder">MMSI</span></p>
+            <p className="font-bold text-destructive pt-2">MAYDAY</p>
+            <p>{t('sos.myPosition')} <span className="placeholder">{t('sos.placeholders.position')}</span></p>
+            <p>{t('sos.iam')} <span className="placeholder">{t('sos.placeholders.natureOfDistress')}</span></p>
+            <p>{t('sos.iRequire')}</p>
+            <p>{t('sos.iHave')} <span className="placeholder">{t('sos.placeholders.pob')}</span> {t('sos.personsOnBoard')}</p>
+            <p><span className="placeholder">{t('sos.placeholders.otherInfo')}</span></p>
+            <p>{t('sos.over')}</p>
+        </div>
+    );
+};
 
 export default function SosgenPage() {
-    const [language, setLanguage] = useState<'es' | 'en'>('es');
+    const { t } = useTranslation();
+    
+    const distressSystems = [
+        {
+            icon: <Radio className="h-6 w-6 text-primary" />,
+            title: t('sos.systems.vhf.title'),
+            description: t('sos.systems.vhf.description'),
+            channel: t('sos.systems.vhf.channel')
+        },
+        {
+            icon: <Satellite className="h-6 w-6 text-primary" />,
+            title: t('sos.systems.epirb.title'),
+            description: t('sos.systems.epirb.description'),
+            channel: t('sos.systems.epirb.channel')
+        },
+        {
+            icon: <Siren className="h-6 w-6 text-primary" />,
+            title: t('sos.systems.visual.title'),
+            description: t('sos.systems.visual.description'),
+            channel: t('sos.systems.visual.channel')
+        },
+        {
+            icon: <PhoneOutgoing className="h-6 w-6 text-primary" />,
+            title: t('sos.systems.mobile.title'),
+            description: t('sos.systems.mobile.description'),
+            channel: t('sos.systems.mobile.channel')
+        },
+    ];
 
     return (
         <div className="p-4 md:p-6 space-y-6">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Comunicaciones de Socorro en el Mar</CardTitle>
-                    <CardDescription>
-                        Guía sobre cómo transmitir correctamente un mensaje de socorro y los medios disponibles en el Sistema Mundial de Socorro y Seguridad Marítima (SMSSM/GMDSS).
-                    </CardDescription>
+                    <CardTitle>{t('sos.title')}</CardTitle>
+                    <CardDescription>{t('sos.description')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                     <div>
-                        <h3 className="text-xl font-semibold mb-2">Procedimiento de Llamada MAYDAY por Voz (VHF Canal 16)</h3>
+                        <h3 className="text-xl font-semibold mb-2">{t('sos.procedure.title')}</h3>
                         <Alert>
                             <Siren className="h-4 w-4" />
-                            <AlertTitle>¡Solo para Peligro Grave e Inminente!</AlertTitle>
-                            <AlertDescription>
-                                La señal de socorro MAYDAY solo debe usarse cuando existe un peligro grave e inminente para la vida o para la propia embarcación (ej: hundimiento, incendio incontrolable, abordaje grave).
-                            </AlertDescription>
+                            <AlertTitle>{t('sos.procedure.alert.title')}</AlertTitle>
+                            <AlertDescription>{t('sos.procedure.alert.description')}</AlertDescription>
                         </Alert>
 
                         <div className="mt-4">
                              <div className="flex items-center justify-center space-x-3 mb-4 p-2 bg-background rounded-lg border">
-                                <Label htmlFor="lang-switch" className={cn(language === 'es' ? 'text-primary font-bold' : 'text-muted-foreground')}>Español</Label>
-                                <Switch
-                                    id="lang-switch"
-                                    checked={language === 'en'}
-                                    onCheckedChange={(checked) => setLanguage(checked ? 'en' : 'es')}
-                                />
-                                <Label htmlFor="lang-switch" className={cn(language === 'en' ? 'text-primary font-bold' : 'text-muted-foreground')}>English</Label>
+                                <LanguageToggle isPageSwitch={true} />
                             </div>
-                            {language === 'es' ? <MaydayProcedureEs /> : <MaydayProcedureEn />}
+                           <MaydayProcedure />
                         </div>
                         
                         <Accordion type="single" collapsible className="w-full mt-4">
                             <AccordionItem value="item-1">
-                                <AccordionTrigger>Explicación del Procedimiento</AccordionTrigger>
+                                <AccordionTrigger>{t('sos.procedure.explanation.title')}</AccordionTrigger>
                                 <AccordionContent className="space-y-2 text-muted-foreground">
-                                    <p><strong>1. Sintoniza el Canal 16 de VHF.</strong> Asegúrate de que la potencia de transmisión esté al máximo (normalmente 25W).</p>
-                                    <p><strong>2. Pulsa el botón de transmisión (PTT) y di claramente:</strong> "MAYDAY, MAYDAY, MAYDAY". Repetir tres veces da tiempo a que otros te escuchen y reconozcan la urgencia.</p>
-                                    <p><strong>3. Identifícate:</strong> Di "AQUÍ (o THIS IS)", seguido del nombre de tu barco tres veces, y luego tu indicativo de llamada (Call Sign) y MMSI.</p>
-                                    <p><strong>4. Repite "MAYDAY"</strong> una vez más, seguido de la información clave de la emergencia. Habla despacio y claro.</p>
-                                    <p><strong>5. Posición:</strong> Dala en latitud y longitud si es posible. Si no, usa una referencia clara a un punto geográfico conocido (ej: "A 5 millas al este de la isla de Sálvora").</p>
-                                    <p><strong>6. Naturaleza del Peligro:</strong> Sé conciso. "HUNDIMIENTO", "INCENDIO EN SALA DE MÁQUINAS", "NECESITO ASISTENCIA MÉDICA URGENTE".</p>
-                                    <p><strong>7. Ayuda Requerida:</strong> Generalmente será "NECESITO ASISTENCIA INMEDIATA".</p>
-                                    <p><strong>8. Personas a Bordo (POB):</strong> Indica el número total de personas, incluyéndote a ti.</p>
-                                    <p><strong>9. Información Adicional:</strong> Menciona cualquier dato relevante. "ESTAMOS ABANDONANDO EL BARCO EN BALSA SALVAVIDAS", "EL BARCO ES UN VELERO AZUL DE 12 METROS".</p>
-                                    <p><strong>10. Finaliza con "OVER" (o "CAMBIO")</strong> y suelta el PTT para escuchar. Espera una respuesta de una estación costera o de otro buque.</p>
+                                   <p><strong>1. {t('sos.procedure.explanation.step1.title')}</strong> {t('sos.procedure.explanation.step1.description')}</p>
+                                   <p><strong>2. {t('sos.procedure.explanation.step2.title')}</strong> {t('sos.procedure.explanation.step2.description')}</p>
+                                   <p><strong>3. {t('sos.procedure.explanation.step3.title')}</strong> {t('sos.procedure.explanation.step3.description')}</p>
+                                   <p><strong>4. {t('sos.procedure.explanation.step4.title')}</strong> {t('sos.procedure.explanation.step4.description')}</p>
+                                   <p><strong>5. {t('sos.procedure.explanation.step5.title')}</strong> {t('sos.procedure.explanation.step5.description')}</p>
+                                   <p><strong>6. {t('sos.procedure.explanation.step6.title')}</strong> {t('sos.procedure.explanation.step6.description')}</p>
+                                   <p><strong>7. {t('sos.procedure.explanation.step7.title')}</strong> {t('sos.procedure.explanation.step7.description')}</p>
+                                   <p><strong>8. {t('sos.procedure.explanation.step8.title')}</strong> {t('sos.procedure.explanation.step8.description')}</p>
+                                   <p><strong>9. {t('sos.procedure.explanation.step9.title')}</strong> {t('sos.procedure.explanation.step9.description')}</p>
+                                   <p><strong>10. {t('sos.procedure.explanation.step10.title')}</strong> {t('sos.procedure.explanation.step10.description')}</p>
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
                     </div>
 
                      <div className="pt-6 border-t">
-                        <h3 className="text-xl font-semibold mb-4">Principales Medios para Solicitar Socorro</h3>
+                        <h3 className="text-xl font-semibold mb-4">{t('sos.systems.title')}</h3>
                         <div className="space-y-4">
                             {distressSystems.map((system) => (
                                 <Card key={system.title} className="flex flex-col sm:flex-row items-start gap-4 p-4">

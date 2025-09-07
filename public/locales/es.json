@@ -1,0 +1,127 @@
+{
+    "backToHome": "Volver al Inicio",
+    "signOut": "Cerrar Sesión",
+    "signIn": {
+        "tagline": "Tu asistente de navegación y comunicaciones.",
+        "button": "Iniciar sesión con Google",
+        "signingIn": "Iniciando sesión..."
+    },
+    "titles": {
+        "home": "Inicio",
+        "sos": "SOS",
+        "signals": "Señales Marítimas",
+        "colreg": "Reglamento (COLREG)",
+        "quiz": "Examen",
+        "directory": "Directorio",
+        "calculator": "Calculadora de Coordenadas",
+        "alphabet": "Alfabeto Fonético",
+        "channels": "Canales VHF",
+        "qcodes": "Códigos Q",
+        "meteo": "Meteorología"
+    },
+    "dashboard": {
+        "sos": {
+            "label": "SOS",
+            "description": "Guía de comunicaciones de socorro."
+        },
+        "signals": {
+            "label": "Señales",
+            "description": "Simulador de luces y marcas."
+        },
+        "colreg": {
+            "label": "COLREG",
+            "description": "Consulta el reglamento de abordajes."
+        },
+        "quiz": {
+            "label": "Examen",
+            "description": "Genera exámenes de práctica."
+        },
+        "directory": {
+            "label": "Directorio",
+            "description": "Contactos de salvamento."
+        },
+        "calculator": {
+            "label": "Calculadora",
+            "description": "Conversor de coordenadas."
+        },
+        "alphabet": {
+            "label": "Alfabeto Fonético",
+            "description": "Alfabeto internacional ICAO/OTAN."
+        },
+        "channels": {
+            "label": "Canales VHF",
+            "description": "Listado de canales y usos comunes."
+        },
+        "qcodes": {
+            "label": "Códigos Q",
+            "description": "Listado de códigos Q de consulta."
+        },
+        "meteo": {
+            "label": "Meteorología",
+            "description": "Escalas Beaufort, Douglas y nubes."
+        }
+    },
+    "sos": {
+        "title": "Comunicaciones de Socorro en el Mar",
+        "description": "Guía sobre cómo transmitir correctamente un mensaje de socorro y los medios disponibles en el Sistema Mundial de Socorro y Seguridad Marítima (SMSSM/GMDSS).",
+        "procedure": {
+            "title": "Procedimiento de Llamada MAYDAY por Voz (VHF Canal 16)",
+            "alert": {
+                "title": "¡Solo para Peligro Grave e Inminente!",
+                "description": "La señal de socorro MAYDAY solo debe usarse cuando existe un peligro grave e inminente para la vida o para la propia embarcación (ej: hundimiento, incendio incontrolable, abordaje grave)."
+            },
+            "explanation": {
+                "title": "Explicación del Procedimiento",
+                "step1": { "title": "Sintoniza el Canal 16 de VHF.", "description": "Asegúrate de que la potencia de transmisión esté al máximo (normalmente 25W)." },
+                "step2": { "title": "Pulsa el botón de transmisión (PTT) y di claramente:", "description": "\"MAYDAY, MAYDAY, MAYDAY\". Repetir tres veces da tiempo a que otros te escuchen y reconozcan la urgencia." },
+                "step3": { "title": "Identifícate:", "description": "Di \"AQUÍ\", seguido del nombre de tu barco tres veces, y luego tu indicativo de llamada (Call Sign) y MMSI." },
+                "step4": { "title": "Repite \"MAYDAY\"", "description": "una vez más, seguido de la información clave de la emergencia. Habla despacio y claro." },
+                "step5": { "title": "Posición:", "description": "Dala en latitud y longitud si es posible. Si no, usa una referencia clara a un punto geográfico conocido (ej: \"A 5 millas al este de la isla de Sálvora\")." },
+                "step6": { "title": "Naturaleza del Peligro:", "description": "Sé conciso. \"HUNDIMIENTO\", \"INCENDIO EN SALA DE MÁQUINAS\", \"NECESITO ASISTENCIA MÉDICA URGENTE\"." },
+                "step7": { "title": "Ayuda Requerida:", "description": "Generalmente será \"NECESITO ASISTENCIA INMEDIATA\"." },
+                "step8": { "title": "Personas a Bordo (POB):", "description": "Indica el número total de personas, incluyéndote a ti." },
+                "step9": { "title": "Información Adicional:", "description": "Menciona cualquier dato relevante. \"ESTAMOS ABANDONANDO EL BARCO EN BALSA SALVAVIDAS\", \"EL BARCO ES UN VELERO AZUL DE 12 METROS\"." },
+                "step10": { "title": "Finaliza con \"CAMBIO\"", "description": "y suelta el PTT para escuchar. Espera una respuesta de una estación costera o de otro buque." }
+            }
+        },
+        "systems": {
+            "title": "Principales Medios para Solicitar Socorro",
+            "vhf": {
+                "title": "VHF Marino con LSD (Llamada Selectiva Digital)",
+                "description": "El método más común y eficaz. El botón 'DISTRESS' (normalmente protegido por una tapa roja) envía una alerta automática con tu posición (si el GPS está conectado) y MMSI a todos los barcos y estaciones costeras en alcance. Tras la alerta LSD, se debe proceder con la llamada de voz MAYDAY en el Canal 16.",
+                "channel": "Canal 70 (LSD), luego Canal 16 (Voz)"
+            },
+            "epirb": {
+                "title": "Radiobaliza de Localización de Siniestros (EPIRB/RLS)",
+                "description": "Dispositivo que, al activarse (manual o automáticamente al contacto con el agua), transmite una señal de socorro a través del sistema de satélites Cospas-Sarsat. La señal, que contiene la identificación del buque y su posición, es recibida por los centros de coordinación de salvamento de todo el mundo.",
+                "channel": "Satélite (406 MHz)"
+            },
+            "visual": {
+                "title": "Señales Visuales de Socorro",
+                "description": "Cohetes o bengalas con paracaídas de luz roja, bengalas de mano de luz roja, y señales fumígenas de color naranja. Deben usarse cuando se tiene constancia de que hay barcos o aeronaves a la vista que puedan verlas.",
+                "channel": "Visual"
+            },
+            "mobile": {
+                "title": "Telefonía Móvil",
+                "description": "En áreas con cobertura, se puede llamar directamente a los servicios de emergencia (112) o a un Centro de Coordinación de Salvamento (ej: 900 202 202 en España). Es un método útil pero limitado por el alcance de la cobertura.",
+                "channel": "Llamada directa"
+            }
+        },
+        "thisIs": "AQUÍ",
+        "callSign": "INDICATIVO",
+        "myPosition": "MI POSICIÓN ES",
+        "iam": "ESTOY",
+        "iRequire": "NECESITO ASISTENCIA INMEDIATA",
+        "iHave": "TENGO",
+        "personsOnBoard": "PERSONAS A BORDO",
+        "over": "CAMBIO",
+        "placeholders": {
+            "shipName": "NOMBRE DEL BARCO",
+            "callSign": "INDICATIVO",
+            "position": "POSICIÓN (LAT/LON O REFERENCIA)",
+            "natureOfDistress": "NATURALEZA DEL PELIGRO (HUNDIMIENTO, INCENDIO...)",
+            "pob": "NÚMERO DE PERSONAS",
+            "otherInfo": "OTRA INFORMACIÓN (ABANDONO, BENGALAS...)"
+        }
+    }
+}

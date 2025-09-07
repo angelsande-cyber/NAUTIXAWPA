@@ -1,0 +1,127 @@
+{
+    "backToHome": "Back to Home",
+    "signOut": "Sign Out",
+    "signIn": {
+        "tagline": "Your navigation and communications assistant.",
+        "button": "Sign in with Google",
+        "signingIn": "Signing in..."
+    },
+    "titles": {
+        "home": "Home",
+        "sos": "SOS",
+        "signals": "Maritime Signals",
+        "colreg": "Regulations (COLREG)",
+        "quiz": "Quiz",
+        "directory": "Directory",
+        "calculator": "Coordinate Calculator",
+        "alphabet": "Phonetic Alphabet",
+        "channels": "VHF Channels",
+        "qcodes": "Q Codes",
+        "meteo": "Meteorology"
+    },
+    "dashboard": {
+        "sos": {
+            "label": "SOS",
+            "description": "Distress communications guide."
+        },
+        "signals": {
+            "label": "Signals",
+            "description": "Lights and shapes simulator."
+        },
+        "colreg": {
+            "label": "COLREG",
+            "description": "Browse the collision regulations."
+        },
+        "quiz": {
+            "label": "Quiz",
+            "description": "Generate practice quizzes."
+        },
+        "directory": {
+            "label": "Directory",
+            "description": "Rescue contact information."
+        },
+        "calculator": {
+            "label": "Calculator",
+            "description": "Coordinate converter."
+        },
+        "alphabet": {
+            "label": "Phonetic Alphabet",
+            "description": "International ICAO/NATO alphabet."
+        },
+        "channels": {
+            "label": "VHF Channels",
+            "description": "List of channels and common uses."
+        },
+        "qcodes": {
+            "label": "Q Codes",
+            "description": "List of common Q codes for reference."
+        },
+        "meteo": {
+            "label": "Meteorology",
+            "description": "Beaufort, Douglas scales and clouds."
+        }
+    },
+    "sos": {
+        "title": "Maritime Distress Communications",
+        "description": "Guide on how to correctly transmit a distress message and the means available in the Global Maritime Distress and Safety System (GMDSS).",
+        "procedure": {
+            "title": "MAYDAY Voice Call Procedure (VHF Channel 16)",
+            "alert": {
+                "title": "Only for Grave and Imminent Danger!",
+                "description": "The MAYDAY distress signal should only be used when there is a grave and imminent danger to life or the vessel itself (e.g., sinking, uncontrollable fire, serious collision)."
+            },
+            "explanation": {
+                "title": "Procedure Explanation",
+                "step1": { "title": "Tune to VHF Channel 16.", "description": "Ensure the transmission power is set to maximum (usually 25W)." },
+                "step2": { "title": "Press the transmit button (PTT) and say clearly:", "description": "\"MAYDAY, MAYDAY, MAYDAY\". Repeating three times gives others time to hear you and recognize the urgency." },
+                "step3": { "title": "Identify yourself:", "description": "Say \"THIS IS\", followed by your vessel's name three times, then your Call Sign and MMSI." },
+                "step4": { "title": "Repeat \"MAYDAY\"", "description": "once more, followed by the key information of the emergency. Speak slowly and clearly." },
+                "step5": { "title": "Position:", "description": "Give it in latitude and longitude if possible. If not, use a clear reference to a known geographical point (e.g., \"5 miles east of Sálvora island\")." },
+                "step6": { "title": "Nature of Distress:", "description": "Be concise. \"SINKING\", \"FIRE IN ENGINE ROOM\", \"REQUIRE URGENT MEDICAL ASSISTANCE\"." },
+                "step7": { "title": "Assistance Required:", "description": "This will generally be \"I REQUIRE IMMEDIATE ASSISTANCE\"." },
+                "step8": { "title": "Persons on Board (POB):", "description": "State the total number of people, including yourself." },
+                "step9": { "title": "Any Other Information:", "description": "Mention any relevant details. \"WE ARE ABANDONING SHIP IN A LIFERAFT\", \"THE VESSEL IS A 12-METER BLUE SAILBOAT\"." },
+                "step10": { "title": "End with \"OVER\"", "description": "and release the PTT to listen. Wait for a response from a coast station or another vessel." }
+            }
+        },
+        "systems": {
+            "title": "Main Means to Request Distress",
+            "vhf": {
+                "title": "Marine VHF with DSC (Digital Selective Calling)",
+                "description": "The most common and effective method. The 'DISTRESS' button (usually under a red cover) sends an automatic alert with your position (if GPS is connected) and MMSI to all ships and coast stations in range. After the DSC alert, a MAYDAY voice call should be made on Channel 16.",
+                "channel": "Channel 70 (DSC), then Channel 16 (Voice)"
+            },
+            "epirb": {
+                "title": "Emergency Position Indicating Radio Beacon (EPIRB)",
+                "description": "A device that, when activated (manually or automatically on contact with water), transmits a distress signal through the Cospas-Sarsat satellite system. The signal, containing the vessel's identification and position, is received by rescue coordination centers worldwide.",
+                "channel": "Satellite (406 MHz)"
+            },
+            "visual": {
+                "title": "Visual Distress Signals",
+                "description": "Red parachute flares, red handheld flares, and orange smoke signals. They should be used when you are aware that there are ships or aircraft in sight that can see them.",
+                "channel": "Visual"
+            },
+            "mobile": {
+                "title": "Mobile Phone",
+                "description": "In areas with coverage, you can call emergency services directly (112) or a Rescue Coordination Centre. It is a useful method but limited by coverage range.",
+                "channel": "Direct Call"
+            }
+        },
+        "thisIs": "THIS IS",
+        "callSign": "CALL SIGN",
+        "myPosition": "MY POSITION IS",
+        "iam": "I AM",
+        "iRequire": "I REQUIRE IMMEDIATE ASSISTANCE",
+        "iHave": "I HAVE",
+        "personsOnBoard": "PERSONS ON BOARD",
+        "over": "OVER",
+        "placeholders": {
+            "shipName": "VESSEL NAME",
+            "callSign": "CALL SIGN",
+            "position": "POSITION (LAT/LON OR REFERENCE)",
+            "natureOfDistress": "NATURE OF DISTRESS (SINKING, FIRE...)",
+            "pob": "NUMBER OF PERSONS",
+            "otherInfo": "ANY OTHER INFORMATION (ABANDONING, FLARES...)"
+        }
+    }
+}

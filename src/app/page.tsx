@@ -7,8 +7,8 @@ import { AppShell } from "@/components/AppShell";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
+import { useTranslation } from "@/context/LanguageContext";
 
-// --- Sub-components defined outside the main component ---
 
 const LoadingScreen = () => (
   <div className="flex min-h-screen items-center justify-center bg-background p-8">
@@ -22,6 +22,7 @@ const LoadingScreen = () => (
 
 const SignInScreen = ({ isLoading, signInAction }: { isLoading: boolean; signInAction: () => Promise<void> }) => {
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const { t } = useTranslation();
 
   const handleSignIn = async () => {
     setIsSigningIn(true);
@@ -29,11 +30,7 @@ const SignInScreen = ({ isLoading, signInAction }: { isLoading: boolean; signInA
       await signInAction();
     } catch (e) {
       console.error("Sign in failed:", e);
-      // Let the AuthContext handle user-facing errors
     } finally {
-      // The button state will be managed by the parent's `loading` prop
-      // after the initial click. But we keep this for cases where the
-      // popup is blocked or fails immediately.
       setIsSigningIn(false);
     }
   };
@@ -44,22 +41,20 @@ const SignInScreen = ({ isLoading, signInAction }: { isLoading: boolean; signInA
     <div className="flex min-h-screen items-center justify-center bg-background p-8">
       <div className="w-full max-w-sm rounded-2xl border bg-card p-8 text-center shadow-lg animate-in fade-in zoom-in-95">
         <h1 className="text-4xl font-bold tracking-tight text-primary">NAUTIXA</h1>
-        <p className="mt-2 text-muted-foreground">Tu asistente de navegación y comunicaciones.</p>
+        <p className="mt-2 text-muted-foreground">{t('signIn.tagline')}</p>
         <Button onClick={handleSignIn} disabled={buttonDisabled} className="mt-8 h-12 w-full text-base">
           {buttonDisabled ? (
             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
           ) : (
             <GoogleIcon className="mr-2 h-5 w-5" />
           )}
-          {buttonDisabled ? "Iniciando sesión..." : "Iniciar sesión con Google"}
+          {buttonDisabled ? t('signIn.signingIn') : t('signIn.button')}
         </Button>
       </div>
     </div>
   );
 };
 
-
-// --- Main Page Component ---
 
 export default function Home() {
   const { user, loading, signInWithGoogle } = useAuth();
