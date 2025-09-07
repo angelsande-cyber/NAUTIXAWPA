@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -301,7 +302,7 @@ const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
     let fill = `fill="${colorMap[buoy.colors[0]]}"`;
     if (buoy.colors.length > 1) {
         const gradientId = `grad-${buoy.colors.join('-').replace(/\s/g, '')}`;
-        const isVertical = buoy.shape !== 'pillar'; // Horizontal bands for pillars
+        const isVertical = buoy.shape !== 'pillar' && buoy.shape !== 'spherical'; // Horizontal bands for pillars/spheres
         const stops = buoy.colors.map((color:string, index:number) => {
             const step = 100 / buoy.colors.length;
             return `<stop offset="${index * step}%" stop-color="${colorMap[color]}" /><stop offset="${(index + 1) * step}%" stop-color="${colorMap[color]}" />`;
@@ -331,7 +332,7 @@ const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
             case 'cross': topmarkSvg = `<path d="M45 80 L55 90 M55 80 L45 90" stroke="${colorMap[tm.color]}" stroke-width="3"/>`; break;
             case 'cones-up': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
             case 'cones-down': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill}/><polygon points="40,80 60,80 50,96" ${tmFill}/>`; break;
-            case 'cones-base-base': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
+            case 'cones-base-base': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" transform="translate(0, -16)" ${tmFill}/>`; break;
             case 'cones-vertex-together': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill} /><polygon points="40,96 60,96 50,80" ${tmFill} />`; break;
         }
     }
