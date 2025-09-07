@@ -53,7 +53,7 @@ export const useSignalsData = () => {
         
         const ialaBuoyData = IALA_BUOY_DATA.map(buoy => ({
             ...buoy,
-            category: buoy.category, // Keep the key for filtering
+            // category is a key, so we don't translate it here
             type: t(buoy.type),
             purpose: t(buoy.purpose),
             mnemonic: t(buoy.mnemonic),
@@ -61,14 +61,14 @@ export const useSignalsData = () => {
 
         const colregRules = COLREG_RULES_DATA.map(rule => ({
             ...rule,
-            title: t(rule.title),
+            title: rule.title, // Keep as key
             description: t(rule.description),
             explanation: t(rule.explanation),
             lights: rule.lights.map(light => ({...light, desc: t(light.desc)})),
             marks: rule.marks.map(mark => ({...mark, desc: t(mark.desc)})),
             states: rule.states?.map(state => ({
                 ...state,
-                title: t(state.title),
+                title: state.title, // Keep as key
                 description: t(state.description),
                 explanation: t(state.explanation),
                 lights: state.lights.map(light => ({...light, desc: t(light.desc)})),
