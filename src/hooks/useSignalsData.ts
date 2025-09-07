@@ -57,14 +57,6 @@ export const useSignalsData = () => {
             Object.entries(LIGHT_TERMS_DATA).map(([key, valueKey]) => [key, t(valueKey as string)])
         ) as LightCharacteristicTerm;
         
-        const ialaBuoyData = IALA_BUOY_DATA.map((buoy: any) => ({
-            ...buoy,
-            type: t(buoy.type),
-            purpose: t(buoy.purpose),
-            mnemonic: t(buoy.mnemonic),
-            category: t(buoy.category)
-        }));
-
         const colregRules = COLREG_RULES_DATA.map((rule: any) => ({
             ...rule,
             title: t(rule.title),
@@ -91,7 +83,7 @@ export const useSignalsData = () => {
 
         return {
             lightTerms,
-            ialaBuoyData,
+            ialaBuoyData: IALA_BUOY_DATA,
             colregRules,
             vesselSvgs: VESSEL_SVGS,
             sonidosData: sonidosDataTranslated,
