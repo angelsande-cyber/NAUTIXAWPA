@@ -223,12 +223,13 @@ const LighthouseSimulator = () => {
                 {controlSections.map(section => (
                     <div key={section.label}>
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{section.label}</Label>
-                        <div className="grid grid-cols-4 gap-2 mt-2">
+                        <div className="flex flex-wrap gap-2 mt-2">
                             {section.options.map(opt => (
                                 <Button
                                     key={opt}
                                     variant={section.selectedValue === opt ? 'default' : 'outline'}
                                     onClick={() => section.stateSetter(opt)}
+                                    className="flex-grow"
                                 >
                                     {LIGHT_TERMS[opt as keyof typeof LIGHT_TERMS] || opt}
                                 </Button>

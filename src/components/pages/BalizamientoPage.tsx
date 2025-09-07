@@ -315,9 +315,9 @@ export default function BalizamientoPage() {
                         )}
                         <div>
                             <Label className="text-xs uppercase text-muted-foreground tracking-wider">Categoría</Label>
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                            <div className="flex flex-wrap gap-2 mt-2">
                                 {categories.map((category) => (
-                                    <Button key={category} variant={activeCategory === category ? 'default' : 'outline'} onClick={() => handleCategoryClick(category)}>
+                                    <Button key={category} variant={activeCategory === category ? 'default' : 'outline'} onClick={() => handleCategoryClick(category)} className="flex-grow">
                                         {category}
                                     </Button>
                                 ))}
@@ -326,9 +326,9 @@ export default function BalizamientoPage() {
                         {buoyTypesForCategory.length > 0 && (
                             <div>
                                 <Label className="text-xs uppercase text-muted-foreground tracking-wider">Tipo</Label>
-                                <div className={cn("grid gap-2 mt-2", buoyTypesForCategory.length > 2 ? 'grid-cols-2 md:grid-cols-4' : 'grid-cols-2')}>
+                                <div className="flex flex-wrap gap-2 mt-2">
                                     {buoyTypesForCategory.map((buoy, index) => (
-                                        <Button key={`${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                        <Button key={`${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)} className="flex-grow">
                                             {buoy.type}
                                         </Button>
                                     ))}

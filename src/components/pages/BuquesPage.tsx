@@ -129,9 +129,9 @@ const BuquesSimulator = () => {
                  {hasStates && stateData && (
                      <div>
                         <Label>Caso específico</Label>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
+                        <div className="flex flex-wrap gap-2 mt-2">
                             {ruleData.states.map((state, index) => (
-                                <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} onClick={() => setSelectedStateId(index)}>
+                                <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} onClick={() => setSelectedStateId(index)} className="flex-grow">
                                     {state.title}
                                 </Button>
                             ))}
@@ -142,9 +142,9 @@ const BuquesSimulator = () => {
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <Label>Vista</Label>
-                         <div className="grid grid-cols-3 gap-2 mt-2">
+                         <div className="flex flex-wrap gap-2 mt-2">
                             {(['bow', 'starboard', 'stern'] as const).map(v => (
-                                <Button key={v} variant={view === v ? 'default' : 'outline'} onClick={() => setView(v)}>
+                                <Button key={v} variant={view === v ? 'default' : 'outline'} onClick={() => setView(v)} className="flex-grow">
                                     { {bow: 'Proa', starboard: 'Estribor', stern: 'Popa'}[v] }
                                 </Button>
                             ))}
@@ -152,9 +152,9 @@ const BuquesSimulator = () => {
                     </div>
                     <div>
                         <Label>Condición</Label>
-                        <div className="grid grid-cols-2 gap-2 mt-2 h-10">
-                            <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/>Día</Button>
-                            <Button variant={isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(true)}><Moon className="mr-2 h-4 w-4"/>Noche</Button>
+                        <div className="flex flex-wrap gap-2 mt-2 h-10">
+                            <Button variant={!isNight ? 'default' : 'outline'} className="flex-grow" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/>Día</Button>
+                            <Button variant={isNight ? 'default' : 'outline'} className="flex-grow" onClick={() => setIsNight(true)}><Moon className="mr-2 h-4 w-4"/>Noche</Button>
                         </div>
                     </div>
                  </div>
