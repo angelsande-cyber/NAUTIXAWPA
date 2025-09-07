@@ -8,11 +8,23 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Label } from "@/components/ui/label";
 import { generatePerQuiz } from "@/ai/flows/examen";
-import type { QuizOutput, QuizQuestion } from "@/ai/schemas/examen-schema";
+import type { QuizOutput } from "@/ai/schemas/examen-schema";
 import { CheckCircle, HelpCircle, RefreshCw, XCircle } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
+
+// --- Module-level state to preserve quiz across re-renders ---
+let quizState: {
+  quiz: QuizOutput | null;
+  userAnswers: Record<number, number | undefined>;
+  error: string | null;
+} = {
+  quiz: null,
+  userAnswers: {},
+  error: null,
+};
+// ---
 
 const LoadingSkeleton = () => {
     return (
@@ -34,45 +46,61 @@ const LoadingSkeleton = () => {
 };
 
 export default function ExamenPage() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [quiz, setQuiz] = useState<QuizOutput | null>(null);
-  const [userAnswers, setUserAnswers] = useState<Record<number, number | undefined>>({});
+  const [loading, setLoading] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
+  
+  // Use a local state to trigger re-renders from module-level state changes
+  const [_, setRenderTrigger] = useState(0);
 
-  const loadQuiz = useCallback(async () => {
+  const forceRerender = () => setRenderTrigger(v => v + 1);
+
+  const loadQuiz = useCallback(async (forceNew = false) => {
+    if (quizState.quiz && !forceNew) {
+      return;
+    }
+    
     setLoading(true);
-    setError(null);
-    setQuiz(null);
+    quizState.error = null;
+    quizState.quiz = null;
+    
     setShowResults(false);
-    setUserAnswers({});
     setCurrentQuestionIndex(0);
+    quizState.userAnswers = {};
+    
     try {
-      // Hardcode language to 'es'
       const generatedQuiz = await generatePerQuiz({ language: 'es' });
-      setQuiz(generatedQuiz);
+      quizState.quiz = generatedQuiz;
     } catch (e) {
       console.error(e);
-      setError("No se pudo generar el examen. Por favor, inténtalo de nuevo.");
+      quizState.error = "No se pudo generar el examen. Por favor, inténtalo de nuevo.";
     } finally {
       setLoading(false);
+      forceRerender();
     }
   }, []);
 
+  // Load quiz only once on initial mount or if it's not already loaded
   useEffect(() => {
-    loadQuiz();
+    if (!quizState.quiz && !quizState.error) {
+        loadQuiz();
+    }
   }, [loadQuiz]);
 
   const handleAnswerChange = (questionIndex: number, answerIndexStr: string) => {
     const answerIndex = parseInt(answerIndexStr, 10);
-    setUserAnswers(prev => ({ ...prev, [questionIndex]: answerIndex }));
+    quizState.userAnswers[questionIndex] = answerIndex;
+    forceRerender(); // To update radio check
   };
+  
+  const handleRestart = () => {
+    loadQuiz(true);
+  }
 
   const calculateScore = () => {
-    if (!quiz) return 0;
-    return quiz.questions.reduce((score, question, index) => {
-      return userAnswers[index] === question.correctAnswerIndex ? score + 1 : score;
+    if (!quizState.quiz) return 0;
+    return quizState.quiz.questions.reduce((score, question, index) => {
+      return quizState.userAnswers[index] === question.correctAnswerIndex ? score + 1 : score;
     }, 0);
   };
 
@@ -80,14 +108,14 @@ export default function ExamenPage() {
     return <LoadingSkeleton />;
   }
   
-  if (error) {
+  if (quizState.error) {
     return (
         <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <Card className="w-full max-w-md p-6">
                 <XCircle className="mx-auto h-12 w-12 text-destructive" />
                 <h2 className="mt-4 text-xl font-semibold">Error al generar</h2>
-                <p className="mt-2 text-muted-foreground">{error}</p>
-                <Button onClick={loadQuiz} className="mt-6">
+                <p className="mt-2 text-muted-foreground">{quizState.error}</p>
+                <Button onClick={handleRestart} className="mt-6">
                     <RefreshCw className="mr-2 h-4 w-4" />
                     Reintentar
                 </Button>
@@ -97,14 +125,14 @@ export default function ExamenPage() {
   }
 
 
-  if (!quiz || quiz.questions.length === 0) {
+  if (!quizState.quiz || quizState.quiz.questions.length === 0) {
     return (
         <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <Card className="w-full max-w-md p-6">
                  <HelpCircle className="mx-auto h-12 w-12 text-muted-foreground" />
                 <h2 className="mt-4 text-xl font-semibold">Sin Preguntas</h2>
                 <p className="mt-2 text-muted-foreground">La IA no devolvió ninguna pregunta. Intenta generar un nuevo examen.</p>
-                <Button onClick={loadQuiz} className="mt-6">
+                <Button onClick={handleRestart} className="mt-6">
                     <RefreshCw className="mr-2 h-4 w-4" />
                      Generar Nuevo Examen
                 </Button>
@@ -113,9 +141,9 @@ export default function ExamenPage() {
     );
   }
 
-  const currentQuestion = quiz.questions[currentQuestionIndex];
+  const currentQuestion = quizState.quiz.questions[currentQuestionIndex];
   const score = calculateScore();
-  const totalQuestions = quiz.questions.length;
+  const totalQuestions = quizState.quiz.questions.length;
   
   if (showResults) {
     const passThreshold = Math.ceil(totalQuestions * 0.7);
@@ -133,8 +161,8 @@ export default function ExamenPage() {
           </CardHeader>
           <CardContent>
              <Accordion type="single" collapsible className="w-full">
-               {quiz.questions.map((q, index) => {
-                 const userAnswer = userAnswers[index];
+               {quizState.quiz.questions.map((q, index) => {
+                 const userAnswer = quizState.userAnswers[index];
                  const isCorrect = userAnswer === q.correctAnswerIndex;
                  return (
                    <AccordionItem value={`item-${index}`} key={index}>
@@ -161,7 +189,7 @@ export default function ExamenPage() {
                })}
              </Accordion>
              <div className="mt-6 text-center">
-                <Button onClick={loadQuiz}>
+                <Button onClick={handleRestart}>
                     <RefreshCw className="mr-2 h-4 w-4" />
                     Generar Nuevo Examen
                 </Button>
@@ -185,7 +213,7 @@ export default function ExamenPage() {
             <p className="font-semibold text-lg">{currentQuestion.question}</p>
             <RadioGroup
               key={currentQuestionIndex}
-              value={userAnswers[currentQuestionIndex]?.toString()}
+              value={quizState.userAnswers[currentQuestionIndex]?.toString()}
               onValueChange={(value) => handleAnswerChange(currentQuestionIndex, value)}
               className="space-y-2"
             >
