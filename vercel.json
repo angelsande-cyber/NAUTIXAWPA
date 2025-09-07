@@ -1,7 +1,7 @@
 {
-    "functions": {
-        "src/ai/flows/examen.ts": {
-            "maxDuration": 90
-        }
+  "functions": {
+    "src/app/api/genkit/[...slug]/route.ts": {
+      "maxDuration": 300
     }
+  }
 }
