@@ -3,69 +3,11 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { useTranslation } from "@/context/LanguageContext";
-import { Skeleton } from "@/components/ui/skeleton";
-
-interface BeaufortScaleData {
-    force: number;
-    denomination: string;
-    speedKnots: string;
-    waveHeight: string;
-    seaState: string;
-}
-
-interface DouglasScaleData {
-    degree: number;
-    denomination: string;
-    waveHeight: string;
-}
-
-interface CloudTypeData {
-    type: string;
-    altitude: string;
-    description: string;
-    imageUrl: string;
-    hint: string;
-}
-
-interface MeteorologiaData {
-    beaufortScale: BeaufortScaleData[];
-    douglasSeaScale: DouglasScaleData[];
-    douglasSwellScale: DouglasScaleData[];
-    cloudTypes: CloudTypeData[];
-}
-
-const LoadingSkeleton = () => (
-    <div className="p-4 md:p-6 space-y-6">
-        {[1, 2, 3].map(i => (
-             <Card key={i} className="w-full max-w-4xl mx-auto">
-                <CardHeader>
-                    <Skeleton className="h-8 w-1/2" />
-                    <Skeleton className="h-4 w-3/4" />
-                </CardHeader>
-                <CardContent>
-                    <Skeleton className="h-40 w-full" />
-                </CardContent>
-            </Card>
-        ))}
-    </div>
-);
-
+import { BEAUFORT_SCALE_DATA, DOUGLAS_SEA_SCALE, DOUGLAS_SWELL_SCALE, CLOUD_TYPES_DATA } from "@/lib/data/meteorologia";
 
 export default function MeteorologiaPage() {
-    const [data, setData] = useState<MeteorologiaData | null>(null);
     const { t } = useTranslation();
-
-    useEffect(() => {
-        fetch('/data/meteorologia.json')
-            .then(res => res.json())
-            .then(setData);
-    }, []);
-
-    if (!data) {
-        return <LoadingSkeleton />;
-    }
 
     return (
         <div className="p-4 md:p-6 space-y-6">
@@ -87,7 +29,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {data.beaufortScale.map((item) => (
+                                {BEAUFORT_SCALE_DATA.map((item) => (
                                     <TableRow key={item.force}>
                                         <TableCell className="font-bold text-center">{item.force}</TableCell>
                                         <TableCell>{t(item.denomination)}</TableCell>
@@ -119,7 +61,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {data.douglasSeaScale.map((item) => (
+                                {DOUGLAS_SEA_SCALE.map((item) => (
                                     <TableRow key={item.degree}>
                                         <TableCell className="font-bold text-center">{item.degree}</TableCell>
                                         <TableCell>{t(item.denomination)}</TableCell>
@@ -140,7 +82,7 @@ export default function MeteorologiaPage() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {data.douglasSwellScale.map((item) => (
+                                {DOUGLAS_SWELL_SCALE.map((item) => (
                                     <TableRow key={item.degree}>
                                         <TableCell className="font-bold text-center">{item.degree}</TableCell>
                                         <TableCell>{t(item.denomination)}</TableCell>
@@ -159,7 +101,7 @@ export default function MeteorologiaPage() {
                     <CardDescription>{t('meteo.clouds.description')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    {data.cloudTypes.map((cloud) => (
+                    {CLOUD_TYPES_DATA.map((cloud) => (
                         <Card key={cloud.type} className="overflow-hidden">
                             <div className="grid grid-cols-1 md:grid-cols-3">
                                 <div className="md:col-span-1 relative h-48">
