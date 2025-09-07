@@ -413,12 +413,12 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, []);
 
     const buoyTypesForCategory = useMemo(() => {
-        const lateralCategoryKey = "Lateral Marks";
+        const lateralCategoryName = t("signals.buoyage.categories.lateral");
         return buoyData.filter(b => {
             if (b.category !== activeCategory) {
                 return false;
             }
-            if (b.category === lateralCategoryKey || b.category === t('signals.buoyage.categories.lateral')) {
+            if (b.category === lateralCategoryName) {
                  return b.region === region;
             }
             return true;
@@ -429,7 +429,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     return (
         <div>
             <div className="space-y-4">
-                { (activeCategory === t("signals.buoyage.categories.lateral") || activeCategory === "Lateral Marks") && (
+                { activeCategory === t("signals.buoyage.categories.lateral") && (
                     <div className="flex items-center space-x-2 p-3 bg-muted rounded-lg">
                         <Label htmlFor="iala-region" className="font-semibold">{t('signals.buoys.ialaRegion')}</Label>
                         <span className={cn(region === 'A' ? '' : 'text-muted-foreground', "font-bold")}>A</span>

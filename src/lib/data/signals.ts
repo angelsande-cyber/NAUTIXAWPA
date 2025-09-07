@@ -1,4 +1,5 @@
 
+
 // This file contains all the static data for the signals simulator.
 // It uses translation keys that will be resolved by the useSignalsData hook.
 
@@ -72,7 +73,7 @@ export const IALA_BUOY_DATA = [
         "shape": "pillar",
         "colors": ["black", "yellow"],
         "topmark": { "shape": "cones-up", "color": "black" },
-        "characteristic": "VQ or Q",
+        "characteristic": "VQ W or Q W",
         "purpose": "signals.buoyage.purposes.north",
         "mnemonic": "signals.buoyage.mnemonics.north"
     },
@@ -82,7 +83,7 @@ export const IALA_BUOY_DATA = [
         "shape": "pillar",
         "colors": ["yellow", "black"],
         "topmark": { "shape": "cones-down", "color": "black" },
-        "characteristic": "VQ(6)+LFl 15s",
+        "characteristic": "VQ(6)+LFl W 15s",
         "purpose": "signals.buoyage.purposes.south",
         "mnemonic": "signals.buoyage.mnemonics.south"
     },
@@ -92,7 +93,7 @@ export const IALA_BUOY_DATA = [
         "shape": "pillar",
         "colors": ["black", "yellow", "black"],
         "topmark": { "shape": "cones-base-base", "color": "black" },
-        "characteristic": "VQ(3) 5s",
+        "characteristic": "VQ(3) W 5s",
         "purpose": "signals.buoyage.purposes.east",
         "mnemonic": "signals.buoyage.mnemonics.east"
     },
@@ -102,7 +103,7 @@ export const IALA_BUOY_DATA = [
         "shape": "pillar",
         "colors": ["yellow", "black", "yellow"],
         "topmark": { "shape": "cones-vertex-together", "color": "black" },
-        "characteristic": "VQ(9) 10s",
+        "characteristic": "VQ(9) W 10s",
         "purpose": "signals.buoyage.purposes.west",
         "mnemonic": "signals.buoyage.mnemonics.west"
     },

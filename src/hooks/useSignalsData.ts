@@ -55,7 +55,7 @@ export const useSignalsData = () => {
         if (!isLoaded) return null;
         
         const translatedLightTerms = Object.fromEntries(
-            Object.entries(LIGHT_TERMS_DATA).map(([key]) => [key, t(`signals.terms.${key}`)])
+            Object.entries(LIGHT_TERMS_DATA).map(([key]) => [key, t(LIGHT_TERMS_DATA[key as keyof typeof LIGHT_TERMS_DATA])])
         ) as LightCharacteristicTerm;
 
         const translatedSoundSignals = SOUND_SIGNALS_DATA.map(signal => ({
