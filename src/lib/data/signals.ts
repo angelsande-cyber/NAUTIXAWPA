@@ -541,5 +541,3 @@ export const SOUND_SIGNALS_DATA = [
         "rule": "Regla 35(k)"
     }
 ];
-
-    

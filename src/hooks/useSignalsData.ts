@@ -1,6 +1,12 @@
-
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from '@/context/LanguageContext';
+import {
+    LIGHT_TERMS_DATA,
+    IALA_BUOY_DATA,
+    COLREG_RULES_DATA,
+    VESSEL_SVGS,
+    SOUND_SIGNALS_DATA,
+} from '@/lib/data/signals';
 
 export interface LightCharacteristicTerm {
     [key: string]: string;
@@ -43,42 +49,15 @@ export interface SoundSignal {
 
 export const useSignalsData = () => {
     const { t, isLoaded } = useTranslation();
-    const [signalsData, setSignalsData] = useState<any>(null);
-    const [soundsData, setSoundsData] = useState<any>(null);
-
-    useEffect(() => {
-        const fetchSignals = async () => {
-            try {
-                const response = await fetch('/data/senales.json');
-                const data = await response.json();
-                setSignalsData(data);
-            } catch (error) {
-                console.error("Failed to fetch signals data:", error);
-            }
-        };
-
-        const fetchSounds = async () => {
-            try {
-                const response = await fetch('/data/sonidos.json');
-                const data = await response.json();
-                setSoundsData(data);
-            } catch (error) {
-                console.error("Failed to fetch sounds data:", error);
-            }
-        };
-
-        fetchSignals();
-        fetchSounds();
-    }, []);
 
     const data = useMemo(() => {
-        if (!isLoaded || !signalsData || !soundsData) return null;
+        if (!isLoaded) return null;
 
         const lightTerms = Object.fromEntries(
-            Object.entries(signalsData.lightTerms).map(([key, valueKey]) => [key, t(valueKey as string)])
+            Object.entries(LIGHT_TERMS_DATA).map(([key, valueKey]) => [key, t(valueKey as string)])
         ) as LightCharacteristicTerm;
         
-        const ialaBuoyData = signalsData.ialaBuoyData.map((buoy: any) => ({
+        const ialaBuoyData = IALA_BUOY_DATA.map((buoy: any) => ({
             ...buoy,
             type: t(buoy.type),
             purpose: t(buoy.purpose),
@@ -86,7 +65,7 @@ export const useSignalsData = () => {
             category: t(buoy.category)
         }));
 
-        const colregRules = signalsData.colregRules.map((rule: any) => ({
+        const colregRules = COLREG_RULES_DATA.map((rule: any) => ({
             ...rule,
             title: t(rule.title),
             description: t(rule.description),
@@ -103,7 +82,7 @@ export const useSignalsData = () => {
             }))
         }));
 
-        const sonidosDataTranslated = soundsData.map((sound: any) => ({
+        const sonidosDataTranslated = SOUND_SIGNALS_DATA.map((sound: any) => ({
             ...sound,
             title: t(sound.title),
             description: t(sound.description),
@@ -114,13 +93,11 @@ export const useSignalsData = () => {
             lightTerms,
             ialaBuoyData,
             colregRules,
-            vesselSvgs: signalsData.vesselSvgs,
+            vesselSvgs: VESSEL_SVGS,
             sonidosData: sonidosDataTranslated,
         };
 
-    }, [t, isLoaded, signalsData, soundsData]);
+    }, [t, isLoaded]);
 
     return { data, isLoading: !isLoaded || !data };
 };
-
-    
