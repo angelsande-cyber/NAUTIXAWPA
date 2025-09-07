@@ -35,7 +35,7 @@ export const METEO_DATA = {
         { degree: 3, denomination: 'meteo.douglas.swell.d3', waveHeight: 'meteo.douglas.swell.waveHeight.3' },
     ],
     cloudTypeKeys: [
-        { type: 'meteo.clouds.types.cirrus.name', altitude: 'meteo.clouds.types.cirrus.altitude', description: 'meteo.clouds.types.cirrus.description', imageUrl: 'https://images.pexels.com/photos/1766623/pexels-photo-1766623.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=1', hint: 'cirrus wispy' },
+        { type: 'meteo.clouds.types.cirrus.name', altitude: 'meteo.clouds.types.cirrus.altitude', description: 'meteo.clouds.types.cirrus.description', imageUrl: 'https://images.pexels.com/photos/844297/pexels-photo-844297.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=1', hint: 'cirrus wispy' },
         { type: 'meteo.clouds.types.cirrocumulus.name', altitude: 'meteo.clouds.types.cirrocumulus.altitude', description: 'meteo.clouds.types.cirrocumulus.description', imageUrl: 'https://images.pexels.com/photos/975006/pexels-photo-975006.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=1', hint: 'cirrocumulus mackerel' },
         { type: 'meteo.clouds.types.cirrostratus.name', altitude: 'meteo.clouds.types.cirrostratus.altitude', description: 'meteo.clouds.types.cirrostratus.description', imageUrl: 'https://images.pexels.com/photos/4047186/pexels-photo-4047186.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=1', hint: 'cirrostratus halo' },
         { type: 'meteo.clouds.types.altocumulus.name', altitude: 'meteo.clouds.types.altocumulus.altitude', description: 'meteo.clouds.types.altocumulus.description', imageUrl: 'https://images.pexels.com/photos/208821/pexels-photo-208821.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&dpr=1', hint: 'altocumulus midlevel' },
