@@ -47,6 +47,9 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
                 audio.pause();
                 audio.src = '';
             });
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current);
+            }
         };
     }, []);
 
@@ -55,23 +58,34 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
             clearTimeout(timeoutRef.current);
             timeoutRef.current = null;
         }
+        Object.values(audioRefs.current).forEach(audio => {
+            audio.pause();
+            audio.currentTime = 0;
+        });
         setIsPlaying(false);
     }, []);
 
     const playSequence = useCallback((sequence: string[]) => {
-        let delay = 0;
-        sequence.forEach((sound, index) => {
-            timeoutRef.current = setTimeout(() => {
-                const audio = audioRefs.current[sound];
-                if (audio) {
-                    audio.currentTime = 0;
-                    audio.play().catch(e => console.error("Error playing sound:", e));
-                }
-            }, delay);
-            // Rough durations for sequencing
-            delay += (sound === 'long' ? 2500 : sound === 'bell' || sound === 'gong' ? 5500 : 1000);
-            if(sound === 'long' && sequence[index + 1] === 'long') delay += 2000;
-        });
+        let cumulativeDelay = 0;
+        const playNext = (index: number) => {
+            if (index >= sequence.length) {
+                setIsPlaying(false); // Sequence finished
+                return;
+            }
+            const sound = sequence[index];
+            const audio = audioRefs.current[sound];
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.error("Error playing sound:", e));
+                
+                let delay = 1000; // Default delay for short blast
+                if (sound === 'long') delay = 2500;
+                if (sound === 'bell' || sound === 'gong') delay = 5500;
+                
+                timeoutRef.current = setTimeout(() => playNext(index + 1), delay);
+            }
+        };
+        playNext(0);
     }, []);
 
 
@@ -82,14 +96,14 @@ export default function SonidosSimulator({ sonidosData }: { sonidosData: SoundSi
             const signal = sonidosData.find(s => s.id === selectedSignalId);
             if (signal) {
                 setIsPlaying(true);
-                playSequence(signal.sequence); // Play once immediately
+                playSequence(signal.sequence);
             }
         }
     };
     
     // Cleanup on component unmount or signal change
     useEffect(() => {
-        return () => stopAllSounds();
+        stopAllSounds();
     }, [selectedSignalId, stopAllSounds]);
 
     const selectedSignal = sonidosData.find(s => s.id === selectedSignalId);

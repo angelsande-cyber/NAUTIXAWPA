@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { AtSign, Phone, Search } from 'lucide-react';
+import { useTranslation } from '@/context/LanguageContext';
 
 interface PhoneEntry {
     name: string;
@@ -14,6 +15,7 @@ interface PhoneEntry {
 export default function DirectorioPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [phoneEntries, setPhoneEntries] = useState<PhoneEntry[]>([]);
+    const { t } = useTranslation();
 
     useEffect(() => {
         fetch('/data/directorio.json')
@@ -32,17 +34,15 @@ export default function DirectorioPage() {
         <div className="p-4 md:p-6">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Directorio de Centros de Salvamento</CardTitle>
-                    <CardDescription>
-                        Busca por nombre, centro, o palabra clave para encontrar información de contacto de los Centros de Coordinación de Salvamento (CCS) de España.
-                    </CardDescription>
+                    <CardTitle>{t('directory.title')}</CardTitle>
+                    <CardDescription>{t('directory.description')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="relative mb-6">
                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
                             type="search"
-                            placeholder="Buscar (ej: 'Vigo', 'cataluña', '981...')"
+                            placeholder={t('directory.searchPlaceholder')}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             className="pl-10"
@@ -72,7 +72,7 @@ export default function DirectorioPage() {
                                 </Card>
                             ))
                         ) : (
-                            <p className="text-muted-foreground col-span-full text-center py-8">No se encontraron resultados para "{searchTerm}".</p>
+                            <p className="text-muted-foreground col-span-full text-center py-8">{t('directory.noResults', { searchTerm })}</p>
                         )}
                     </div>
                 </CardContent>

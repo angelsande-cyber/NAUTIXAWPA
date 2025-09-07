@@ -336,17 +336,18 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     const [activeType, setActiveType] = useState<string | null>(null);
     const { t, language } = useTranslation();
 
+    const getLocalized = useCallback((obj: any, key: string) => {
+        if (!obj) return '';
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null && 'es' in value && 'en' in value) {
+            return value[language];
+        }
+        return value;
+    }, [language]);
+
+
     const categories = useMemo(() => Array.from(new Set(buoyData.map(b => t(b.category)))), [buoyData, t]);
     
-    const getLocalized = useCallback((obj: any, key: string) => {
-        const value = obj[key];
-        if (typeof value === 'object' && value !== null) {
-            return value[language] || value['es'];
-        }
-        return t(value);
-    }, [language, t]);
-
-
     const handleCategoryClick = useCallback((category: string) => {
         setActiveCategory(category);
         setActiveType(null);
@@ -357,7 +358,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
         if(buoySchematicEl) buoySchematicEl.innerHTML = '';
     }, [t]);
 
-    const handleTypeClick = useCallback((buoy: any) => {
+    const handleTypeClick = useCallback((buoy: BuoyData) => {
         setActiveType(getLocalized(buoy, 'type'));
         const schematicContainer = document.getElementById('buoy-schematic-container');
         const infoPanel = document.getElementById('buoy-info-panel');
@@ -366,12 +367,13 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
             const lightEl = schematicContainer.querySelector<SVGElement>('#buoy-svg-light');
             if (lightEl) {
                 const char = parseLighthouseCharacteristic(buoy.characteristic);
-                const mnemonicHtml = buoy.mnemonic ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${getLocalized(buoy,'mnemonic')}</p>` : '';
-                const infoTitle = `<h4 class="font-bold">${getLocalized(buoy, 'type')}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${getLocalized(buoy, 'purpose')}</p>${mnemonicHtml}<hr class="my-2"/>`;
+                const mnemonicText = getLocalized(buoy.mnemonic, language);
+                const mnemonicHtml = mnemonicText ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${mnemonicText}</p>` : '';
+                const infoTitle = `<h4 class="font-bold">${getLocalized(buoy.type, language)}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${getLocalized(buoy.purpose, language)}</p>${mnemonicHtml}<hr class="my-2"/>`;
                 runSimulation(lightEl, infoPanel, char, lightTerms, infoTitle);
             }
         }
-    }, [lightTerms, t, getLocalized]);
+    }, [lightTerms, t, getLocalized, language]);
     
     useEffect(() => {
         if(categories.length > 0 && !activeCategory) {
@@ -380,7 +382,6 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, [categories, activeCategory, handleCategoryClick]);
 
      useEffect(() => {
-        // When region changes, if the current category is lateral marks, reset it.
         const lateralMarkCategory = t("signals.buoyage.categories.lateral");
         if (activeCategory === lateralMarkCategory) {
             setActiveType(null);
@@ -392,7 +393,6 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, [region, activeCategory, t]);
     
      useEffect(() => {
-        // Cleanup on component unmount
         return () => {
             if (simulationTimeout) {
                 clearInterval(simulationTimeout);
@@ -435,7 +435,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map(buoy => (
                                 <Button key={`${getLocalized(buoy, 'type')}-${buoy.region || ''}`} variant={activeType === getLocalized(buoy, 'type') ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
-                                    {getLocalized(buoy, 'type')}
+                                    {getLocalized(buoy.type, language)}
                                 </Button>
                             ))}
                         </div>
@@ -453,7 +453,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     );
 };
 
-const renderBuoySchematic = (container: HTMLElement, buoy: any) => {
+const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
     const colorMap: { [key: string]: string } = { 'red': '#EF4444', 'green': '#22C55E', 'yellow': '#EAB308', 'black': 'hsl(var(--foreground))', 'white': '#F0F2F5' };
     const stroke = 'hsl(var(--foreground))';
 
@@ -833,7 +833,7 @@ export default function SenalesPage() {
                         </TabsContent>
                          <TabsContent value="sonidos" className="pt-6">
                            <SonidosSimulator sonidosData={sonidosData} />
-                        </TabsContent>
+                         </TabsContent>
                         <TabsContent value="balizamiento" className="pt-6">
                             <BuoySimulator buoyData={senalesData.ialaBuoyData} lightTerms={senalesData.lightTerms} />
                         </TabsContent>

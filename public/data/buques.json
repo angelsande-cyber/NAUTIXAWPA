@@ -1,34 +1,34 @@
 {
     "vesselSvgs": {
         "power_gt50": {
-            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 5 60 L 195 60 L 195 55 C 190 55, 185 40, 175 40 L 165 40 L 165 30 L 155 30 L 155 40 L 45 40 L 45 35 L 25 35 L 25 40 L 15 40 C 5 40, 5 55, 5 55 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 5 60 L 195 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 L 90 60 L 90 55 C 85 40, 75 30, 65 30 L 35 30 C 25 30, 15 40, 10 55 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 10 60 L 90 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 L 90 60 L 90 30 L 10 30 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 10 60 L 90 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>"
+            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 5 60 L 195 60 L 195 55 C 190 55, 185 40, 175 40 L 165 40 L 165 30 L 155 30 L 155 40 L 45 40 L 45 35 L 25 35 L 25 40 L 15 40 C 5 40, 5 55, 5 55 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 5 60 L 195 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 L 90 60 L 90 55 C 85 40, 75 30, 65 30 L 35 30 C 25 30, 15 40, 10 55 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 10 60 L 90 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 L 90 60 L 90 30 L 10 30 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 10 60 L 90 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>"
         },
         "power_lt50": {
-            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 10 65 C 20 50, 190 55, 195 60 L 190 65 L 15 65 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 50 60 L 50 45 L 150 45 C 160 45, 160 55, 150 55 L 60 55 L 60 60 Z\" fill=\"#333\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\" /><path d=\"M 65 40 L 130 40 L 125 45 L 70 45 Z\" fill=\"#333\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\" /><path d=\"M 10 65 L 195 65\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 10 65 C 20 50, 80 50, 90 65 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 50 35 L 65 50 L 35 50 Z\" fill=\"#333\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\"/><path d=\"M 30 50 H 70 V 65 H 30 Z\" fill=\"#333\" stroke-width=\"0.5\"/><path d=\"M 10 65 L 90 65\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 10 65 C 20 50, 80 50, 90 65 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 20 45 H 80 V 65 H 20 Z\" fill=\"#333\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\"/><path d=\"M 10 65 L 90 65\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>"
+            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 10 65 C 20 50, 190 55, 195 60 L 190 65 L 15 65 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 50 60 L 50 45 L 150 45 C 160 45, 160 55, 150 55 L 60 55 L 60 60 Z\" fill=\"#333\" stroke=\"currentColor\" strokeWidth=\"0.5\" /><path d=\"M 65 40 L 130 40 L 125 45 L 70 45 Z\" fill=\"#333\" stroke=\"currentColor\" strokeWidth=\"0.5\" /><path d=\"M 10 65 L 195 65\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 10 65 C 20 50, 80 50, 90 65 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 50 35 L 65 50 L 35 50 Z\" fill=\"#333\" stroke=\"currentColor\" strokeWidth=\"0.5\"/><path d=\"M 30 50 H 70 V 65 H 30 Z\" fill=\"#333\" strokeWidth=\"0.5\"/><path d=\"M 10 65 L 90 65\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 10 65 C 20 50, 80 50, 90 65 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 20 45 H 80 V 65 H 20 Z\" fill=\"#333\" stroke=\"currentColor\" strokeWidth=\"0.5\"/><path d=\"M 10 65 L 90 65\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>"
         },
         "sailing": {
-            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 20 65 C 40 50, 160 50, 180 65 L 175 65 L 25 65 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 90 10 L 95 65 M 50 65 H 150\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" /><path d=\"M 97 15 C 110 30, 110 50, 97 63\" fill=\"#444\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\" /><path d=\"M 93 15 C 60 30, 70 63, 93 63\" fill=\"#333\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\" /><path d=\"M 20 65 L 180 65\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 15 65 C 25 55, 75 55, 85 65 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 50 10 L 50 65\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" /><path d=\"M 52 15 C 70 30, 65 63, 52 63\" fill=\"#444\" stroke=\"hsl(var(--foreground))\" /><path d=\"M 15 65 L 85 65\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 15 65 C 25 55, 75 55, 85 65 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 50 10 L 50 65\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" /><path d=\"M 48 15 C 30 30, 35 63, 48 63\" fill=\"#444\" stroke=\"hsl(var(--foreground))\" /><path d=\"M 15 65 L 85 65\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>"
+            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 20 65 C 40 50, 160 50, 180 65 L 175 65 L 25 65 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 90 10 L 95 65 M 50 65 H 150\" stroke=\"currentColor\" strokeWidth=\"1\" /><path d=\"M 97 15 C 110 30, 110 50, 97 63\" fill=\"#444\" stroke=\"currentColor\" strokeWidth=\"0.5\" /><path d=\"M 93 15 C 60 30, 70 63, 93 63\" fill=\"#333\" stroke=\"currentColor\" strokeWidth=\"0.5\" /><path d=\"M 20 65 L 180 65\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 15 65 C 25 55, 75 55, 85 65 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 50 10 L 50 65\" stroke=\"currentColor\" strokeWidth=\"1\" /><path d=\"M 52 15 C 70 30, 65 63, 52 63\" fill=\"#444\" stroke=\"currentColor\" /><path d=\"M 15 65 L 85 65\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 5)\"><path d=\"M 15 65 C 25 55, 75 55, 85 65 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 50 10 L 50 65\" stroke=\"currentColor\" strokeWidth=\"1\" /><path d=\"M 48 15 C 30 30, 35 63, 48 63\" fill=\"#444\" stroke=\"currentColor\" /><path d=\"M 15 65 L 85 65\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>"
         },
         "fishing": {
-            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 L 190 60 L 190 55 C 180 55, 170 45, 150 45 L 110 45 L 110 30 L 60 30 L 60 45 L 30 45 C 20 45, 15 50, 10 55 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 140 45 L 120 20 M 115 20 H 145\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" /><path d=\"M 10 60 L 190 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 C 10 45, 90 45, 90 60 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><rect x=\"30\" y=\"30\" width=\"40\" height=\"30\" fill=\"#333\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\" /><path d=\"M 10 60 L 90 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 C 10 45, 90 45, 90 60 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><rect x=\"30\" y=\"30\" width=\"40\" height=\"30\" fill=\"#333\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\" /><path d=\"M 10 60 L 90 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>"
+            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 L 190 60 L 190 55 C 180 55, 170 45, 150 45 L 110 45 L 110 30 L 60 30 L 60 45 L 30 45 C 20 45, 15 50, 10 55 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 140 45 L 120 20 M 115 20 H 145\" stroke=\"currentColor\" strokeWidth=\"1\" /><path d=\"M 10 60 L 190 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 C 10 45, 90 45, 90 60 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><rect x=\"30\" y=\"30\" width=\"40\" height=\"30\" fill=\"#333\" stroke=\"currentColor\" strokeWidth=\"0.5\" /><path d=\"M 10 60 L 90 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 10 60 C 10 45, 90 45, 90 60 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><rect x=\"30\" y=\"30\" width=\"40\" height=\"30\" fill=\"#333\" stroke=\"currentColor\" strokeWidth=\"0.5\" /><path d=\"M 10 60 L 90 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>"
         },
         "tug": {
-            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 15)\"><path d=\"M 20 55 L 180 55 L 180 45 L 140 45 L 140 30 L 60 30 L 60 45 L 20 45 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 20 55 L 180 55\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 15)\"><path d=\"M 20 55 L 80 55 L 80 30 L 20 30 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 20 55 L 80 55\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 15)\"><path d=\"M 20 55 L 80 55 L 80 30 L 20 30 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 20 55 L 80 55\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>"
+            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 15)\"><path d=\"M 20 55 L 180 55 L 180 45 L 140 45 L 140 30 L 60 30 L 60 45 L 20 45 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 20 55 L 180 55\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 15)\"><path d=\"M 20 55 L 80 55 L 80 30 L 20 30 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 20 55 L 80 55\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 15)\"><path d=\"M 20 55 L 80 55 L 80 30 L 20 30 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 20 55 L 80 55\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>"
         },
         "power_lt12": {
-            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 30 60 C 40 50, 170 50, 180 60 L 170 60 L 40 60 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 70 50 L 140 50 L 130 60 L 80 60 Z\" fill=\"#333\" stroke=\"hsl(var(--foreground))\" stroke-width=\"0.5\" /><path d=\"M 30 60 L 180 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 20 60 C 30 50, 70 50, 80 60 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 20 60 L 80 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>",
-            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 20 60 L 80 60 L 80 55 L 20 55 Z\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1\" fill=\"hsl(var(--foreground))\" /><path d=\"M 20 60 L 80 60\" stroke=\"hsl(var(--foreground))\" stroke-width=\"1.5\" /></g></svg>"
+            "side": "<svg viewBox=\"0 0 200 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 30 60 C 40 50, 170 50, 180 60 L 170 60 L 40 60 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 70 50 L 140 50 L 130 60 L 80 60 Z\" fill=\"#333\" stroke=\"currentColor\" strokeWidth=\"0.5\" /><path d=\"M 30 60 L 180 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "front": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 20 60 C 30 50, 70 50, 80 60 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 20 60 L 80 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>",
+            "back": "<svg viewBox=\"0 0 100 80\" class=\"w-full h-full\"><g transform=\"translate(0, 10)\"><path d=\"M 20 60 L 80 60 L 80 55 L 20 55 Z\" stroke=\"currentColor\" strokeWidth=\"1\" fill=\"currentColor\" /><path d=\"M 20 60 L 80 60\" stroke=\"currentColor\" strokeWidth=\"1.5\" /></g></svg>"
         }
     },
     "colregRules": [
@@ -53,8 +53,8 @@
             "description": "signals.vessels.rules.R25.description",
             "svg": "sailing",
             "lights": [
-                { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
-                { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
+                { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 60, "y": 60 }, "starboard": { "x": 80, "y": 60 } } },
+                { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 40, "y": 60 } } },
                 { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
             ],
             "marks": [
@@ -71,17 +71,15 @@
                     "description": "signals.vessels.rules.R24.states.towing_gt200.description",
                     "svg": "tug",
                     "lights": [
-                        { "id": "masthead-1", "color": "white", "desc": "signals.vessels.lights.masthead_1_towing", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 30, "y": 30 } } },
-                        { "id": "masthead-2", "color": "white", "desc": "signals.vessels.lights.masthead_2_towing", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 37 }, "starboard": { "x": 30, "y": 37 } } },
-                        { "id": "masthead-3", "color": "white", "desc": "signals.vessels.lights.masthead_3_towing", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 44 }, "starboard": { "x": 30, "y": 44 } } },
+                        { "id": "masthead-1", "color": "white", "desc": "signals.vessels.lights.masthead_1_v", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 30, "y": 30 } } },
+                        { "id": "masthead-2", "color": "white", "desc": "signals.vessels.lights.masthead_2_v", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 37 }, "starboard": { "x": 30, "y": 37 } } },
+                        { "id": "masthead-3", "color": "white", "desc": "signals.vessels.lights.masthead_3_v", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 44 }, "starboard": { "x": 30, "y": 44 } } },
                         { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
                         { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
                         { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 40 } } },
                         { "id": "towing-light", "color": "yellow", "desc": "signals.vessels.lights.towing_light", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 35 } } }
                     ],
-                    "marks": [
-                        { "id": "diamond-tow", "shape": "diamond", "desc": "signals.vessels.marks.diamond_tow", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 50, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
-                    ],
+                    "marks": [{ "id": "diamond-tow", "shape": "diamond", "desc": "signals.vessels.marks.diamond_tow", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 50, "y": 25 }, "stern": { "x": 50, "y": 25 } } } ],
                     "explanation": "signals.vessels.rules.R24.states.towing_gt200.explanation"
                 },
                 {
@@ -89,8 +87,8 @@
                     "description": "signals.vessels.rules.R24.states.towing_lt200.description",
                     "svg": "tug",
                     "lights": [
-                        { "id": "masthead-1", "color": "white", "desc": "signals.vessels.lights.masthead_1_towing", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 30, "y": 30 } } },
-                        { "id": "masthead-2", "color": "white", "desc": "signals.vessels.lights.masthead_2_towing", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 37 }, "starboard": { "x": 30, "y": 37 } } },
+                        { "id": "masthead-1", "color": "white", "desc": "signals.vessels.lights.masthead_1_v", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 30, "y": 30 } } },
+                        { "id": "masthead-2", "color": "white", "desc": "signals.vessels.lights.masthead_2_v", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 37 }, "starboard": { "x": 30, "y": 37 } } },
                         { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
                         { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
                         { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 40 } } },
@@ -104,11 +102,11 @@
                     "description": "signals.vessels.rules.R24.states.pushing.description",
                     "svg": "tug",
                     "lights": [
-                        { "id": "masthead-fwd", "color": "white", "desc": "signals.vessels.lights.masthead_fwd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 30, "y": 30 } } },
-                        { "id": "masthead-aft", "color": "white", "desc": "signals.vessels.lights.masthead_aft", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 70, "y": 25 } } },
-                        { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
-                        { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
-                        { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
+                         { "id": "masthead-fwd", "color": "white", "desc": "signals.vessels.lights.masthead_fwd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 30, "y": 30 } } },
+                         { "id": "masthead-aft", "color": "white", "desc": "signals.vessels.lights.masthead_aft", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 70, "y": 25 } } },
+                         { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
+                         { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
+                         { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
                     ],
                     "marks": [],
                     "explanation": "signals.vessels.rules.R24.states.pushing.explanation"
@@ -126,30 +124,30 @@
                     "lights": [
                         { "id": "trawl-g", "color": "green", "desc": "signals.vessels.lights.trawl_g", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } },
                         { "id": "trawl-w", "color": "white", "desc": "signals.vessels.lights.trawl_w", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 33 }, "starboard": { "x": 40, "y": 33 }, "stern": { "x": 50, "y": 33 } } },
-                        { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd_ underway", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
-                        { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port_underway", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
-                        { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_underway", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
+                        { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelights_making_way", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
+                        { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelights_making_way", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
+                        { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_making_way", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
                     ],
                     "marks": [
-                        { "id": "trawl-mark", "shape": "cones-vertex-together", "desc": "signals.vessels.marks.trawl", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
+                        { "id": "trawl-mark", "shape": "cones-vertex-together", "desc": "signals.vessels.marks.trawl_mark", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
                     ],
                     "explanation": "signals.vessels.rules.R26.states.trawling.explanation"
                 },
                 {
-                    "title": "signals.vessels.rules.R26.states.fishing.title",
-                    "description": "signals.vessels.rules.R26.states.fishing.description",
+                    "title": "signals.vessels.rules.R26.states.fishing_other.title",
+                    "description": "signals.vessels.rules.R26.states.fishing_other.description",
                     "svg": "fishing",
                     "lights": [
                         { "id": "fish-r", "color": "red", "desc": "signals.vessels.lights.fish_r", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } },
                         { "id": "fish-w", "color": "white", "desc": "signals.vessels.lights.fish_w", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 33 }, "starboard": { "x": 40, "y": 33 }, "stern": { "x": 50, "y": 33 } } },
-                        { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd_ underway", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
-                        { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port_underway", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
-                        { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_underway", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
+                        { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelights_making_way", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
+                        { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelights_making_way", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
+                        { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_making_way", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
                     ],
                     "marks": [
-                        { "id": "trawl-mark", "shape": "cones-vertex-together", "desc": "signals.vessels.marks.trawl", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
+                        { "id": "trawl-mark", "shape": "cones-vertex-together", "desc": "signals.vessels.marks.trawl_mark", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
                     ],
-                    "explanation": "signals.vessels.rules.R26.states.fishing.explanation"
+                    "explanation": "signals.vessels.rules.R26.states.fishing_other.explanation"
                 }
             ]
         },
@@ -162,14 +160,14 @@
                     "description": "signals.vessels.rules.R27.states.nuc.description",
                     "svg": "power_gt50",
                     "lights": [
-                        { "id": "nuc-r1", "color": "red", "desc": "signals.vessels.lights.nuc", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 50, "y": 28 } } },
+                        { "id": "nuc-r1", "color": "red", "desc": "signals.vessels.lights.nuc_r", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 50, "y": 28 } } },
                         { "id": "nuc-r2", "color": "red", "desc": "", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 36 }, "starboard": { "x": 40, "y": 36 }, "stern": { "x": 50, "y": 36 } } },
-                        { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd_ underway", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
-                        { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port_underway", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
-                        { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_underway", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
+                        { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelights_making_way", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
+                        { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelights_making_way", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
+                        { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_making_way", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
                     ],
                     "marks": [
-                        { "id": "nuc-b1", "shape": "ball", "desc": "signals.vessels.marks.nuc", "position": { "bow": { "x": 50, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 50, "y": 28 } } },
+                        { "id": "nuc-b1", "shape": "ball", "desc": "signals.vessels.marks.nuc_balls", "position": { "bow": { "x": 50, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 50, "y": 28 } } },
                         { "id": "nuc-b2", "shape": "ball", "desc": "", "position": { "bow": { "x": 50, "y": 41 }, "starboard": { "x": 40, "y": 41 }, "stern": { "x": 50, "y": 41 } } }
                     ],
                     "explanation": "signals.vessels.rules.R27.states.nuc.explanation"
@@ -179,17 +177,17 @@
                     "description": "signals.vessels.rules.R27.states.ram.description",
                     "svg": "power_gt50",
                     "lights": [
-                        { "id": "ram-r1", "color": "red", "desc": "signals.vessels.lights.ram", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 20 }, "starboard": { "x": 40, "y": 20 }, "stern": { "x": 50, "y": 20 } } },
+                        { "id": "ram-r1", "color": "red", "desc": "signals.vessels.lights.ram_rwb", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 20 }, "starboard": { "x": 40, "y": 20 }, "stern": { "x": 50, "y": 20 } } },
                         { "id": "ram-w", "color": "white", "desc": "", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 50, "y": 28 } } },
                         { "id": "ram-r2", "color": "red", "desc": "", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 36 }, "starboard": { "x": 40, "y": 36 }, "stern": { "x": 50, "y": 36 } } },
-                        { "id": "masthead-fwd", "color": "white", "desc": "signals.vessels.lights.masthead_fwd_underway", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 30, "y": 30 } } },
-                        { "id": "masthead-aft", "color": "white", "desc": "signals.vessels.lights.masthead_aft_underway", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 70, "y": 25 } } },
-                        { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd_ underway", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
-                        { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port_underway", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
-                        { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_underway", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
+                        { "id": "masthead-fwd", "color": "white", "desc": "signals.vessels.lights.pdv_lights_making_way", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 30, "y": 30 } } },
+                        { "id": "masthead-aft", "color": "white", "desc": "", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 70, "y": 25 } } },
+                        { "id": "sidelight-stbd", "color": "green", "desc": "", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
+                        { "id": "sidelight-port", "color": "red", "desc": "", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
+                        { "id": "sternlight", "color": "white", "desc": "", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
                     ],
                     "marks": [
-                        { "id": "ram-b1", "shape": "ball", "desc": "signals.vessels.marks.ram", "position": { "bow": { "x": 50, "y": 15 }, "starboard": { "x": 40, "y": 15 }, "stern": { "x": 50, "y": 15 } } },
+                        { "id": "ram-b1", "shape": "ball", "desc": "signals.vessels.marks.ram_bdb", "position": { "bow": { "x": 50, "y": 15 }, "starboard": { "x": 40, "y": 15 }, "stern": { "x": 50, "y": 15 } } },
                         { "id": "ram-d", "shape": "diamond", "desc": "", "position": { "bow": { "x": 50, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 50, "y": 28 } } },
                         { "id": "ram-b2", "shape": "ball", "desc": "", "position": { "bow": { "x": 50, "y": 41 }, "starboard": { "x": 40, "y": 41 }, "stern": { "x": 50, "y": 41 } } }
                     ],
@@ -208,12 +206,12 @@
                 { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
                 { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
                 { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } },
-                { "id": "cbd-r1", "color": "red", "desc": "signals.vessels.lights.cbd", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 55, "y": 20 }, "starboard": { "x": 40, "y": 20 }, "stern": { "x": 55, "y": 20 } } },
+                { "id": "cbd-r1", "color": "red", "desc": "signals.vessels.lights.cbd_r", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 55, "y": 20 }, "starboard": { "x": 40, "y": 20 }, "stern": { "x": 55, "y": 20 } } },
                 { "id": "cbd-r2", "color": "red", "desc": "", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 55, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 55, "y": 28 } } },
                 { "id": "cbd-r3", "color": "red", "desc": "", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 55, "y": 36 }, "starboard": { "x": 40, "y": 36 }, "stern": { "x": 55, "y": 36 } } }
             ],
             "marks": [
-                { "id": "cylinder", "shape": "cylinder", "desc": "signals.vessels.marks.cbd", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
+                { "id": "cylinder", "shape": "cylinder", "desc": "signals.vessels.marks.cbd_cylinder", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
             ],
             "explanation": "signals.vessels.rules.R28.explanation"
         },
@@ -230,7 +228,7 @@
                         { "id": "anchor-aft", "color": "white", "desc": "signals.vessels.lights.anchor_aft", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 40 }, "starboard": { "x": 85, "y": 55 }, "stern": { "x": 50, "y": 40 } } }
                     ],
                     "marks": [
-                        { "id": "ball", "shape": "ball", "desc": "signals.vessels.marks.anchored", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 20, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
+                        { "id": "ball", "shape": "ball", "desc": "signals.vessels.marks.anchor_ball", "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 20, "y": 25 }, "stern": { "x": 50, "y": 25 } } }
                     ],
                     "explanation": "signals.vessels.rules.R30.states.anchored.explanation"
                 },
@@ -239,13 +237,13 @@
                     "description": "signals.vessels.rules.R30.states.aground.description",
                     "svg": "power_gt50",
                     "lights": [
-                        { "id": "anchor-fwd", "color": "white", "desc": "signals.vessels.lights.anchor_fwd_aground", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 20, "y": 30 }, "stern": { "x": 50, "y": 30 } } },
+                        { "id": "anchor-fwd", "color": "white", "desc": "signals.vessels.lights.anchor_lights", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 30 }, "starboard": { "x": 20, "y": 30 }, "stern": { "x": 50, "y": 30 } } },
                         { "id": "anchor-aft", "color": "white", "desc": "", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 40 }, "starboard": { "x": 85, "y": 55 }, "stern": { "x": 50, "y": 40 } } },
-                        { "id": "aground-r1", "color": "red", "desc": "signals.vessels.lights.aground", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 20 }, "starboard": { "x": 40, "y": 20 }, "stern": { "x": 50, "y": 20 } } },
+                        { "id": "aground-r1", "color": "red", "desc": "signals.vessels.lights.aground_r", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 20 }, "starboard": { "x": 40, "y": 20 }, "stern": { "x": 50, "y": 20 } } },
                         { "id": "aground-r2", "color": "red", "desc": "", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 50, "y": 28 } } }
                     ],
                     "marks": [
-                        { "id": "aground-b1", "shape": "ball", "desc": "signals.vessels.marks.aground", "position": { "bow": { "x": 50, "y": 15 }, "starboard": { "x": 40, "y": 15 }, "stern": { "x": 50, "y": 15 } } },
+                        { "id": "aground-b1", "shape": "ball", "desc": "signals.vessels.marks.aground_balls", "position": { "bow": { "x": 50, "y": 15 }, "starboard": { "x": 40, "y": 15 }, "stern": { "x": 50, "y": 15 } } },
                         { "id": "aground-b2", "shape": "ball", "desc": "", "position": { "bow": { "x": 50, "y": 28 }, "starboard": { "x": 40, "y": 28 }, "stern": { "x": 50, "y": 28 } } },
                         { "id": "aground-b3", "shape": "ball", "desc": "", "position": { "bow": { "x": 50, "y": 41 }, "starboard": { "x": 40, "y": 41 }, "stern": { "x": 50, "y": 41 } } }
                     ],
@@ -261,9 +259,9 @@
             "lights": [
                 { "id": "pilot-w", "color": "white", "desc": "signals.vessels.lights.pilot_w", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 25 }, "starboard": { "x": 40, "y": 25 }, "stern": { "x": 50, "y": 25 } } },
                 { "id": "pilot-r", "color": "red", "desc": "signals.vessels.lights.pilot_r", "arc": { "bow": true, "starboard": true, "stern": true }, "position": { "bow": { "x": 50, "y": 33 }, "starboard": { "x": 40, "y": 33 }, "stern": { "x": 50, "y": 33 } } },
-                { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelight_stbd_ underway", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
-                { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelight_port_underway", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
-                { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_underway", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
+                { "id": "sidelight-stbd", "color": "green", "desc": "signals.vessels.lights.sidelights_making_way", "arc": { "bow": true, "starboard": true, "stern": false }, "position": { "bow": { "x": 70, "y": 58 }, "starboard": { "x": 50, "y": 58 } } },
+                { "id": "sidelight-port", "color": "red", "desc": "signals.vessels.lights.sidelights_making_way", "arc": { "bow": true, "starboard": false, "stern": false }, "position": { "bow": { "x": 30, "y": 58 } } },
+                { "id": "sternlight", "color": "white", "desc": "signals.vessels.lights.sternlight_making_way", "arc": { "bow": false, "starboard": false, "stern": true }, "position": { "stern": { "x": 50, "y": 55 } } }
             ],
             "marks": [],
             "explanation": "signals.vessels.rules.R29.explanation"
