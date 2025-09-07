@@ -237,12 +237,11 @@ const LighthouseSimulator = () => {
                 {controlSections.map(section => (
                     <div key={section.label}>
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{section.label}</Label>
-                        <div className="flex flex-wrap gap-2 mt-2">
+                        <div className="grid grid-cols-4 gap-2 mt-2">
                             {section.options.map(opt => (
                                 <Button
                                     key={opt}
                                     variant={section.selectedValue === opt ? 'default' : 'outline'}
-                                    className="flex-1"
                                     onClick={() => section.stateSetter(opt)}
                                 >
                                     {LIGHT_TERMS[opt as keyof typeof LIGHT_TERMS] || opt}
@@ -442,7 +441,7 @@ const BuoySimulator = () => {
                 )}
                  <div>
                     <Label className="text-xs uppercase text-muted-foreground tracking-wider">Categoría</Label>
-                    <div className="flex flex-wrap gap-2 mt-2">
+                    <div className="grid grid-cols-3 gap-2 mt-2">
                         {categories.map((category) => (
                             <Button key={category} variant={activeCategory === category ? 'default' : 'outline'} onClick={() => handleCategoryClick(category)}>
                                 {category}
@@ -453,7 +452,7 @@ const BuoySimulator = () => {
                 {buoyTypesForCategory.length > 0 && (
                     <div>
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">Tipo</Label>
-                        <div className="flex flex-wrap gap-2 mt-2">
+                        <div className={cn("grid gap-2 mt-2", buoyTypesForCategory.length > 2 ? 'grid-cols-3' : 'grid-cols-2')}>
                             {buoyTypesForCategory.map((buoy, index) => (
                                 <Button key={`${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
                                     {buoy.type}
@@ -605,9 +604,9 @@ const BuquesSimulator = () => {
                  {hasStates && stateData && (
                      <div>
                         <Label>Caso específico</Label>
-                        <div className="flex flex-wrap gap-2 mt-2">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mt-2">
                             {ruleData.states.map((state, index) => (
-                                <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} className="flex-1" onClick={() => setSelectedStateId(index)}>
+                                <Button key={index} variant={selectedStateId === index ? 'default' : 'outline'} onClick={() => setSelectedStateId(index)}>
                                     {state.title}
                                 </Button>
                             ))}
@@ -618,9 +617,9 @@ const BuquesSimulator = () => {
                  <div className="grid grid-cols-2 gap-4">
                     <div>
                         <Label>Vista</Label>
-                         <div className="flex flex-wrap gap-2 mt-2">
+                         <div className="grid grid-cols-3 gap-2 mt-2">
                             {(['bow', 'starboard', 'stern'] as const).map(v => (
-                                <Button key={v} variant={view === v ? 'default' : 'outline'} className="flex-1" onClick={() => setView(v)}>
+                                <Button key={v} variant={view === v ? 'default' : 'outline'} onClick={() => setView(v)}>
                                     { {bow: 'Proa', starboard: 'Estribor', stern: 'Popa'}[v] }
                                 </Button>
                             ))}
@@ -628,7 +627,7 @@ const BuquesSimulator = () => {
                     </div>
                     <div>
                         <Label>Condición</Label>
-                        <div className="flex flex-wrap gap-2 mt-2 h-10">
+                        <div className="grid grid-cols-2 gap-2 mt-2 h-10">
                             <Button variant={!isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(false)}><Sun className="mr-2 h-4 w-4"/>Día</Button>
                             <Button variant={isNight ? 'default' : 'outline'} className="flex-1" onClick={() => setIsNight(true)}><Moon className="mr-2 h-4 w-4"/>Noche</Button>
                         </div>
