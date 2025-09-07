@@ -28,7 +28,7 @@ export interface ColregRule {
     svg: string;
     lights: any[];
     marks: any[];
-    explanation: string;
+    explanation?: string;
     states?: any[];
 }
 
@@ -61,18 +61,18 @@ export const useSignalsData = () => {
 
         const colregRules = COLREG_RULES_DATA.map(rule => ({
             ...rule,
-            title: rule.title, // Keep as key
+            title: t(rule.title),
             description: t(rule.description),
-            explanation: t(rule.explanation),
-            lights: rule.lights.map(light => ({...light, desc: t(light.desc)})),
-            marks: rule.marks.map(mark => ({...mark, desc: t(mark.desc)})),
+            explanation: rule.explanation ? t(rule.explanation) : '',
+            lights: rule.lights.map(light => ({...light, desc: light.desc ? t(light.desc) : ''})),
+            marks: rule.marks.map(mark => ({...mark, desc: mark.desc ? t(mark.desc) : ''})),
             states: rule.states?.map(state => ({
                 ...state,
-                title: state.title, // Keep as key
+                title: t(state.title),
                 description: t(state.description),
-                explanation: t(state.explanation),
-                lights: state.lights.map(light => ({...light, desc: t(light.desc)})),
-                marks: state.marks.map(mark => ({...mark, desc: t(mark.desc)})),
+                explanation: state.explanation ? t(state.explanation) : '',
+                lights: state.lights.map(light => ({...light, desc: light.desc ? t(light.desc) : ''})),
+                marks: state.marks.map(mark => ({...mark, desc: mark.desc ? t(mark.desc) : ''})),
             }))
         }));
 
