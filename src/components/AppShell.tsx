@@ -91,6 +91,19 @@ export function AppShell({ user }: { user: User }) {
     { id: "codigosq", label: "Códigos Q", icon: MessageSquareQuote, description: "Referencia de los códigos Q más comunes." },
     { id: "meteorologia", label: "Meteorología", icon: Cloud, description: "Escalas Beaufort, Douglas y tipos de nubes." },
   ];
+  
+  const iconColorStyles: { [key: string]: { bg: string, text: string, hoverBg: string } } = {
+    sosgen: { bg: 'bg-rose-500/10', text: 'text-rose-500', hoverBg: 'group-hover:bg-rose-500/20' },
+    senales: { bg: 'bg-amber-500/10', text: 'text-amber-500', hoverBg: 'group-hover:bg-amber-500/20' },
+    colreg: { bg: 'bg-teal-500/10', text: 'text-teal-500', hoverBg: 'group-hover:bg-teal-500/20' },
+    examen: { bg: 'bg-indigo-500/10', text: 'text-indigo-500', hoverBg: 'group-hover:bg-indigo-500/20' },
+    directorio: { bg: 'bg-sky-500/10', text: 'text-sky-500', hoverBg: 'group-hover:bg-sky-500/20' },
+    calculadora: { bg: 'bg-slate-500/10', text: 'text-slate-500', hoverBg: 'group-hover:bg-slate-500/20' },
+    alfabeto: { bg: 'bg-fuchsia-500/10', text: 'text-fuchsia-500', hoverBg: 'group-hover:bg-fuchsia-500/20' },
+    canales: { bg: 'bg-cyan-500/10', text: 'text-cyan-500', hoverBg: 'group-hover:bg-cyan-500/20' },
+    codigosq: { bg: 'bg-lime-500/10', text: 'text-lime-500', hoverBg: 'group-hover:bg-lime-500/20' },
+    meteorologia: { bg: 'bg-blue-500/10', text: 'text-blue-500', hoverBg: 'group-hover:bg-blue-500/20' },
+  };
 
   const pageTitleMap: { [key: string]: string } = {
     dashboard: "Panel de Navegación",
@@ -122,14 +135,16 @@ export function AppShell({ user }: { user: User }) {
         return (
           <div className="p-4 md:p-6 lg:p-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {dashboardItems.map((item) => (
+              {dashboardItems.map((item) => {
+                  const colors = iconColorStyles[item.id] || { bg: 'bg-primary/10', text: 'text-primary', hoverBg: 'group-hover:bg-primary/20' };
+                  return (
                   <button
                       key={item.id}
                       onClick={() => setActivePage(item.id)}
                       className="group text-left p-4 bg-card border rounded-lg hover:bg-card/90 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between"
                   >
                      <div className="flex items-start gap-4">
-                        <div className="p-3 rounded-md bg-gradient-to-br from-primary/10 to-primary/20 text-primary transition-colors duration-200 group-hover:from-primary/20 group-hover:to-primary/30">
+                        <div className={cn("p-3 rounded-md transition-colors duration-200", colors.bg, colors.text, colors.hoverBg)}>
                             <item.icon className="h-6 w-6"/>
                         </div>
                         <div className="flex-1">
@@ -138,7 +153,7 @@ export function AppShell({ user }: { user: User }) {
                         </div>
                      </div>
                   </button>
-              ))}
+              )})}
             </div>
           </div>
         );
