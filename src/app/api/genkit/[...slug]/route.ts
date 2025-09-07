@@ -6,6 +6,6 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { createApiRoute } from '@genkit-ai/next';
+import { createGenkitNextApi } from '@genkit-ai/next';
 
-export const { GET, POST } = createApiRoute(ai);
+export const { GET, POST } = createGenkitNextApi({ ai });
