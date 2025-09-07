@@ -75,6 +75,24 @@ export const DIRECTORY_DATA: DirectoryData = {
                  { name: "Accastillage Diffusion", phones: [], email: "info@accastillage-diffusion.es", keywords: ["Tienda", "Efectos", "Nautica", "AD"] },
                  { name: "Plastimo", phones: [], email: null, keywords: ["Tienda", "Seguridad", "Defensas", "Compas"] }
             ]
+        },
+        {
+            category: "Formación Náutica (PER, PNB, etc.)",
+            items: [
+                { name: "Cenáutica", phones: ["900 83 40 30"], email: "info@cenautica.com", keywords: ["Formacion", "Escuela", "PER", "PNB", "Titulaciones"] },
+                { name: "Escuela del Mar", phones: ["932 21 03 80"], email: "info@escoladelmar.com", keywords: ["Barcelona", "Escuela", "Formacion"] },
+                { name: "Alavela", phones: ["914 48 51 51"], email: "info@alavela.es", keywords: ["Madrid", "Escuela", "Formacion"] }
+            ]
+        },
+        {
+            category: "Capitanías Marítimas",
+            items: [
+                { name: "Capitanía Marítima de Barcelona", phones: ["932 23 47 00"], email: "cm-barcelona@fomento.es", keywords: ["Capitania", "Barcelona", "Administracion"] },
+                { name: "Capitanía Marítima de Palma", phones: ["971 72 20 00"], email: "cm-mallorca@fomento.es", keywords: ["Capitania", "Palma", "Mallorca", "Administracion"] },
+                { name: "Capitanía Marítima de Valencia", phones: ["963 67 93 02"], email: "cm-valencia@fomento.es", keywords: ["Capitania", "Valencia", "Administracion"] },
+                { name: "Capitanía Marítima de Bilbao", phones: ["944 23 58 79"], email: "cm-bilbao@fomento.es", keywords: ["Capitania", "Bilbao", "Bizkaia", "Administracion"] },
+                { name: "Dirección General de la Marina Mercante", phones: ["915 97 90 57"], email: null, keywords: ["Madrid", "DGMM", "Administracion"] }
+            ]
         }
     ]
 };
