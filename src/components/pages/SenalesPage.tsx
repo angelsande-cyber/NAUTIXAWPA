@@ -32,6 +32,11 @@ interface LightCharacteristic {
 function parseLighthouseCharacteristic(charStr: string): LightCharacteristic | null {
     if (!charStr) return null;
 
+    // Handle "or" cases by taking the first part
+    if (charStr.toUpperCase().includes(' OR ')) {
+        charStr = charStr.toUpperCase().split(' OR ')[0];
+    }
+
     charStr = charStr.trim().toUpperCase().replace(/,/g, '.');
 
     const result: LightCharacteristic = {
@@ -69,12 +74,7 @@ function parseLighthouseCharacteristic(charStr: string): LightCharacteristic | n
     
     charStr = charStr.replace(/\b(GP|GRP)\b/g, '').trim();
 
-    // Handle cases like "VQ or Q"
-    if (charStr.includes(' OR ')) {
-        result.rhythm = charStr.split(' OR ')[0] || 'Q';
-    } else {
-        result.rhythm = charStr.split(' ')[0] || 'FL';
-    }
+    result.rhythm = charStr.split(' ')[0] || 'FL';
 
 
     return result;
