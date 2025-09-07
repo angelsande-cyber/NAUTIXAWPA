@@ -192,7 +192,7 @@ export function AppShell({ user }: { user: User }) {
         </main>
         
         <nav className="fixed bottom-0 left-0 right-0 z-10 border-t bg-background/80 backdrop-blur-lg shadow-[0_-2px_10px_-5px_rgba(0,0,0,0.1)]">
-            <div className="grid h-16 grid-cols-1 items-center justify-center gap-1">
+            <div className="flex justify-center items-center h-16">
                  
                     <button
                       key="dashboard"

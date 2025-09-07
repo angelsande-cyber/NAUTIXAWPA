@@ -168,9 +168,9 @@ function runSimulation(
     runSequence();
     simulationTimeout = setInterval(runSequence, char.period! * 1000);
     
-    const rhythmText = LIGHT_TERMS[char.rhythm] || char.rhythm;
+    const rhythmText = LIGHT_TERMS[char.rhythm as keyof typeof LIGHT_TERMS] || char.rhythm;
     const groupText = char.group ? ` en grupos de ${char.group}` : '';
-    const colorsText = char.colors.map(c => LIGHT_TERMS[c] || c).join(' ');
+    const colorsText = char.colors.map(c => LIGHT_TERMS[c as keyof typeof LIGHT_TERMS] || c).join(' ');
     const periodText = ` cada ${char.period}s`;
     
     const desc = `${rhythmText} ${colorsText}${groupText}${periodText}`;
@@ -245,7 +245,7 @@ const LighthouseSimulator = () => {
                                     className="flex-1"
                                     onClick={() => section.stateSetter(opt)}
                                 >
-                                    {LIGHT_TERMS[opt] || opt}
+                                    {LIGHT_TERMS[opt as keyof typeof LIGHT_TERMS] || opt}
                                 </Button>
                             ))}
                         </div>
@@ -266,7 +266,7 @@ const LighthouseSimulator = () => {
                     <span className="w-full border-t" />
                 </div>
                 <div className="relative bg-card px-4 text-sm text-muted-foreground">
-                    O introduce manually
+                    O introduce manualmente
                 </div>
             </div>
 
@@ -725,7 +725,7 @@ export default function SenalesPage() {
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="buques" className="w-full">
-                         <div className="overflow-x-auto">
+                         <div className="overflow-x-auto pb-2">
                             <TabsList className="grid w-full grid-cols-4 min-w-[500px] gap-2 h-auto bg-transparent p-0">
                                 <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Buques</TabsTrigger>
                                 <TabsTrigger value="sonidos" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Sonidos</TabsTrigger>

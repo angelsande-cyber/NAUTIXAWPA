@@ -28,28 +28,30 @@ export default function AlfabetoPage() {
                 </CardHeader>
                 <CardContent>
                     <div className="overflow-hidden rounded-lg border">
-                        <Table>
-                            <TableHeader>
-                                <TableRow className="bg-muted/50 hover:bg-muted/50">
-                                    <TableHead className="w-24 uppercase">Bandera</TableHead>
-                                    <TableHead className="uppercase">Letra</TableHead>
-                                    <TableHead className="uppercase">Palabra Clave</TableHead>
-                                    <TableHead className="uppercase">Significado</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {combinedLetters.map((item, index) => (
-                                    <TableRow key={item.letter} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
-                                        <TableCell>
-                                            <div className="w-20 h-12 flex items-center justify-center">{item.flag}</div>
-                                        </TableCell>
-                                        <TableCell className="font-bold text-lg">{item.letter}</TableCell>
-                                        <TableCell className="font-mono">{item.word}</TableCell>
-                                        <TableCell>{item.meaning}</TableCell>
+                        <div className="relative w-full overflow-auto">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                        <TableHead className="w-24 uppercase">Bandera</TableHead>
+                                        <TableHead className="uppercase">Letra</TableHead>
+                                        <TableHead className="uppercase">Palabra Clave</TableHead>
+                                        <TableHead className="uppercase">Significado</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {combinedLetters.map((item, index) => (
+                                        <TableRow key={item.letter} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
+                                            <TableCell>
+                                                <div className="w-20 h-12 flex items-center justify-center">{item.flag}</div>
+                                            </TableCell>
+                                            <TableCell className="font-bold text-lg">{item.letter}</TableCell>
+                                            <TableCell className="font-mono">{item.word}</TableCell>
+                                            <TableCell>{item.meaning}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
@@ -61,26 +63,28 @@ export default function AlfabetoPage() {
                 </CardHeader>
                 <CardContent>
                     <div className="overflow-hidden rounded-lg border">
-                        <Table>
-                            <TableHeader>
-                                <TableRow className="bg-muted/50 hover:bg-muted/50">
-                                    <TableHead className="w-24 uppercase">Gallardete</TableHead>
-                                    <TableHead className="uppercase">Número</TableHead>
-                                    <TableHead className="uppercase">Pronunciación</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {combinedNumbers.map((item, index) => (
-                                    <TableRow key={item.digit} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
-                                        <TableCell>
-                                            <div className="w-20 h-12 flex items-center justify-center">{item.flag}</div>
-                                        </TableCell>
-                                        <TableCell className="font-bold text-lg">{item.digit}</TableCell>
-                                        <TableCell className="font-mono">{item.pronunciation}</TableCell>
+                        <div className="relative w-full overflow-auto">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                                        <TableHead className="w-24 uppercase">Gallardete</TableHead>
+                                        <TableHead className="uppercase">Número</TableHead>
+                                        <TableHead className="uppercase">Pronunciación</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {combinedNumbers.map((item, index) => (
+                                        <TableRow key={item.digit} className={index % 2 !== 0 ? "bg-muted/25" : ""}>
+                                            <TableCell>
+                                                <div className="w-20 h-12 flex items-center justify-center">{item.flag}</div>
+                                            </TableCell>
+                                            <TableCell className="font-bold text-lg">{item.digit}</TableCell>
+                                            <TableCell className="font-mono">{item.pronunciation}</TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </div>
                     </div>
                 </CardContent>
             </Card>
