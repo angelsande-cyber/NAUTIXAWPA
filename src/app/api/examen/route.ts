@@ -14,12 +14,25 @@ const corsHeaders = {
 const handler = appRoute(generatePerQuizFlow);
 
 export async function POST(req: Request) {
-  // Handle preflight requests for CORS
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { status: 204, headers: corsHeaders });
+  let input: unknown = undefined;
+  try {
+    const contentType = req.headers.get('content-type') || '';
+    if (req.body && contentType.includes('application/json')) {
+      input = await req.json();
+    }
+  } catch (e) {
+    // Ignore parsing errors, fallback will be used
   }
 
-  const res = await handler(req);
+  const payload = input ?? { language: 'es' };
+
+  const wrappedReq = new Request(req.url, {
+      method: 'POST',
+      headers: new Headers({ 'Content-Type': 'application/json' }),
+      body: JSON.stringify(payload),
+  });
+  
+  const res = await handler(wrappedReq);
   
   // Apply CORS headers to the actual response
   const headers = new Headers(res.headers);
