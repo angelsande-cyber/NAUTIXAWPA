@@ -80,7 +80,7 @@ export default function DirectorioPage() {
 
     return (
         <div className="p-4 md:p-6 space-y-6">
-             <div className="sticky top-0 z-10 bg-background/95 backdrop-blur-sm -mx-6 -mt-6 px-6 pt-6 pb-4">
+             <div className="sticky top-[calc(var(--header-height,0px)+1rem)] z-10 bg-background/95 backdrop-blur-sm -mx-6 -mt-6 px-6 pt-6 pb-4">
                  <Card className="w-full max-w-4xl mx-auto">
                     <CardHeader>
                         <CardTitle>Directorio Marítimo</CardTitle>
