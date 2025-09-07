@@ -7,7 +7,6 @@ import { AppShell } from "@/components/AppShell";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { useTranslation } from "@/context/LanguageContext";
 
 
 const LoadingScreen = () => (
@@ -22,7 +21,6 @@ const LoadingScreen = () => (
 
 const SignInScreen = ({ isLoading, signInAction }: { isLoading: boolean; signInAction: () => Promise<void> }) => {
   const [isSigningIn, setIsSigningIn] = useState(false);
-  const { t } = useTranslation();
 
   const handleSignIn = async () => {
     setIsSigningIn(true);
@@ -41,14 +39,14 @@ const SignInScreen = ({ isLoading, signInAction }: { isLoading: boolean; signInA
     <div className="flex min-h-screen items-center justify-center bg-background p-8">
       <div className="w-full max-w-sm rounded-2xl border bg-card p-8 text-center shadow-lg animate-in fade-in zoom-in-95">
         <h1 className="text-4xl font-bold tracking-tight text-primary">NAUTIXA</h1>
-        <p className="mt-2 text-muted-foreground">{t('signIn.tagline')}</p>
+        <p className="mt-2 text-muted-foreground">Tu asistente de navegación y comunicaciones marítimas</p>
         <Button onClick={handleSignIn} disabled={buttonDisabled} className="mt-8 h-12 w-full text-base">
           {buttonDisabled ? (
             <Loader2 className="mr-2 h-5 w-5 animate-spin" />
           ) : (
             <GoogleIcon className="mr-2 h-5 w-5" />
           )}
-          {buttonDisabled ? t('signIn.signingIn') : t('signIn.button')}
+          {buttonDisabled ? "Iniciando sesión..." : "Iniciar sesión con Google"}
         </Button>
       </div>
     </div>

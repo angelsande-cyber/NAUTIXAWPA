@@ -1,147 +1,160 @@
-
-
 // This file contains all the static data for the signals simulator.
-// It uses translation keys that will be resolved by the useSignalsData hook.
+// It uses hardcoded Spanish text.
 
-export const LIGHT_TERMS_DATA = {
-    "F": "signals.terms.F",
-    "FL": "signals.terms.FL",
-    "LFL": "signals.terms.LFL",
-    "OC": "signals.terms.OC",
-    "ISO": "signals.terms.ISO",
-    "Q": "signals.terms.Q",
-    "VQ": "signals.terms.VQ",
-    "IQ": "signals.terms.IQ",
-    "MO": "signals.terms.MO",
-    "AL": "signals.terms.AL",
-    "W": "signals.terms.W",
-    "R": "signals.terms.R",
-    "G": "signals.terms.G",
-    "Y": "signals.terms.Y",
-    "BU": "signals.terms.BU",
-    "VI": "signals.terms.VI"
+export const LIGHT_TERMS: { [key: string]: string } = {
+    "F": "Fija",
+    "FL": "Destellos",
+    "LFL": "Destellos Largos",
+    "OC": "Ocultaciones",
+    "ISO": "Isofase",
+    "Q": "Destellos Rápidos",
+    "VQ": "Destellos muy Rápidos",
+    "IQ": "Destellos Rápidos Interrumpidos",
+    "MO": "Código Morse",
+    "AL": "Alternativa",
+    "W": "Blanca",
+    "R": "Roja",
+    "G": "Verde",
+    "Y": "Amarilla",
+    "BU": "Azul",
+    "VI": "Violeta"
 };
 
-export const IALA_BUOY_DATA = [
+export interface BuoyData {
+    category: string;
+    type: string;
+    region?: string;
+    shape: string;
+    colors: string[];
+    topmark: {
+        shape: string;
+        color: string;
+    } | null;
+    characteristic: string;
+    purpose: string;
+    mnemonic: string;
+}
+
+export const IALA_BUOY_DATA: BuoyData[] = [
     {
-        "category": "signals.buoyage.categories.lateral",
-        "type": "signals.buoyage.types.port",
+        "category": "Marcas Laterales",
+        "type": "Babor",
         "region": "A",
         "shape": "can",
         "colors": ["red"],
         "topmark": { "shape": "can", "color": "red" },
         "characteristic": "Fl R 4s",
-        "purpose": "signals.buoyage.purposes.port_a",
-        "mnemonic": "signals.buoyage.mnemonics.port_a"
+        "purpose": "Indica el lado de babor de un canal al venir de la mar.",
+        "mnemonic": "Al entrar, verde a estribor (verde con verde), rojo a babor (rojo con rojo)."
     },
     {
-        "category": "signals.buoyage.categories.lateral",
-        "type": "signals.buoyage.types.starboard",
+        "category": "Marcas Laterales",
+        "type": "Estribor",
         "region": "A",
         "shape": "conical",
         "colors": ["green"],
         "topmark": { "shape": "cone-up", "color": "green" },
         "characteristic": "Fl G 4s",
-        "purpose": "signals.buoyage.purposes.starboard_a",
-        "mnemonic": "signals.buoyage.mnemonics.starboard_a"
+        "purpose": "Indica el lado de estribor de un canal al venir de la mar.",
+        "mnemonic": "Al entrar, verde a estribor (verde con verde), rojo a babor (rojo con rojo)."
     },
     {
-        "category": "signals.buoyage.categories.lateral",
-        "type": "signals.buoyage.types.port",
+        "category": "Marcas Laterales",
+        "type": "Babor",
         "region": "B",
         "shape": "can",
         "colors": ["green"],
         "topmark": { "shape": "can", "color": "green" },
         "characteristic": "Fl G 2.5s",
-        "purpose": "signals.buoyage.purposes.port_b",
-        "mnemonic": "signals.buoyage.mnemonics.port_b"
+        "purpose": "Indica el lado de babor de un canal al venir de la mar.",
+        "mnemonic": "Red Right Returning (Rojo a Estribor Regresando)."
     },
     {
-        "category": "signals.buoyage.categories.lateral",
-        "type": "signals.buoyage.types.starboard",
+        "category": "Marcas Laterales",
+        "type": "Estribor",
         "region": "B",
         "shape": "conical",
         "colors": ["red"],
         "topmark": { "shape": "cone-up", "color": "red" },
         "characteristic": "Fl R 2.5s",
-        "purpose": "signals.buoyage.purposes.starboard_b",
-        "mnemonic": "signals.buoyage.mnemonics.starboard_b"
+        "purpose": "Indica el lado de estribor de un canal al venir de la mar.",
+        "mnemonic": "Red Right Returning (Rojo a Estribor Regresando)."
     },
     {
-        "category": "signals.buoyage.categories.cardinal",
-        "type": "signals.buoyage.types.north",
+        "category": "Marcas Cardinales",
+        "type": "Norte",
         "shape": "pillar",
         "colors": ["black", "yellow"],
         "topmark": { "shape": "cones-up", "color": "black" },
         "characteristic": "VQ W or Q W",
-        "purpose": "signals.buoyage.purposes.north",
-        "mnemonic": "signals.buoyage.mnemonics.north"
+        "purpose": "Indica que las aguas seguras se encuentran al Norte.",
+        "mnemonic": "Dos conos hacia arriba (Norte). Luz blanca de destellos continuos."
     },
     {
-        "category": "signals.buoyage.categories.cardinal",
-        "type": "signals.buoyage.types.south",
+        "category": "Marcas Cardinales",
+        "type": "Sur",
         "shape": "pillar",
         "colors": ["yellow", "black"],
         "topmark": { "shape": "cones-down", "color": "black" },
         "characteristic": "VQ(6)+LFl W 15s",
-        "purpose": "signals.buoyage.purposes.south",
-        "mnemonic": "signals.buoyage.mnemonics.south"
+        "purpose": "Indica que las aguas seguras se encuentran al Sur.",
+        "mnemonic": "Dos conos hacia abajo (Sur). 6 destellos + 1 largo."
     },
     {
-        "category": "signals.buoyage.categories.cardinal",
-        "type": "signals.buoyage.types.east",
+        "category": "Marcas Cardinales",
+        "type": "Este",
         "shape": "pillar",
         "colors": ["black", "yellow", "black"],
         "topmark": { "shape": "cones-base-base", "color": "black" },
         "characteristic": "VQ(3) W 5s",
-        "purpose": "signals.buoyage.purposes.east",
-        "mnemonic": "signals.buoyage.mnemonics.east"
+        "purpose": "Indica que las aguas seguras se encuentran al Este.",
+        "mnemonic": "Conos opuestos por la base (huevo de pascua). 3 destellos cada 5s."
     },
     {
-        "category": "signals.buoyage.categories.cardinal",
-        "type": "signals.buoyage.types.west",
+        "category": "Marcas Cardinales",
+        "type": "Oeste",
         "shape": "pillar",
         "colors": ["yellow", "black", "yellow"],
         "topmark": { "shape": "cones-vertex-together", "color": "black" },
         "characteristic": "VQ(9) W 10s",
-        "purpose": "signals.buoyage.purposes.west",
-        "mnemonic": "signals.buoyage.mnemonics.west"
+        "purpose": "Indica que las aguas seguras se encuentran al Oeste.",
+        "mnemonic": "Conos unidos por el vértice (copa de vino). 9 destellos cada 10s."
     },
     {
-        "category": "signals.buoyage.categories.special",
-        "type": "signals.buoyage.types.isolated_danger",
+        "category": "Marcas Especiales",
+        "type": "Peligro Aislado",
         "shape": "pillar",
         "colors": ["black", "red", "black"],
         "topmark": { "shape": "spheres-2", "color": "black" },
         "characteristic": "Fl(2) W 5s",
-        "purpose": "signals.buoyage.purposes.isolated_danger",
-        "mnemonic": "signals.buoyage.mnemonics.isolated_danger"
+        "purpose": "Se fondea sobre un peligro de extensión reducida.",
+        "mnemonic": "Dos esferas negras, dos destellos blancos."
     },
     {
-        "category": "signals.buoyage.categories.special",
-        "type": "signals.buoyage.types.safe_water",
+        "category": "Marcas Especiales",
+        "type": "Aguas Seguras",
         "shape": "spherical",
         "colors": ["red", "white"],
         "topmark": { "shape": "sphere", "color": "red" },
         "characteristic": "LFl W 10s or Mo(A) W",
-        "purpose": "signals.buoyage.purposes.safe_water",
-        "mnemonic": "signals.buoyage.mnemonics.safe_water"
+        "purpose": "Indica aguas navegables alrededor de la marca, como la entrada a un canal.",
+        "mnemonic": "Marca esférica con franjas verticales. Luz blanca isofase, de ocultaciones o destello largo."
     },
     {
-        "category": "signals.buoyage.categories.special",
-        "type": "signals.buoyage.types.special_mark",
+        "category": "Marcas Especiales",
+        "type": "Marca Especial",
         "shape": "any",
         "colors": ["yellow"],
         "topmark": { "shape": "cross", "color": "yellow" },
         "characteristic": "Fl Y 5s",
-        "purpose": "signals.buoyage.purposes.special_mark",
-        "mnemonic": "signals.buoyage.mnemonics.special_mark"
+        "purpose": "Indica una zona o característica especial (zona militar, cable, tubería, ODAS).",
+        "mnemonic": "Completamente amarilla, con una 'X' como marca de tope. Luz amarilla."
     }
 ];
 
 const glowFilter = `<defs><filter id="ship-glow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="rgba(150, 180, 255, 0.3)" /></filter></defs>`;
 
-export const VESSEL_SVGS = {
+export const VESSEL_SVGS: { [key: string]: { [key: string]: string } } = {
     power_gt50: { // Inspired by Container Ship
       side: `<svg viewBox="0 0 200 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 10)"><path d="M 5 60 L 195 60 L 195 55 C 190 55, 185 40, 175 40 L 165 40 L 165 30 L 155 30 L 155 40 L 45 40 L 45 35 L 25 35 L 25 40 L 15 40 C 5 40, 5 55, 5 55 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d="M 5 60 L 195 60" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
       front: `<svg viewBox="0 0 100 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 10)"><path d="M 10 60 L 90 60 L 90 55 C 85 40, 75 30, 65 30 L 35 30 C 25 30, 15 40, 10 55 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d="M 10 60 L 90 60" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
@@ -175,18 +188,30 @@ export const VESSEL_SVGS = {
 }
 
 const PDV_LIGHTS = [
-    { id: 'masthead-fwd', color: 'white', desc: 'signals.vessels.lights.masthead_fwd', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 30 }, starboard: { x: 30, y: 30 }, stern: { x: 0, y: 0 } } },
-    { id: 'masthead-aft', color: 'white', desc: 'signals.vessels.lights.masthead_aft', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 25 }, starboard: { x: 70, y: 25 }, stern: { x: 0, y: 0 } } },
-    { id: 'sidelight-stbd', color: 'green', desc: 'signals.vessels.lights.sidelight_stbd', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 70, y: 58 }, starboard: { x: 50, y: 58 }, stern: { x: 0, y: 0 } } },
-    { id: 'sidelight-port', color: 'red', desc: 'signals.vessels.lights.sidelight_port', arc: { bow: true, starboard: false, stern: false }, position: { bow: { x: 30, y: 58 }, starboard: { x: 0, y: 0 }, stern: { x: 0, y: 0 } } },
-    { id: 'sternlight', color: 'white', desc: 'signals.vessels.lights.sternlight', arc: { bow: false, starboard: false, stern: true }, position: { bow: { x: 0, y: 0 }, starboard: { x: 0, y: 0 }, stern: { x: 50, y: 55 } } },
+    { id: 'masthead-fwd', color: 'white', desc: 'Luz de tope de proa', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 30 }, starboard: { x: 30, y: 30 }, stern: { x: 0, y: 0 } } },
+    { id: 'masthead-aft', color: 'white', desc: 'Luz de tope de popa (si >50m)', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 25 }, starboard: { x: 70, y: 25 }, stern: { x: 0, y: 0 } } },
+    { id: 'sidelight-stbd', color: 'green', desc: 'Luz de costado de estribor', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 70, y: 58 }, starboard: { x: 50, y: 58 }, stern: { x: 0, y: 0 } } },
+    { id: 'sidelight-port', color: 'red', desc: 'Luz de costado de babor', arc: { bow: true, starboard: false, stern: false }, position: { bow: { x: 30, y: 58 }, starboard: { x: 0, y: 0 }, stern: { x: 0, y: 0 } } },
+    { id: 'sternlight', color: 'white', desc: 'Luz de alcance', arc: { bow: false, starboard: false, stern: true }, position: { bow: { x: 0, y: 0 }, starboard: { x: 0, y: 0 }, stern: { x: 50, y: 55 } } },
 ];
 
-export const COLREG_RULES_DATA = [
+export interface ColregRule {
+  id: string;
+  title: string;
+  description: string;
+  svg: string;
+  lights: any[];
+  marks: any[];
+  explanation?: string;
+  states?: any[];
+}
+
+
+export const COLREG_RULES_DATA: ColregRule[] = [
     {
         id: 'R23',
-        title: 'signals.vessels.rules.R23.title',
-        description: 'signals.vessels.rules.R23.description',
+        title: 'Buque de propulsión mecánica en navegación',
+        description: 'Regla 23: Buques de propulsión mecánica en navegación.',
         svg: "power_gt50",
         lights: [
             {...PDV_LIGHTS[0]},
@@ -196,349 +221,358 @@ export const COLREG_RULES_DATA = [
             {...PDV_LIGHTS[4]},
         ],
         marks: [],
-        explanation: "signals.vessels.rules.R23.explanation"
+        explanation: "Un buque de propulsión mecánica de eslora > 50m debe mostrar: una luz de tope a proa, una segunda luz de tope a popa y más alta, luces de costado y una luz de alcance. Si es < 50m, no está obligado a exhibir la segunda luz de tope."
     },
     {
         id: 'R25',
-        title: 'signals.vessels.rules.R25.title',
-        description: 'signals.vessels.rules.R25.description',
+        title: 'Buque de vela o a remo en navegación',
+        description: 'Regla 25: Buques de vela en navegación y embarcaciones de remo.',
         svg: "sailing",
         lights: [
             PDV_LIGHTS[2], PDV_LIGHTS[3], PDV_LIGHTS[4]
         ],
         marks: [
-            { id: 'cone-sailing-motor', shape: 'cone-down', desc: 'signals.vessels.marks.cone_sailing_motor', position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } },
+            { id: 'cone-sailing-motor', shape: 'cone-down', desc: 'Si es un velero propulsado a motor, un cono con el vértice hacia abajo.', position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } },
         ],
-        explanation: "signals.vessels.rules.R25.explanation"
+        explanation: "Un buque de vela en navegación exhibirá luces de costado y una luz de alcance. Opcionalmente, puede exhibir en el tope del mástil dos luces todo horizonte (roja sobre verde). Si navega a motor, se considera buque de propulsión mecánica y debe mostrar las luces correspondientes, además de la marca diurna (cono)."
     },
     {
         id: 'R24',
-        title: 'signals.vessels.rules.R24.title',
-        description: 'signals.vessels.rules.R24.description',
+        title: 'Buque remolcando y empujando',
+        description: 'Regla 24: Buques remolcando y empujando.',
         states: [
             {
-                title: 'signals.vessels.rules.R24.states.towing_gt200.title',
-                description: 'signals.vessels.rules.R24.states.towing_gt200.description',
+                title: 'Remolque > 200m',
+                description: 'Buque remolcador con longitud de remolque > 200m.',
                 svg: "tug",
                 lights: [
-                    { ...PDV_LIGHTS[0], desc: 'signals.vessels.lights.masthead_1', position: { bow: { x: 50, y: 30 }, starboard: { x: 30, y: 30 } } },
-                    { id: 'masthead-2', color: 'white', desc: 'signals.vessels.lights.masthead_2', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 37 }, starboard: { x: 30, y: 37 } } },
-                    { id: 'masthead-3', color: 'white', desc: 'signals.vessels.lights.masthead_3', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 44 }, starboard: { x: 30, y: 44 } } },
+                    { ...PDV_LIGHTS[0], desc: 'Primera luz de tope', position: { bow: { x: 50, y: 30 }, starboard: { x: 30, y: 30 } } },
+                    { id: 'masthead-2', color: 'white', desc: 'Segunda luz de tope', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 37 }, starboard: { x: 30, y: 37 } } },
+                    { id: 'masthead-3', color: 'white', desc: 'Tercera luz de tope', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 44 }, starboard: { x: 30, y: 44 } } },
                     PDV_LIGHTS[2], PDV_LIGHTS[3],
                     { ...PDV_LIGHTS[4], position: { stern: {x:50, y: 40} } }, // Sternlight
-                    { id: 'towing-light', color: 'yellow', desc: 'signals.vessels.lights.towing_light', arc: { bow: false, starboard: false, stern: true }, position: { stern: { x: 50, y: 35 } } },
+                    { id: 'towing-light', color: 'yellow', desc: 'Luz de remolque', arc: { bow: false, starboard: false, stern: true }, position: { stern: { x: 50, y: 35 } } },
                 ],
-                marks: [ { id: 'diamond-tow', shape: 'diamond', desc: 'signals.vessels.marks.diamond_tow', position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } } ],
-                explanation: "signals.vessels.rules.R24.states.towing_gt200.explanation"
+                marks: [ { id: 'diamond-tow', shape: 'diamond', desc: 'Marca bicónica en el remolcador y el remolcado', position: { bow: { x: 50, y: 25 }, starboard: { x: 50, y: 25 }, stern: { x: 50, y: 25 } } } ],
+                explanation: "Tres luces de tope en línea vertical. Si la longitud del remolque (desde la popa del remolcador hasta el final del remolcado) es superior a 200m, se exhibe esta configuración. También debe mostrar luces de costado, luz de alcance y una luz de remolque (amarilla) por encima de la de alcance."
             },
             {
-                title: 'signals.vessels.rules.R24.states.towing_lt200.title',
-                description: 'signals.vessels.rules.R24.states.towing_lt200.description',
+                title: 'Remolque < 200m',
+                description: 'Buque remolcador con longitud de remolque < 200m.',
                 svg: "tug",
                 lights: [
-                    { ...PDV_LIGHTS[0], desc: 'signals.vessels.lights.masthead_1', position: { bow: { x: 50, y: 30 }, starboard: { x: 30, y: 30 } } },
-                    { id: 'masthead-2', color: 'white', desc: 'signals.vessels.lights.masthead_2', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 37 }, starboard: { x: 30, y: 37 } } },
+                    { ...PDV_LIGHTS[0], desc: 'Primera luz de tope', position: { bow: { x: 50, y: 30 }, starboard: { x: 30, y: 30 } } },
+                    { id: 'masthead-2', color: 'white', desc: 'Segunda luz de tope', arc: { bow: true, starboard: true, stern: false }, position: { bow: { x: 50, y: 37 }, starboard: { x: 30, y: 37 } } },
                     PDV_LIGHTS[2], PDV_LIGHTS[3],
                     { ...PDV_LIGHTS[4], position: { stern: {x:50, y: 40} } },
-                    { id: 'towing-light', color: 'yellow', desc: 'signals.vessels.lights.towing_light', arc: { bow: false, starboard: false, stern: true }, position: { stern: { x: 50, y: 35 } } },
+                    { id: 'towing-light', color: 'yellow', desc: 'Luz de remolque', arc: { bow: false, starboard: false, stern: true }, position: { stern: { x: 50, y: 35 } } },
                 ],
                 marks: [ ],
-                explanation: "signals.vessels.rules.R24.states.towing_lt200.explanation"
+                explanation: "Dos luces de tope en línea vertical. Si la longitud del remolque es inferior a 200m, no lleva la tercera luz de tope ni la marca bicónica."
             },
             {
-                title: 'signals.vessels.rules.R24.states.pushing.title',
-                description: 'signals.vessels.rules.R24.states.pushing.description',
+                title: 'Empujando o remolcando abarloado',
+                description: 'Buque que empuja o remolca abarloado.',
                 svg: "tug",
                 lights: [
-                    { ...PDV_LIGHTS[0], desc: 'signals.vessels.lights.masthead_1' },
-                    { ...PDV_LIGHTS[1], desc: 'signals.vessels.lights.masthead_2' },
+                    { ...PDV_LIGHTS[0], desc: 'Primera luz de tope' },
+                    { ...PDV_LIGHTS[1], desc: 'Segunda luz de tope' },
                     PDV_LIGHTS[2], PDV_LIGHTS[3], PDV_LIGHTS[4]
                 ],
                 marks: [ ],
-                explanation: "signals.vessels.rules.R24.states.pushing.explanation"
+                explanation: "Cuando un buque empuja hacia proa o remolca abarloado a otro, se considera como un solo buque de propulsión mecánica y exhibe dos luces de tope."
             }
         ]
     },
     {
         id: 'R26',
-        title: 'signals.vessels.rules.R26.title',
-        description: 'signals.vessels.rules.R26.description',
+        title: 'Buques de pesca',
+        description: 'Regla 26: Buques de Pesca.',
         states: [
             {
-                title: 'signals.vessels.rules.R26.states.trawling.title',
-                description: 'signals.vessels.rules.R26.states.trawling.description',
+                title: 'Pesca de arrastre',
+                description: 'Buque dedicado a la pesca de arrastre.',
                 svg: "fishing",
                 lights: [
-                    { id: 'trawl-g', color: 'green', desc: 'signals.vessels.lights.trawl_g', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
-                    { id: 'trawl-w', color: 'white', desc: 'signals.vessels.lights.trawl_w', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
-                    { ...PDV_LIGHTS[2], desc: 'signals.vessels.lights.sidelights_making_way' },
+                    { id: 'trawl-g', color: 'green', desc: 'Luz verde todo horizonte', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
+                    { id: 'trawl-w', color: 'white', desc: 'Luz blanca todo horizonte (debajo)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
+                    { ...PDV_LIGHTS[2], desc: 'Luces de costado y alcance si lleva arrancada' },
                     { ...PDV_LIGHTS[3], desc: '' },
                     { ...PDV_LIGHTS[4], desc: '' },
                 ],
                 marks: [
-                    { id: 'trawl-mark', shape: 'cones-vertex-together', desc: 'signals.vessels.marks.trawl_mark', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
+                    { id: 'trawl-mark', shape: 'cones-vertex-together', desc: 'Dos conos unidos por el vértice', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "signals.vessels.rules.R26.states.trawling.explanation"
+                explanation: "Muestra una luz verde todo horizonte sobre una luz blanca todo horizonte. Si tiene arrancada, también luces de costado y de alcance. La marca diurna son dos conos unidos por el vértice."
             },
             {
-                title: 'signals.vessels.rules.R26.states.fishing_not_trawling.title',
-                description: 'signals.vessels.rules.R26.states.fishing_not_trawling.description',
+                title: 'Pesca (excepto arrastre)',
+                description: 'Buque dedicado a la pesca, excepto arrastre.',
                 svg: "fishing",
                 lights: [
-                    { id: 'fish-r', color: 'red', desc: 'signals.vessels.lights.fish_r', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
-                    { id: 'fish-w', color: 'white', desc: 'signals.vessels.lights.fish_w', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
-                     { ...PDV_LIGHTS[2], desc: 'signals.vessels.lights.sidelights_making_way' },
+                    { id: 'fish-r', color: 'red', desc: 'Luz roja todo horizonte', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
+                    { id: 'fish-w', color: 'white', desc: 'Luz blanca todo horizonte (debajo)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
+                     { ...PDV_LIGHTS[2], desc: 'Luces de costado y alcance si lleva arrancada' },
                     { ...PDV_LIGHTS[3], desc: '' },
                     { ...PDV_LIGHTS[4], desc: '' },
                 ],
                 marks: [
-                    { id: 'trawl-mark', shape: 'cones-vertex-together', desc: 'signals.vessels.marks.trawl_mark', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
+                    { id: 'trawl-mark', shape: 'cones-vertex-together', desc: 'Dos conos unidos por el vértice', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "signals.vessels.rules.R26.states.fishing_not_trawling.explanation"
+                explanation: "Muestra una luz roja todo horizonte sobre una luz blanca todo horizonte. Si el aparejo se extiende más de 150m horizontalmente, una luz blanca en la dirección del aparejo. Con arrancada, luces de costado y alcance."
             }
         ]
     },
      {
         id: 'R27',
-        title: 'signals.vessels.rules.R27.title',
-        description: 'signals.vessels.rules.R27.description',
+        title: 'Buques sin gobierno o con maniobra restringida',
+        description: 'Regla 27: Buques sin gobierno o con capacidad de maniobra restringida.',
         states: [
             {
-                title: 'signals.vessels.rules.R27.states.nuc.title',
-                description: 'signals.vessels.rules.R27.states.nuc.description',
+                title: 'Sin gobierno',
+                description: 'Buque sin gobierno (NUC).',
                 svg: "power_gt50",
                 lights: [
-                    { id: 'nuc-r1', color: 'red', desc: 'signals.vessels.lights.nuc_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
+                    { id: 'nuc-r1', color: 'red', desc: 'Dos luces rojas todo horizonte en línea vertical.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
                     { id: 'nuc-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 50, y: 36 } } },
-                    {...PDV_LIGHTS[2], desc: "signals.vessels.lights.sidelights_stern_making_way"},
+                    {...PDV_LIGHTS[2], desc: "Con arrancada, muestra luces de costado y alcance."},
                     {...PDV_LIGHTS[3], desc: ""},
                     {...PDV_LIGHTS[4], desc: ""},
                 ],
                 marks: [
-                    { id: 'nuc-b1', shape: 'ball', desc: 'signals.vessels.marks.nuc_marks', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
+                    { id: 'nuc-b1', shape: 'ball', desc: 'Dos bolas negras en línea vertical.', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
                     { id: 'nuc-b2', shape: 'ball', desc: '', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
                 ],
-                explanation: "signals.vessels.rules.R27.states.nuc.explanation"
+                explanation: "Un buque sin gobierno no puede maniobrar. Muestra dos luces rojas todo horizonte en vertical por la noche, y dos bolas negras en vertical de día."
             },
             {
-                title: 'signals.vessels.rules.R27.states.ram.title',
-                description: 'signals.vessels.rules.R27.states.ram.description',
+                title: 'Maniobra restringida',
+                description: 'Buque con capacidad de maniobra restringida (RAM).',
                 svg: "power_gt50",
                 lights: [
-                    { id: 'ram-r1', color: 'red', desc: 'signals.vessels.lights.ram_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 50, y: 20 } } },
+                    { id: 'ram-r1', color: 'red', desc: 'Roja-Blanca-Roja todo horizonte en línea vertical.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 50, y: 20 } } },
                     { id: 'ram-w', color: 'white', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
                     { id: 'ram-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 50, y: 36 } } },
-                    {...PDV_LIGHTS[0], desc: "signals.vessels.lights.pdv_lights_making_way"},
+                    {...PDV_LIGHTS[0], desc: "Con arrancada, muestra luces de tope, de costado y de alcance."},
                     {...PDV_LIGHTS[1], desc: ""},
                     {...PDV_LIGHTS[2], desc: ""},
                     {...PDV_LIGHTS[3], desc: ""},
                     {...PDV_LIGHTS[4], desc: ""},
                 ],
                 marks: [
-                    { id: 'ram-b1', shape: 'ball', desc: 'signals.vessels.marks.ram_marks', position: { bow: { x: 50, y: 15 }, starboard: { x: 40, y: 15 }, stern: { x: 50, y: 15 } } },
+                    { id: 'ram-b1', shape: 'ball', desc: 'Bola-Bicono-Bola en línea vertical.', position: { bow: { x: 50, y: 15 }, starboard: { x: 40, y: 15 }, stern: { x: 50, y: 15 } } },
                     { id: 'ram-d', shape: 'diamond', desc: '', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
                     { id: 'ram-b2', shape: 'ball', desc: '', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
                 ],
-                explanation: "signals.vessels.rules.R27.states.ram.explanation"
+                explanation: "Debido a su trabajo (dragado, buceo, etc.) no puede maniobrar. Muestra las luces/marcas Roja-Blanca-Roja / Bola-Bicono-Bola. Si hay obstrucción, muestra dos luces/bolas rojas en el lado obstruido."
             }
         ]
     },
     {
         id: 'R28',
-        title: 'signals.vessels.rules.R28.title',
-        description: 'signals.vessels.rules.R28.description',
+        title: 'Buque restringido por su calado',
+        description: 'Regla 28: Buques de propulsión mecánica restringidos por su calado.',
         svg: "power_gt50",
         lights: [
             ...PDV_LIGHTS,
-            { id: 'cbd-r1', color: 'red', desc: 'signals.vessels.lights.cbd_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 55, y: 20 } } },
+            { id: 'cbd-r1', color: 'red', desc: 'Tres luces rojas todo horizonte en línea vertical.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 55, y: 20 } } },
             { id: 'cbd-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 55, y: 28 } } },
             { id: 'cbd-r3', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 55, y: 36 }, starboard: { x: 40, y: 36 }, stern: { x: 55, y: 36 } } },
         ],
         marks: [
-            { id: 'cylinder', shape: 'cylinder', desc: 'signals.vessels.marks.cylinder', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
+            { id: 'cylinder', shape: 'cylinder', desc: 'Un cilindro negro.', position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
         ],
-        explanation: "signals.vessels.rules.R28.explanation"
+        explanation: "Además de las luces normales de un buque de propulsión mecánica, mostrará tres luces rojas todo horizonte en línea vertical, o un cilindro como marca diurna."
     },
     {
         id: 'R30',
-        title: 'signals.vessels.rules.R30.title',
-        description: 'signals.vessels.rules.R30.description',
+        title: 'Buque fondeado y varado',
+        description: 'Regla 30: Buques fondeados y buques varados.',
         states: [
             {
-                title: 'signals.vessels.rules.R30.states.anchored.title',
-                description: 'signals.vessels.rules.R30.states.anchored.description',
+                title: 'Fondeado',
+                description: 'Buque fondeado.',
                 svg: "power_gt50",
                 lights: [
-                    { id: 'anchor-fwd', color: 'white', desc: 'signals.vessels.lights.anchor_fwd', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 30 }, starboard: { x: 20, y: 30 }, stern: { x: 50, y: 30 } } },
-                    { id: 'anchor-aft', color: 'white', desc: 'signals.vessels.lights.anchor_aft', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 40 }, starboard: { x: 85, y: 55 }, stern: { x: 50, y: 40 } } },
+                    { id: 'anchor-fwd', color: 'white', desc: 'Luz blanca todo horizonte a proa.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 30 }, starboard: { x: 20, y: 30 }, stern: { x: 50, y: 30 } } },
+                    { id: 'anchor-aft', color: 'white', desc: 'Luz blanca todo horizonte a popa (si >50m).', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 40 }, starboard: { x: 85, y: 55 }, stern: { x: 50, y: 40 } } },
                 ],
                 marks: [
-                    { id: 'ball', shape: 'ball', desc: 'signals.vessels.marks.ball', position: { bow: { x: 50, y: 25 }, starboard: { x: 20, y: 25 }, stern: { x: 50, y: 25 } } },
+                    { id: 'ball', shape: 'ball', desc: 'Una bola negra a proa.', position: { bow: { x: 50, y: 25 }, starboard: { x: 20, y: 25 }, stern: { x: 50, y: 25 } } },
                 ],
-                explanation: "signals.vessels.rules.R30.states.anchored.explanation"
+                explanation: "Un buque fondeado muestra una luz blanca todo horizonte a proa y, si su eslora es >= 50m, otra a popa y más baja. La marca diurna es una bola negra a proa."
             },
             {
-                title: 'signals.vessels.rules.R30.states.aground.title',
-                description: 'signals.vessels.rules.R30.states.aground.description',
+                title: 'Varado',
+                description: 'Buque varado.',
                 svg: "power_gt50",
                 lights: [
-                    { id: 'anchor-fwd', color: 'white', desc: 'signals.vessels.lights.anchor_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 30 }, starboard: { x: 20, y: 30 }, stern: { x: 50, y: 30 } } },
+                    { id: 'anchor-fwd', color: 'white', desc: 'Las dos luces de fondeo.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 30 }, starboard: { x: 20, y: 30 }, stern: { x: 50, y: 30 } } },
                     { id: 'anchor-aft', color: 'white', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 40 }, starboard: { x: 85, y: 55 }, stern: { x: 50, y: 40 } } },
-                    { id: 'aground-r1', color: 'red', desc: 'signals.vessels.lights.aground_lights', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 50, y: 20 } } },
+                    { id: 'aground-r1', color: 'red', desc: 'Dos luces rojas todo horizonte en vertical.', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 20 }, starboard: { x: 40, y: 20 }, stern: { x: 50, y: 20 } } },
                     { id: 'aground-r2', color: 'red', desc: '', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
                 ],
                 marks: [
-                    { id: 'aground-b1', shape: 'ball', desc: 'signals.vessels.marks.aground_marks', position: { bow: { x: 50, y: 15 }, starboard: { x: 40, y: 15 }, stern: { x: 50, y: 15 } } },
+                    { id: 'aground-b1', shape: 'ball', desc: 'Tres bolas negras en línea vertical.', position: { bow: { x: 50, y: 15 }, starboard: { x: 40, y: 15 }, stern: { x: 50, y: 15 } } },
                     { id: 'aground-b2', shape: 'ball', desc: '', position: { bow: { x: 50, y: 28 }, starboard: { x: 40, y: 28 }, stern: { x: 50, y: 28 } } },
                     { id: 'aground-b3', shape: 'ball', desc: '', position: { bow: { x: 50, y: 41 }, starboard: { x: 40, y: 41 }, stern: { x: 50, y: 41 } } },
                 ],
-                explanation: "signals.vessels.rules.R30.states.aground.explanation"
+                explanation: "Un buque varado muestra las luces de fondeo y, además, dos luces rojas todo horizonte en vertical. De día, tres bolas negras en vertical."
             },
         ]
     },
     {
         id: 'R29',
-        title: 'signals.vessels.rules.R29.title',
-        description: 'signals.vessels.rules.R29.description',
+        title: 'Buque de practicaje',
+        description: 'Regla 29: Buques de Practicaje.',
         svg: "power_lt50",
         lights: [
-            { id: 'pilot-w', color: 'white', desc: 'signals.vessels.lights.pilot_w', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
-            { id: 'pilot-r', color: 'red', desc: 'signals.vessels.lights.pilot_r', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
-            { ...PDV_LIGHTS[2], desc: 'signals.vessels.lights.sidelights_navigating' },
+            { id: 'pilot-w', color: 'white', desc: 'Luz blanca todo horizonte', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 25 }, starboard: { x: 40, y: 25 }, stern: { x: 50, y: 25 } } },
+            { id: 'pilot-r', color: 'red', desc: 'Luz roja todo horizonte (debajo)', arc: { bow: true, starboard: true, stern: true }, position: { bow: { x: 50, y: 33 }, starboard: { x: 40, y: 33 }, stern: { x: 50, y: 33 } } },
+            { ...PDV_LIGHTS[2], desc: 'Si está en navegación, luces de costado y alcance.' },
             { ...PDV_LIGHTS[3], desc: '' },
             { ...PDV_LIGHTS[4], desc: '' },
         ],
         marks: [],
-        explanation: "signals.vessels.rules.R29.explanation"
+        explanation: "Los buques en servicio de practicaje exhibirán en el tope del mástil una luz blanca todo horizonte sobre una luz roja todo horizonte. Cuando están en navegación, exhibirán además las luces de costado y de alcance."
     },
 ];
 
-export const SOUND_SIGNALS_DATA = [
+export interface SoundSignal {
+  id: string;
+  title: string;
+  description: string;
+  signal: string;
+  sequence: string[];
+  rule: string;
+}
+
+export const SOUND_SIGNALS_DATA: SoundSignal[] = [
     {
         "id": "maneuver_stbd",
-        "title": "signals.sounds.maneuver_stbd.title",
-        "description": "signals.sounds.maneuver_stbd.description",
-        "signal": "signals.sounds.maneuver_stbd.signal",
+        "title": "Maniobra a Estribor",
+        "description": "Un buque de propulsión mecánica en navegación, cuando maniobra estando a la vista de otro.",
+        "signal": "● (Una pitada corta)",
         "sequence": ["short"],
         "rule": "Regla 34(a)"
     },
     {
         "id": "maneuver_port",
-        "title": "signals.sounds.maneuver_port.title",
-        "description": "signals.sounds.maneuver_port.description",
-        "signal": "signals.sounds.maneuver_port.signal",
+        "title": "Maniobra a Babor",
+        "description": "Un buque de propulsión mecánica en navegación, cuando maniobra estando a la vista de otro.",
+        "signal": "● ● (Dos pitadas cortas)",
         "sequence": ["short", "short"],
         "rule": "Regla 34(a)"
     },
     {
         "id": "maneuver_astern",
-        "title": "signals.sounds.maneuver_astern.title",
-        "description": "signals.sounds.maneuver_astern.description",
-        "signal": "signals.sounds.maneuver_astern.signal",
+        "title": "Dando Atrás",
+        "description": "Un buque de propulsión mecánica en navegación, cuando sus máquinas dan atrás.",
+        "signal": "● ● ● (Tres pitadas cortas)",
         "sequence": ["short", "short", "short"],
         "rule": "Regla 34(a)"
     },
     {
         "id": "overtake_stbd",
-        "title": "signals.sounds.overtake_stbd.title",
-        "description": "signals.sounds.overtake_stbd.description",
-        "signal": "signals.sounds.overtake_stbd.signal",
+        "title": "Adelanto por Estribor",
+        "description": "Intención de adelantar a otro buque por su banda de estribor.",
+        "signal": "▬ ▬ ● (Dos largas y una corta)",
         "sequence": ["long", "long", "short"],
         "rule": "Regla 34(c)"
     },
     {
         "id": "overtake_port",
-        "title": "signals.sounds.overtake_port.title",
-        "description": "signals.sounds.overtake_port.description",
-        "signal": "signals.sounds.overtake_port.signal",
+        "title": "Adelanto por Babor",
+        "description": "Intención de adelantar a otro buque por su banda de babor.",
+        "signal": "▬ ▬ ● ● (Dos largas y dos cortas)",
         "sequence": ["long", "long", "short", "short"],
         "rule": "Regla 34(c)"
     },
     {
         "id": "overtake_agree",
-        "title": "signals.sounds.overtake_agree.title",
-        "description": "signals.sounds.overtake_agree.description",
-        "signal": "signals.sounds.overtake_agree.signal",
+        "title": "Conformidad al Adelantamiento",
+        "description": "Respuesta del buque que va a ser adelantado, si está de acuerdo.",
+        "signal": "▬ ● ▬ ● (Larga, corta, larga, corta)",
         "sequence": ["long", "short", "long", "short"],
         "rule": "Regla 34(c)"
     },
     {
         "id": "warning_doubt",
-        "title": "signals.sounds.warning_doubt.title",
-        "description": "signals.sounds.warning_doubt.description",
-        "signal": "signals.sounds.warning_doubt.signal",
+        "title": "Señal de Duda / Advertencia",
+        "description": "Cuando un buque no comprende las intenciones del otro, o duda de si el otro está tomando la acción debida.",
+        "signal": "● ● ● ● ● (Cinco o más pitadas cortas)",
         "sequence": ["short", "short", "short", "short", "short"],
         "rule": "Regla 34(d)"
     },
     {
         "id": "warning_bend",
-        "title": "signals.sounds.warning_bend.title",
-        "description": "signals.sounds.warning_bend.description",
-        "signal": "signals.sounds.warning_bend.signal",
+        "title": "Advertencia en Recodo",
+        "description": "Buque acercándose a un recodo o zona de un canal donde otros buques pueden quedar ocultos.",
+        "signal": "▬ (Una pitada larga)",
         "sequence": ["long"],
         "rule": "Regla 34(e)"
     },
     {
         "id": "restricted_vis_power_making_way",
-        "title": "signals.sounds.restricted_vis_power_making_way.title",
-        "description": "signals.sounds.restricted_vis_power_making_way.description",
-        "signal": "signals.sounds.restricted_vis_power_making_way.signal",
+        "title": "Buque de P.M. con arrancada",
+        "description": "Visibilidad reducida. Buque de propulsión mecánica con arrancada.",
+        "signal": "▬ (Una pitada larga a intervalos <= 2 min)",
         "sequence": ["long"],
         "rule": "Regla 35(a)"
     },
     {
         "id": "restricted_vis_power_stopped",
-        "title": "signals.sounds.restricted_vis_power_stopped.title",
-        "description": "signals.sounds.restricted_vis_power_stopped.description",
-        "signal": "signals.sounds.restricted_vis_power_stopped.signal",
+        "title": "Buque de P.M. parado",
+        "description": "Visibilidad reducida. Buque de propulsión mecánica parado y sin arrancada.",
+        "signal": "▬ ▬ (Dos pitadas largas a intervalos <= 2 min)",
         "sequence": ["long", "long"],
         "rule": "Regla 35(b)"
     },
     {
         "id": "restricted_vis_special",
-        "title": "signals.sounds.restricted_vis_special.title",
-        "description": "signals.sounds.restricted_vis_special.description",
-        "signal": "signals.sounds.restricted_vis_special.signal",
+        "title": "Buque especial (Vela, Pesca, NUC, RAM...)",
+        "description": "Visibilidad reducida. Buques sin gobierno, con maniobra restringida, restringido por su calado, de vela, de pesca o remolcador.",
+        "signal": "▬ ● ● (Una larga y dos cortas a intervalos <= 2 min)",
         "sequence": ["long", "short", "short"],
         "rule": "Regla 35(c)"
     },
     {
         "id": "restricted_vis_towed",
-        "title": "signals.sounds.restricted_vis_towed.title",
-        "description": "signals.sounds.restricted_vis_towed.description",
-        "signal": "signals.sounds.restricted_vis_towed.signal",
+        "title": "Buque remolcado (si hay tripulación)",
+        "description": "Visibilidad reducida. Último buque de un remolque, si va tripulado.",
+        "signal": "▬ ● ● ● (Una larga y tres cortas a intervalos <= 2 min)",
         "sequence": ["long", "short", "short", "short"],
         "rule": "Regla 35(e)"
     },
     {
         "id": "restricted_vis_anchored_lt100",
-        "title": "signals.sounds.restricted_vis_anchored_lt100.title",
-        "description": "signals.sounds.restricted_vis_anchored_lt100.description",
-        "signal": "signals.sounds.restricted_vis_anchored_lt100.signal",
+        "title": "Fondeado (< 100m)",
+        "description": "Visibilidad reducida. Buque fondeado, eslora inferior a 100m.",
+        "signal": "🔔 (Campanadas rápidas por 5s a intervalos <= 1 min)",
         "sequence": ["bell"],
         "rule": "Regla 35(g)"
     },
     {
         "id": "restricted_vis_anchored_gt100",
-        "title": "signals.sounds.restricted_vis_anchored_gt100.title",
-        "description": "signals.sounds.restricted_vis_anchored_gt100.description",
-        "signal": "signals.sounds.restricted_vis_anchored_gt100.signal",
+        "title": "Fondeado (> 100m)",
+        "description": "Visibilidad reducida. Buque fondeado, eslora igual o superior a 100m.",
+        "signal": "🔔 (Proa) + 🔔🔔🔔 (Popa) (Campanadas + Gong a intervalos <= 1 min)",
         "sequence": ["bell", "gong"],
         "rule": "Regla 35(g)"
     },
     {
         "id": "restricted_vis_aground",
-        "title": "signals.sounds.restricted_vis_aground.title",
-        "description": "signals.sounds.restricted_vis_aground.description",
-        "signal": "signals.sounds.restricted_vis_aground.signal",
+        "title": "Varado",
+        "description": "Visibilidad reducida. Buque varado.",
+        "signal": "●● 🔔 ●● (Dos golpes de campana, campanada, dos golpes)",
         "sequence": ["bell-stroke", "bell-stroke", "bell", "bell-stroke", "bell-stroke"],
         "rule": "Regla 35(h)"
     },
     {
         "id": "pilot",
-        "title": "signals.sounds.pilot.title",
-        "description": "signals.sounds.pilot.description",
-        "signal": "signals.sounds.pilot.signal",
+        "title": "Buque de Práctico",
+        "description": "Buque en servicio de practicaje.",
+        "signal": "● ● ● ● (Cuatro pitadas cortas)",
         "sequence": ["short", "short", "short", "short"],
         "rule": "Regla 35(k)"
     }

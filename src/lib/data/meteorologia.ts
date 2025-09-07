@@ -1,38 +1,37 @@
-
-// Data for meteorology page, using translation keys.
+// Data for meteorology page, with hardcoded Spanish text.
 
 export const METEO_DATA = {
-    beaufortScaleKeys: [
-        { force: 0, denomination: 'meteo.beaufort.denominations.0', speedKnots: 'meteo.beaufort.speedKnots.0', waveHeight: 'meteo.beaufort.waveHeight.0', seaState: 'meteo.beaufort.seaState.0' },
-        { force: 1, denomination: 'meteo.beaufort.denominations.1', speedKnots: 'meteo.beaufort.speedKnots.1', waveHeight: 'meteo.beaufort.waveHeight.1', seaState: 'meteo.beaufort.seaState.1' },
-        { force: 2, denomination: 'meteo.beaufort.denominations.2', speedKnots: 'meteo.beaufort.speedKnots.2', waveHeight: 'meteo.beaufort.waveHeight.2', seaState: 'meteo.beaufort.seaState.2' },
-        { force: 3, denomination: 'meteo.beaufort.denominations.3', speedKnots: 'meteo.beaufort.speedKnots.3', waveHeight: 'meteo.beaufort.waveHeight.3', seaState: 'meteo.beaufort.seaState.3' },
-        { force: 4, denomination: 'meteo.beaufort.denominations.4', speedKnots: 'meteo.beaufort.speedKnots.4', waveHeight: 'meteo.beaufort.waveHeight.4', seaState: 'meteo.beaufort.seaState.4' },
-        { force: 5, denomination: 'meteo.beaufort.denominations.5', speedKnots: 'meteo.beaufort.speedKnots.5', waveHeight: 'meteo.beaufort.waveHeight.5', seaState: 'meteo.beaufort.seaState.5' },
-        { force: 6, denomination: 'meteo.beaufort.denominations.6', speedKnots: 'meteo.beaufort.speedKnots.6', waveHeight: 'meteo.beaufort.waveHeight.6', seaState: 'meteo.beaufort.seaState.6' },
-        { force: 7, denomination: 'meteo.beaufort.denominations.7', speedKnots: 'meteo.beaufort.speedKnots.7', waveHeight: 'meteo.beaufort.waveHeight.7', seaState: 'meteo.beaufort.seaState.7' },
-        { force: 8, denomination: 'meteo.beaufort.denominations.8', speedKnots: 'meteo.beaufort.speedKnots.8', waveHeight: 'meteo.beaufort.waveHeight.8', seaState: 'meteo.beaufort.seaState.8' },
-        { force: 9, denomination: 'meteo.beaufort.denominations.9', speedKnots: 'meteo.beaufort.speedKnots.9', waveHeight: 'meteo.beaufort.waveHeight.9', seaState: 'meteo.beaufort.seaState.9' },
-        { force: 10, denomination: 'meteo.beaufort.denominations.10', speedKnots: 'meteo.beaufort.speedKnots.10', waveHeight: 'meteo.beaufort.waveHeight.10', seaState: 'meteo.beaufort.seaState.10' },
-        { force: 11, denomination: 'meteo.beaufort.denominations.11', speedKnots: 'meteo.beaufort.speedKnots.11', waveHeight: 'meteo.beaufort.waveHeight.11', seaState: 'meteo.beaufort.seaState.11' },
-        { force: 12, denomination: 'meteo.beaufort.denominations.12', speedKnots: 'meteo.beaufort.speedKnots.12', waveHeight: 'meteo.beaufort.waveHeight.12', seaState: 'meteo.beaufort.seaState.12' },
+    beaufortScale: [
+        { force: 0, denomination: 'Calma', speedKnots: '< 1', waveHeight: '0', seaState: 'Espejo' },
+        { force: 1, denomination: 'Ventolina', speedKnots: '1-3', waveHeight: '0.1', seaState: 'Rizos' },
+        { force: 2, denomination: 'Brisa muy débil', speedKnots: '4-6', waveHeight: '0.2-0.3', seaState: 'Olas pequeñas' },
+        { force: 3, denomination: 'Brisa débil', speedKnots: '7-10', waveHeight: '0.6-1.2', seaState: 'Borreguillos' },
+        { force: 4, denomination: 'Brisa moderada', speedKnots: '11-16', waveHeight: '1-2', seaState: 'Olas, borreguillos' },
+        { force: 5, denomination: 'Brisa fresca', speedKnots: '17-21', waveHeight: '2-3', seaState: 'Olas moderadas' },
+        { force: 6, denomination: 'Brisa fuerte', speedKnots: '22-27', waveHeight: '3-4', seaState: 'Olas grandes, espuma' },
+        { force: 7, denomination: 'Viento fuerte', speedKnots: '28-33', waveHeight: '4-5.5', seaState: 'Mar gruesa, espuma en rachas' },
+        { force: 8, denomination: 'Viento duro', speedKnots: '34-40', waveHeight: '5.5-7.5', seaState: 'Mar muy gruesa, rompientes' },
+        { force: 9, denomination: 'Viento muy duro', speedKnots: '41-47', waveHeight: '7-10', seaState: 'Mar arbolada, visibilidad reducida' },
+        { force: 10, denomination: 'Temporal', speedKnots: '48-55', waveHeight: '9-12.5', seaState: 'Mar muy arbolada, grandes rompientes' },
+        { force: 11, denomination: 'Temporal duro', speedKnots: '56-63', waveHeight: '11.5-16', seaState: 'Mar montañosa' },
+        { force: 12, denomination: 'Huracán', speedKnots: '> 64', waveHeight: '> 14', seaState: 'Mar excepcional, visibilidad nula' },
     ],
-    douglasSeaScaleKeys: [
-        { degree: 0, denomination: 'meteo.douglas.sea.d0', waveHeight: 'meteo.douglas.sea.waveHeight.0' },
-        { degree: 1, denomination: 'meteo.douglas.sea.d1', waveHeight: 'meteo.douglas.sea.waveHeight.1' },
-        { degree: 2, denomination: 'meteo.douglas.sea.d2', waveHeight: 'meteo.douglas.sea.waveHeight.2' },
-        { degree: 3, denomination: 'meteo.douglas.sea.d3', waveHeight: 'meteo.douglas.sea.waveHeight.3' },
-        { degree: 4, denomination: 'meteo.douglas.sea.d4', waveHeight: 'meteo.douglas.sea.waveHeight.4' },
-        { degree: 5, denomination: 'meteo.douglas.sea.d5', waveHeight: 'meteo.douglas.sea.waveHeight.5' },
-        { degree: 6, denomination: 'meteo.douglas.sea.d6', waveHeight: 'meteo.douglas.sea.waveHeight.6' },
-        { degree: 7, denomination: 'meteo.douglas.sea.d7', waveHeight: 'meteo.douglas.sea.waveHeight.7' },
-        { degree: 8, denomination: 'meteo.douglas.sea.d8', waveHeight: 'meteo.douglas.sea.waveHeight.8' },
-        { degree: 9, denomination: 'meteo.douglas.sea.d9', waveHeight: 'meteo.douglas.sea.waveHeight.9' },
+    douglasSeaScale: [
+        { degree: 0, denomination: 'Calma', waveHeight: '0' },
+        { degree: 1, denomination: 'Rizada', waveHeight: '0 - 0.1' },
+        { degree: 2, denomination: 'Marejadilla', waveHeight: '0.1 - 0.5' },
+        { degree: 3, denomination: 'Marejada', waveHeight: '0.5 - 1.25' },
+        { degree: 4, denomination: 'Fuerte marejada', waveHeight: '1.25 - 2.5' },
+        { degree: 5, denomination: 'Gruesa', waveHeight: '2.5 - 4' },
+        { degree: 6, denomination: 'Muy gruesa', waveHeight: '4 - 6' },
+        { degree: 7, denomination: 'Arbolada', waveHeight: '6 - 9' },
+        { degree: 8, denomination: 'Montañosa', waveHeight: '9 - 14' },
+        { degree: 9, denomination: 'Mar enorme', waveHeight: '> 14' },
     ],
-    douglasSwellScaleKeys: [
-        { degree: 0, denomination: 'meteo.douglas.swell.d0', waveHeight: 'meteo.douglas.swell.waveHeight.0' },
-        { degree: 1, denomination: 'meteo.douglas.swell.d1', waveHeight: 'meteo.douglas.swell.waveHeight.1' },
-        { degree: 2, denomination: 'meteo.douglas.swell.d2', waveHeight: 'meteo.douglas.swell.waveHeight.2' },
-        { degree: 3, denomination: 'meteo.douglas.swell.d3', waveHeight: 'meteo.douglas.swell.waveHeight.3' },
+    douglasSwellScale: [
+        { degree: 0, denomination: 'Sin oleaje', waveHeight: '0' },
+        { degree: 1, denomination: 'Corta o baja', waveHeight: '< 2' },
+        { degree: 2, denomination: 'Moderada', waveHeight: '2 - 4' },
+        { degree: 3, denomination: 'Larga o alta', waveHeight: '> 4' },
     ]
 };

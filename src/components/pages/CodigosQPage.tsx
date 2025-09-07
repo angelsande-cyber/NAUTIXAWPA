@@ -1,29 +1,26 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useTranslation } from "@/context/LanguageContext";
 import { Q_CODES_DATA } from "@/lib/data/qcodes";
 
 export default function CodigosQPage() {
-    const { t, language } = useTranslation();
-    const qCodes = Q_CODES_DATA[language];
+    const qCodes = Q_CODES_DATA.es;
 
     return (
         <div className="p-4 md:p-6">
             <Card className="w-full max-w-3xl mx-auto">
                 <CardHeader>
-                    <CardTitle>{t('qcodes.title')}</CardTitle>
-                    <CardDescription>{t('qcodes.description')}</CardDescription>
+                    <CardTitle>Códigos Q</CardTitle>
+                    <CardDescription>Referencia rápida de los códigos "Q" más comunes en radiocomunicaciones marítimas.</CardDescription>
                 </CardHeader>
                 <CardContent>
                      <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>{t('qcodes.columns.code')}</TableHead>
-                                <TableHead>{t('qcodes.columns.question')}</TableHead>
-                                <TableHead>{t('qcodes.columns.answer')}</TableHead>
+                                <TableHead>Código</TableHead>
+                                <TableHead>Pregunta</TableHead>
+                                <TableHead>Respuesta / Significado</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

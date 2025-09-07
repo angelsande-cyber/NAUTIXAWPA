@@ -13,18 +13,16 @@ import { CheckCircle, HelpCircle, RefreshCw, XCircle } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "@/context/LanguageContext";
 
 const LoadingSkeleton = () => {
-    const { t } = useTranslation();
     return (
         <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <Card className="w-full max-w-md p-8">
                 <div className="animate-spin mb-4">
                     <RefreshCw className="mx-auto h-12 w-12 text-primary" />
                 </div>
-                <h2 className="text-xl font-semibold">{t('quiz.loading.title')}</h2>
-                <p className="mt-2 text-muted-foreground">{t('quiz.loading.description')}</p>
+                <h2 className="text-xl font-semibold">Generando tu examen...</h2>
+                <p className="mt-2 text-muted-foreground">El asistente de IA está preparando 10 preguntas para ti. ¡Un momento!</p>
                  <div className="w-full max-w-sm space-y-4 mt-8">
                   <Skeleton className="h-6 w-full" />
                   <Skeleton className="h-4 w-3/4 mx-auto" />
@@ -36,7 +34,6 @@ const LoadingSkeleton = () => {
 };
 
 export default function ExamenPage() {
-  const { t, language } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [quiz, setQuiz] = useState<QuizOutput | null>(null);
@@ -52,15 +49,16 @@ export default function ExamenPage() {
     setUserAnswers({});
     setCurrentQuestionIndex(0);
     try {
-      const generatedQuiz = await generatePerQuiz({ language });
+      // Hardcode language to 'es'
+      const generatedQuiz = await generatePerQuiz({ language: 'es' });
       setQuiz(generatedQuiz);
     } catch (e) {
       console.error(e);
-      setError(t('quiz.errors.generationFailed'));
+      setError("No se pudo generar el examen. Por favor, inténtalo de nuevo.");
     } finally {
       setLoading(false);
     }
-  }, [language, t]);
+  }, []);
 
   useEffect(() => {
     loadQuiz();
@@ -86,11 +84,11 @@ export default function ExamenPage() {
         <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <Card className="w-full max-w-md p-6">
                 <XCircle className="mx-auto h-12 w-12 text-destructive" />
-                <h2 className="mt-4 text-xl font-semibold">{t('quiz.errors.title')}</h2>
+                <h2 className="mt-4 text-xl font-semibold">Error al generar</h2>
                 <p className="mt-2 text-muted-foreground">{error}</p>
                 <Button onClick={loadQuiz} className="mt-6">
                     <RefreshCw className="mr-2 h-4 w-4" />
-                    {t('quiz.retry')}
+                    Reintentar
                 </Button>
             </Card>
         </div>
@@ -103,11 +101,11 @@ export default function ExamenPage() {
         <div className="flex flex-col items-center justify-center h-full p-8 text-center">
             <Card className="w-full max-w-md p-6">
                  <HelpCircle className="mx-auto h-12 w-12 text-muted-foreground" />
-                <h2 className="mt-4 text-xl font-semibold">{t('quiz.errors.noQuestions')}</h2>
-                <p className="mt-2 text-muted-foreground">{t('quiz.errors.noQuestionsDescription')}</p>
+                <h2 className="mt-4 text-xl font-semibold">Sin Preguntas</h2>
+                <p className="mt-2 text-muted-foreground">La IA no devolvió ninguna pregunta. Intenta generar un nuevo examen.</p>
                 <Button onClick={loadQuiz} className="mt-6">
                     <RefreshCw className="mr-2 h-4 w-4" />
-                     {t('quiz.generateNew')}
+                     Generar Nuevo Examen
                 </Button>
             </Card>
         </div>
@@ -125,10 +123,10 @@ export default function ExamenPage() {
       <div className="p-4 md:p-6">
         <Card className="w-full max-w-3xl mx-auto">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl">{t('quiz.results.title')}</CardTitle>
-            <CardDescription>{t('quiz.results.summary', { score, totalQuestions })}</CardDescription>
+            <CardTitle className="text-3xl">Resultados del Examen</CardTitle>
+            <CardDescription>{`Has respondido correctamente a ${score} de ${totalQuestions} preguntas.`}</CardDescription>
             <div className={`mt-4 text-2xl font-bold ${isPass ? 'text-green-600' : 'text-destructive'}`}>
-                {isPass ? t('quiz.results.pass') : t('quiz.results.fail')}
+                {isPass ? "¡APROBADO!" : "SUSPENSO"}
             </div>
             <p className="text-5xl font-bold mt-2">{score}/{totalQuestions}</p>
           </CardHeader>
@@ -142,18 +140,18 @@ export default function ExamenPage() {
                      <AccordionTrigger>
                         <div className="flex items-center gap-3 w-full">
                            {isCorrect ? <CheckCircle className="h-5 w-5 text-green-500 shrink-0"/> : <XCircle className="h-5 w-5 text-destructive shrink-0"/>}
-                           <span className="text-left flex-1">{t('quiz.questionLabel', { number: index + 1 })}: {q.question}</span>
+                           <span className="text-left flex-1">{`Pregunta ${index + 1}`}: {q.question}</span>
                         </div>
                      </AccordionTrigger>
                      <AccordionContent className="space-y-4">
                         <div className="pl-8 text-sm">
-                           <p>{t('quiz.results.yourAnswer')}: <span className={cn("font-semibold", userAnswer === undefined ? "italic" : "", !isCorrect && "text-destructive")}>{userAnswer !== undefined ? q.options[userAnswer] : t('quiz.results.notAnswered')}</span></p>
-                           {!isCorrect && userAnswer !== undefined && <p>{t('quiz.results.correctAnswer')}: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
-                           {userAnswer === undefined && <p>{t('quiz.results.correctAnswer')}: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
+                           <p>Tu respuesta: <span className={cn("font-semibold", userAnswer === undefined ? "italic" : "", !isCorrect && "text-destructive")}>{userAnswer !== undefined ? q.options[userAnswer] : 'No respondida'}</span></p>
+                           {!isCorrect && userAnswer !== undefined && <p>Respuesta correcta: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
+                           {userAnswer === undefined && <p>Respuesta correcta: <span className="font-semibold text-green-600">{q.options[q.correctAnswerIndex]}</span></p>}
                         </div>
                         <Alert>
                            <HelpCircle className="h-4 w-4" />
-                           <AlertTitle>{t('quiz.explanation')}</AlertTitle>
+                           <AlertTitle>Explicación</AlertTitle>
                            <AlertDescription>{q.explanation}</AlertDescription>
                         </Alert>
                      </AccordionContent>
@@ -164,7 +162,7 @@ export default function ExamenPage() {
              <div className="mt-6 text-center">
                 <Button onClick={loadQuiz}>
                     <RefreshCw className="mr-2 h-4 w-4" />
-                    {t('quiz.generateNew')}
+                    Generar Nuevo Examen
                 </Button>
              </div>
           </CardContent>
@@ -177,8 +175,8 @@ export default function ExamenPage() {
     <div className="p-4 md:p-6">
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader>
-          <CardTitle>{t('quiz.title')}</CardTitle>
-          <CardDescription>{t('quiz.progress', { current: currentQuestionIndex + 1, total: totalQuestions })}</CardDescription>
+          <CardTitle>Examen de Práctica PER</CardTitle>
+          <CardDescription>{`Pregunta ${currentQuestionIndex + 1} de ${totalQuestions}`}</CardDescription>
           <Progress value={((currentQuestionIndex + 1) / totalQuestions) * 100} className="mt-2" />
         </CardHeader>
         <CardContent>
@@ -203,15 +201,15 @@ export default function ExamenPage() {
               onClick={() => setCurrentQuestionIndex(prev => prev - 1)}
               disabled={currentQuestionIndex === 0}
             >
-              {t('quiz.previous')}
+              Anterior
             </Button>
             {currentQuestionIndex < totalQuestions - 1 ? (
               <Button onClick={() => setCurrentQuestionIndex(prev => prev + 1)}>
-                {t('quiz.next')}
+                Siguiente
               </Button>
             ) : (
               <Button onClick={() => setShowResults(true)}>
-                {t('quiz.finish')}
+                Finalizar
               </Button>
             )}
           </div>

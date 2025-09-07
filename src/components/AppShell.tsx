@@ -46,8 +46,6 @@ import CanalesPage from "./pages/CanalesPage";
 import CodigosQPage from "./pages/CodigosQPage";
 import MeteorologiaPage from "./pages/MeteorologiaPage";
 import ExamenPage from "./pages/ExamenPage";
-import { useTranslation, LanguageToggle } from "@/context/LanguageContext";
-
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -80,33 +78,32 @@ function ThemeToggle() {
 export function AppShell({ user }: { user: User }) {
   const [activePage, setActivePage] = useState("dashboard");
   const { signOut } = useAuth();
-  const { t } = useTranslation();
 
   const dashboardItems = [
-    { id: "sosgen", label: t('dashboard.sos.label'), icon: Radio, description: t('dashboard.sos.description') },
-    { id: "senales", label: t('dashboard.signals.label'), icon: Lightbulb, description: t('dashboard.signals.description') },
-    { id: "colreg", label: t('dashboard.colreg.label'), icon: Sailboat, description: t('dashboard.colreg.description') },
-    { id: "examen", label: t('dashboard.quiz.label'), icon: FileText, description: t('dashboard.quiz.description') },
-    { id: "directorio", label: t('dashboard.directory.label'), icon: Book, description: t('dashboard.directory.description') },
-    { id: "calculadora", label: t('dashboard.calculator.label'), icon: Calculator, description: t('dashboard.calculator.description') },
-    { id: "alfabeto", label: t('dashboard.alphabet.label'), icon: Text, description: t('dashboard.alphabet.description') },
-    { id: "canales", label: t('dashboard.channels.label'), icon: RadioTower, description: t('dashboard.channels.description') },
-    { id: "codigosq", label: t('dashboard.qcodes.label'), icon: MessageSquareQuote, description: t('dashboard.qcodes.description') },
-    { id: "meteorologia", label: t('dashboard.meteo.label'), icon: Cloud, description: t('dashboard.meteo.description') },
+    { id: "sosgen", label: "Generador de Llamadas SOS", icon: Radio, description: "Crea y practica llamadas de socorro MAYDAY." },
+    { id: "senales", label: "Señales Marítimas", icon: Lightbulb, description: "Simulador de luces, marcas y sonidos de buques." },
+    { id: "colreg", label: "Reglamento (COLREG)", icon: Sailboat, description: "Consulta y estudia el reglamento de abordajes." },
+    { id: "examen", label: "Examen de Práctica", icon: FileText, description: "Genera un examen tipo test para el PER." },
+    { id: "directorio", label: "Directorio", icon: Book, description: "Contactos de emergencia y servicios marítimos." },
+    { id: "calculadora", label: "Calculadora de Coordenadas", icon: Calculator, description: "Convierte entre formatos de coordenadas." },
+    { id: "alfabeto", label: "Alfabeto Fonético y Banderas", icon: Text, description: "Consulta el código internacional de señales." },
+    { id: "canales", label: "Canales VHF Marinos", icon: RadioTower, description: "Listado de canales VHF y sus usos." },
+    { id: "codigosq", label: "Códigos Q", icon: MessageSquareQuote, description: "Referencia de los códigos Q más comunes." },
+    { id: "meteorologia", label: "Meteorología", icon: Cloud, description: "Escalas Beaufort, Douglas y tipos de nubes." },
   ];
 
   const pageTitleMap: { [key: string]: string } = {
-    dashboard: t('titles.home'),
-    sosgen: t('titles.sos'),
-    senales: t('titles.signals'),
-    colreg: t('titles.colreg'),
-    examen: t('titles.quiz'),
-    directorio: t('titles.directory'),
-    calculadora: t('titles.calculator'),
-    alfabeto: t('titles.alphabet'),
-    canales: t('titles.channels'),
-    codigosq: t('titles.qcodes'),
-    meteorologia: t('titles.meteo'),
+    dashboard: "Inicio",
+    sosgen: "Llamada de Socorro",
+    senales: "Señales Marítimas",
+    colreg: "Reglamento (COLREG)",
+    examen: "Examen de Práctica",
+    directorio: "Directorio",
+    calculadora: "Calculadora de Coordenadas",
+    alfabeto: "Alfabeto y Banderas",
+    canales: "Canales VHF",
+    codigosq: "Códigos Q",
+    meteorologia: "Meteorología",
   };
 
   const renderContent = () => {
@@ -156,13 +153,12 @@ export function AppShell({ user }: { user: User }) {
                 {showBackButton && (
                     <Button variant="ghost" size="icon" className="-ml-2" onClick={() => setActivePage('dashboard')}>
                         <ChevronLeft className="h-5 w-5"/>
-                        <span className="sr-only">{t('backToHome')}</span>
+                        <span className="sr-only">Volver a Inicio</span>
                     </Button>
                 )}
                  <h1 className="text-lg font-semibold uppercase tracking-wider">{pageTitleMap[activePage] || 'NAUTIXA'}</h1>
             </div>
             <div className="flex items-center gap-4">
-                <LanguageToggle />
                 <ThemeToggle />
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -183,7 +179,7 @@ export function AppShell({ user }: { user: User }) {
                         <DropdownMenuSeparator />
                         <DropdownMenuItem onClick={signOut}>
                             <LogOut className="mr-2 h-4 w-4" />
-                            <span>{t('signOut')}</span>
+                            <span>Cerrar sesión</span>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
@@ -206,7 +202,7 @@ export function AppShell({ user }: { user: User }) {
                       )}
                     >
                       <Home className="h-6 w-6" />
-                      <span>{t('titles.home')}</span>
+                      <span>Inicio</span>
                     </button>
                 
             </div>

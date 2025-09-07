@@ -1,17 +1,13 @@
-
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useTranslation } from "@/context/LanguageContext";
 import { letterFlags } from "@/components/LetterFlags";
 import { numberFlags } from "@/components/SignalFlags";
 import { ALPHABET_DATA } from "@/lib/data/alphabet";
 
 export default function AlfabetoPage() {
-    const { t, language } = useTranslation();
-    
-    const { letters, numbers } = ALPHABET_DATA[language];
+    const { letters, numbers } = ALPHABET_DATA.es;
 
     const combinedLetters = letters.map((item) => ({
         ...item,
@@ -27,18 +23,18 @@ export default function AlfabetoPage() {
         <div className="p-4 md:p-6 space-y-6">
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle>{t('alphabet.letters.title')}</CardTitle>
-                    <CardDescription>{t('alphabet.letters.description')}</CardDescription>
+                    <CardTitle>Letras y Banderas</CardTitle>
+                    <CardDescription>Código Internacional de Señales: Alfabeto Fonético y Banderas de Letras.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="overflow-x-auto">
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="w-24">{t('alphabet.columns.flag')}</TableHead>
-                                    <TableHead>{t('alphabet.columns.letter')}</TableHead>
-                                    <TableHead>{t('alphabet.columns.keyword')}</TableHead>
-                                    <TableHead>{t('alphabet.columns.meaning')}</TableHead>
+                                    <TableHead className="w-24">Bandera</TableHead>
+                                    <TableHead>Letra</TableHead>
+                                    <TableHead>Palabra Clave</TableHead>
+                                    <TableHead>Significado</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -60,17 +56,17 @@ export default function AlfabetoPage() {
 
             <Card className="w-full max-w-4xl mx-auto">
                 <CardHeader>
-                    <CardTitle>{t('alphabet.numbers.title')}</CardTitle>
-                    <CardDescription>{t('alphabet.numbers.description')}</CardDescription>
+                    <CardTitle>Números y Gallardetes</CardTitle>
+                    <CardDescription>Gallardetes numéricos y su pronunciación estándar.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="overflow-x-auto">
                         <Table>
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead className="w-24">{t('alphabet.columns.pennant')}</TableHead>
-                                    <TableHead>{t('alphabet.columns.number')}</TableHead>
-                                    <TableHead>{t('alphabet.columns.pronunciation')}</TableHead>
+                                    <TableHead className="w-24">Gallardete</TableHead>
+                                    <TableHead>Número</TableHead>
+                                    <TableHead>Pronunciación</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>

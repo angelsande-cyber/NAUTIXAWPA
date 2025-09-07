@@ -2,39 +2,39 @@
 
 export const DIRECTORY_DATA = [
     {
-        name: "directory.entries.maritime_rescue.name",
+        name: "Salvamento Marítimo",
         phones: ["112", "900 202 202"],
         email: "operaciones@sasemar.es",
-        keywords: ["directory.entries.maritime_rescue.keywords.0", "directory.entries.maritime_rescue.keywords.1", "directory.entries.maritime_rescue.keywords.2", "directory.entries.maritime_rescue.keywords.3", "directory.entries.maritime_rescue.keywords.4"]
+        keywords: ["Emergencia", "Rescate", "Socorro", "Sasemar", "Costera"]
     },
     {
-        name: "directory.entries.civil_guard.name",
+        name: "Guardia Civil del Mar",
         phones: ["062"],
         email: null,
-        keywords: ["directory.entries.civil_guard.keywords.0", "directory.entries.civil_guard.keywords.1", "directory.entries.civil_guard.keywords.2", "directory.entries.civil_guard.keywords.3"]
+        keywords: ["Policía", "Vigilancia", "Seguridad", "Denuncia"]
     },
     {
-        name: "directory.entries.red_cross.name",
+        name: "Cruz Roja del Mar",
         phones: ["901 222 222"],
         email: null,
-        keywords: ["directory.entries.red_cross.keywords.0", "directory.entries.red_cross.keywords.1", "directory.entries.red_cross.keywords.2", "directory.entries.red_cross.keywords.3"]
+        keywords: ["Asistencia", "Socorrismo", "Primeros auxilios", "Playas"]
     },
     {
-        name: "directory.entries.national_police.name",
+        name: "Policía Nacional",
         phones: ["091"],
         email: null,
-        keywords: ["directory.entries.national_police.keywords.0", "directory.entries.national_police.keywords.1", "directory.entries.national_police.keywords.2"]
+        keywords: ["Policía", "Seguridad", "Denuncia"]
     },
     {
-        name: "directory.entries.cnmc.name",
+        name: "CNMC (Comisión Nacional de los Mercados y la Competencia)",
         phones: ["91 021 00 00"],
         email: "info@cnmc.es",
-        keywords: ["directory.entries.cnmc.keywords.0", "directory.entries.cnmc.keywords.1", "directory.entries.cnmc.keywords.2", "directory.entries.cnmc.keywords.3"]
+        keywords: ["Licencias", "Radio", "Telecomunicaciones", "Inspección"]
     },
     {
-        name: "directory.entries.aemet.name",
+        name: "AEMET (Agencia Estatal de Meteorología)",
         phones: ["807 17 00 17", "91 581 99 99"],
         email: null,
-        keywords: ["directory.entries.aemet.keywords.0", "directory.entries.aemet.keywords.1", "directory.entries.aemet.keywords.2", "directory.entries.aemet.keywords.3"]
+        keywords: ["Tiempo", "Meteorología", "Previsión", "Avisos"]
     }
 ];
