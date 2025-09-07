@@ -12,8 +12,8 @@ export const useDirectoryData = () => {
         
         return DIRECTORY_DATA.map(entry => ({
             ...entry,
-            name: t(entry.name), // Assumes names are translation keys
-            keywords: entry.keywords.map(k => t(k)) // Assumes keywords are translation keys
+            name: t(entry.name),
+            keywords: entry.keywords.map(k => t(k))
         }));
 
     }, [t, isLoaded]);

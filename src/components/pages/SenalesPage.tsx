@@ -21,7 +21,7 @@ import type { BuoyData, ColregRule, LightCharacteristicTerm, SoundSignal } from 
 
 // --- Helper Functions (moved from simulation.ts) ---
 
-let simulationTimeout: number | null = null;
+let simulationTimeout: NodeJS.Timeout | null = null;
 
 interface LightCharacteristic {
     original: string;
@@ -158,7 +158,7 @@ function runSimulation(
     };
 
     runSequence();
-    simulationTimeout = window.setInterval(runSequence, char.period! * 1000);
+    simulationTimeout = setInterval(runSequence, char.period! * 1000);
     
     const rhythmText = lightTerms[char.rhythm] || char.rhythm;
     const groupText = char.group ? t('signals.lighthouses.groupText', { group: char.group }) : '';
@@ -350,7 +350,7 @@ const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
 const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTerms: LightCharacteristicTerm }) => {
     const { t } = useTranslation();
     const [region, setRegion] = useState('A');
-    const [activeCategoryKey, setActiveCategoryKey] = useState<string | null>(null);
+    const [activeCategory, setActiveCategory] = useState<string | null>(null);
     const [activeType, setActiveType] = useState<string | null>(null);
 
     const categories = useMemo(() => {
@@ -359,7 +359,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, [buoyData]);
     
     const handleCategoryClick = useCallback((category: string) => {
-        setActiveCategoryKey(category);
+        setActiveCategory(category);
         setActiveType(null);
         if (simulationTimeout) clearInterval(simulationTimeout);
         const buoyInfoEl = document.getElementById('buoy-info-panel');
@@ -387,21 +387,21 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, [lightTerms, t]);
     
     useEffect(() => {
-        if(categories.length > 0 && !activeCategoryKey) {
+        if(categories.length > 0 && !activeCategory) {
             handleCategoryClick(categories[0]);
         }
-    }, [categories, activeCategoryKey, handleCategoryClick]);
+    }, [categories, activeCategory, handleCategoryClick]);
 
      useEffect(() => {
         const lateralCategory = t("signals.buoyage.categories.lateral");
-        if (activeCategoryKey === lateralCategory) {
+        if (activeCategory === lateralCategory) {
             setActiveType(null);
             const buoyInfoEl = document.getElementById('buoy-info-panel');
             const buoySchematicEl = document.getElementById('buoy-schematic-container');
             if(buoyInfoEl) buoyInfoEl.innerHTML = `<p class="text-muted-foreground">${t('signals.buoys.start')}</p>`;
             if(buoySchematicEl) buoySchematicEl.innerHTML = '';
         }
-    }, [region, activeCategoryKey, t]);
+    }, [region, activeCategory, t]);
     
      useEffect(() => {
         return () => {
@@ -413,23 +413,23 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, []);
 
     const buoyTypesForCategory = useMemo(() => {
-        const lateralCategoryKey = "signals.buoyage.categories.lateral";
+        const lateralCategoryKey = "Lateral Marks";
         return buoyData.filter(b => {
-            if (b.category !== activeCategoryKey) {
-                if (t(b.category) !== activeCategoryKey) return false;
+            if (b.category !== activeCategory) {
+                return false;
             }
-            if (t(b.category) === t(lateralCategoryKey)) {
+            if (b.category === lateralCategoryKey || b.category === t('signals.buoyage.categories.lateral')) {
                  return b.region === region;
             }
             return true;
         })
-    }, [buoyData, activeCategoryKey, region, t]);
+    }, [buoyData, activeCategory, region, t]);
 
 
     return (
         <div>
             <div className="space-y-4">
-                {activeCategoryKey === t("signals.buoyage.categories.lateral") && (
+                { (activeCategory === t("signals.buoyage.categories.lateral") || activeCategory === "Lateral Marks") && (
                     <div className="flex items-center space-x-2 p-3 bg-muted rounded-lg">
                         <Label htmlFor="iala-region" className="font-semibold">{t('signals.buoys.ialaRegion')}</Label>
                         <span className={cn(region === 'A' ? '' : 'text-muted-foreground', "font-bold")}>A</span>
@@ -441,7 +441,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                     <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.category')}</Label>
                     <div className="flex flex-wrap gap-2 mt-2">
                         {categories.map((category) => (
-                            <Button key={category} variant={activeCategoryKey === category ? 'default' : 'outline'} onClick={() => handleCategoryClick(category)}>
+                            <Button key={category} variant={activeCategory === category ? 'default' : 'outline'} onClick={() => handleCategoryClick(category)}>
                                 {category}
                             </Button>
                         ))}
@@ -452,7 +452,7 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.type')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map((buoy, index) => (
-                                <Button key={`${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                <Button key={`${buoy.type}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
                                     {buoy.type}
                                 </Button>
                             ))}
