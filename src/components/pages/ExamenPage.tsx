@@ -50,20 +50,18 @@ export default function ExamenPage() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
   
-  // Use a local state to trigger re-renders from module-level state changes
   const [_, setRenderTrigger] = useState(0);
-
   const forceRerender = () => setRenderTrigger(v => v + 1);
 
   const loadQuiz = useCallback(async (forceNew = false) => {
     if (quizState.quiz && !forceNew) {
+      forceRerender();
       return;
     }
     
     setLoading(true);
     quizState.error = null;
     quizState.quiz = null;
-    
     setShowResults(false);
     setCurrentQuestionIndex(0);
     quizState.userAnswers = {};
@@ -80,17 +78,16 @@ export default function ExamenPage() {
     }
   }, []);
 
-  // Load quiz only once on initial mount or if it's not already loaded
   useEffect(() => {
-    if (!quizState.quiz && !quizState.error) {
+    if (!quizState.quiz && !quizState.error && !loading) {
         loadQuiz();
     }
-  }, [loadQuiz]);
+  }, [loadQuiz, loading]);
 
   const handleAnswerChange = (questionIndex: number, answerIndexStr: string) => {
     const answerIndex = parseInt(answerIndexStr, 10);
     quizState.userAnswers[questionIndex] = answerIndex;
-    forceRerender(); // To update radio check
+    forceRerender();
   };
   
   const handleRestart = () => {

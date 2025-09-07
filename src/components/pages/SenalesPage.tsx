@@ -266,7 +266,7 @@ const LighthouseSimulator = () => {
                     <span className="w-full border-t" />
                 </div>
                 <div className="relative bg-card px-4 text-sm text-muted-foreground">
-                    O introduce manualmente
+                    O introduce manually
                 </div>
             </div>
 
