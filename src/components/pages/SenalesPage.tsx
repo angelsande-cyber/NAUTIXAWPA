@@ -37,11 +37,17 @@ function parseLighthouseCharacteristic(charStr: string): LightCharacteristic | n
     const result: LightCharacteristic = {
         original: charStr, rhythm: null, group: null, colors: [], period: null, error: null,
     };
+    
+    // Special handling for continuous quick flashes that don't have a period.
+    const isQuickFlash = charStr.includes('Q') || charStr.includes('VQ');
 
     const periodMatch = charStr.match(/(\d+(\.\d+)?)\s*S?$/i);
     if (periodMatch) {
         result.period = parseFloat(periodMatch[1]);
         charStr = charStr.slice(0, periodMatch.index).trim();
+    } else if (isQuickFlash) {
+        // For continuous quick flashes, we can assign a default period for simulation purposes.
+        result.period = 1; // e.g., 1 second cycle for Q or VQ
     } else {
         result.error = "No se pudo determinar el período. Ejemplo: 'Fl R 5s'";
         return result;
@@ -62,7 +68,14 @@ function parseLighthouseCharacteristic(charStr: string): LightCharacteristic | n
     }
     
     charStr = charStr.replace(/\b(GP|GRP)\b/g, '').trim();
-    result.rhythm = charStr.split(' ')[0] || 'FL';
+
+    // Handle cases like "VQ or Q"
+    if (charStr.includes(' OR ')) {
+        result.rhythm = charStr.split(' OR ')[0] || 'Q';
+    } else {
+        result.rhythm = charStr.split(' ')[0] || 'FL';
+    }
+
 
     return result;
 }
@@ -442,7 +455,7 @@ const BuoySimulator = () => {
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">Tipo</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map((buoy, index) => (
-                                <Button key={`${buoy.type}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                <Button key={`${buoy.category}-${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
                                     {buoy.type}
                                 </Button>
                             ))}
