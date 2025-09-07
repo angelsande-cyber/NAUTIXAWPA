@@ -6,8 +6,14 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { startGenkitServer } from '@genkit-ai/next';
+import { defineServer } from '@genkit-ai/next/server';
 
-const { GET, POST } = startGenkitServer({ ai });
-
-export { GET, POST };
+export default defineServer({
+  ai,
+  // You can pass in additional options here, for example:
+  //
+  //   cors: {
+  //     origin: 'http://localhost:3000',
+  //   },
+  //
+});
