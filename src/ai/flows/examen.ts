@@ -9,7 +9,6 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {QuizOutputSchema} from '../schemas/examen-schema';
 
-
 const PerQuizInputSchema = z.object({
   language: z.enum(['es', 'en']).describe("The language to generate the quiz in ('es' or 'en')."),
 });
