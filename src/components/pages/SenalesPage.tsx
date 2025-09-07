@@ -162,7 +162,7 @@ function runSimulation(
     
     const rhythmText = lightTerms[char.rhythm] || char.rhythm;
     const groupText = char.group ? t('signals.lighthouses.groupText', { group: char.group }) : '';
-    const colorsText = char.colors.map(c => lightTerms[c]).join(' ');
+    const colorsText = char.colors.map(c => lightTerms[c] || c).join(' ');
     const periodText = t('signals.lighthouses.periodText', { period: char.period });
     
     const desc = `${rhythmText} ${groupText} ${colorsText} ${periodText}`;
@@ -424,16 +424,20 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, []);
 
     const buoyTypesForCategory = useMemo(() => {
-        const lateralCategory = t("signals.buoyage.categories.lateral");
-        return translatedBuoyData.filter(b => {
-            if (b.category !== activeCategoryKey) return false;
-            const originalBuoy = buoyData.find(ob => t(ob.type) === b.type && t(ob.category) === b.category);
-            if (b.category === lateralCategory) {
-                 return originalBuoy?.region === region;
+        const lateralCategoryKey = "signals.buoyage.categories.lateral";
+        return buoyData.filter(b => {
+            if (b.category !== activeCategoryKey) {
+                // This is a direct comparison on the key, which might be wrong if activeCategoryKey is translated
+                // Let's compare the translated version instead.
+                if (t(b.category) !== activeCategoryKey) return false;
+            }
+            if (b.category === lateralCategoryKey) {
+                 return b.region === region;
             }
             return true;
         })
-    }, [translatedBuoyData, activeCategoryKey, region, t, buoyData]);
+    }, [buoyData, activeCategoryKey, region, t]);
+
 
     return (
         <div>
@@ -461,8 +465,8 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.type')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map((buoy, index) => (
-                                <Button key={`${buoy.type}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
-                                    {buoy.type}
+                                <Button key={`${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === t(buoy.type) ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                    {t(buoy.type)}
                                 </Button>
                             ))}
                         </div>
