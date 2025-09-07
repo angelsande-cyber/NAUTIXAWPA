@@ -37,7 +37,7 @@ export default function ExamenPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [quiz, setQuiz] = useState<QuizOutput | null>(null);
-  const [userAnswers, setUserAnswers] = useState<Record<number, number>>({});
+  const [userAnswers, setUserAnswers] = useState<Record<number, number | undefined>>({});
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
 
@@ -184,6 +184,7 @@ export default function ExamenPage() {
           <div className="space-y-4">
             <p className="font-semibold text-lg">{currentQuestion.question}</p>
             <RadioGroup
+              key={currentQuestionIndex}
               value={userAnswers[currentQuestionIndex]?.toString()}
               onValueChange={(value) => handleAnswerChange(currentQuestionIndex, value)}
               className="space-y-2"
