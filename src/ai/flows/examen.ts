@@ -14,6 +14,8 @@ const PerQuizInputSchema = z.object({
 });
 export type PerQuizInput = z.infer<typeof PerQuizInputSchema>;
 
+
+// Renombramos el prompt para claridad
 const perQuizPrompt = ai.definePrompt({
   name: 'perQuizPrompt',
   input: { schema: PerQuizInputSchema },
@@ -46,7 +48,8 @@ If the language is 'es', all output must be in Spanish. If the language is 'en',
 `,
 });
 
-export const generatePerQuiz = ai.defineFlow(
+// Definimos el flow
+export const generatePerQuizFlow = ai.defineFlow(
   {
     name: 'generatePerQuizFlow',
     inputSchema: PerQuizInputSchema,
@@ -72,3 +75,9 @@ export const generatePerQuiz = ai.defineFlow(
     return output;
   }
 );
+
+
+// Creamos la función exportada que SÍ es una Action
+export async function generatePerQuiz(input: PerQuizInput) {
+    return await generatePerQuizFlow(input);
+}

@@ -3,9 +3,12 @@
 import { generatePerQuiz } from '@/ai/flows/examen';
 import { appRoute } from '@genkit-ai/next';
 
-// This is the correct pattern for exposing a Genkit flow as a Next.js API route.
-// The `appRoute` function takes a Genkit Action (a flow or prompt) and returns
-// a Next.js request handler.
+// Esta es la forma correcta de exponer el flujo a través de la API.
+// Pasamos la función 'generatePerQuiz', que es una acción válida de Genkit.
 export const POST = appRoute({
   flow: generatePerQuiz,
+  // Opcional: habilitar CORS si se llama desde otro dominio
+  // cors: {
+  //   origin: '*'
+  // }
 });
