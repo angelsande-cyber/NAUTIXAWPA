@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useTranslation } from "@/context/LanguageContext";
 import { Skeleton } from "../ui/skeleton";
 import { METEO_DATA } from "@/lib/data/meteorologia";
+import { CLOUD_DATA } from "@/lib/data/clouds";
 
 const LoadingSkeleton = () => (
     <div className="p-4 md:p-6 space-y-6">
@@ -54,7 +55,8 @@ export default function MeteorologiaPage() {
         return <LoadingSkeleton />;
     }
 
-    const { beaufortScaleKeys, douglasSeaScaleKeys, douglasSwellScaleKeys, cloudTypeKeys } = METEO_DATA;
+    const { beaufortScaleKeys, douglasSeaScaleKeys, douglasSwellScaleKeys } = METEO_DATA;
+    const cloudTypeKeys = CLOUD_DATA;
 
     return (
         <div className="p-4 md:p-6 space-y-6">
