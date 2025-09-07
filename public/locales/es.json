@@ -1,17 +1,18 @@
+
 {
-    "backToHome": "Volver al Inicio",
-    "signOut": "Cerrar Sesión",
     "signIn": {
-        "tagline": "Tu asistente de navegación y comunicaciones.",
+        "tagline": "Tu asistente de navegación y comunicaciones para marinos.",
         "button": "Iniciar sesión con Google",
         "signingIn": "Iniciando sesión..."
     },
+    "signOut": "Cerrar Sesión",
+    "backToHome": "Volver a Inicio",
     "titles": {
         "home": "Inicio",
-        "sos": "SOS",
+        "sos": "Generador SOS",
         "signals": "Señales Marítimas",
-        "colreg": "Reglamento (COLREG)",
-        "quiz": "Examen",
+        "colreg": "Guía COLREG",
+        "quiz": "Test de Práctica",
         "directory": "Directorio",
         "calculator": "Calculadora de Coordenadas",
         "alphabet": "Alfabeto Fonético",
@@ -20,42 +21,335 @@
         "meteo": "Meteorología"
     },
     "dashboard": {
-        "sos": { "label": "SOS", "description": "Guía de comunicaciones de socorro." },
-        "signals": { "label": "Señales", "description": "Simulador de luces y marcas." },
-        "colreg": { "label": "COLREG", "description": "Consulta el reglamento de abordajes." },
-        "quiz": { "label": "Examen", "description": "Genera exámenes de práctica." },
-        "directory": { "label": "Directorio", "description": "Contactos de salvamento." },
-        "calculator": { "label": "Calculadora", "description": "Conversor de coordenadas." },
-        "alphabet": { "label": "Alfabeto Fonético", "description": "Alfabeto internacional ICAO/OTAN." },
-        "channels": { "label": "Canales VHF", "description": "Listado de canales y usos comunes." },
-        "qcodes": { "label": "Códigos Q", "description": "Listado de códigos Q de consulta." },
-        "meteo": { "label": "Meteorología", "description": "Escalas Beaufort, Douglas y nubes." }
+        "sos": {
+            "label": "Generador SOS",
+            "description": "Genera mensajes de socorro MAYDAY estandarizados."
+        },
+        "signals": {
+            "label": "Simulador de Señales",
+            "description": "Simulador interactivo de luces, balizas y sonidos."
+        },
+        "colreg": {
+            "label": "Guía COLREG",
+            "description": "Consulta rápida del reglamento de abordajes."
+        },
+        "quiz": {
+            "label": "Test de Práctica PER",
+            "description": "Pon a prueba tus conocimientos para el examen del PER."
+        },
+        "directory": {
+            "label": "Directorio",
+            "description": "Teléfonos de emergencia y contactos de interés."
+        },
+        "calculator": {
+            "label": "Calculadora",
+            "description": "Convierte entre formatos de coordenadas."
+        },
+        "alphabet": {
+            "label": "Alfabeto y Banderas",
+            "description": "Alfabeto fonético y señales internacionales."
+        },
+        "channels": {
+            "label": "Canales VHF",
+            "description": "Principales canales VHF marinos y sus usos."
+        },
+        "qcodes": {
+            "label": "Códigos Q",
+            "description": "Códigos Q comunes en radiocomunicaciones."
+        },
+        "meteo": {
+            "label": "Meteorología",
+            "description": "Escalas Beaufort, Douglas y tipos de nubes."
+        }
     },
     "sos": {
-        "title": "Comunicaciones de Socorro en el Mar",
-        "description": "Guía sobre cómo transmitir correctamente un mensaje de socorro y los medios disponibles en el Sistema Mundial de Socorro y Seguridad Marítima (SMSSM/GMDSS).",
+        "title": "Generador de Mensaje de Socorro (MAYDAY)",
+        "description": "Sigue este procedimiento para emitir correctamente una llamada de socorro en el Canal 16 de VHF.",
         "procedure": {
-            "title": "Procedimiento de Llamada MAYDAY por Voz (VHF Canal 16)",
+            "title": "Procedimiento MAYDAY (VHF Canal 16)",
             "alert": {
-                "title": "¡Solo para Peligro Grave e Inminente!",
-                "description": "La señal de socorro MAYDAY solo debe usarse cuando existe un peligro grave e inminente para la vida o para la propia embarcación (ej: hundimiento, incendio incontrolable, abordaje grave)."
+                "title": "Importante: Antes de Transmitir",
+                "description": "Active el botón de socorro DSC (Llamada Selectiva Digital) de su radio VHF si dispone de él. Después, proceda con la llamada de voz."
+            },
+            "explanation": {
+                "title": "Explicación del Procedimiento",
+                "step1": { "title": "MAYDAY, MAYDAY, MAYDAY:", "description": "La señal internacional de peligro grave e inminente. Dígalo tres veces claramente." },
+                "step2": { "title": "AQUÍ [Nombre del barco] (x3):", "description": "Identifique su embarcación, repitiendo su nombre tres veces." },
+                "step3": { "title": "INDICATIVO / MMSI:", "description": "Indique el indicativo de llamada y el número MMSI de su buque para una identificación positiva." },
+                "step4": { "title": "MAYDAY [Nombre del barco]:", "description": "Repita MAYDAY y el nombre de su barco para confirmar el inicio del mensaje." },
+                "step5": { "title": "MI POSICIÓN ES...:", "description": "Dé su posición con la mayor precisión posible (Latitud/Longitud o referencia a un punto conocido)." },
+                "step6": { "title": "ESTOY...:", "description": "Indique la naturaleza del peligro (ej. 'incendio a bordo', 'hundiéndome', 'varado', 'emergencia médica')." },
+                "step7": { "title": "NECESITO AYUDA INMEDIATA:", "description": "Declare claramente que necesita ayuda." },
+                "step8": { "title": "TENGO [X] PERSONAS A BORDO:", "description": "Indique el número de personas a bordo. Crucial para los equipos de rescate." },
+                "step9": { "title": "OTRA INFORMACIÓN:", "description": "Proporcione cualquier otra información útil (ej. 'abandonando el barco', 'el buque es un velero azul de 40 pies')." },
+                "step10": { "title": "CAMBIO:", "description": "Fin de la transmisión. Ahora escuche una respuesta." }
             }
         },
         "systems": {
-            "title": "Principales Medios para Solicitar Socorro"
+            "title": "Otros Sistemas de Alerta de Socorro",
+            "vhf": {
+                "title": "Radio VHF con DSC",
+                "description": "El método principal para llamadas de socorro en el mar. Use el Canal 16 para voz y el Canal 70 para alertas DSC.",
+                "channel": "Canales: 16 (Voz), 70 (DSC)"
+            },
+            "epirb": {
+                "title": "Radiobaliza de Localización de Siniestros (EPIRB)",
+                "description": "Baliza activada automática o manualmente que transmite una señal de socorro vía satélite.",
+                "channel": "Frecuencia: 406 MHz (a Cospas-Sarsat)"
+            },
+            "visual": {
+                "title": "Señales Visuales",
+                "description": "Bengalas, banderas de socorro (NC), señales de humo. Úselas cuando crea estar a la vista de otros buques.",
+                "channel": "Contacto Visual"
+            },
+            "mobile": {
+                "title": "Teléfono Móvil",
+                "description": "Un último recurso si está en zonas costeras con cobertura. Llame al número de emergencias (112 en Europa).",
+                "channel": "Llamar a: 112"
+            }
+        },
+        "placeholders": {
+            "shipName": "NOMBRE DEL BARCO",
+            "callSign": "INDICATIVO",
+            "position": "LAT/LON o REFERENCIA",
+            "natureOfDistress": "NATURALEZA DEL PELIGRO",
+            "pob": "X",
+            "otherInfo": "OTRA INFO (ej. abandonando el barco)"
+        },
+        "thisIs": "Aquí",
+        "callSign": "Indicativo",
+        "myPosition": "Mi posición es",
+        "iam": "Estoy",
+        "iRequire": "Necesito ayuda inmediata.",
+        "iHave": "Tengo",
+        "personsOnBoard": "personas a bordo.",
+        "over": "Cambio."
+    },
+    "directory": {
+        "title": "Directorio de Emergencias",
+        "description": "Principales teléfonos de emergencias e información para España.",
+        "searchPlaceholder": "Buscar por nombre, número o palabra clave...",
+        "noResults": "No se han encontrado resultados para '{searchTerm}'.",
+        "entries": {
+            "maritime_rescue": {
+                "name": "Salvamento Marítimo",
+                "keywords": ["Emergencia", "Rescate", "Guardacostas", "Sasemar", "Socorro"]
+            },
+            "civil_guard": {
+                "name": "Guardia Civil del Mar",
+                "keywords": ["Policía", "Guardia Civil", "Denuncia", "Seguridad"]
+            },
+            "red_cross": {
+                "name": "Cruz Roja del Mar",
+                "keywords": ["Médico", "Asistencia", "Primeros Auxilios", "Humanitaria"]
+            },
+            "national_police": {
+                "name": "Policía Nacional",
+                "keywords": ["Policía", "Seguridad", "Denuncia"]
+            },
+            "cnmc": {
+                "name": "CNMC (Espectro Radioeléctrico)",
+                "keywords": ["Licencia", "Radio", "MMSI", "Inspección"]
+            },
+            "aemet": {
+                "name": "AEMET (Agencia Estatal de Met.)",
+                "keywords": ["Tiempo", "Previsión", "Meteorología", "Alerta"]
+            }
+        }
+    },
+    "channels": {
+        "title": "Canales VHF Marinos",
+        "description": "Canales VHF de uso común en España y su propósito.",
+        "columns": {
+            "channel": "Canal",
+            "usage": "Uso"
+        }
+    },
+    "qcodes": {
+        "title": "Códigos Q Comunes",
+        "description": "Selección de códigos Q de uso frecuente en la comunicación por radio marítima.",
+        "columns": {
+            "code": "Código",
+            "question": "Pregunta",
+            "answer": "Respuesta / Significado"
+        }
+    },
+    "alphabet": {
+        "letters": {
+            "title": "Alfabeto Fonético (OACI)",
+            "description": "Letras, palabras clave y significado de las banderas del Código Internacional de Señales."
+        },
+        "numbers": {
+            "title": "Pronunciación de Números",
+            "description": "Pronunciación estándar para los dígitos para evitar confusiones en comunicaciones de voz."
+        },
+        "columns": {
+            "flag": "Bandera",
+            "letter": "Letra",
+            "keyword": "Palabra Clave",
+            "meaning": "Significado (izada sola)",
+            "pennant": "Gallardete",
+            "number": "Número",
+            "pronunciation": "Pronunciación"
+        }
+    },
+    "meteo": {
+        "beaufort": {
+            "title": "Escala de Beaufort (Viento)",
+            "description": "Relaciona la velocidad del viento con las condiciones observadas en el mar y en tierra.",
+            "headers": {
+                "force": "Fuerza",
+                "denomination": "Denominación",
+                "speed": "Velocidad (nudos)",
+                "waves": "Olas (m)",
+                "sea": "Estado del Mar"
+            },
+            "denominations": {
+                "0": "Calma", "1": "Ventolina", "2": "Brisa muy débil", "3": "Brisa débil", "4": "Brisa moderada", "5": "Brisa fresca",
+                "6": "Brisa fuerte", "7": "Fresco", "8": "Temporal", "9": "Temporal fuerte", "10": "Temporal duro",
+                "11": "Temporal muy duro", "12": "Huracán"
+            },
+            "speedKnots": {
+                "0": "< 1", "1": "1-3", "2": "4-6", "3": "7-10", "4": "11-16", "5": "17-21",
+                "6": "22-27", "7": "28-33", "8": "34-40", "9": "41-47", "10": "48-55",
+                "11": "56-63", "12": "> 63"
+            },
+            "waveHeight": {
+                "0": "0", "1": "0.1", "2": "0.2-0.5", "3": "0.6-1.0", "4": "1-2", "5": "2-3",
+                "6": "3-4", "7": "4-5.5", "8": "5.5-7.5", "9": "7-10", "10": "9-12.5",
+                "11": "11.5-16", "12": "> 14"
+            },
+            "seaState": {
+                "0": "Como un espejo", "1": "Rizos", "2": "Pequeñas olas", "3": "Olas pequeñas, crestas rompen", "4": "Borreguillos numerosos", "5": "Olas moderadas, muchos borreguillos, algunos rociones",
+                "6": "Olas grandes, crestas blancas por doquier, más rociones", "7": "Mar gruesa, espuma en vetas", "8": "Mar muy gruesa, espuma densa en vetas", "9": "Mar arbolada, visibilidad reducida por rociones", "10": "Mar muy arbolada, superficie blanca de espuma",
+                "11": "Mar montañosa, mar completamente blanca", "12": "Aire lleno de espuma y rociones, mar blanca"
+            }
+        },
+        "douglas": {
+            "title": "Escala Douglas (Mar y Oleaje)",
+            "description": "Describe el estado del mar, diferenciando entre mar de viento (olas generadas por el viento local) y mar de fondo (oleaje de tormentas lejanas).",
+            "sea": {
+                "title": "Estado del Mar (Mar de Viento)"
+            },
+            "swell": {
+                "title": "Estado del Oleaje (Mar de Fondo)"
+            },
+            "headers": {
+                "degree": "Grado",
+                "denomination": "Denominación",
+                "height": "Altura (m)"
+            },
+            "seaDenominations": {
+                "d0": "Calma", "d1": "Rizada", "d2": "Llena", "d3": "Marejadilla", "d4": "Marejada",
+                "d5": "Fuerte marejada", "d6": "Mar gruesa", "d7": "Mar muy gruesa", "d8": "Mar arbolada", "d9": "Mar montañosa"
+            },
+            "seaWaveHeight": {
+                "0": "0", "1": "0-0.1", "2": "0.1-0.5", "3": "0.5-1.25", "4": "1.25-2.5", "5": "2.5-4",
+                "6": "4-6", "7": "6-9", "8": "9-14", "9": "> 14"
+            },
+            "swellDenominations": {
+                "d0": "Sin oleaje", "d1": "Corta y baja", "d2": "Corta y moderada", "d3": "Larga y baja"
+            },
+            "swellWaveHeight": {
+                "0": "0", "1": "0-2", "2": "> 2", "3": "0-2"
+            }
+        },
+        "clouds": {
+            "title": "Tipos de Nubes",
+            "description": "Principales géneros de nubes, clasificados por su altitud y su significado meteorológico.",
+            "alt_prefix": "Imagen de nubes {cloudType}",
+            "types": {
+                "cirrus": { "name": "Cirrus (Ci)", "altitude": "Nubes Altas (6-12 km)", "description": "Nubes aisladas en forma de filamentos blancos y delicados, o de bancos o bandas blancas. Suelen indicar buen tiempo, aunque pueden ser señal de la proximidad de un frente cálido.", "hint": "nubes filamentosas" },
+                "cirrocumulus": { "name": "Cirrocumulus (Cc)", "altitude": "Nubes Altas (6-12 km)", "description": "Banco, manto o capa delgada de nubes blancas, sin sombras, compuestas de elementos muy pequeños en forma de granos, de ondas, etc. (cielo aborregado). Pueden indicar inestabilidad en altura.", "hint": "nubes onduladas" },
+                "cirrostratus": { "name": "Cirrostratus (Cs)", "altitude": "Nubes Altas (6-12 km)", "description": "Velo nuboso transparente y blanquecino, de aspecto fibroso o liso, que cubre total o parcialmente el cielo y que da lugar a fenómenos de halo. Suelen preceder a un frente cálido.", "hint": "sol con halo" },
+                "altocumulus": { "name": "Altocumulus (Ac)", "altitude": "Nubes Medias (2-6 km)", "description": "Banco, manto o capa de nubes blancas o grisáceas, que tienen generalmente sombras, compuestas de losetas, masas redondeadas, rodillos, etc.", "hint": "nubes algodonosas" },
+                "altostratus": { "name": "Altostratus (As)", "altitude": "Nubes Medias (2-6 km)", "description": "Manto o capa de nubes grisáceas o azuladas, de aspecto estriado, fibroso o uniforme, que cubre por entero o parcialmente el cielo. El sol o la luna se ven como a través de un vidrio deslustrado. Preceden a lluvias o nevadas continuas.", "hint": "manto gris" },
+                "nimbostratus": { "name": "Nimbostratus (Ns)", "altitude": "Bajas a Medias (0-7 km)", "description": "Capa nubosa gris, a menudo sombría, cuyo aspecto resulta velado por la caída más o menos continua de lluvia o de nieve, que en la mayoría de los casos llegan al suelo. Es lo suficientemente espesa para ocultar el sol.", "hint": "nubes de lluvia" },
+                "stratus": { "name": "Stratus (St)", "altitude": "Nubes Bajas (0-2 km)", "description": "Capa de nubes generalmente gris, con base bastante uniforme, que puede dar lugar a llovizna, prismas de hielo o cinarra. Cuando el sol es visible a través de la capa, su contorno es claramente discernible.", "hint": "nubes de niebla" },
+                "stratocumulus": { "name": "Stratocumulus (Sc)", "altitude": "Nubes Bajas (0-2 km)", "description": "Banco, manto o capa de nubes grises o blanquecinas, que tienen casi siempre partes oscuras, compuestas de losetas, masas redondeadas, rodillos, etc., de aspecto no fibroso. Suelen indicar tiempo estable.", "hint": "nubes grumosas" },
+                "cumulus": { "name": "Cumulus (Cu)", "altitude": "Nubes Bajas (0-2 km)", "description": "Nubes aisladas, generalmente densas y con contornos bien definidos, que se desarrollan verticalmente en forma de cúpulas, de protuberancias o de torres y cuya parte superior se parece a una coliflor. Indican buen tiempo, pero pueden crecer.", "hint": "nubes pomposas" },
+                "cumulonimbus": { "name": "Cumulonimbus (Cb)", "altitude": "Desarrollo Vertical (0-12 km)", "description": "Nube densa y potente, de considerable desarrollo vertical, en forma de montaña o de enormes torres. Su parte superior es generalmente lisa, fibrosa o estriada y casi siempre aplastada (yunque). Asociada a tormentas, lluvias fuertes, granizo y vientos fuertes.", "hint": "nube de tormenta" }
+            }
         }
     },
     "signals": {
-        "description": "Herramienta interactiva para aprender a identificar las características de luces y marcas de faros, boyas y buques.",
+        "description": "Simuladores interactivos de luces, balizamiento y sonidos según el RIPA/COLREG.",
         "tabs": {
             "vessels": "Buques",
             "sounds": "Sonidos",
             "buoyage": "Balizamiento",
             "lighthouses": "Faros"
         },
+        "terms": {
+            "F": "Fija", "FL": "Destellos", "LFL": "Destellos Largos", "OC": "Ocultaciones", "ISO": "Isofase",
+            "Q": "Destellos Rápidos", "VQ": "Destellos muy Rápidos", "IQ": "Destellos Rápidos Interrumpidos", "MO": "Código Morse", "AL": "Alternativa",
+            "W": "Blanca", "R": "Roja", "G": "Verde", "Y": "Amarilla", "BU": "Azul", "VI": "Violeta"
+        },
+        "lighthouses": {
+            "invalidCharacteristic": "Característica inválida",
+            "groupText": "grupo {group}",
+            "colorSeparator": ", ",
+            "periodText": "cada {period}s",
+            "start": "Ajusta los controles o introduce una característica para iniciar la simulación.",
+            "manualInput": "O INTRODUCIR MANUALMENTE",
+            "controls": {
+                "rhythm": "Ritmo",
+                "color": "Color",
+                "group": "Grupo / Composición",
+                "groupPlaceholder": "Ej: 2 o 2+1",
+                "period": "Periodo (segundos)",
+                "periodPlaceholder": "Ej: 10"
+            }
+        },
+        "buoys": {
+            "start": "Selecciona una categoría y un tipo para ver la baliza.",
+            "ialaRegion": "Región IALA:",
+            "category": "Categoría",
+            "type": "Tipo",
+            "region": "Región",
+            "rule": "Regla",
+            "mnemonic": "Mnemotecnia"
+        },
+        "buoyage": {
+            "categories": {
+                "lateral": "Marcas Laterales",
+                "cardinal": "Marcas Cardinales",
+                "special": "Otras Marcas"
+            },
+            "types": {
+                "port": "Babor", "starboard": "Estribor", "north": "Norte", "south": "Sur", "east": "Este", "west": "Oeste",
+                "isolated_danger": "Peligro Aislado", "safe_water": "Aguas Seguras", "special_mark": "Especial"
+            },
+            "purposes": {
+                "port_a": "Indica el lado de babor de un canal al venir de la mar.",
+                "starboard_a": "Indica el lado de estribor de un canal al venir de la mar.",
+                "port_b": "Indica el lado de babor de un canal al venir de la mar.",
+                "starboard_b": "Indica el lado de estribor de un canal al venir de la mar.",
+                "north": "Indica que las aguas seguras se encuentran al Norte.",
+                "south": "Indica que las aguas seguras se encuentran al Sur.",
+                "east": "Indica que las aguas seguras se encuentran al Este.",
+                "west": "Indica que las aguas seguras se encuentran al Oeste.",
+                "isolated_danger": "Se fondea sobre un peligro de extensión reducida.",
+                "safe_water": "Indica aguas navegables alrededor de la marca, como la entrada a un canal.",
+                "special_mark": "Indica una zona o característica especial (zona militar, cable, tubería, ODAS)."
+            },
+            "mnemonics": {
+                "port_a": "Al entrar, verde a estribor (verde con verde), rojo a babor (rojo con rojo).",
+                "starboard_a": "Al entrar, verde a estribor (verde con verde), rojo a babor (rojo con rojo).",
+                "port_b": "Para un correcto balizamiento, memorizar la frase: 'no hay más vino tinto' ('no red port left') cuando se regresa a puerto (el color rojo a babor).",
+                "starboard_b": "Para un correcto balizamiento, memorizar la frase: 'no hay más vino tinto' ('no red port left') cuando se regresa a puerto (el color rojo a babor).",
+                "north": "Dos conos hacia arriba (Norte). Luz blanca de destellos continuos.",
+                "south": "Dos conos hacia abajo (Sur). 6 destellos + 1 largo.",
+                "east": "Conos opuestos por la base (huevo de pascua). 3 destellos cada 5s.",
+                "west": "Conos unidos por el vértice (copa de vino). 9 destellos cada 10s.",
+                "isolated_danger": "Dos esferas negras, dos destellos blancos.",
+                "safe_water": "Marca esférica con franjas verticales. Luz blanca isofase, de ocultaciones o destello largo.",
+                "special_mark": "Completamente amarilla, con una 'X' como marca de tope. Luz amarilla."
+            }
+        },
         "vessels": {
             "situation": "Situación / Tipo de Buque",
-            "selectSituation": "Selecciona una regla...",
+            "selectSituation": "Selecciona una situación",
             "specificCase": "Caso Específico",
             "view": "Vista",
             "views": {
@@ -68,146 +362,220 @@
             "night": "Noche",
             "requiredLights": "Luces Requeridas:",
             "requiredMarks": "Marcas Requeridas:",
-            "noMarks": "Ninguna marca requerida.",
+            "noMarks": "No se requieren marcas.",
             "explanation": "Explicación y Excepciones:",
             "rules": {
-                "R23.title": "Regla 23: Buques de propulsión mecánica en navegación"
+                "R23": {
+                    "title": "Buque de Propulsión Mecánica en Navegación",
+                    "description": "Buque de eslora > 50m.",
+                    "explanation": "Los buques de eslora < 50m podrán exhibir una luz de tope. Los de < 12m podrán exhibir una luz todo horizonte blanca y luces de costado. Los de < 7m y vel. máx. 7 nudos podrán exhibir una luz todo horizonte blanca."
+                },
+                "R24": {
+                    "title": "Remolque y Empuje",
+                    "states": {
+                        "towing_gt200": {
+                            "title": "Remolcando, remolque > 200m",
+                            "description": "Un buque de propulsión mecánica cuando remolque y la longitud del remolque exceda de 200m.",
+                            "explanation": "El buque remolcado exhibirá luces de costado y una luz de alcance. En un buque u objeto remolcado que sea poco visible, deberá mostrar marcas y luces específicas."
+                        },
+                        "towing_lt200": {
+                            "title": "Remolcando, remolque < 200m",
+                            "description": "Un buque de propulsión mecánica cuando remolque y la longitud del remolque sea inferior a 200m.",
+                            "explanation": "El buque remolcado exhibirá luces de costado y una luz de alcance."
+                        },
+                        "pushing": {
+                            "title": "Empujando o Remolcando Abarloado",
+                            "description": "Un buque de propulsión mecánica cuando empuje hacia proa o remolque abarloado.",
+                            "explanation": "Cuando empujan en una unidad compuesta, se consideran como un solo buque de propulsión mecánica."
+                        }
+                    }
+                },
+                "R25": {
+                    "title": "Buque de Vela y de Remos",
+                    "description": "Buque de vela en navegación.",
+                    "explanation": "Puede mostrar adicionalmente dos luces todo horizonte en el tope del palo (roja sobre verde). Si navega a motor, deberá mostrar una marca cónica con el vértice hacia abajo."
+                },
+                "R26": {
+                    "title": "Buques de Pesca",
+                    "states": {
+                        "trawling": {
+                            "title": "Dedicado a la Pesca de Arrastre",
+                            "description": "Aquél que arrastre por el agua una red de arrastre u otro arte de pesca.",
+                            "explanation": "Si lleva arrancada, mostrará además las luces de costado y de alcance. Si el aparejo se extiende más de 150m, una luz blanca en esa dirección."
+                        },
+                        "fishing_not_trawling": {
+                            "title": "Dedicado a la Pesca (no arrastre)",
+                            "description": "Dedicado a la pesca con artes distintos del de arrastre.",
+                            "explanation": "Si lleva arrancada, mostrará además las luces de costado y de alcance. Si el aparejo se extiende más de 150m, una luz blanca en esa dirección."
+                        }
+                    }
+                },
+                "R27": {
+                    "title": "Buques sin Gobierno o con Maniobra Restringida",
+                    "states": {
+                        "nuc": {
+                            "title": "Sin Gobierno (NUC)",
+                            "description": "Incapaz de maniobrar en la forma exigida por el Reglamento.",
+                            "explanation": "Si lleva arrancada, deberá exhibir además las luces de costado y de alcance."
+                        },
+                        "ram": {
+                            "title": "Con Capacidad de Maniobra Restringida (RAM)",
+                            "description": "Limitado en su capacidad de maniobrar por la naturaleza de su trabajo.",
+                            "explanation": "Si lleva arrancada, debe mostrar luces de tope, de costado y de alcance. Si está fondeado, muestra las luces de fondeo en lugar de las de P.M."
+                        }
+                    }
+                },
+                "R28": {
+                    "title": "Buque Restringido por su Calado (CBD)",
+                    "description": "Buque de propulsión mecánica que, por su calado en relación con la profundidad del agua, tiene muy restringida su capacidad de apartarse de la derrota que está siguiendo.",
+                    "explanation": "Esta señal es opcional y no otorga privilegios especiales, sirve como advertencia a otros buques."
+                },
+                "R29": {
+                    "title": "Buque de Practicaje",
+                    "description": "Buque en servicio de practicaje.",
+                    "explanation": "Cuando no esté de servicio, exhibirá las luces o marcas de un buque de su misma eslora."
+                },
+                "R30": {
+                    "title": "Fondeado y Varado",
+                    "states": {
+                        "anchored": {
+                            "title": "Buque Fondeado",
+                            "description": "Buque > 50m fondeado. Podrá usar también las luces de trabajo para iluminar la cubierta.",
+                            "explanation": "Los buques < 50m podrán mostrar una sola luz todo horizonte blanca. Los < 7m no están obligados a exhibir luces si no están en un canal o paso."
+                        },
+                        "aground": {
+                            "title": "Buque Varado",
+                            "description": "Buque > 50m varado.",
+                            "explanation": "Deberá mostrar las dos luces rojas todo horizonte en línea vertical, además de las luces de fondeo."
+                        }
+                    }
+                }
+            },
+            "lights": {
+                "masthead_fwd": "Luz de tope, a proa",
+                "masthead_aft": "Segunda luz de tope, a popa y más alta",
+                "sidelight_stbd": "Luz de costado de estribor (verde)",
+                "sidelight_port": "Luz de costado de babor (roja)",
+                "sternlight": "Luz de alcance",
+                "masthead_1": "Primera luz de tope",
+                "masthead_2": "Segunda luz de tope",
+                "masthead_3": "Tercera luz de tope",
+                "towing_light": "Luz de remolque (amarilla)",
+                "sidelights_making_way": "Luces de costado (con arrancada)",
+                "sternlight_making_way": "Luz de alcance (con arrancada)",
+                "trawl_g": "Luz todo horizonte verde",
+                "trawl_w": "Luz todo horizonte blanca",
+                "fish_r": "Luz todo horizonte roja",
+                "fish_w": "Luz todo horizonte blanca",
+                "nuc_lights": "Dos luces todo horizonte rojas en línea vertical",
+                "sidelights_stern_making_way": "Luces de costado y de alcance (con arrancada)",
+                "ram_lights": "Tres luces todo horizonte en línea vertical (roja, blanca, roja)",
+                "pdv_lights_making_way": "Luces de tope, de costado y de alcance (con arrancada)",
+                "cbd_lights": "Tres luces todo horizonte rojas en línea vertical",
+                "anchor_fwd": "Luz todo horizonte blanca, a proa",
+                "anchor_aft": "Luz todo horizonte blanca, a popa y más baja",
+                "anchor_lights": "Luces de fondeo",
+                "aground_lights": "Dos luces rojas todo horizonte (además de las de fondeo)",
+                "pilot_w": "Luz todo horizonte blanca",
+                "pilot_r": "Luz todo horizonte roja",
+                "sidelights_navigating": "Luces de costado (en navegación)",
+                "sternlight_navigating": "Luz de alcance (en navegación)"
+            },
+            "marks": {
+                "cone_sailing_motor": "Marca cónica, con el vértice hacia abajo",
+                "diamond_tow": "Marca bicónica (si el remolque > 200m)",
+                "trawl_mark": "Dos conos unidos por sus vértices en línea vertical",
+                "nuc_marks": "Dos bolas en línea vertical",
+                "ram_marks": "Bola, bicónica, bola en línea vertical",
+                "cylinder": "Cilindro",
+                "ball": "Bola",
+                "aground_marks": "Tres bolas en línea vertical"
             }
-        }
-    },
-    "qcodes": {
-        "title": "Códigos Q de Consulta",
-        "description": "Selección de códigos del servicio de aficionados y de aficionados por satélite más comunes.",
-        "columns": {
-            "code": "Código",
-            "question": "Pregunta",
-            "answer": "Respuesta o Notificación"
-        }
-    },
-    "channels": {
-        "title": "Canales VHF Marinos Comunes",
-        "description": "Listado de canales VHF marinos y sus usos principales en España y aguas internacionales.",
-        "columns": {
-            "channel": "Canal",
-            "usage": "Uso Principal"
-        }
-    },
-    "alphabet": {
-        "letters": {
-            "title": "Letras y Banderas de Señales",
-            "description": "Alfabeto fonético ICAO/OTAN, banderas del Código Internacional de Señales (CIS) y su significado individual."
         },
-        "numbers": {
-            "title": "Números y Banderas Numerales",
-            "description": "Pronunciación radiotelefónica para los números y sus gallardetes correspondientes del CIS."
-        },
-        "columns": {
-            "flag": "Bandera",
-            "letter": "Letra",
-            "keyword": "Palabra Clave",
-            "meaning": "Significado (Bandera Aislada)",
-            "pennant": "Gallardete",
-            "number": "Número",
-            "pronunciation": "Pronunciación"
-        }
-    },
-    "meteo": {
-        "load_error": "Error al cargar los datos de meteorología.",
-        "beaufort": {
-            "title": "Escala Beaufort para la Fuerza del Viento",
-            "description": "La Escala Beaufort mide la intensidad del viento, basándose principalmente en el estado del mar.",
-            "headers": {
-                "force": "Fuerza",
-                "denomination": "Denominación",
-                "speed": "Velocidad (Nudos)",
-                "waves": "Altura de Olas",
-                "sea": "Estado del Mar"
+        "sounds": {
+            "selectSituation": "Selecciona una señal acústica",
+            "acousticSignal": "Señal Acústica",
+            "play": "Reproducir Sonido",
+            "stop": "Detener Sonido",
+            "maneuver_stbd": {
+                "title": "Maniobra a Estribor",
+                "description": "Un buque de propulsión mecánica en navegación, cuando maniobra estando a la vista de otro.",
+                "signal": "● (Una pitada corta)"
             },
-            "denominations": {
-                "calm": "Calma",
-                "light_air": "Ventolina",
-                "light_breeze": "Brisa Ligera",
-                "gentle_breeze": "Brisa Suave",
-                "moderate_breeze": "Brisa Moderada",
-                "fresh_breeze": "Brisa Fresca",
-                "strong_breeze": "Brisa Fuerte",
-                "near_gale": "Viento Fuerte",
-                "gale": "Temporal",
-                "strong_gale": "Temporal Fuerte",
-                "storm": "Temporal Duro",
-                "violent_storm": "Temporal Muy Duro (Borrasca)",
-                "hurricane": "Huracán"
+            "maneuver_port": {
+                "title": "Maniobra a Babor",
+                "description": "Un buque de propulsión mecánica en navegación, cuando maniobra estando a la vista de otro.",
+                "signal": "● ● (Dos pitadas cortas)"
             },
-            "seaStates": {
-                "glassy": "Espejo",
-                "ripples": "Rizos",
-                "wavelets": "Olas pequeñas",
-                "large_wavelets": "Olas largas y pequeñas",
-                "small_waves": "Olas moderadas, borregos",
-                "moderate_waves": "Olas grandes, muchos borregos",
-                "large_waves": "Mar gruesa, espuma blanca",
-                "sea_heaps": "Mar muy gruesa, espuma en bandas",
-                "high_waves": "Olas altas, rompientes",
-                "very_high_waves": "Olas muy altas, mar blanca",
-                "phenomenal_waves": "Olas excepcionalmente altas",
-                "exceptional_waves": "Visibilidad reducida",
-                "sea_covered": "Mar completamente blanco"
-            }
-        },
-        "douglas": {
-            "title": "Escala Douglas para el Estado del Mar",
-            "description": "La Escala Douglas clasifica el estado del mar en dos escalas separadas: una para el mar de viento y otra para el mar de fondo (mar tendida).",
-            "sea": {
-                "title": "Mar de Viento"
+            "maneuver_astern": {
+                "title": "Dando Atrás",
+                "description": "Un buque de propulsión mecánica en navegación, cuando sus máquinas dan atrás.",
+                "signal": "● ● ● (Tres pitadas cortas)"
             },
-            "swell": {
-                "title": "Mar de Fondo (Tendida)"
+            "overtake_stbd": {
+                "title": "Adelanto por Estribor",
+                "description": "Intención de adelantar a otro buque por su banda de estribor.",
+                "signal": "▬ ▬ ● (Dos largas y una corta)"
             },
-            "headers": {
-                "degree": "Grado",
-                "denomination": "Denominación",
-                "height": "Altura (Metros)"
+            "overtake_port": {
+                "title": "Adelanto por Babor",
+                "description": "Intención de adelantar a otro buque por su banda de babor.",
+                "signal": "▬ ▬ ● ● (Dos largas y dos cortas)"
             },
-            "sea": {
-                "d0": "Calma",
-                "d1": "Rizada",
-                "d2": "Marejadilla",
-                "d3": "Marejada",
-                "d4": "Fuerte Marejada",
-                "d5": "Gruesa",
-                "d6": "Muy Gruesa",
-                "d7": "Arbolada",
-                "d8": "Montañosa",
-                "d9": "Confusa"
+            "overtake_agree": {
+                "title": "Conformidad al Adelantamiento",
+                "description": "Respuesta del buque que va a ser adelantado, si está de acuerdo.",
+                "signal": "▬ ● ▬ ● (Larga, corta, larga, corta)"
             },
-            "swell": {
-                "d0": "Sin oleaje de fondo",
-                "d1": "Mar corta o larga y baja",
-                "d2": "Mar larga o moderada",
-                "d3": "Mar muy larga o gruesa"
-            }
-        },
-        "clouds": {
-            "title": "Tipos de Nubes",
-            "description": "Identificación de nubes según su altitud (piso) y forma. Las imágenes son ejemplos representativos.",
-            "alt_prefix": "Imagen de nube de tipo",
-            "altitudes": {
-                "high": "Piso Alto (> 6000m)",
-                "medium": "Piso Medio (2000-6000m)",
-                "low": "Piso Bajo (< 2000m)",
-                "vertical": "Desarrollo Vertical"
+            "warning_doubt": {
+                "title": "Señal de Duda / Advertencia",
+                "description": "Cuando un buque no comprende las intenciones del otro, o duda de si el otro está tomando la acción debida.",
+                "signal": "● ● ● ● ● (Cinco o más pitadas cortas)"
             },
-            "descriptions": {
-                "cirrus": "Nubes altas, delgadas y filamentosas compuestas de cristales de hielo. A menudo indican buen tiempo.",
-                "cirrocumulus": "Capas delgadas y blancas con una apariencia ondulada o de guijarros. Se conocen como 'cielo de caballas'.",
-                "cirrostratus": "Velo de nube transparente y blanquecino que a menudo produce halos alrededor del Sol o la Luna.",
-                "altocumulus": "Nubes de nivel medio que aparecen como parches o capas blancas o grisáceas. Generalmente asociadas con tiempo estable.",
-                "altostratus": "Capa de nubes grisácea o azulada que cubre total o parcialmente el cielo. El Sol o la Luna pueden ser visibles como a través de vidrio esmerilado.",
-                "nimbostratus": "Capa de nubes gris oscuro y gruesa asociada con lluvia o nieve continua. Cubren todo el cielo y ocultan el Sol.",
-                "stratus": "Capa de nubes gris, baja y uniforme, similar a la niebla pero sin tocar el suelo. Puede producir llovizna ligera.",
-                "stratocumulus": "Nubes bajas y grumosas en capas o parches con cielo azul visible entre ellas. Rara vez producen precipitaciones.",
-                "cumulus": "Nubes separadas, algodonosas y de base plana. Son las nubes del 'buen tiempo', pero pueden crecer y convertirse en cumulonimbus.",
-                "cumulonimbus": "Nubes imponentes y densas con un desarrollo vertical significativo. Se asocian con tormentas eléctricas, lluvia intensa, granizo y tornados."
+            "warning_bend": {
+                "title": "Advertencia en Recodo",
+                "description": "Buque acercándose a un recodo o zona de un canal donde otros buques pueden quedar ocultos.",
+                "signal": "▬ (Una pitada larga)"
+            },
+            "restricted_vis_power_making_way": {
+                "title": "Buque de P.M. con arrancada (Vis. Red.)",
+                "description": "Visibilidad reducida. Buque de propulsión mecánica con arrancada.",
+                "signal": "▬ (Una pitada larga a intervalos <= 2 min)"
+            },
+            "restricted_vis_power_stopped": {
+                "title": "Buque de P.M. parado (Vis. Red.)",
+                "description": "Visibilidad reducida. Buque de propulsión mecánica parado y sin arrancada.",
+                "signal": "▬ ▬ (Dos pitadas largas a intervalos <= 2 min)"
+            },
+            "restricted_vis_special": {
+                "title": "Buque especial (Vela, Pesca...) (Vis. Red.)",
+                "description": "Visibilidad reducida. Buques sin gobierno, con maniobra restringida, restringido por su calado, de vela, de pesca o remolcador.",
+                "signal": "▬ ● ● (Una larga y dos cortas a intervalos <= 2 min)"
+            },
+            "restricted_vis_towed": {
+                "title": "Buque remolcado (si tripulado) (Vis. Red.)",
+                "description": "Visibilidad reducida. Último buque de un remolque, si va tripulado.",
+                "signal": "▬ ● ● ● (Una larga y tres cortas a intervalos <= 2 min)"
+            },
+            "restricted_vis_anchored_lt100": {
+                "title": "Fondeado, < 100m (Vis. Red.)",
+                "description": "Visibilidad reducida. Buque fondeado, eslora inferior a 100m.",
+                "signal": "🔔 (Campanadas rápidas por 5s a intervalos <= 1 min)"
+            },
+            "restricted_vis_anchored_gt100": {
+                "title": "Fondeado, >= 100m (Vis. Red.)",
+                "description": "Visibilidad reducida. Buque fondeado, eslora igual o superior a 100m.",
+                "signal": "🔔 (Proa) + 🔔🔔🔔 (Popa) (Campanadas + Gong a intervalos <= 1 min)"
+            },
+            "restricted_vis_aground": {
+                "title": "Varado (Vis. Red.)",
+                "description": "Visibilidad reducida. Buque varado.",
+                "signal": "●● 🔔 ●● (Dos golpes de campana, campanada, dos golpes)"
+            },
+            "pilot": {
+                "title": "Buque de Práctico",
+                "description": "Buque en servicio de practicaje.",
+                "signal": "● ● ● ● (Cuatro pitadas cortas)"
             }
         }
     }
