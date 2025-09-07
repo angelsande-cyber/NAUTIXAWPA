@@ -166,7 +166,7 @@ export default function MeteorologiaPage() {
                             <div className="grid grid-cols-1 md:grid-cols-3">
                                 <div className="md:col-span-1">
                                     <Image
-                                        unoptimized={true}
+                                        unoptimized
                                         src={cloud.imageUrl}
                                         alt={`${t('meteo.clouds.alt')} ${cloud.type}`}
                                         width={400}
