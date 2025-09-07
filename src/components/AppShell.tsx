@@ -93,7 +93,7 @@ export function AppShell({ user }: { user: User }) {
   ];
 
   const pageTitleMap: { [key: string]: string } = {
-    dashboard: "Inicio",
+    dashboard: "Panel de Navegación",
     sosgen: "Llamada de Socorro",
     senales: "Señales Marítimas",
     colreg: "Reglamento (COLREG)",
@@ -120,25 +120,26 @@ export function AppShell({ user }: { user: User }) {
       case 'examen': return <ExamenPage />;
       default:
         return (
-          <div className="p-4 md:p-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="p-4 md:p-6 lg:p-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {dashboardItems.map((item) => (
                   <button
                       key={item.id}
                       onClick={() => setActivePage(item.id)}
-                      className="text-left p-4 bg-card border rounded-lg hover:bg-muted transition-colors flex items-start gap-4"
+                      className="group text-left p-4 bg-card border rounded-lg hover:bg-card/90 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between"
                   >
-                      <div className="bg-primary/10 text-primary p-3 rounded-md">
-                          <item.icon className="h-6 w-6"/>
-                      </div>
-                      <div>
-                          <p className="font-semibold">{item.label}</p>
-                          <p className="text-sm text-muted-foreground">{item.description}</p>
-                      </div>
+                     <div className="flex items-start gap-4">
+                        <div className="p-3 rounded-md bg-gradient-to-br from-primary/10 to-primary/20 text-primary transition-colors duration-200 group-hover:from-primary/20 group-hover:to-primary/30">
+                            <item.icon className="h-6 w-6"/>
+                        </div>
+                        <div className="flex-1">
+                            <p className="font-semibold text-card-foreground">{item.label}</p>
+                            <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                        </div>
+                     </div>
                   </button>
               ))}
             </div>
-
           </div>
         );
     }
@@ -148,7 +149,7 @@ export function AppShell({ user }: { user: User }) {
 
   return (
       <div className="flex h-screen w-full flex-col bg-background">
-        <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between gap-4 border-b bg-background/95 px-4 backdrop-blur-sm">
+        <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-lg">
             <div className="flex items-center gap-2">
                 {showBackButton && (
                     <Button variant="ghost" size="icon" className="-ml-2" onClick={() => setActivePage('dashboard')}>
@@ -163,7 +164,7 @@ export function AppShell({ user }: { user: User }) {
                  <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                             <Avatar className="h-9 w-9">
+                             <Avatar className="h-9 w-9 border">
                                 <AvatarImage src={user.photoURL ?? ""} alt={user.displayName ?? ""} />
                                 <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
                             </Avatar>
@@ -190,15 +191,15 @@ export function AppShell({ user }: { user: User }) {
           {renderContent()}
         </main>
         
-        <nav className="fixed bottom-0 left-0 right-0 z-10 border-t bg-background/95 backdrop-blur-sm">
+        <nav className="fixed bottom-0 left-0 right-0 z-10 border-t bg-background/80 backdrop-blur-lg shadow-[0_-2px_10px_-5px_rgba(0,0,0,0.1)]">
             <div className="grid h-16 grid-cols-1 items-center justify-center gap-1">
                  
                     <button
                       key="dashboard"
                       onClick={() => setActivePage("dashboard")}
                       className={cn(
-                          "flex flex-col items-center justify-center gap-1 pt-1 text-xs transition-colors h-full",
-                          activePage === "dashboard" ? "text-primary font-semibold" : "text-muted-foreground"
+                          "flex flex-col items-center justify-center gap-1 pt-1 text-xs transition-colors h-full w-24",
+                          activePage === "dashboard" ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground"
                       )}
                     >
                       <Home className="h-6 w-6" />

@@ -36,8 +36,8 @@ const SignInScreen = ({ isLoading, signInAction }: { isLoading: boolean; signInA
   const buttonDisabled = isLoading || isSigningIn;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-8">
-      <div className="w-full max-w-sm rounded-2xl border bg-card p-8 text-center shadow-lg animate-in fade-in zoom-in-95">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background to-secondary p-8">
+      <div className="w-full max-w-sm rounded-2xl border bg-card p-8 text-center shadow-2xl animate-in fade-in zoom-in-95">
         <h1 className="text-4xl font-bold tracking-tight text-primary">NAUTIXA</h1>
         <p className="mt-2 text-muted-foreground">Tu asistente de navegación y comunicaciones marítimas</p>
         <Button onClick={handleSignIn} disabled={buttonDisabled} className="mt-8 h-12 w-full text-base">
