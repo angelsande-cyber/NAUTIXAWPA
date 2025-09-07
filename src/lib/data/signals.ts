@@ -1,3 +1,4 @@
+
 // This file contains all the static data for the signals simulator.
 // It uses translation keys that will be resolved by the useSignalsData hook.
 
@@ -47,10 +48,10 @@ export const IALA_BUOY_DATA = [
         "category": "signals.buoyage.categories.lateral",
         "type": "signals.buoyage.types.port",
         "region": "B",
-        "shape": "conical",
-        "colors": ["red"],
-        "topmark": { "shape": "cone-up", "color": "red" },
-        "characteristic": "Fl R 2.5s",
+        "shape": "can",
+        "colors": ["green"],
+        "topmark": { "shape": "can", "color": "green" },
+        "characteristic": "Fl G 2.5s",
         "purpose": "signals.buoyage.purposes.port_b",
         "mnemonic": "signals.buoyage.mnemonics.port_b"
     },
@@ -58,10 +59,10 @@ export const IALA_BUOY_DATA = [
         "category": "signals.buoyage.categories.lateral",
         "type": "signals.buoyage.types.starboard",
         "region": "B",
-        "shape": "can",
-        "colors": ["green"],
-        "topmark": { "shape": "can", "color": "green" },
-        "characteristic": "Fl G 2.5s",
+        "shape": "conical",
+        "colors": ["red"],
+        "topmark": { "shape": "cone-up", "color": "red" },
+        "characteristic": "Fl R 2.5s",
         "purpose": "signals.buoyage.purposes.starboard_b",
         "mnemonic": "signals.buoyage.mnemonics.starboard_b"
     },
@@ -210,7 +211,7 @@ export const COLREG_RULES_DATA = [
     {
         id: 'R24',
         title: 'signals.vessels.rules.R24.title',
-        description: '',
+        description: 'signals.vessels.rules.R24.description',
         states: [
             {
                 title: 'signals.vessels.rules.R24.states.towing_gt200.title',
@@ -258,7 +259,7 @@ export const COLREG_RULES_DATA = [
     {
         id: 'R26',
         title: 'signals.vessels.rules.R26.title',
-        description: '',
+        description: 'signals.vessels.rules.R26.description',
         states: [
             {
                 title: 'signals.vessels.rules.R26.states.trawling.title',
@@ -297,7 +298,7 @@ export const COLREG_RULES_DATA = [
      {
         id: 'R27',
         title: 'signals.vessels.rules.R27.title',
-        description: '',
+        description: 'signals.vessels.rules.R27.description',
         states: [
             {
                 title: 'signals.vessels.rules.R27.states.nuc.title',
@@ -358,7 +359,7 @@ export const COLREG_RULES_DATA = [
     {
         id: 'R30',
         title: 'signals.vessels.rules.R30.title',
-        description: '',
+        description: 'signals.vessels.rules.R30.description',
         states: [
             {
                 title: 'signals.vessels.rules.R30.states.anchored.title',
