@@ -293,6 +293,56 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
     );
 }
 
+const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
+    const colorMap: { [key: string]: string } = { 'red': '#EF4444', 'green': '#22C55E', 'yellow': '#EAB308', 'black': 'hsl(var(--foreground))', 'white': '#F0F2F5' };
+    const stroke = 'hsl(var(--foreground))';
+
+    let defs = '';
+    let fill = `fill="${colorMap[buoy.colors[0]]}"`;
+    if (buoy.colors.length > 1) {
+        const gradientId = `grad-${buoy.colors.join('-').replace(/\s/g, '')}`;
+        const isVertical = buoy.shape === 'spherical'; 
+        const stops = buoy.colors.map((color:string, index:number) => {
+            const step = 100 / buoy.colors.length;
+            return `<stop offset="${index * step}%" stop-color="${colorMap[color]}" /><stop offset="${(index + 1) * step}%" stop-color="${colorMap[color]}" />`;
+        }).join('');
+        
+        defs = `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="${isVertical ? '100%' : '0%'}" y2="${isVertical ? '0%' : '100%'}">${stops}</linearGradient></defs>`;
+        fill = `fill="url(#${gradientId})"`;
+    }
+
+    let shapeSvg = '';
+    switch (buoy.shape) {
+        case 'can': shapeSvg = `<rect x="35" y="100" width="30" height="60" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
+        case 'conical': shapeSvg = `<polygon points="30,160 70,160 50,100" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
+        case 'spherical': shapeSvg = `<circle cx="50" cy="130" r="30" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
+        default: shapeSvg = `<rect x="40" y="100" width="20" height="60" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break; // Pillar
+    }
+
+    let topmarkSvg = '';
+    const tm = buoy.topmark;
+    if (tm) {
+        const tmFill = `fill="${colorMap[tm.color]}" stroke="${stroke}" stroke-width="1.5"`;
+        switch (tm.shape) {
+            case 'can': topmarkSvg = `<rect x="42" y="80" width="16" height="16" ${tmFill}/>`; break;
+            case 'cone-up': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
+            case 'spheres-2': topmarkSvg = `<circle cx="50" cy="75" r="8" ${tmFill}/><circle cx="50" cy="95" r="8" ${tmFill}/>`; break;
+            case 'sphere': topmarkSvg = `<circle cx="50" cy="88" r="8" ${tmFill}/>`; break;
+            case 'cross': topmarkSvg = `<path d="M45 80 L55 90 M55 80 L45 90" stroke="${colorMap[tm.color]}" stroke-width="3"/>`; break;
+            case 'cones-up': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
+            case 'cones-down': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill}/><polygon points="40,80 60,80 50,96" ${tmFill}/>`; break;
+            case 'cones-base-base': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/><polygon points="40,64 60,64 50,80" ${tmFill}/>`; break;
+            case 'cones-vertex-together': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill} /><polygon points="40,96 60,96 50,80" ${tmFill} />`; break;
+        }
+    }
+    const lightY = buoy.topmark ? 60 : 88;
+    const lightSvg = `<circle id="buoy-svg-light" cx="50" cy="${lightY}" r="6" class="light-element" fill="hsl(var(--border))" />`;
+    const waterSvg = `<path d="M0 160 Q 50 150, 100 160 T 200 160" stroke-width="2" stroke="hsl(var(--primary))" fill="hsl(var(--primary)/.2)"/>`;
+
+    container.innerHTML = `<svg viewBox="0 0 100 180" style="overflow: visible;">${defs}${waterSvg}${shapeSvg}${topmarkSvg}${lightSvg}</svg>`;
+};
+
+
 // --- Buoy Simulator Component ---
 const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTerms: LightCharacteristicTerm }) => {
     const { t } = useTranslation();
@@ -407,56 +457,6 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
         </div>
     );
 };
-
-const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
-    const colorMap: { [key: string]: string } = { 'red': '#EF4444', 'green': '#22C55E', 'yellow': '#EAB308', 'black': 'hsl(var(--foreground))', 'white': '#F0F2F5' };
-    const stroke = 'hsl(var(--foreground))';
-
-    let defs = '';
-    let fill = `fill="${colorMap[buoy.colors[0]]}"`;
-    if (buoy.colors.length > 1) {
-        const gradientId = `grad-${buoy.colors.join('-').replace(/\s/g, '')}`;
-        const isVertical = buoy.shape === 'spherical'; // Vertical stripes for Safe Water
-        const stops = buoy.colors.map((color:string, index:number) => {
-            const step = 100 / buoy.colors.length;
-            return `<stop offset="${index * step}%" stop-color="${colorMap[color]}" /><stop offset="${(index + 1) * step}%" stop-color="${colorMap[color]}" />`;
-        }).join('');
-        
-        defs = `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="${isVertical ? '100%' : '0%'}" y2="${isVertical ? '0%' : '100%'}">${stops}</linearGradient></defs>`;
-        fill = `fill="url(#${gradientId})"`;
-    }
-
-    let shapeSvg = '';
-    switch (buoy.shape) {
-        case 'can': shapeSvg = `<rect x="35" y="100" width="30" height="60" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
-        case 'conical': shapeSvg = `<polygon points="30,160 70,160 50,100" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
-        case 'spherical': shapeSvg = `<circle cx="50" cy="130" r="30" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break;
-        default: shapeSvg = `<rect x="40" y="100" width="20" height="60" ${fill} stroke="${stroke}" stroke-width="1.5"/>`; break; // Pillar
-    }
-
-    let topmarkSvg = '';
-    const tm = buoy.topmark;
-    if (tm) {
-        const tmFill = `fill="${colorMap[tm.color]}" stroke="${stroke}" stroke-width="1.5"`;
-        switch (tm.shape) {
-            case 'can': topmarkSvg = `<rect x="42" y="80" width="16" height="16" ${tmFill}/>`; break;
-            case 'cone-up': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
-            case 'spheres-2': topmarkSvg = `<circle cx="50" cy="75" r="8" ${tmFill}/><circle cx="50" cy="95" r="8" ${tmFill}/>`; break;
-            case 'sphere': topmarkSvg = `<circle cx="50" cy="88" r="8" ${tmFill}/>`; break;
-            case 'cross': topmarkSvg = `<path d="M45 80 L55 90 M55 80 L45 90" stroke="${colorMap[tm.color]}" stroke-width="3"/>`; break;
-            case 'cones-up': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill}/><polygon points="40,96 60,96 50,80" ${tmFill}/>`; break;
-            case 'cones-down': topmarkSvg = `<polygon points="40,64 60,64 50,80" ${tmFill}/><polygon points="40,80 60,80 50,96" ${tmFill}/>`; break;
-            case 'cones-base-base': topmarkSvg = `<polygon points="40,96 60,96 50,80" ${tmFill}/><polygon points="40,64 60,64 50,80" ${tmFill}/>`; break;
-            case 'cones-vertex-together': topmarkSvg = `<polygon points="40,80 60,80 50,64" ${tmFill} /><polygon points="40,96 60,96 50,80" ${tmFill} />`; break;
-        }
-    }
-    const lightY = buoy.topmark ? 60 : 88;
-    const lightSvg = `<circle id="buoy-svg-light" cx="50" cy="${lightY}" r="6" class="light-element" fill="hsl(var(--border))" />`;
-    const waterSvg = `<path d="M0 160 Q 50 150, 100 160 T 200 160" stroke-width="2" stroke="hsl(var(--primary))" fill="hsl(var(--primary)/.2)"/>`;
-
-    container.innerHTML = `<svg viewBox="0 0 100 180" style="overflow: visible;">${defs}${waterSvg}${shapeSvg}${topmarkSvg}${lightSvg}</svg>`;
-};
-
 
 // --- Buques Simulator Component ---
 
