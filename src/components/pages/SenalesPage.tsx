@@ -9,7 +9,7 @@ import { Switch } from "@/components/ui/switch";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Eye, Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import SonidosSimulator from "./SonidosSimulator";
 import { useTranslation } from "@/context/LanguageContext";
 import { Skeleton } from "../ui/skeleton";
@@ -114,6 +114,8 @@ function runSimulation(
     infoEl: HTMLElement | null, 
     char: LightCharacteristic | null,
     lightTerms: LightCharacteristicTerm,
+    t: (key: string) => string,
+    language: string,
     prependInfo?: string
 ) {
     if (simulationTimeout) clearInterval(simulationTimeout);
@@ -127,7 +129,7 @@ function runSimulation(
     }
     
     if (!char.rhythm || !char.period) {
-         infoEl.innerHTML = `<p class="text-destructive">Característica inválida.</p>`;
+         infoEl.innerHTML = `<p class="text-destructive">${t('signals.lighthouses.invalidCharacteristic')}</p>`;
          return;
     }
 
@@ -198,10 +200,14 @@ function runSimulation(
     runSequence();
     simulationTimeout = window.setInterval(runSequence, char.period! * 1000);
     
-    const esDesc = `${lightTerms[char.rhythm]?.es || char.rhythm} ${char.group ? `de grupo (${char.group})` : ''} ${char.colors.map(c => lightTerms[c]?.es).join(' y ')} con un período de ${char.period}s.`;
-    const enDesc = `${lightTerms[char.rhythm]?.en || char.rhythm} ${char.group ? `group (${char.group})` : ''} ${char.colors.map(c => lightTerms[c]?.en).join(' & ')} with a period of ${char.period}s.`;
+    const rhythmText = lightTerms[char.rhythm]?.[language as 'es' | 'en'] || char.rhythm;
+    const groupText = char.group ? t(language === 'es' ? 'signals.lighthouses.groupText.es' : 'signals.lighthouses.groupText.en', { group: char.group }) : '';
+    const colorsText = char.colors.map(c => lightTerms[c]?.[language as 'es' | 'en']).join(t('signals.lighthouses.colorSeparator'));
+    const periodText = t(language === 'es' ? 'signals.lighthouses.periodText.es' : 'signals.lighthouses.periodText.en', { period: char.period });
+    
+    const desc = `${rhythmText} ${groupText} ${colorsText} ${periodText}`;
 
-    const descriptionHtml = `<div class="text-sm"><p><strong>ES:</strong> ${esDesc}</p><p><strong>EN:</strong> ${enDesc}</p><p class="text-xs text-muted-foreground mt-2 font-mono">${char.original}</p></div>`;
+    const descriptionHtml = `<div class="text-sm"><p>${desc}</p><p class="text-xs text-muted-foreground mt-2 font-mono">${char.original}</p></div>`;
     infoEl.innerHTML = prependInfo ? prependInfo + descriptionHtml : descriptionHtml;
 }
 
@@ -213,14 +219,14 @@ const LighthouseSimulator = ({ lightTerms }: { lightTerms: LightCharacteristicTe
     const [group, setGroup] = useState('1');
     const [period, setPeriod] = useState('10');
     const [manualChar, setManualChar] = useState('');
-    const { t } = useTranslation();
+    const { t, language } = useTranslation();
 
     const handleSimulate = useCallback(() => {
         const lightEl = document.getElementById('lighthouse-svg-light') as SVGElement | null;
         const infoEl = document.getElementById('lighthouse-simulation-info') as HTMLElement | null;
         const char = parseLighthouseCharacteristic(manualChar);
-        runSimulation(lightEl, infoEl, char, lightTerms);
-    }, [manualChar, lightTerms]);
+        runSimulation(lightEl, infoEl, char, lightTerms, t, language);
+    }, [manualChar, lightTerms, t, language]);
 
     useEffect(() => {
         let groupStr = '';
@@ -359,7 +365,8 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
     }, [t]);
 
     const handleTypeClick = useCallback((buoy: BuoyData) => {
-        setActiveType(getLocalized(buoy, 'type'));
+        const localizedType = getLocalized(buoy, 'type');
+        setActiveType(localizedType);
         const schematicContainer = document.getElementById('buoy-schematic-container');
         const infoPanel = document.getElementById('buoy-info-panel');
         if (schematicContainer && infoPanel) {
@@ -369,8 +376,8 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                 const char = parseLighthouseCharacteristic(buoy.characteristic);
                 const mnemonicText = getLocalized(buoy.mnemonic, language);
                 const mnemonicHtml = mnemonicText ? `<p class="mt-2 pt-2 border-t border-border/50 text-sm"><strong>${t('signals.buoys.rule')}:</strong> ${mnemonicText}</p>` : '';
-                const infoTitle = `<h4 class="font-bold">${getLocalized(buoy.type, language)}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${getLocalized(buoy.purpose, language)}</p>${mnemonicHtml}<hr class="my-2"/>`;
-                runSimulation(lightEl, infoPanel, char, lightTerms, infoTitle);
+                const infoTitle = `<h4 class="font-bold">${localizedType}${buoy.region ? ` (${t('signals.buoys.region')} ${buoy.region})` : ''}</h4><p class="text-muted-foreground text-sm">${getLocalized(buoy.purpose, language)}</p>${mnemonicHtml}<hr class="my-2"/>`;
+                runSimulation(lightEl, infoPanel, char, lightTerms, t, language, infoTitle);
             }
         }
     }, [lightTerms, t, getLocalized, language]);
@@ -433,11 +440,14 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                     <div>
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.type')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
-                            {buoyTypesForCategory.map(buoy => (
-                                <Button key={`${getLocalized(buoy, 'type')}-${buoy.region || ''}`} variant={activeType === getLocalized(buoy, 'type') ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
-                                    {getLocalized(buoy.type, language)}
-                                </Button>
-                            ))}
+                            {buoyTypesForCategory.map(buoy => {
+                                const localizedType = getLocalized(buoy, 'type');
+                                return (
+                                    <Button key={`${localizedType}-${buoy.region || ''}`} variant={activeType === localizedType ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                        {localizedType}
+                                    </Button>
+                                )
+                            })}
                         </div>
                     </div>
                 )}
@@ -506,28 +516,17 @@ const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
 // --- Buques Simulator Component ---
 
 const BuquesSimulator = ({ colregRules, vesselSvgs }: { colregRules: ColregRule[], vesselSvgs: any }) => {
+    const { t } = useTranslation();
     const [selectedRuleId, setSelectedRuleId] = useState<string | undefined>(undefined);
     const [selectedStateId, setSelectedStateId] = useState(0);
     const [isNight, setIsNight] = useState(true);
     const [view, setView] = useState<'bow' | 'starboard' | 'stern'>('bow');
-    const { t, language } = useTranslation();
 
     useEffect(() => {
       if (colregRules.length > 0 && !selectedRuleId) {
         setSelectedRuleId(colregRules[0].id);
       }
     }, [colregRules, selectedRuleId]);
-
-    const getLocalized = useCallback((obj: any, key: string) => {
-        if (!obj || !key) return '';
-        const value = obj[key];
-        if (!value) return '';
-
-        if (typeof value === 'object' && value !== null) {
-            return value[language] || value['es'] || '';
-        }
-        return t(value) || value || '';
-    }, [language, t]);
 
     const ruleData = useMemo(() => {
         return colregRules.find(r => r.id === selectedRuleId) || null;
