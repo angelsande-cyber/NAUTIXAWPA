@@ -460,8 +460,8 @@ const BuoySimulator = ({ buoyData, lightTerms }: { buoyData: BuoyData[], lightTe
                     <div>
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">{t('signals.buoys.type')}</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
-                            {buoyTypesForCategory.map(buoy => (
-                                <Button key={`${buoy.type}-${region}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                            {buoyTypesForCategory.map((buoy, index) => (
+                                <Button key={`${buoy.type}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
                                     {buoy.type}
                                 </Button>
                             ))}
