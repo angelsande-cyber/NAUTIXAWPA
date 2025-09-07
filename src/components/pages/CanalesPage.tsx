@@ -1,39 +1,75 @@
+
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useTranslation } from "@/context/LanguageContext";
+import { useEffect, useState } from "react";
+import { Skeleton } from "../ui/skeleton";
 
-const vhfChannels = [
-    { channel: '06', usage: 'Seguridad entre buques y aeronaves SAR' },
-    { channel: '08', usage: 'Comunicaciones entre buques' },
-    { channel: '09', usage: 'Comunicaciones entre buques, puertos y embarcaciones de recreo' },
-    { channel: '10', usage: 'Comunicaciones entre buques y control de contaminación' },
-    { channel: '13', usage: 'Seguridad en la navegación (puentes, esclusas)' },
-    { channel: '15', usage: 'Comunicaciones internas a bordo (1W max)' },
-    { channel: '16', usage: 'Socorro, Urgencia, Seguridad y Llamada (Canal principal)' },
-    { channel: '17', usage: 'Comunicaciones internas a bordo (1W max)' },
-    { channel: '67', usage: 'Canal de seguridad SMSSM en el área de Francia y alternativo al 16' },
-    { channel: '69', usage: 'Comunicaciones entre buques, puertos y embarcaciones de recreo' },
-    { channel: '70', usage: 'Llamada Selectiva Digital (LSD/DSC)' },
-    { channel: '72', usage: 'Comunicaciones entre buques (No pública)' },
-    { channel: '73', usage: 'Comunicaciones entre buques y control de contaminación' },
-    { channel: '77', usage: 'Comunicaciones entre buques (No pública)' },
-    { channel: '87', usage: 'Tráfico portuario y VTS (AIS 1)' },
-    { channel: '88', usage: 'Tráfico portuario y VTS (AIS 2)' },
-];
+interface VhfChannel {
+    channel: string;
+    usage: string;
+}
+
+const LoadingSkeleton = () => (
+    <div className="p-4 md:p-6">
+        <Card className="w-full max-w-2xl mx-auto">
+            <CardHeader>
+                <Skeleton className="h-8 w-1/2 mb-2" />
+                <Skeleton className="h-4 w-3/4" />
+            </CardHeader>
+            <CardContent>
+                <div className="space-y-4">
+                    {[...Array(10)].map((_, i) => (
+                        <div key={i} className="flex items-center space-x-4 p-2">
+                            <Skeleton className="h-6 w-24" />
+                            <Skeleton className="h-6 flex-1" />
+                        </div>
+                    ))}
+                </div>
+            </CardContent>
+        </Card>
+    </div>
+);
 
 export default function CanalesPage() {
+    const { t, language } = useTranslation();
+    const [vhfChannels, setVhfChannels] = useState<VhfChannel[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchChannels = async () => {
+            setLoading(true);
+            try {
+                const response = await fetch('/data/vhfchannels.json');
+                const data = await response.json();
+                setVhfChannels(data[language] || data['en']);
+            } catch (error) {
+                console.error("Failed to load VHF channels:", error);
+            }
+            setLoading(false);
+        };
+        fetchChannels();
+    }, [language]);
+
+    if (loading) {
+        return <LoadingSkeleton />;
+    }
+
     return (
         <div className="p-4 md:p-6">
             <Card className="w-full max-w-2xl mx-auto">
                 <CardHeader>
-                    <CardTitle>Canales VHF Marinos Comunes</CardTitle>
-                    <CardDescription>Listado de canales VHF marinos y sus usos principales en España y aguas internacionales.</CardDescription>
+                    <CardTitle>{t('channels.title')}</CardTitle>
+                    <CardDescription>{t('channels.description')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead className="w-[100px]">Canal</TableHead>
-                                <TableHead>Uso Principal</TableHead>
+                                <TableHead className="w-[100px]">{t('channels.columns.channel')}</TableHead>
+                                <TableHead>{t('channels.columns.usage')}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

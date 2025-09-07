@@ -1,0 +1,38 @@
+{
+  "es": [
+    { "channel": "06", "usage": "Seguridad entre buques y aeronaves SAR" },
+    { "channel": "08", "usage": "Comunicaciones entre buques" },
+    { "channel": "09", "usage": "Comunicaciones entre buques, puertos y embarcaciones de recreo" },
+    { "channel": "10", "usage": "Comunicaciones entre buques y control de contaminación" },
+    { "channel": "13", "usage": "Seguridad en la navegación (puentes, esclusas)" },
+    { "channel": "15", "usage": "Comunicaciones internas a bordo (1W max)" },
+    { "channel": "16", "usage": "Socorro, Urgencia, Seguridad y Llamada (Canal principal)" },
+    { "channel": "17", "usage": "Comunicaciones internas a bordo (1W max)" },
+    { "channel": "67", "usage": "Canal de seguridad SMSSM en el área de Francia y alternativo al 16" },
+    { "channel": "69", "usage": "Comunicaciones entre buques, puertos y embarcaciones de recreo" },
+    { "channel": "70", "usage": "Llamada Selectiva Digital (LSD/DSC)" },
+    { "channel": "72", "usage": "Comunicaciones entre buques (No pública)" },
+    { "channel": "73", "usage": "Comunicaciones entre buques y control de contaminación" },
+    { "channel": "77", "usage": "Comunicaciones entre buques (No pública)" },
+    { "channel": "87", "usage": "Tráfico portuario y VTS (AIS 1)" },
+    { "channel": "88", "usage": "Tráfico portuario y VTS (AIS 2)" }
+  ],
+  "en": [
+    { "channel": "06", "usage": "Safety between ships and SAR aircraft" },
+    { "channel": "08", "usage": "Inter-ship communications" },
+    { "channel": "09", "usage": "Communications between ships, ports, and recreational craft" },
+    { "channel": "10", "usage": "Inter-ship and pollution control communications" },
+    { "channel": "13", "usage": "Bridge-to-bridge navigation safety" },
+    { "channel": "15", "usage": "On-board communications (1W max)" },
+    { "channel": "16", "usage": "Distress, Urgency, Safety, and Calling (Primary Channel)" },
+    { "channel": "17", "usage": "On-board communications (1W max)" },
+    { "channel": "67", "usage": "GMDSS safety channel in the France area and alternative to 16" },
+    { "channel": "69", "usage": "Communications between ships, ports, and recreational craft" },
+    { "channel": "70", "usage": "Digital Selective Calling (DSC)" },
+    { "channel": "72", "usage": "Inter-ship communications (Non-public)" },
+    { "channel": "73", "usage": "Inter-ship and pollution control communications" },
+    { "channel": "77", "usage": "Inter-ship communications (Non-public)" },
+    { "channel": "87", "usage": "Port traffic and VTS (AIS 1)" },
+    { "channel": "88", "usage": "Port traffic and VTS (AIS 2)" }
+  ]
+}

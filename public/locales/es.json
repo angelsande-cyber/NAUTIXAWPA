@@ -1,4 +1,3 @@
-
 {
     "backToHome": "Volver al Inicio",
     "signOut": "Cerrar Sesión",
@@ -76,33 +75,139 @@
             }
         }
     },
+    "qcodes": {
+        "title": "Códigos Q de Consulta",
+        "description": "Selección de códigos del servicio de aficionados y de aficionados por satélite más comunes.",
+        "columns": {
+            "code": "Código",
+            "question": "Pregunta",
+            "answer": "Respuesta o Notificación"
+        }
+    },
+    "channels": {
+        "title": "Canales VHF Marinos Comunes",
+        "description": "Listado de canales VHF marinos y sus usos principales en España y aguas internacionales.",
+        "columns": {
+            "channel": "Canal",
+            "usage": "Uso Principal"
+        }
+    },
+    "alphabet": {
+        "letters": {
+            "title": "Letras y Banderas de Señales",
+            "description": "Alfabeto fonético ICAO/OTAN, banderas del Código Internacional de Señales (CIS) y su significado individual."
+        },
+        "numbers": {
+            "title": "Números y Banderas Numerales",
+            "description": "Pronunciación radiotelefónica para los números y sus gallardetes correspondientes del CIS."
+        },
+        "columns": {
+            "flag": "Bandera",
+            "letter": "Letra",
+            "keyword": "Palabra Clave",
+            "meaning": "Significado (Bandera Aislada)",
+            "pennant": "Gallardete",
+            "number": "Número",
+            "pronunciation": "Pronunciación"
+        }
+    },
     "meteo": {
-        "tabs": {
-            "beaufort": "Escala Beaufort",
-            "douglas": "Escala Douglas",
-            "clouds": "Nubes"
+        "load_error": "Error al cargar los datos de meteorología.",
+        "beaufort": {
+            "title": "Escala Beaufort para la Fuerza del Viento",
+            "description": "La Escala Beaufort mide la intensidad del viento, basándose principalmente en el estado del mar.",
+            "headers": {
+                "force": "Fuerza",
+                "denomination": "Denominación",
+                "speed": "Velocidad (Nudos)",
+                "waves": "Altura de Olas",
+                "sea": "Estado del Mar"
+            },
+            "denominations": {
+                "calm": "Calma",
+                "light_air": "Ventolina",
+                "light_breeze": "Brisa Ligera",
+                "gentle_breeze": "Brisa Suave",
+                "moderate_breeze": "Brisa Moderada",
+                "fresh_breeze": "Brisa Fresca",
+                "strong_breeze": "Brisa Fuerte",
+                "near_gale": "Viento Fuerte",
+                "gale": "Temporal",
+                "strong_gale": "Temporal Fuerte",
+                "storm": "Temporal Duro",
+                "violent_storm": "Temporal Muy Duro (Borrasca)",
+                "hurricane": "Huracán"
+            },
+            "seaStates": {
+                "glassy": "Espejo",
+                "ripples": "Rizos",
+                "wavelets": "Olas pequeñas",
+                "large_wavelets": "Olas largas y pequeñas",
+                "small_waves": "Olas moderadas, borregos",
+                "moderate_waves": "Olas grandes, muchos borregos",
+                "large_waves": "Mar gruesa, espuma blanca",
+                "sea_heaps": "Mar muy gruesa, espuma en bandas",
+                "high_waves": "Olas altas, rompientes",
+                "very_high_waves": "Olas muy altas, mar blanca",
+                "phenomenal_waves": "Olas excepcionalmente altas",
+                "exceptional_waves": "Visibilidad reducida",
+                "sea_covered": "Mar completamente blanco"
+            }
+        },
+        "douglas": {
+            "title": "Escala Douglas para el Estado del Mar",
+            "description": "La Escala Douglas clasifica el estado del mar en dos escalas separadas: una para el mar de viento y otra para el mar de fondo (mar tendida).",
+            "sea": {
+                "title": "Mar de Viento"
+            },
+            "swell": {
+                "title": "Mar de Fondo (Tendida)"
+            },
+            "headers": {
+                "degree": "Grado",
+                "denomination": "Denominación",
+                "height": "Altura (Metros)"
+            },
+            "sea": {
+                "d0": "Calma",
+                "d1": "Rizada",
+                "d2": "Marejadilla",
+                "d3": "Marejada",
+                "d4": "Fuerte Marejada",
+                "d5": "Gruesa",
+                "d6": "Muy Gruesa",
+                "d7": "Arbolada",
+                "d8": "Montañosa",
+                "d9": "Confusa"
+            },
+            "swell": {
+                "d0": "Sin oleaje de fondo",
+                "d1": "Mar corta o larga y baja",
+                "d2": "Mar larga o moderada",
+                "d3": "Mar muy larga o gruesa"
+            }
         },
         "clouds": {
             "title": "Tipos de Nubes",
             "description": "Identificación de nubes según su altitud (piso) y forma. Las imágenes son ejemplos representativos.",
-            "levels": {
-                "high": "Piso Alto ( > 6000m)",
-                "middle": "Piso Medio (2000 - 6000m)",
-                "low": "Piso Bajo ( < 2000m)",
-                "development": "Desarrollo Vertical"
+            "alt_prefix": "Imagen de nube de tipo",
+            "altitudes": {
+                "high": "Piso Alto (> 6000m)",
+                "medium": "Piso Medio (2000-6000m)",
+                "low": "Piso Bajo (< 2000m)",
+                "vertical": "Desarrollo Vertical"
             },
-            "types": {
-                "Ci": "Cirrus (Ci)",
-                "Cc": "Cirrocumulus (Cc)",
-                "Cs": "Cirrostratus (Cs)",
-                "Ac": "Altocumulus (Ac)",
-                "As": "Altostratus (As)",
-                "Ns": "Nimbostratus (Ns)",
-                "St": "Stratus (St)",
-                "Sc": "Stratocumulus (Sc)",
-                "Cu": "Cumulus (Cu)",
-                "Cb": "Cumulonimbus (Cb)",
-                "T-Funnel Cloud": "Tuba (Nube Embudo)"
+            "descriptions": {
+                "cirrus": "Nubes altas, delgadas y filamentosas compuestas de cristales de hielo. A menudo indican buen tiempo.",
+                "cirrocumulus": "Capas delgadas y blancas con una apariencia ondulada o de guijarros. Se conocen como 'cielo de caballas'.",
+                "cirrostratus": "Velo de nube transparente y blanquecino que a menudo produce halos alrededor del Sol o la Luna.",
+                "altocumulus": "Nubes de nivel medio que aparecen como parches o capas blancas o grisáceas. Generalmente asociadas con tiempo estable.",
+                "altostratus": "Capa de nubes grisácea o azulada que cubre total o parcialmente el cielo. El Sol o la Luna pueden ser visibles como a través de vidrio esmerilado.",
+                "nimbostratus": "Capa de nubes gris oscuro y gruesa asociada con lluvia o nieve continua. Cubren todo el cielo y ocultan el Sol.",
+                "stratus": "Capa de nubes gris, baja y uniforme, similar a la niebla pero sin tocar el suelo. Puede producir llovizna ligera.",
+                "stratocumulus": "Nubes bajas y grumosas en capas o parches con cielo azul visible entre ellas. Rara vez producen precipitaciones.",
+                "cumulus": "Nubes separadas, algodonosas y de base plana. Son las nubes del 'buen tiempo', pero pueden crecer y convertirse en cumulonimbus.",
+                "cumulonimbus": "Nubes imponentes y densas con un desarrollo vertical significativo. Se asocian con tormentas eléctricas, lluvia intensa, granizo y tornados."
             }
         }
     }

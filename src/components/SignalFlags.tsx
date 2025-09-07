@@ -1,3 +1,4 @@
+
 // Data and SVG components for International Code of Signals number pennants.
 
 import React from 'react';
@@ -135,17 +136,15 @@ const Num9 = () => (
     </svg>
 );
 
-
-// --- Data Arrays ---
-export const NUMBERS = [
-    { digit: "1", pronunciation: "Unaone", flag: <Num1 /> },
-    { digit: "2", pronunciation: "Bisstwo", flag: <Num2 /> },
-    { digit: "3", pronunciation: "Terrathree", flag: <Num3 /> },
-    { digit: "4", pronunciation: "Kartefour", flag: <Num4 /> },
-    { digit: "5", pronunciation: "Pantafive", flag: <Num5 /> },
-    { digit: "6", pronunciation: "Soxisix", flag: <Num6 /> },
-    { digit: "7", pronunciation: "Setteseven", flag: <Num7 /> },
-    { digit: "8", pronunciation: "Oktoeight", flag: <Num8 /> },
-    { digit: "9", pronunciation: "Novenine", flag: <Num9 /> },
-    { digit: "0", pronunciation: "Nadazero", flag: <Num0 /> },
-];
+export const numberFlags: { [key: string]: JSX.Element } = {
+    "1": <Num1 />,
+    "2": <Num2 />,
+    "3": <Num3 />,
+    "4": <Num4 />,
+    "5": <Num5 />,
+    "6": <Num6 />,
+    "7": <Num7 />,
+    "8": <Num8 />,
+    "9": <Num9 />,
+    "0": <Num0 />,
+};

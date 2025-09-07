@@ -1,5 +1,5 @@
+
 // Data and SVG components for International Code of Signals letter flags.
-// These are considered final and should not be modified.
 
 import React from 'react';
 
@@ -32,32 +32,31 @@ const FlagX = () => <svg viewBox="-0.5 -0.5 16 13" fill="none"><path d="M0 0 H15
 const FlagY = () => <svg viewBox="-0.5 -0.5 16 13" fill="none"><defs><pattern id="pattern-Y" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M 0,0 H 4 V 2 H 0 Z" fill="#d72828"/></pattern></defs><rect width="15" height="12" fill="#ffcd00"/><rect width="15" height="12" fill="url(#pattern-Y)"/><rect x="0" y="0" width="15" height="12" fill="none" stroke="#4A4A4A" strokeWidth="0.5"/></svg>;
 const FlagZ = () => <svg viewBox="-0.5 -0.5 16 13" fill="none"><path d="M0,0 L15,0 L7.5,6 Z" fill="#ffcd00" /><path d="M0,12 L0,0 L7.5,6 Z" fill="#000" /><path d="M15,0 L15,12 L7.5,6 Z" fill="#0058a7" /><path d="M15,12 L0,12 L7.5,6 Z" fill="#d72828" /><rect x="0" y="0" width="15" height="12" fill="none" stroke="#4A4A4A" strokeWidth="0.5"/></svg>;
 
-
-export const LETTERS = [
-    { letter: "A", word: "Alfa", flag: <FlagA />, meaning: "Tengo un buzo sumergido; manténgase alejado de mí y a poca velocidad." },
-    { letter: "B", word: "Bravo", flag: <FlagB />, meaning: "Estoy cargando, descargando o transportando mercancías peligrosas." },
-    { letter: "C", word: "Charlie", flag: <FlagC />, meaning: "Sí (Afirmativo)." },
-    { letter: "D", word: "Delta", flag: <FlagD />, meaning: "Manténgase alejado de mí, maniobro con dificultad." },
-    { letter: "E", word: "Echo", flag: <FlagE />, meaning: "Estoy cayendo a estribor." },
-    { letter: "F", word: "Foxtrot", flag: <FlagF />, meaning: "Tengo avería, póngase en comunicación conmigo." },
-    { letter: "G", word: "Golf", flag: <FlagG />, meaning: "Necesito un práctico." },
-    { letter: "H", word: "Hotel", flag: <FlagH />, meaning: "Tengo un práctico a bordo." },
-    { letter: "I", word: "India", flag: <FlagI />, meaning: "Estoy cayendo a babor." },
-    { letter: "J", word: "Juliett", flag: <FlagJ />, meaning: "Tengo incendio y llevo mercancías peligrosas, manténgase alejado." },
-    { letter: "K", word: "Kilo", flag: <FlagK />, meaning: "Deseo comunicar con usted." },
-    { letter: "L", word: "Lima", flag: <FlagL />, meaning: "Pare su buque inmediatamente." },
-    { letter: "M", word: "Mike", flag: <FlagM />, meaning: "Mi buque está parado y sin arrancada." },
-    { letter: "N", word: "November", flag: <FlagN />, meaning: "No (Negativo)." },
-    { letter: "O", word: "Oscar", flag: <FlagO />, meaning: "¡Hombre al agua!" },
-    { letter: "P", word: "Papa", flag: <FlagP />, meaning: "En puerto: Todo el personal debe regresar a bordo. En la mar: Mis redes se han enganchado en un obstáculo." },
-    { letter: "Q", word: "Quebec", flag: <FlagQ />, meaning: "Mi buque está 'sano' y pido libre plática." },
-    { letter: "R", word: "Romeo", flag: <FlagR />, meaning: "Buque con arrancada (no tiene significado como bandera única)." },
-    { letter: "S", word: "Sierra", flag: <FlagS />, meaning: "Estoy dando atrás." },
-    { letter: "T", word: "Tango", flag: <FlagT />, meaning: "Manténgase alejado de mí. Pesca de arrastre en pareja." },
-    { letter: "U", word: "Uniform", flag: <FlagU />, meaning: "Se dirige usted hacia un peligro." },
-    { letter: "V", word: "Victor", flag: <FlagV />, meaning: "Necesito auxilio." },
-    { letter: "W", word: "Whiskey", flag: <FlagW />, meaning: "Necesito asistencia médica." },
-    { letter: "X", word: "X-ray", flag: <FlagX />, meaning: "Suspenda usted lo que está haciendo y preste atención a mis señales." },
-    { letter: "Y", word: "Yankee", flag: <FlagY />, meaning: "Estoy garreando." },
-    { letter: "Z", word: "Zulu", flag: <FlagZ />, meaning: "Necesito un remolcador." },
-];
+export const letterFlags: { [key: string]: JSX.Element } = {
+    A: <FlagA />,
+    B: <FlagB />,
+    C: <FlagC />,
+    D: <FlagD />,
+    E: <FlagE />,
+    F: <FlagF />,
+    G: <FlagG />,
+    H: <FlagH />,
+    I: <FlagI />,
+    J: <FlagJ />,
+    K: <FlagK />,
+    L: <FlagL />,
+    M: <FlagM />,
+    N: <FlagN />,
+    O: <FlagO />,
+    P: <FlagP />,
+    Q: <FlagQ />,
+    R: <FlagR />,
+    S: <FlagS />,
+    T: <FlagT />,
+    U: <FlagU />,
+    V: <FlagV />,
+    W: <FlagW />,
+    X: <FlagX />,
+    Y: <FlagY />,
+    Z: <FlagZ />,
+};

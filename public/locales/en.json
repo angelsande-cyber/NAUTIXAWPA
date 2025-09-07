@@ -75,34 +75,140 @@
             }
         }
     },
+    "qcodes": {
+        "title": "Q-Codes for Reference",
+        "description": "A selection of the most common Q-codes for the amateur and satellite-amateur radio services.",
+        "columns": {
+            "code": "Code",
+            "question": "Question",
+            "answer": "Answer or Notification"
+        }
+    },
+    "channels": {
+        "title": "Common Marine VHF Channels",
+        "description": "List of marine VHF channels and their main uses in Spain and international waters.",
+        "columns": {
+            "channel": "Channel",
+            "usage": "Main Usage"
+        }
+    },
+    "alphabet": {
+        "letters": {
+            "title": "Letters and Signal Flags",
+            "description": "ICAO/NATO phonetic alphabet, International Code of Signals (ICS) flags, and their single-letter meanings."
+        },
+        "numbers": {
+            "title": "Numbers and Numeral Pennants",
+            "description": "Radiotelephony pronunciation for numbers and their corresponding ICS pennants."
+        },
+        "columns": {
+            "flag": "Flag",
+            "letter": "Letter",
+            "keyword": "Keyword",
+            "meaning": "Single-Flag Meaning",
+            "pennant": "Pennant",
+            "number": "Number",
+            "pronunciation": "Pronunciation"
+        }
+    },
     "meteo": {
-        "tabs": {
-            "beaufort": "Beaufort Scale",
-            "douglas": "Douglas Scale",
-            "clouds": "Clouds"
+        "load_error": "Error loading meteorology data.",
+        "beaufort": {
+            "title": "Beaufort Wind Force Scale",
+            "description": "The Beaufort Scale measures wind strength, based mainly on sea conditions.",
+            "headers": {
+                "force": "Force",
+                "denomination": "Denomination",
+                "speed": "Speed (Knots)",
+                "waves": "Wave Height",
+                "sea": "Sea State"
+            },
+            "denominations": {
+                "calm": "Calm",
+                "light_air": "Light Air",
+                "light_breeze": "Light Breeze",
+                "gentle_breeze": "Gentle Breeze",
+                "moderate_breeze": "Moderate Breeze",
+                "fresh_breeze": "Fresh Breeze",
+                "strong_breeze": "Strong Breeze",
+                "near_gale": "Near Gale",
+                "gale": "Gale",
+                "strong_gale": "Strong Gale",
+                "storm": "Storm",
+                "violent_storm": "Violent Storm",
+                "hurricane": "Hurricane"
+            },
+            "seaStates": {
+                "glassy": "Like a mirror",
+                "ripples": "Ripples",
+                "wavelets": "Small wavelets",
+                "large_wavelets": "Large wavelets",
+                "small_waves": "Small waves, white horses",
+                "moderate_waves": "Moderate waves, many white horses",
+                "large_waves": "Large waves, white foam crests",
+                "sea_heaps": "Sea heaps up, white foam from breaking waves",
+                "high_waves": "High waves, tumbling crests",
+                "very_high_waves": "Very high waves, sea appears white",
+                "phenomenal_waves": "Exceptionally high waves",
+                "exceptional_waves": "Visibility affected",
+                "sea_covered": "Sea completely white with driving spray"
+            }
+        },
+        "douglas": {
+            "title": "Douglas Scale for Sea State",
+            "description": "The Douglas Scale classifies the sea state into two separate scales: one for wind sea and one for swell.",
+            "sea": {
+                "title": "Wind Sea"
+            },
+            "swell": {
+                "title": "Swell"
+            },
+            "headers": {
+                "degree": "Degree",
+                "denomination": "Denomination",
+                "height": "Height (Meters)"
+            },
+            "sea": {
+                "d0": "Calm",
+                "d1": "Rippled",
+                "d2": "Smooth",
+                "d3": "Slight",
+                "d4": "Moderate",
+                "d5": "Rough",
+                "d6": "Very Rough",
+                "d7": "High",
+                "d8": "Very High",
+                "d9": "Confused"
+            },
+            "swell": {
+                "d0": "No swell",
+                "d1": "Short or long and low",
+                "d2": "Short or moderate",
+                "d3": "Long or heavy"
+            }
         },
         "clouds": {
             "title": "Cloud Types",
             "description": "Identification of clouds according to their altitude (level) and shape. The images are representative examples.",
-            "levels": {
-                "high": "High Level ( > 6000m)",
-                "middle": "Mid Level (2000 - 6000m)",
-                "low": "Low Level ( < 2000m)",
-                "development": "Vertical Development"
+            "alt_prefix": "Image of cloud type",
+            "altitudes": {
+                "high": "High Level (> 6000m)",
+                "medium": "Mid Level (2000-6000m)",
+                "low": "Low Level (< 2000m)",
+                "vertical": "Vertical Development"
             },
-            "types": {
-                "Ci": "Cirrus (Ci)",
-                "Cc": "Cirrocumulus (Cc)",
-                "Cs": "Cirrostratus (Cs)",
-                "Ac": "Altocumulus (Ac)",
-                "As": "Altostratus (As)",
-                "Ns": "Nimbostratus (Ns)",
-                "St": "Stratus (St)",
-                "Sc": "Stratocumulus (Sc)",
-                "Cu": "Cumulus (Cu)",
-                "Cb": "Cumulonimbus (Cb)",
-                "T-Funnel Cloud": "Funnel Cloud (Tuba)"
+            "descriptions": {
+                "cirrus": "High, thin, and wispy clouds composed of ice crystals. They often indicate fair weather.",
+                "cirrocumulus": "Thin, white layers with a wavy or pebbly appearance. Known as a 'mackerel sky'.",
+                "cirrostratus": "A transparent, whitish cloud veil that often produces halos around the Sun or Moon.",
+                "altocumulus": "Mid-level clouds that appear as white or grayish patches or layers. Generally associated with settled weather.",
+                "altostratus": "A grayish or bluish cloud layer that totally or partly covers the sky. The Sun or Moon may be visible as if through ground glass.",
+                "nimbostratus": "A thick, dark gray cloud layer associated with continuous rain or snow. They cover the entire sky and blot out the Sun.",
+                "stratus": "A gray, low, and uniform cloud layer, similar to fog but not touching the ground. It can produce light drizzle.",
+                "stratocumulus": "Low, lumpy clouds in layers or patches with blue sky visible between them. They rarely produce precipitation.",
+                "cumulus": "Detached, puffy, flat-based clouds. They are the 'fair-weather' clouds but can grow into cumulonimbus.",
+                "cumulonimbus": "Imposing, dense clouds with significant vertical development. They are associated with thunderstorms, heavy rain, hail, and tornadoes."
             }
         }
     }
-}
+} 

@@ -121,7 +121,7 @@ const ColregContent = () => (
                         </ul>
                         <h4 className="font-semibold">Regla 18 – Obligaciones entre categorías</h4>
                         <ul className="list-disc pl-6 text-muted-foreground text-sm space-y-1 mt-1">
-                             <li>Prioridad: Sin gobierno > Maniobra restringida > Restringido por calado > Pesca > Vela > Motor.</li>
+                             <li>Prioridad: Sin gobierno &gt; Maniobra restringida &gt; Restringido por calado &gt; Pesca &gt; Vela &gt; Motor.</li>
                         </ul>
                      </div>
                     
