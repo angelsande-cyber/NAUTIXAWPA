@@ -1,7 +1,6 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from '@/context/LanguageContext';
-import { LIGHT_TERMS_DATA, IALA_BUOY_DATA, COLREG_RULES_DATA, VESSEL_SVGS, SOUND_SIGNALS_DATA } from '@/lib/data/signals';
 
 export interface LightCharacteristicTerm {
     [key: string]: string;
@@ -84,6 +83,7 @@ export const useSignalsData = () => {
             type: t(buoy.type),
             purpose: t(buoy.purpose),
             mnemonic: t(buoy.mnemonic),
+            category: t(buoy.category)
         }));
 
         const colregRules = signalsData.colregRules.map((rule: any) => ({
@@ -122,3 +122,5 @@ export const useSignalsData = () => {
 
     return { data, isLoading: !isLoaded || !data };
 };
+
+    

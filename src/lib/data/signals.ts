@@ -1,5 +1,3 @@
-
-
 // This file contains all the static data for the signals simulator.
 // It uses translation keys that will be resolved by the useSignalsData hook.
 
@@ -149,8 +147,8 @@ export const VESSEL_SVGS = {
     },
     power_lt50: { // Inspired by Big Yacht
       side: `<svg viewBox="0 0 200 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 190 55, 195 60 L 190 65 L 15 65 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d="M 50 60 L 50 45 L 150 45 C 160 45, 160 55, 150 55 L 60 55 L 60 60 Z" fill="hsl(var(--muted-foreground))" stroke="currentColor" stroke-width="0.5" /><path d="M 65 40 L 130 40 L 125 45 L 70 45 Z" fill="hsl(var(--muted-foreground))" stroke="currentColor" stroke-width="0.5" /><path d="M 10 65 L 195 65" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
-      front: `<svg viewBox="0 0 100 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 80 50, 90 65 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d="M 50 35 L 65 50 L 35 50 Z" fill="hsl(var(--muted-foreground))" stroke="currentColor" stroke-width="0.5"/><path d="M 30 50 H 70 V 65 H 30 Z" fill="hsl(var(--muted-foreground))" stroke-width="0.5"/><path d="M 10 65 L 90 65" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
-      back: `<svg viewBox="0 0 100 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 80 50, 90 65 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d="M 20 45 H 80 V 65 H 20 Z" fill="hsl(var(--muted-foreground))" stroke="currentColor" stroke-width="0.5"/><path d="M 10 65 L 90 65" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
+      front: `<svg viewBox="0 0 100 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 80 50, 90 65 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d=\"M 50 35 L 65 50 L 35 50 Z\" fill=\"hsl(var(--muted-foreground))\" stroke=\"currentColor\" stroke-width=\"0.5\"/><path d=\"M 30 50 H 70 V 65 H 30 Z\" fill=\"hsl(var(--muted-foreground))\" stroke-width=\"0.5\"/><path d=\"M 10 65 L 90 65\" stroke=\"currentColor\" stroke-width=\"1.5\" /></g></svg>`,
+      back: `<svg viewBox="0 0 100 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 5)"><path d="M 10 65 C 20 50, 80 50, 90 65 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d=\"M 20 45 H 80 V 65 H 20 Z\" fill=\"hsl(var(--muted-foreground))\" stroke=\"currentColor\" stroke-width=\"0.5\"/><path d=\"M 10 65 L 90 65\" stroke=\"currentColor\" stroke-width=\"1.5\" /></g></svg>`,
     },
     sailing: { // Inspired by Sailboat
       side: `<svg viewBox="0 0 200 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 5)"><path d="M 20 65 C 40 50, 160 50, 180 65 L 175 65 L 25 65 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d="M 90 10 L 95 65 M 50 65 H 150" stroke="currentColor" stroke-width="1" /><path d="M 97 15 C 110 30, 110 50, 97 63" fill="#444" stroke="currentColor" stroke-width="0.5" /><path d="M 93 15 C 60 30, 70 63, 93 63" fill="hsl(var(--muted-foreground))" stroke="currentColor" stroke-width="0.5" /><path d="M 20 65 L 180 65" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
@@ -160,8 +158,7 @@ export const VESSEL_SVGS = {
     fishing: { // Inspired by Trawler
       side: `<svg viewBox="0 0 200 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 10)"><path d="M 10 60 L 190 60 L 190 55 C 180 55, 170 45, 150 45 L 110 45 L 110 30 L 60 30 L 60 45 L 30 45 C 20 45, 15 50, 10 55 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d="M 140 45 L 120 20 M 115 20 H 145" stroke="currentColor" stroke-width="1" /><path d="M 10 60 L 190 60" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
       front: `<svg viewBox="0 0 100 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 10)"><path d="M 10 60 C 10 45, 90 45, 90 60 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><rect x="30" y="30" width="40" height="30" fill="hsl(var(--muted-foreground))" stroke="currentColor" stroke-width="0.5" /><path d="M 10 60 L 90 60" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
-      back: `<svg viewBox="0
- 0 100 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 10)"><path d="M 10 60 C 10 45, 90 45, 90 60 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><rect x="30" y="30" width="40" height="30" fill="hsl(var(--muted-foreground))" stroke="currentColor" stroke-width="0.5" /><path d="M 10 60 L 90 60" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
+      back: `<svg viewBox="0 0 100 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 10)"><path d="M 10 60 C 10 45, 90 45, 90 60 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><rect x="30" y="30" width="40" height="30" fill="hsl(var(--muted-foreground))" stroke="currentColor" stroke-width="0.5" /><path d="M 10 60 L 90 60" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
     },
      tug: { // Inspired by Small Ferry/Tug
       side: `<svg viewBox="0 0 200 80" class="w-full h-full">${glowFilter}<g transform="translate(0, 15)"><path d="M 20 55 L 180 55 L 180 45 L 140 45 L 140 30 L 60 30 L 60 45 L 20 45 Z" stroke="currentColor" stroke-width="1" fill="currentColor" /><path d="M 20 55 L 180 55" stroke="currentColor" stroke-width="1.5" /></g></svg>`,
@@ -545,3 +542,4 @@ export const SOUND_SIGNALS_DATA = [
     }
 ];
 
+    

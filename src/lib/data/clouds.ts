@@ -1,4 +1,3 @@
-
 // Data for cloud types, using translation keys.
 
 export const CLOUD_DATA = [
@@ -13,3 +12,5 @@ export const CLOUD_DATA = [
     { type: 'meteo.clouds.types.cumulus.name', altitude: 'meteo.clouds.types.cumulus.altitude', description: 'meteo.clouds.types.cumulus.description', imageUrl: '/clouds/cumulus.jpg', hint: 'cumulus fluffy' },
     { type: 'meteo.clouds.types.cumulonimbus.name', altitude: 'meteo.clouds.types.cumulonimbus.altitude', description: 'meteo.clouds.types.cumulonimbus.description', imageUrl: '/clouds/cumulonimbus.jpg', hint: 'cumulonimbus storm' }
 ];
+
+    
