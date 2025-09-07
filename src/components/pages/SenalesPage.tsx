@@ -266,7 +266,7 @@ const LighthouseSimulator = () => {
                     <span className="w-full border-t" />
                 </div>
                 <div className="relative bg-card px-4 text-sm text-muted-foreground">
-                    O introduce manualmente
+                    O introduce manually
                 </div>
             </div>
 
@@ -303,8 +303,8 @@ const LighthouseSimulator = () => {
 }
 
 const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
-    const colorMap: { [key: string]: string } = { 'red': '#EF4444', 'green': '#22C55E', 'yellow': '#EAB308', 'black': 'hsl(var(--foreground))', 'white': '#F0F2F5' };
-    const stroke = 'hsl(var(--foreground))';
+    const colorMap: { [key: string]: string } = { 'red': '#EF4444', 'green': '#22C55E', 'yellow': '#EAB308', 'black': '#111827', 'white': '#F0F2F5' };
+    const stroke = 'rgba(200, 200, 220, 0.5)'; // Subtle outline for all modes
 
     let defs = '';
     let fill = `fill="${colorMap[buoy.colors[0]]}"`;
@@ -455,7 +455,7 @@ const BuoySimulator = () => {
                         <Label className="text-xs uppercase text-muted-foreground tracking-wider">Tipo</Label>
                         <div className="flex flex-wrap gap-2 mt-2">
                             {buoyTypesForCategory.map((buoy, index) => (
-                                <Button key={`${buoy.category}-${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
+                                <Button key={`${buoy.type}-${buoy.region || ''}-${index}`} variant={activeType === buoy.type ? 'default' : 'outline'} onClick={() => handleTypeClick(buoy)}>
                                     {buoy.type}
                                 </Button>
                             ))}
@@ -725,12 +725,14 @@ export default function SenalesPage() {
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="buques" className="w-full">
-                        <TabsList className="grid w-full grid-cols-4 gap-2 h-auto bg-transparent p-0">
-                            <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Buques</TabsTrigger>
-                            <TabsTrigger value="sonidos" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Sonidos</TabsTrigger>
-                            <TabsTrigger value="balizamiento" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Balizamiento</TabsTrigger>
-                            <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros</TabsTrigger>
-                        </TabsList>
+                         <div className="overflow-x-auto">
+                            <TabsList className="grid w-full grid-cols-4 min-w-[500px] gap-2 h-auto bg-transparent p-0">
+                                <TabsTrigger value="buques" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Buques</TabsTrigger>
+                                <TabsTrigger value="sonidos" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Sonidos</TabsTrigger>
+                                <TabsTrigger value="balizamiento" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Balizamiento</TabsTrigger>
+                                <TabsTrigger value="faros" className="h-12 text-base data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg">Faros</TabsTrigger>
+                            </TabsList>
+                         </div>
                         <TabsContent value="buques" className="pt-6">
                            <BuquesSimulator />
                         </TabsContent>
