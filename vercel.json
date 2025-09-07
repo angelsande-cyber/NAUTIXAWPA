@@ -1,7 +1,3 @@
 {
-    "functions": {
-        "src/ai/flows/examen.ts": {
-            "maxDuration": 90
-        }
-    }
+    "functions": {}
 }
