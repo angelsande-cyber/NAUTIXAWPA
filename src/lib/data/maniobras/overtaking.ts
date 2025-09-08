@@ -8,7 +8,7 @@ export const overtakingScenario: ManeuverScenario = {
     rule: "Regla 13",
     vesselA: {
         label: "Buque 'Cede paso' (Alcanzador)",
-        path: "M 5 50 L 5 10 C 5 -15, -25 -15, -25 -50",
+        path: "M 5 50 L 5 -50",
         colorClass: "stroke-red-500",
     },
     vesselB: {

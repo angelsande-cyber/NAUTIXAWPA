@@ -86,17 +86,21 @@ const ManeuverSimulator = () => {
                     )}
 
                     {/* Paths and Boats */}
-                    {[selectedScenario.vesselA, selectedScenario.vesselB].map((vessel, index) => (
+                    {[selectedScenario.vesselA, selectedScenario.vesselB].map((vessel, index) => {
+                        const isVesselA = vessel.label.includes('Alcanzador');
+                        const animationClass = isVesselA && selectedScenario.id === 'overtaking' ? 'animate-draw-fast' : 'animate-draw-slow';
+                        const motionDur = isVesselA && selectedScenario.id === 'overtaking' ? '6s' : '10s';
+
+                        return (
                         <g key={index}>
                             {/* Dotted line for original path */}
                             <path d={vessel.path} strokeDasharray="2 2" className={cn(vessel.colorClass, "opacity-40")} strokeWidth="0.5" fill="none" />
 
-                            
                             <g className={cn(!isPlaying && "paused")}>
                                 {/* Solid line for animated path */}
                                 <path
                                     d={vessel.path}
-                                    className={cn(vessel.colorClass, "animate-draw")}
+                                    className={cn(vessel.colorClass, animationClass)}
                                     strokeWidth="1"
                                     fill="none"
                                     style={{ strokeDasharray: 300, strokeDashoffset: 300 }}
@@ -104,17 +108,18 @@ const ManeuverSimulator = () => {
                                 
                                 {/* Boat icon */}
                                 <g className={vessel.colorClass.replace('stroke', 'fill')}>
-                                    <animateMotion dur="8s" begin="0s" fill="freeze" repeatCount="indefinite" path={vessel.path} rotate="auto" />
+                                    <animateMotion dur={motionDur} begin="0s" fill="freeze" repeatCount="indefinite" path={vessel.path} rotate="auto" />
                                     <BoatIcon />
                                 </g>
                             </g>
                             
                         </g>
-                    ))}
+                    )})}
                     
                      <style>{`
                         @keyframes draw { to { stroke-dashoffset: 0; } }
-                        .animate-draw { animation: draw 8s linear infinite; }
+                        .animate-draw-slow { animation: draw 10s linear infinite; }
+                        .animate-draw-fast { animation: draw 6s linear infinite; }
                         .paused * {
                            animation-play-state: paused !important;
                         }
@@ -169,8 +174,3 @@ export default function ManiobrasPage() {
         </div>
     );
 }
-
-
-
-
-
