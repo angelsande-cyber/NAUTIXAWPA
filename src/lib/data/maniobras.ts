@@ -26,12 +26,12 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         rule: "Regla 14",
         vesselA: {
             label: "Buque A",
-            path: "M 0 -45 L 0 -10 C 0 10, -20 10, -20 20 L -20 50",
+            path: "M -10 -45 L -10 -15 C -10 -5, -15 5, -25 10 L -40 20",
             colorClass: "stroke-orange-500",
         },
         vesselB: {
             label: "Buque B",
-            path: "M 0 45 L 0 10 C 0 -10, 20 -10, 20 -20 L 20 -50",
+            path: "M 10 45 L 10 15 C 10 5, 15 -5, 25 -10 L 40 -20",
             colorClass: "stroke-blue-500",
         },
         explanation: "Ambos buques deben maniobrar cayendo a estribor para pasar babor con babor. En esta situación, ambos están obligados a actuar."
@@ -42,12 +42,12 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         description: "Dos buques de propulsión mecánica que se cruzan con riesgo de abordaje.",
         rule: "Regla 15",
         vesselA: {
-            label: "Buque que cede paso (A)",
+            label: "Buque 'Cede paso' (A)",
             path: "M -45 0 L -10 0 C 10 0, 20 20, 20 40 L 20 50",
             colorClass: "stroke-red-500",
         },
         vesselB: {
-            label: "Buque que sigue a rumbo (B)",
+            label: "Buque 'Sigue a rumbo' (B)",
             path: "M 0 -45 L 0 50",
             colorClass: "stroke-green-500",
         },
