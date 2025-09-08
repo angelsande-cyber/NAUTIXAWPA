@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 const BoatIcon = ({ colorClass }: { colorClass: string }) => (
     <g className={cn(colorClass.replace('stroke', 'fill'))}>
-        <path d="M 0 10 L -6 -8 L 0 -5 L 6 -8 Z" />
+        <path d="M 0 -10 L 8 0 L 0 10 L -4 0 Z" />
     </g>
 );
 
@@ -63,21 +63,21 @@ const ManeuverSimulator = () => {
             </Select>
 
             <div className="relative w-full aspect-square bg-muted rounded-lg overflow-hidden border">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
+                <svg viewBox="-50 -50 100 100" className="w-full h-full">
                     {/* Grid */}
                     <defs>
                         <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
                             <path d="M 10 0 L 0 0 0 10" fill="none" stroke="hsl(var(--border))" strokeWidth="0.5"/>
                         </pattern>
                     </defs>
-                    <rect width="100" height="100" fill="url(#grid)" />
+                    <rect x="-50" y="-50" width="100" height="100" fill="url(#grid)" />
                     
                     {/* Wind Arrow */}
                     {selectedScenario.windDirection && (
                         <g transform={`translate(${
-                            selectedScenario.windDirection === 'W' ? 15 : (selectedScenario.windDirection === 'E' ? 85 : 50)
+                            selectedScenario.windDirection === 'W' ? -35 : (selectedScenario.windDirection === 'E' ? 35 : 0)
                         }, ${
-                            selectedScenario.windDirection === 'N' ? 15 : (selectedScenario.windDirection === 'S' ? 85 : 50)
+                            selectedScenario.windDirection === 'N' ? -35 : (selectedScenario.windDirection === 'S' ? 35 : 0)
                         })`}>
                             <WindArrow />
                             <text x="0" y="-18" textAnchor="middle" className="text-xs fill-sky-500">Viento</text>
@@ -88,7 +88,7 @@ const ManeuverSimulator = () => {
                     {[selectedScenario.vesselA, selectedScenario.vesselB].map((vessel, index) => (
                         <g key={index}>
                             {/* Dotted line for original path */}
-                            <path d={vessel.path} strokeDasharray="2 2" className={cn(vessel.colorClass, "opacity-40")} strokeWidth="1" fill="none" />
+                            <path d={vessel.path} strokeDasharray="2 2" className={cn(vessel.colorClass, "opacity-40")} strokeWidth="0.5" fill="none" />
 
                             
                             <g className={cn(!isPlaying && "paused")}>
@@ -96,7 +96,7 @@ const ManeuverSimulator = () => {
                                 <path
                                     d={vessel.path}
                                     className={cn(vessel.colorClass, "animate-draw")}
-                                    strokeWidth="2"
+                                    strokeWidth="1"
                                     fill="none"
                                     style={{ strokeDasharray: 300, strokeDashoffset: 300 }}
                                 />
@@ -168,3 +168,4 @@ export default function ManiobrasPage() {
         </div>
     );
 }
+
