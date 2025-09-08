@@ -16,6 +16,6 @@ export const sailSameTackScenario: ManeuverScenario = {
         path: "M -20 40 L 0 5 L 50 0",
         colorClass: "stroke-red-500",
     },
-    explanation: "Con el viento del Sur, el velero rojo (barlovento) debe ceder el paso maniobrando por la popa del velero verde (sotavento), que tiene preferencia.",
+    explanation: "Con el viento del Sur, el velero rojo (barlovento) debe ceder el paso maniobrando al velero verde (sotavento), que tiene preferencia.",
     windDirection: 'S'
 };
