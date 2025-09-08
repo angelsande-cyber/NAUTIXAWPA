@@ -5,22 +5,23 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import type { QuizOutput, QuizQuestion } from "@/types/examen-types";
-import { FileText, RefreshCw } from "lucide-react";
+import type { QuizQuestion } from "@/types/examen-types";
+import { FileText, RefreshCw, CheckCircle2, XCircle } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { EXAMEN_QUESTIONS_BANK } from "@/lib/data/examen-questions";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 
 const QUIZ_RESULTS_KEY = 'perQuizResults';
 
-type ViewState = 'dashboard' | 'quiz';
+type ViewState = 'dashboard' | 'quiz' | 'results';
 
 interface QuizSession {
-  quiz: QuizOutput;
+  questions: QuizQuestion[];
   userAnswers: Record<number, number | undefined>;
   currentQuestionIndex: number;
 }
@@ -30,26 +31,70 @@ interface QuizResult {
     totalQuestions: number;
     date: string;
     isPass: boolean;
+    session: QuizSession;
 }
 
-const LoadingSkeleton = () => {
+const QuizResults = ({ result, onRestart }: { result: QuizResult, onRestart: () => void }) => {
+    const { score, totalQuestions, isPass, session } = result;
+    const passThreshold = Math.ceil(totalQuestions * 0.7);
+
     return (
-        <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-            <Card className="w-full max-w-md p-8">
-                <div className="animate-spin mb-4">
-                    <RefreshCw className="mx-auto h-12 w-12 text-primary" />
-                </div>
-                <h2 className="text-xl font-semibold">Cargando examen...</h2>
-                <p className="mt-2 text-muted-foreground">¡Un momento!</p>
+        <div className="p-4 md:p-6 space-y-6">
+            <Card className="w-full max-w-3xl mx-auto">
+                <CardHeader>
+                    <CardTitle>Resultados del Examen</CardTitle>
+                    <CardDescription>Has completado el examen. Aquí tienes tu resultado.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                    <Alert variant={isPass ? "default" : "destructive"} className={cn(isPass && "border-green-500/50 bg-green-500/10 text-green-700 dark:text-green-300 [&>svg]:text-green-500")}>
+                        {isPass ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
+                        <AlertTitle className="text-xl">{isPass ? "¡Aprobado!" : "Suspenso"}</AlertTitle>
+                        <AlertDescription>
+                            Has acertado <strong>{score} de {totalQuestions}</strong> preguntas. (Mínimo para aprobar: {passThreshold})
+                        </AlertDescription>
+                    </Alert>
+
+                    <div className="space-y-4">
+                        <h3 className="text-lg font-semibold">Revisión de preguntas</h3>
+                        {session.questions.map((question, index) => {
+                            const userAnswerIndex = session.userAnswers[index];
+                            const isCorrect = userAnswerIndex === question.correctAnswerIndex;
+                            const userAnswer = userAnswerIndex !== undefined ? question.options[userAnswerIndex] : "No respondida";
+
+                            return (
+                                <Card key={index} className={cn("p-4", !isCorrect && "bg-destructive/10 border-destructive/20")}>
+                                    <p className="font-semibold">{index + 1}. {question.question}</p>
+                                    <div className="mt-2 text-sm space-y-1">
+                                        <p>Tu respuesta: <span className={cn("font-medium", isCorrect ? "text-primary" : "text-destructive")}>{userAnswer}</span></p>
+                                        {!isCorrect && <p>Respuesta correcta: <span className="font-medium text-green-600 dark:text-green-400">{question.options[question.correctAnswerIndex]}</span></p>}
+                                    </div>
+                                    <div className="mt-2 pt-2 border-t text-sm">
+                                        <p className="font-semibold">Justificación:</p>
+                                        <p className="text-muted-foreground">{question.explanation}</p>
+                                    </div>
+                                </Card>
+                            )
+                        })}
+                    </div>
+
+                     <div className="text-center mt-6">
+                        <Button onClick={onRestart}>
+                            <RefreshCw className="mr-2 h-4 w-4"/>
+                            Volver al Panel
+                        </Button>
+                    </div>
+
+                </CardContent>
             </Card>
         </div>
-    );
-};
+    )
+}
 
 export default function ExamenPage() {
   const [view, setView] = useState<ViewState>('dashboard');
   const [quizSession, setQuizSession] = useState<QuizSession | null>(null);
   const [lastResults, setLastResults] = useState<QuizResult[]>([]);
+  const [currentResult, setCurrentResult] = useState<QuizResult | null>(null);
 
   useEffect(() => {
     try {
@@ -64,9 +109,9 @@ export default function ExamenPage() {
 
   const saveResults = (newResult: QuizResult) => {
     try {
-      const newResults = [newResult, ...lastResults].slice(0, 10); // Keep last 10 results
-      setLastResults(newResults);
-      localStorage.setItem(QUIZ_RESULTS_KEY, JSON.stringify(newResults));
+      const resultsToSave = [newResult, ...lastResults].slice(0, 10);
+      setLastResults(resultsToSave);
+      localStorage.setItem(QUIZ_RESULTS_KEY, JSON.stringify(resultsToSave));
     } catch (e) {
         console.error("Failed to save results to localStorage", e);
     }
@@ -85,12 +130,8 @@ export default function ExamenPage() {
     const shuffledQuestions = shuffleArray([...allQuestions]);
     const selectedQuestions = shuffledQuestions.slice(0, 10);
 
-    const newQuiz: QuizOutput = {
-      questions: selectedQuestions
-    };
-
     setQuizSession({
-      quiz: newQuiz,
+      questions: selectedQuestions,
       userAnswers: {},
       currentQuestionIndex: 0,
     });
@@ -107,11 +148,11 @@ export default function ExamenPage() {
   const handleFinishQuiz = () => {
     if(!quizSession) return;
     
-    const score = quizSession.quiz.questions.reduce((score, question, index) => {
+    const score = quizSession.questions.reduce((score, question, index) => {
       return quizSession.userAnswers[index] === question.correctAnswerIndex ? score + 1 : score;
     }, 0);
     
-    const totalQuestions = quizSession.quiz.questions.length;
+    const totalQuestions = quizSession.questions.length;
     const passThreshold = Math.ceil(totalQuestions * 0.7);
     const isPass = score >= passThreshold;
 
@@ -120,17 +161,28 @@ export default function ExamenPage() {
         totalQuestions,
         isPass,
         date: new Date().toISOString(),
+        session: quizSession
     };
 
     saveResults(result);
+    setCurrentResult(result);
     setQuizSession(null);
+    setView('results');
+  }
+
+  const handleRestart = () => {
+    setCurrentResult(null);
     setView('dashboard');
   }
 
+  if (view === 'results' && currentResult) {
+      return <QuizResults result={currentResult} onRestart={handleRestart} />
+  }
+
   if (view === 'quiz' && quizSession) {
-    const { quiz, currentQuestionIndex, userAnswers } = quizSession;
-    const totalQuestions = quiz.questions.length;
-    const currentQuestion = quiz.questions[currentQuestionIndex];
+    const { questions, currentQuestionIndex, userAnswers } = quizSession;
+    const totalQuestions = questions.length;
+    const currentQuestion = questions[currentQuestionIndex];
 
     return (
         <div className="p-4 md:p-6">
@@ -157,12 +209,7 @@ export default function ExamenPage() {
                             ))}
                         </RadioGroup>
                     </div>
-                     <div className="mt-4 p-4 bg-muted/50 rounded-lg">
-                        <h4 className="font-semibold text-sm">Justificación</h4>
-                         <p className="text-sm text-muted-foreground mt-1">
-                            {userAnswers[currentQuestionIndex] !== undefined ? currentQuestion.explanation : 'Selecciona una respuesta para ver la justificación.'}
-                        </p>
-                    </div>
+                    
                     <div className="mt-6 flex justify-between">
                         <Button
                             variant="outline"
