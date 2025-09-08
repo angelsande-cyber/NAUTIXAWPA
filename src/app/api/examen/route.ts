@@ -1,5 +1,3 @@
-'use server';
-
 import { appRoute } from '@genkit-ai/next';
 import { generatePerQuizFlow } from '@/ai/flows/examen';
 
