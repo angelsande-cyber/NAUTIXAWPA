@@ -179,15 +179,25 @@ const renderBuoySchematic = (container: HTMLElement, buoy: BuoyData) => {
     let fill = `fill="${colorMap[buoy.colors[0]]}"`;
     if (buoy.colors.length > 1) {
         const gradientId = `grad-${buoy.colors.join('-').replace(/\s/g, '')}`;
-        const isVertical = buoy.shape === 'spherical'; 
-        const stops = buoy.colors.map((color:string, index:number) => {
-            const step = 100 / buoy.colors.length;
-            return `<stop offset="${index * step}%" stop-color="${colorMap[color]}" /><stop offset="${(index + 1) * step}%" stop-color="${colorMap[color]}" />`;
-        }).join('');
-        
-        defs = `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="${isVertical ? '0%' : '100%'}" y2="${isVertical ? '100%' : '0%'}">${stops}</linearGradient></defs>`;
-        fill = `fill="url(#${gradientId})"`;
+        const isStriped = buoy.shape === 'spherical'; 
+
+        if (isStriped) {
+             const stripeWidth = 10;
+             const patternId = `pattern-${buoy.colors.join('-')}`;
+             defs = `<defs><pattern id="${patternId}" patternUnits="userSpaceOnUse" width="${stripeWidth * 2}" height="100%"><rect x="0" y="0" width="${stripeWidth}" height="100%" fill="${colorMap[buoy.colors[0]]}" /><rect x="${stripeWidth}" y="0" width="${stripeWidth}" height="100%" fill="${colorMap[buoy.colors[1]]}" /></pattern></defs>`;
+             fill = `fill="url(#${patternId})"`;
+        } else {
+            const isVertical = buoy.shape === 'pillar' && buoy.colors.length > 2; // only for cardinal buoys with 3 bands
+            const stops = buoy.colors.map((color:string, index:number) => {
+                const step = 100 / buoy.colors.length;
+                return `<stop offset="${index * step}%" stop-color="${colorMap[color]}" /><stop offset="${(index + 1) * step}%" stop-color="${colorMap[color]}" />`;
+            }).join('');
+            
+            defs = `<defs><linearGradient id="${gradientId}" x1="0%" y1="0%" x2="${isVertical ? '0%' : '100%'}" y2="${isVertical ? '100%' : '0%'}">${stops}</linearGradient></defs>`;
+            fill = `fill="url(#${gradientId})"`;
+        }
     }
+
 
     let shapeSvg = '';
     switch (buoy.shape) {
