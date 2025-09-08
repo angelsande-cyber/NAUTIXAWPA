@@ -129,11 +129,11 @@ const ManeuverSimulator = () => {
                     <p className="text-sm text-muted-foreground mb-3">{selectedScenario.explanation}</p>
                     <div className="flex flex-wrap gap-x-4 gap-y-1">
                        <div className="flex items-center gap-2">
-                            <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselA.colorClass.replace('stroke', 'bg'), selectedScenario.vesselA.colorClass.replace('stroke', 'border'))}/>
+                            <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselA.colorClass.replace('stroke-', 'bg-'), selectedScenario.vesselA.colorClass.replace('stroke-', 'border-'))}/>
                             <span className="text-xs font-semibold">{selectedScenario.vesselA.label}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                             <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselB.colorClass.replace('stroke', 'bg'), selectedScenario.vesselB.colorClass.replace('stroke', 'border'))}/>
+                             <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselB.colorClass.replace('stroke-', 'bg-'), selectedScenario.vesselB.colorClass.replace('stroke-', 'border-'))}/>
                             <span className="text-xs font-semibold">{selectedScenario.vesselB.label}</span>
                         </div>
                     </div>
@@ -168,5 +168,6 @@ export default function ManiobrasPage() {
         </div>
     );
 }
+
 
 
