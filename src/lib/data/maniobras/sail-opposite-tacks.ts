@@ -9,11 +9,13 @@ export const sailOppositeTacksScenario: ManeuverScenario = {
     vesselA: {
         label: "Velero 'Cede paso' (Amurado a babor)",
         path: "M -40 25 L -30 15 L 50 0",
+        colorClass: "stroke-red-500",
     },
     vesselB: {
         label: "Velero 'Sigue a rumbo' (Amurado a estribor)",
         path: "M 40 25 L -40 -25",
+        colorClass: "stroke-green-500",
     },
-    explanation: "El velero amurado a babor (Rojo), que recibe el viento por babor, debe ceder el paso. En esta simulación, comienza en un rumbo de colisión y luego realiza una maniobra de evasión temprana y clara para cruzar por la proa del velero que sigue a rumbo (Verde) con un amplio margen de seguridad.",
+    explanation: "El velero rojo ('cede paso'), que está amurado a babor, navega inicialmente en un rumbo que lo llevaría a colisionar con el velero verde ('sigue a rumbo'). Al percatarse del riesgo, el velero rojo realiza una maniobra de evasión, girando a estribor para cruzar por la proa del velero verde con un amplio margen de seguridad.",
     windDirection: 'S'
 };

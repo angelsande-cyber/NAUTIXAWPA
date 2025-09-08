@@ -107,7 +107,7 @@ const ManeuverSimulator = () => {
                                 />
                                 
                                 {/* Boat icon */}
-                                <g className={vessel.colorClass.replace('stroke', 'fill')}>
+                                <g className={vessel.colorClass?.replace('stroke', 'fill')}>
                                     <animateMotion dur={motionDur} begin="0s" fill="freeze" repeatCount="indefinite" path={vessel.path} rotate="auto" />
                                     <BoatIcon />
                                 </g>
