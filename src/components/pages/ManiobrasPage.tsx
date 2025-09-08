@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from '@/components/ui/button';
-import { Play, Pause, RefreshCw, Wind } from 'lucide-react';
+import { Play, Pause } from 'lucide-react';
 import { MANEUVER_DATA } from '@/lib/data/maniobras';
 import type { ManeuverScenario } from '@/lib/data/maniobras';
 import { cn } from '@/lib/utils';
