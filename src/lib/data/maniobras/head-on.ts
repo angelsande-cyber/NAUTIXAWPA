@@ -7,12 +7,12 @@ export const headOnScenario: ManeuverScenario = {
     rule: "Regla 14",
     vesselA: {
         label: "Buque A",
-        path: "M -5 -50 L -5 0 C -5 20, 15 20, 15 50",
+        path: "M -10 -50 L -10 0 C -10 20, 10 20, 10 50",
         colorClass: "stroke-orange-500",
     },
     vesselB: {
         label: "Buque B",
-        path: "M 5 50 L 5 0 C 5 -20, -15 -20, -15 -50",
+        path: "M 10 50 L 10 0 C 10 -20, -10 -20, -10 -50",
         colorClass: "stroke-blue-500",
     },
     explanation: "Ambos buques deben maniobrar cayendo a estribor para pasar babor con babor. En esta situación, ambos están obligados a actuar."
