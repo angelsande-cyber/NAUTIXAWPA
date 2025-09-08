@@ -91,10 +91,6 @@ export default function ExamenPage() {
     try {
       const response = await fetch('/api/examen', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ language: 'es' }),
       });
 
       if (!response.ok) {

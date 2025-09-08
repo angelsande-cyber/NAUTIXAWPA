@@ -7,24 +7,13 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {QuizOutput, QuizOutputSchema} from '../schemas/examen-schema';
 
-export const PerQuizInputSchema = z
-  .object({
-    language: z.enum(['es', 'en'])
-      .describe("The language to generate the quiz in ('es' or 'en').")
-      .default('es'),
-  })
-  .default({ language: 'es' });
-
-export type PerQuizInput = z.infer<typeof PerQuizInputSchema>;
-
-
 export const generatePerQuizFlow = ai.defineFlow(
   {
     name: 'generatePerQuizFlow',
-    inputSchema: PerQuizInputSchema,
+    inputSchema: z.undefined(),
     outputSchema: QuizOutputSchema,
   },
-  async (input): Promise<QuizOutput> => {
+  async (): Promise<QuizOutput> => {
     
     const {output} = await ai.generate({
       prompt: `You are an expert instructor and examiner for the Spanish "Patrón de Embarcaciones de Recreo (PER)" boat master license.
