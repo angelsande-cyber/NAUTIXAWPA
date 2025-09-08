@@ -6,14 +6,14 @@ export const crossingScenario: ManeuverScenario = {
     description: "Dos buques de propulsión mecánica que se cruzan con riesgo de abordaje.",
     rule: "Regla 15",
     vesselA: {
-        label: "Buque 'Sigue a rumbo' (B)",
-        path: "M -45 10 L 45 10",
+        label: "Buque 'Sigue a rumbo' (A)",
+        path: "M -45 0 L 45 0",
         colorClass: "stroke-green-500",
     },
     vesselB: {
-        label: "Buque 'Cede paso' (A)",
-        path: "M 25 -40 L -5 0 C -25 20, -35 45, -15 45",
+        label: "Buque 'Cede paso' (B)",
+        path: "M 10 -45 L 10 -15 C 10 5, 40 5, 40 15 L 40 45",
         colorClass: "stroke-red-500",
     },
-    explanation: "El buque A, que ve al buque B por su estribor, es el que 'cede paso'. Debe maniobrar con antelación, preferiblemente cayendo a estribor para pasar por la popa de B. El buque B 'sigue a rumbo', manteniendo su rumbo y velocidad."
+    explanation: "El buque B, que ve al buque A por su estribor, es el que 'cede paso'. Debe maniobrar con antelación y de forma decidida, cayendo a estribor para evitar cruzar por la proa de A y pasar a una distancia segura."
 };
