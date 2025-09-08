@@ -27,14 +27,14 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         vesselA: {
             label: "Buque A",
             path: "M 40 90 L 40 55 C 40 50, 45 50, 50 55 L 60 90",
-            colorClass: "stroke-red-500",
+            colorClass: "stroke-blue-500",
         },
         vesselB: {
             label: "Buque B",
             path: "M 60 10 L 60 45 C 60 50, 55 50, 50 45 L 40 10",
-            colorClass: "stroke-green-500",
+            colorClass: "stroke-orange-500",
         },
-        explanation: "Ambos buques deben maniobrar cayendo a estribor para pasar babor con babor. En esta simulación, A cede el paso a B por convención visual."
+        explanation: "Ambos buques deben maniobrar cayendo a estribor para pasar babor con babor. En esta situación, no hay un buque que 'siga a rumbo'; ambos están obligados a actuar."
     },
     {
         id: 'crossing',
@@ -42,12 +42,12 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         description: "Dos buques de propulsión mecánica que se cruzan con riesgo de abordaje.",
         rule: "Regla 15",
         vesselA: {
-            label: "Buque A",
+            label: "Buque 'Cede paso'",
             path: "M 10 50 L 45 50 C 55 50, 60 60, 50 70 L 45 90",
             colorClass: "stroke-red-500",
         },
         vesselB: {
-            label: "Buque B",
+            label: "Buque 'Sigue a rumbo'",
             path: "M 50 10 L 50 90",
             colorClass: "stroke-green-500",
         },
@@ -59,12 +59,12 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         description: "Un buque que alcanza a otro por su popa.",
         rule: "Regla 13",
         vesselA: {
-            label: "Buque A (Alcanzador)",
+            label: "Buque 'Cede paso' (Alcanzador)",
             path: "M 50 90 L 50 65 C 50 55, 60 55, 65 50 L 80 10",
             colorClass: "stroke-red-500",
         },
         vesselB: {
-            label: "Buque B (Alcanzado)",
+            label: "Buque 'Sigue a rumbo' (Alcanzado)",
             path: "M 50 70 L 50 10",
             colorClass: "stroke-green-500",
         },
@@ -76,12 +76,12 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         description: "Dos veleros que reciben el viento por bandas contrarias.",
         rule: "Regla 12",
         vesselA: {
-            label: "Velero amurado a babor",
+            label: "Velero 'Cede paso' (Amurado a babor)",
             path: "M 20 80 L 45 55 C 50 50, 50 45, 55 40 L 80 15",
             colorClass: "stroke-red-500",
         },
         vesselB: {
-            label: "Velero amurado a estribor",
+            label: "Velero 'Sigue a rumbo' (Amurado a estribor)",
             path: "M 80 80 L 20 20",
             colorClass: "stroke-green-500",
         },
@@ -94,12 +94,12 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         description: "Dos veleros que reciben el viento por la misma banda.",
         rule: "Regla 12",
         vesselA: {
-            label: "Velero de barlovento",
+            label: "Velero 'Cede paso' (Barlovento)",
             path: "M 20 80 L 45 55 C 50 50, 50 45, 55 40 L 80 15",
             colorClass: "stroke-red-500",
         },
         vesselB: {
-            label: "Velero de sotavento",
+            label: "Velero 'Sigue a rumbo' (Sotavento)",
             path: "M 40 80 L 90 30",
             colorClass: "stroke-green-500",
         },

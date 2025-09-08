@@ -11,7 +11,7 @@ import type { ManeuverScenario } from '@/lib/data/maniobras';
 import { cn } from '@/lib/utils';
 
 const BoatIcon = ({ colorClass }: { colorClass: string }) => (
-    <g className={cn("fill-current", colorClass.replace('stroke', 'text'))}>
+    <g className={cn(colorClass.replace('stroke', 'fill'))}>
         <path d="M 0 -10 L 6 8 L 0 5 L -6 8 Z" />
     </g>
 );
@@ -126,13 +126,13 @@ const ManeuverSimulator = () => {
                 <CardContent>
                     <p className="text-sm text-muted-foreground mb-3">{selectedScenario.explanation}</p>
                     <div className="flex flex-wrap gap-x-4 gap-y-1">
-                        <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-red-500 border border-red-700"/>
-                            <span className="text-xs font-semibold">{selectedScenario.vesselA.label} (Cede paso)</span>
+                       <div className="flex items-center gap-2">
+                            <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselA.colorClass.replace('stroke', 'bg'), selectedScenario.vesselA.colorClass.replace('stroke', 'border'))}/>
+                            <span className="text-xs font-semibold">{selectedScenario.vesselA.label}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-green-500 border border-green-700"/>
-                            <span className="text-xs font-semibold">{selectedScenario.vesselB.label} (Sigue a rumbo)</span>
+                             <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselB.colorClass.replace('stroke', 'bg'), selectedScenario.vesselB.colorClass.replace('stroke', 'border'))}/>
+                            <span className="text-xs font-semibold">{selectedScenario.vesselB.label}</span>
                         </div>
                     </div>
                 </CardContent>
@@ -166,4 +166,3 @@ export default function ManiobrasPage() {
         </div>
     );
 }
-
