@@ -8,7 +8,7 @@ export const sailOppositeTacksScenario: ManeuverScenario = {
     rule: "Regla 12",
     vesselA: {
         label: "Velero 'Cede paso' (Amurado a babor)",
-        path: "M -40 25 L -20 15 C 0 0, 0 0, 10 -30",
+        path: "M -40 25 L -20 15 C 0 -5, -5 -25, 20 -40",
         colorClass: "stroke-red-500",
     },
     vesselB: {
