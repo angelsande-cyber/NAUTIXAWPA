@@ -93,10 +93,7 @@ export default function ExamenPage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          language: 'es',
-        }),
+        }
       });
 
       if (!response.ok) {

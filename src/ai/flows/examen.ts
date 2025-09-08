@@ -8,28 +8,18 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 import {QuizOutput, QuizOutputSchema} from '../schemas/examen-schema';
 
-export const PerQuizInputSchema = z
-  .object({
-    language: z.enum(['es', 'en'])
-      .describe("The language to generate the quiz in ('es' or 'en').")
-      .default('es'),
-  })
-  .default({ language: 'es' });
-export type PerQuizInput = z.infer<typeof PerQuizInputSchema>;
-
-
 export const generatePerQuizFlow = ai.defineFlow(
   {
     name: 'generatePerQuizFlow',
-    inputSchema: PerQuizInputSchema,
+    inputSchema: z.undefined(),
     outputSchema: QuizOutputSchema,
   },
-  async (input): Promise<QuizOutput> => {
+  async (): Promise<QuizOutput> => {
     
     const {output} = await ai.generate({
       prompt: `You are an expert instructor and examiner for the Spanish "Patrón de Embarcaciones de Recreo (PER)" boat master license.
 
-Your task is to generate a 10-question multiple-choice practice exam in the specified language: ${input.language}.
+Your task is to generate a 10-question multiple-choice practice exam in Spanish.
 
 The questions must cover the official PER syllabus in a varied and balanced way, including but not limited to:
 - International Regulations for Preventing Collisions at Sea (COLREGs): steering and sailing rules, lights and shapes.
@@ -48,7 +38,7 @@ For each question:
 5.  Provide a brief but well-founded explanation of why the correct answer is right, referencing the corresponding regulation or concept if possible. The explanation is very important for the user's learning.
 
 The exam should be a realistic challenge for a PER candidate. Avoid questions that are too obvious or obscure.
-If the language is 'es', all output must be in Spanish. If the language is 'en', all output must be in English.
+All output must be in Spanish.
 `,
       model: 'googleai/gemini-2.5-pro',
       output: {
