@@ -7,12 +7,14 @@ export const headOnScenario: ManeuverScenario = {
     rule: "Regla 14",
     vesselA: {
         label: "Buque A",
-        path: "M -5 50 L -5 10 C -5 -10, 10 -10, 10 -10 L 10 -50",
+        // Starts at bottom, moves straight up, turns right (starboard), then continues straight
+        path: "M 0 50 L 0 10 C 0 -10, 20 -10, 20 -10 L 20 -50",
         colorClass: "stroke-orange-500",
     },
     vesselB: {
         label: "Buque B",
-        path: "M 5 -50 L 5 -10 C 5 10, -10 10, -10 10 L -10 50",
+        // Starts at top, moves straight down, turns to its right (left on screen), then continues straight
+        path: "M 0 -50 L 0 -10 C 0 10, -20 10, -20 10 L -20 50",
         colorClass: "stroke-blue-500",
     },
     explanation: "Cuando dos buques de propulsión mecánica se encuentran a rumbos opuestos o casi opuestos, con riesgo de abordaje, ambos deben maniobrar cayendo a estribor para pasar babor con babor."
