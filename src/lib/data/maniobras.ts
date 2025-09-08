@@ -31,7 +31,7 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         },
         vesselB: {
             label: "Buque B",
-            path: "M 60 10 L 60 40 C 60 50, 70 50, 70 60 L 70 90",
+            path: "M 70 10 L 70 40 C 70 50, 80 50, 80 60 L 80 90",
             colorClass: "stroke-blue-500",
         },
         explanation: "Ambos buques deben maniobrar cayendo a estribor para pasar babor con babor. En esta situación, ambos buques están obligados a actuar."
