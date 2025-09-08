@@ -16,6 +16,6 @@ export const sailOppositeTacksScenario: ManeuverScenario = {
         path: "M 40 25 L -40 -25",
         colorClass: "stroke-green-500",
     },
-    explanation: "El buque que cede el paso (Rojo), amurado a babor, maniobra a estribor para pasar por la proa del otro con suficiente antelación.",
+    explanation: "El buque que cede el paso (Rojo), amurado a babor, maniobra a estribor para pasar por la popa del otro con suficiente antelación.",
     windDirection: 'S'
 };
