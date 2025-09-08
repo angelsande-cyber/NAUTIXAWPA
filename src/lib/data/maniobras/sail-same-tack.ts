@@ -8,14 +8,14 @@ export const sailSameTackScenario: ManeuverScenario = {
     rule: "Regla 12",
     vesselA: {
         label: "Velero 'Sigue a rumbo' (Sotavento)",
-        path: "M -15 40 L 35 -10",
-        colorClass: "stroke-green-500",
+        path: "M -40 -15 L 10 35",
+        colorClass: "stroke-red-500",
     },
     vesselB: {
         label: "Velero 'Cede paso' (Barlovento)",
-        path: "M -35 40 L -5 10 C 5 0, 20 -10, 40 -25",
-        colorClass: "stroke-red-500",
+        path: "M -40 -35 L -10 -5 C 0 5, -10 20, -25 40",
+        colorClass: "stroke-green-500",
     },
-    explanation: "De acuerdo con la Regla 12 (a) (ii), cuando dos veleros reciben el viento por la misma banda, el buque que esté a barlovento (B, Rojo) se mantendrá apartado de la derrota del que esté a sotavento (A, Verde). El rojo maniobra para pasar por la popa del verde.",
-    windDirection: 'W'
+    explanation: "Con viento del Sur, el velero verde, al estar a barlovento (más cerca del viento), debe ceder el paso maniobrando por la popa del velero rojo, que está a sotavento y mantiene su rumbo.",
+    windDirection: 'S'
 };
