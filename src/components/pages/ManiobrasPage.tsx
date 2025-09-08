@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from '@/components/ui/button';
-import { Play, RefreshCw, Wind } from 'lucide-react';
+import { Play, Pause, RefreshCw, Wind } from 'lucide-react';
 import { MANEUVER_DATA } from '@/lib/data/maniobras';
 import type { ManeuverScenario } from '@/lib/data/maniobras';
 import { cn } from '@/lib/utils';
@@ -26,23 +26,22 @@ const WindArrow = () => (
 
 const ManeuverSimulator = () => {
     const [selectedScenario, setSelectedScenario] = useState<ManeuverScenario>(MANEUVER_DATA[0]);
-    const [isAnimating, setIsAnimating] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
 
     const handleScenarioChange = (id: string) => {
         const scenario = MANEUVER_DATA.find(s => s.id === id);
         if (scenario) {
             setSelectedScenario(scenario);
-            setIsAnimating(false);
+            setIsPlaying(true); // Autoplay on new scenario
         }
     };
 
-    const handleAnimate = () => {
-        setIsAnimating(false);
-        setTimeout(() => setIsAnimating(true), 50); // Restart animation
+    const togglePlay = () => {
+        setIsPlaying(prev => !prev);
     };
     
     useEffect(() => {
-        handleAnimate();
+        setIsPlaying(true);
     }, [selectedScenario]);
 
     return (
@@ -91,30 +90,33 @@ const ManeuverSimulator = () => {
                             {/* Dotted line for original path */}
                             <path d={vessel.path} strokeDasharray="2 2" className={cn(vessel.colorClass, "opacity-40")} strokeWidth="1" fill="none" />
 
-                            {isAnimating && (
+                            
+                            <g className={cn(!isPlaying && "paused")}>
+                                {/* Solid line for animated path */}
+                                <path
+                                    d={vessel.path}
+                                    className={cn(vessel.colorClass, "animate-draw")}
+                                    strokeWidth="2"
+                                    fill="none"
+                                    style={{ strokeDasharray: 300, strokeDashoffset: 300 }}
+                                />
+                                
+                                {/* Boat icon */}
                                 <g>
-                                    {/* Solid line for animated path */}
-                                    <path
-                                        d={vessel.path}
-                                        className={cn(vessel.colorClass, "animate-draw")}
-                                        strokeWidth="2"
-                                        fill="none"
-                                        style={{ strokeDasharray: 300, strokeDashoffset: 300, animationDuration: '4s' }}
-                                    />
-                                    
-                                    {/* Boat icon */}
-                                    <g>
-                                        <animateMotion dur="4s" begin="0s" fill="freeze" repeatCount="1" path={vessel.path} rotate="auto" />
-                                        <BoatIcon colorClass={vessel.colorClass} />
-                                    </g>
+                                    <animateMotion dur="8s" begin="0s" fill="freeze" repeatCount="indefinite" path={vessel.path} rotate="auto" />
+                                    <BoatIcon colorClass={vessel.colorClass} />
                                 </g>
-                            )}
+                            </g>
+                            
                         </g>
                     ))}
                     
                      <style>{`
                         @keyframes draw { to { stroke-dashoffset: 0; } }
-                        .animate-draw { animation: draw 4s linear forwards; }
+                        .animate-draw { animation: draw 8s linear infinite; }
+                        .paused * {
+                           animation-play-state: paused !important;
+                        }
                     `}</style>
                 </svg>
             </div>
@@ -139,9 +141,9 @@ const ManeuverSimulator = () => {
             </Card>
 
             <div className="text-center">
-                 <Button onClick={handleAnimate}>
-                    {isAnimating ? <RefreshCw className="mr-2 animate-spin" /> : <Play className="mr-2"/>}
-                    {isAnimating ? "Animando..." : "Repetir Animación"}
+                 <Button onClick={togglePlay}>
+                    {isPlaying ? <Pause className="mr-2" /> : <Play className="mr-2"/>}
+                    {isPlaying ? "Pausa" : "Reanudar"}
                  </Button>
             </div>
         </div>
