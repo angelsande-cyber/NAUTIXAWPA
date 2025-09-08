@@ -26,15 +26,15 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         rule: "Regla 14",
         vesselA: {
             label: "Buque A",
-            path: "M 50 90 L 50 55 C 50 50, 40 50, 35 45 L 20 10",
-            colorClass: "stroke-blue-500",
+            path: "M 40 90 L 40 55 C 40 50, 45 50, 50 55 L 60 90",
+            colorClass: "stroke-red-500",
         },
         vesselB: {
             label: "Buque B",
-            path: "M 50 10 L 50 45 C 50 50, 60 50, 65 55 L 80 90",
+            path: "M 60 10 L 60 45 C 60 50, 55 50, 50 45 L 40 10",
             colorClass: "stroke-green-500",
         },
-        explanation: "Ambos buques deben caer a estribor para pasar babor con babor."
+        explanation: "Ambos buques deben maniobrar cayendo a estribor para pasar babor con babor. En esta simulación, A cede el paso a B por convención visual."
     },
     {
         id: 'crossing',
@@ -42,16 +42,16 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         description: "Dos buques de propulsión mecánica que se cruzan con riesgo de abordaje.",
         rule: "Regla 15",
         vesselA: {
-            label: "Buque A (Cede paso)",
-            path: "M 10 50 L 45 50 C 50 50, 50 60, 45 65 L 10 80",
+            label: "Buque A",
+            path: "M 10 50 L 45 50 C 55 50, 60 60, 50 70 L 45 90",
             colorClass: "stroke-red-500",
         },
         vesselB: {
-            label: "Buque B (Sigue a rumbo)",
+            label: "Buque B",
             path: "M 50 10 L 50 90",
             colorClass: "stroke-green-500",
         },
-        explanation: "El buque A, que ve al buque B por su estribor, debe maniobrar para ceder el paso, preferiblemente pasando por su popa."
+        explanation: "El buque A, que ve al buque B por su estribor, debe ceder el paso. Maniobrará con antelación suficiente cayendo a estribor para pasar por la popa de B."
     },
     {
         id: 'overtaking',
@@ -60,7 +60,7 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         rule: "Regla 13",
         vesselA: {
             label: "Buque A (Alcanzador)",
-            path: "M 50 90 L 50 70 C 50 60, 60 60, 65 55 L 80 20",
+            path: "M 50 90 L 50 65 C 50 55, 60 55, 65 50 L 80 10",
             colorClass: "stroke-red-500",
         },
         vesselB: {
@@ -68,7 +68,7 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
             path: "M 50 70 L 50 10",
             colorClass: "stroke-green-500",
         },
-        explanation: "El buque que alcanza (A) debe mantenerse apartado de la derrota del buque alcanzado (B), pasando por cualquiera de sus bandas."
+        explanation: "El buque que alcanza (A) debe mantenerse apartado de la derrota del buque alcanzado (B), pasando por cualquiera de sus bandas de forma segura."
     },
     {
         id: 'sail-opposite-tacks',
@@ -76,12 +76,12 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         description: "Dos veleros que reciben el viento por bandas contrarias.",
         rule: "Regla 12",
         vesselA: {
-            label: "Buque A (Amurado a babor - Cede paso)",
+            label: "Velero amurado a babor",
             path: "M 20 80 L 45 55 C 50 50, 50 45, 55 40 L 80 15",
             colorClass: "stroke-red-500",
         },
         vesselB: {
-            label: "Buque B (Amurado a estribor - Sigue a rumbo)",
+            label: "Velero amurado a estribor",
             path: "M 80 80 L 20 20",
             colorClass: "stroke-green-500",
         },
@@ -94,12 +94,12 @@ export const MANEUVER_DATA: ManeuverScenario[] = [
         description: "Dos veleros que reciben el viento por la misma banda.",
         rule: "Regla 12",
         vesselA: {
-            label: "Buque A (Barlovento - Cede paso)",
-            path: "M 10 80 L 35 55 C 40 50, 40 45, 45 40 L 70 15",
+            label: "Velero de barlovento",
+            path: "M 20 80 L 45 55 C 50 50, 50 45, 55 40 L 80 15",
             colorClass: "stroke-red-500",
         },
         vesselB: {
-            label: "Buque B (Sotavento - Sigue a rumbo)",
+            label: "Velero de sotavento",
             path: "M 40 80 L 90 30",
             colorClass: "stroke-green-500",
         },

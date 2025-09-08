@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 const BoatIcon = ({ colorClass }: { colorClass: string }) => (
     <g className={cn("fill-current", colorClass.replace('stroke', 'text'))}>
-        <path d="M -6 -10 L 0 10 L 6 -10 L 0 -7 Z" />
+        <path d="M 0 -10 L 6 8 L 0 5 L -6 8 Z" />
     </g>
 );
 
@@ -91,25 +91,28 @@ const ManeuverSimulator = () => {
                             {/* Dotted line for original path */}
                             <path d={vessel.path} strokeDasharray="2 2" className={cn(vessel.colorClass, "opacity-40")} strokeWidth="1" fill="none" />
 
-                            {/* Solid line for animated path */}
-                            <path
-                                d={vessel.path}
-                                className={cn(vessel.colorClass, isAnimating ? "animate-draw" : "opacity-0")}
-                                strokeWidth="2"
-                                fill="none"
-                                style={{ strokeDasharray: 300, strokeDashoffset: isAnimating ? 0 : 300, animationDuration: '4s' } as React.CSSProperties}
-                            />
-                            
-                            {/* Boat icon */}
-                            <g className={isAnimating ? 'animate-move' : ''} style={{ animationDuration: '4s', offsetPath: `path("${vessel.path}")` } as React.CSSProperties}>
-                                <BoatIcon colorClass={vessel.colorClass} />
-                            </g>
+                            {isAnimating && (
+                                <g>
+                                    {/* Solid line for animated path */}
+                                    <path
+                                        d={vessel.path}
+                                        className={cn(vessel.colorClass, "animate-draw")}
+                                        strokeWidth="2"
+                                        fill="none"
+                                        style={{ strokeDasharray: 300, strokeDashoffset: 300, animationDuration: '4s' }}
+                                    />
+                                    
+                                    {/* Boat icon */}
+                                    <g>
+                                        <animateMotion dur="4s" begin="0s" fill="freeze" repeatCount="1" path={vessel.path} rotate="auto" />
+                                        <BoatIcon colorClass={vessel.colorClass} />
+                                    </g>
+                                </g>
+                            )}
                         </g>
                     ))}
                     
                      <style>{`
-                        @keyframes move { from { offset-distance: 0%; } to { offset-distance: 100%; } }
-                        .animate-move { animation: move 4s linear forwards; }
                         @keyframes draw { to { stroke-dashoffset: 0; } }
                         .animate-draw { animation: draw 4s linear forwards; }
                     `}</style>
@@ -122,14 +125,14 @@ const ManeuverSimulator = () => {
                 </CardHeader>
                 <CardContent>
                     <p className="text-sm text-muted-foreground mb-3">{selectedScenario.explanation}</p>
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap gap-x-4 gap-y-1">
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-red-500"/>
-                            <span className="text-xs font-semibold">Buque que cede paso</span>
+                            <div className="w-3 h-3 rounded-full bg-red-500 border border-red-700"/>
+                            <span className="text-xs font-semibold">{selectedScenario.vesselA.label} (Cede paso)</span>
                         </div>
                         <div className="flex items-center gap-2">
-                            <div className="w-3 h-3 rounded-full bg-green-500"/>
-                            <span className="text-xs font-semibold">Buque que sigue a rumbo</span>
+                            <div className="w-3 h-3 rounded-full bg-green-500 border border-green-700"/>
+                            <span className="text-xs font-semibold">{selectedScenario.vesselB.label} (Sigue a rumbo)</span>
                         </div>
                     </div>
                 </CardContent>
