@@ -1,5 +1,3 @@
-'use server';
-
 import { generatePerQuizFlow } from '@/ai/flows/examen';
 import {NextResponse} from 'next/server';
 
