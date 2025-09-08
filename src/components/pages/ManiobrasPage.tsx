@@ -73,6 +73,16 @@ const ManeuverSimulator = () => {
                     </defs>
                     <rect x="-50" y="-50" width="100" height="100" fill="url(#grid)" />
                     
+                    {/* Coordinates */}
+                    <g className="text-[5px] fill-muted-foreground font-mono">
+                        {[-40, -20, 20, 40].map(n => (
+                            <text key={`x-${n}`} x={n} y="-46" textAnchor="middle">{n}</text>
+                        ))}
+                        {[-40, -20, 20, 40].map(n => (
+                            <text key={`y-${n}`} x="-48" y={n} dy="2" textAnchor="start">{n}</text>
+                        ))}
+                    </g>
+                    
                     {/* Wind Arrow */}
                     {selectedScenario.windDirection && (
                         <g transform={`translate(${
