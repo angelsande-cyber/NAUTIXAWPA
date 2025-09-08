@@ -21,6 +21,7 @@ import {
   AudioLines,
   Navigation,
   TowerControl,
+  GitCompareArrows,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -49,6 +50,7 @@ import BuquesPage from "./pages/BuquesPage";
 import SonidosPage from "./pages/SonidosPage";
 import BalizamientoPage from "./pages/BalizamientoPage";
 import FarosPage from "./pages/FarosPage";
+import ManiobrasPage from "./pages/ManiobrasPage";
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -85,6 +87,7 @@ export function AppShell({ user }: { user: User }) {
   const dashboardItems = [
     { id: "sosgen", label: "Llamadas SOS", icon: Radio, description: "Crea y practica llamadas de socorro MAYDAY." },
     { id: "buques", label: "Buques", icon: Ship, description: "Simulador de luces y marcas de buques (COLREG)." },
+    { id: "maniobras", label: "Maniobras", icon: GitCompareArrows, description: "Reglas de paso y maniobras para evitar abordajes." },
     { id: "sonidos", label: "Sonidos", icon: AudioLines, description: "Señales acústicas de maniobra y visibilidad reducida." },
     { id: "balizamiento", label: "Balizas", icon: Navigation, description: "Sistema de balizamiento marítimo IALA A y B." },
     { id: "faros", label: "Faros", icon: TowerControl, description: "Identifica y simula las características de las luces." },
@@ -101,6 +104,7 @@ export function AppShell({ user }: { user: User }) {
   const iconColorStyles: { [key: string]: { bg: string, text: string, hoverBg: string } } = {
     sosgen: { bg: 'bg-rose-500/10', text: 'text-rose-500', hoverBg: 'group-hover:bg-rose-500/20' },
     buques: { bg: 'bg-teal-500/10', text: 'text-teal-500', hoverBg: 'group-hover:bg-teal-500/20' },
+    maniobras: { bg: 'bg-blue-500/10', text: 'text-blue-500', hoverBg: 'group-hover:bg-blue-500/20' },
     sonidos: { bg: 'bg-sky-500/10', text: 'text-sky-500', hoverBg: 'group-hover:bg-sky-500/20' },
     balizamiento: { bg: 'bg-amber-500/10', text: 'text-amber-500', hoverBg: 'group-hover:bg-amber-500/20' },
     faros: { bg: 'bg-violet-500/10', text: 'text-violet-500', hoverBg: 'group-hover:bg-violet-500/20' },
@@ -111,13 +115,14 @@ export function AppShell({ user }: { user: User }) {
     alfabeto: { bg: 'bg-fuchsia-500/10', text: 'text-fuchsia-500', hoverBg: 'group-hover:bg-fuchsia-500/20' },
     canales: { bg: 'bg-cyan-500/10', text: 'text-cyan-500', hoverBg: 'group-hover:bg-cyan-500/20' },
     codigosq: { bg: 'bg-lime-500/10', text: 'text-lime-500', hoverBg: 'group-hover:bg-lime-500/20' },
-    meteorologia: { bg: 'bg-blue-500/10', text: 'text-blue-500', hoverBg: 'group-hover:bg-blue-500/20' },
+    meteorologia: { bg: 'bg-emerald-500/10', text: 'text-emerald-500', hoverBg: 'group-hover:bg-emerald-500/20' },
   };
 
   const pageTitleMap: { [key: string]: string } = {
     dashboard: "Panel de Navegación",
     sosgen: "Llamada de Socorro",
     buques: "Luces y Marcas de Buques",
+    maniobras: "Reglas de Paso (COLREG)",
     sonidos: "Señales Acústicas",
     balizamiento: "Balizamiento Marítimo (IALA)",
     faros: "Faros y Luces",
@@ -135,6 +140,7 @@ export function AppShell({ user }: { user: User }) {
     switch (activePage) {
       case 'sosgen': return <SosgenPage />;
       case 'buques': return <BuquesPage />;
+      case 'maniobras': return <ManiobrasPage />;
       case 'sonidos': return <SonidosPage />;
       case 'balizamiento': return <BalizamientoPage />;
       case 'faros': return <FarosPage />;
