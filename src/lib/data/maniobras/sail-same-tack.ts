@@ -1,3 +1,4 @@
+
 import type { ManeuverScenario } from './types';
 
 export const sailSameTackScenario: ManeuverScenario = {
@@ -15,6 +16,6 @@ export const sailSameTackScenario: ManeuverScenario = {
         path: "M -15 40 L 35 -10",
         colorClass: "stroke-green-500",
     },
-    explanation: "El velero que está a barlovento (A), más cerca del viento, debe ceder el paso al que está a sotavento (B).",
+    explanation: "El velero a barlovento (A, Rojo), que está más cerca del viento (izquierda), debe maniobrar con antelación para pasar por la popa del velero a sotavento (B, Verde), que tiene derecho de paso y mantiene su rumbo.",
     windDirection: 'W'
 };
