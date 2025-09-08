@@ -8,7 +8,7 @@ export const overtakingScenario: ManeuverScenario = {
     rule: "Regla 13",
     vesselA: {
         label: "Buque 'Cede paso' (Alcanzador)",
-        path: "M 5 50 L 5 -50",
+        path: "M -5 50 C -5 25, 5 25, 5 0 C 5 -25, -5 -25, -5 -50",
         colorClass: "stroke-red-500",
     },
     vesselB: {
@@ -16,5 +16,5 @@ export const overtakingScenario: ManeuverScenario = {
         path: "M -5 50 L -5 -50",
         colorClass: "stroke-green-500",
     },
-    explanation: "El buque que alcanza (Rojo) debe mantenerse apartado de la derrota del buque alcanzado (Verde), pasando por cualquiera de sus bandas de forma segura. El buque alcanzado debe mantener su rumbo y velocidad. Aquí se ilustra un adelantamiento por la banda de babor del buque alcanzado."
+    explanation: "El buque que alcanza (Rojo) se aproxima por la popa del buque alcanzado (Verde). Debe maniobrar con antelación, apartándose a una de las bandas para adelantar a una distancia segura. Una vez pasado y franco, puede volver a su rumbo original."
 };
