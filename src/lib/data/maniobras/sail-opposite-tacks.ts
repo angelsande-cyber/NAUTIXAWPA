@@ -8,15 +8,14 @@ export const sailOppositeTacksScenario: ManeuverScenario = {
     rule: "Regla 12",
     vesselA: {
         label: "Velero 'Cede paso' (Amurado a babor)",
-        path: "M -40 20 C -35 25, -20 30, 0 20 L 40 -30",
+        path: "M -40 25 L -20 15 C 0 0, 0 0, 10 -30",
         colorClass: "stroke-red-500",
     },
     vesselB: {
         label: "Velero 'Sigue a rumbo' (Amurado a estribor)",
-        path: "M 40 20 L -40 -30",
+        path: "M 40 25 L -40 -25",
         colorClass: "stroke-green-500",
     },
-    explanation: "El velero que recibe el viento por babor (Rojo) debe ceder el paso al velero que lo recibe por estribor (Verde). El velero rojo maniobra para pasar por la popa del verde.",
+    explanation: "Ambos veleros navegan a un rumbo de colisión. El velero que recibe el viento por babor (Rojo) debe ceder el paso. Al apreciar el riesgo, maniobra a estribor para pasar claramente por la popa del velero amurado a estribor (Verde), que mantiene su rumbo.",
     windDirection: 'S'
 };
-
