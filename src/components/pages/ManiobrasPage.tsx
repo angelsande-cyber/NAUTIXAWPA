@@ -11,17 +11,17 @@ import type { ManeuverScenario } from '@/lib/data/maniobras/types';
 import { cn } from '@/lib/utils';
 
 const BoatIcon = () => (
-    <g>
-        <path d="M 0 0 L -2 -5 L 5 0 L -2 5 Z" />
+    <g transform="scale(1.2)">
+        <path d="M 0 -5 L 4 5 L 0 2 L -4 5 Z" fill="currentColor" />
     </g>
 );
 
 
 const WindArrow = () => (
-    <g className="text-sky-400" stroke="currentColor" strokeWidth="1">
-        <path d="M 0 -8 L 0 8" />
-        <path d="M 0 -8 L -3 -5 M 0 -8 L 3 -5" />
-        <path d="M -5 0 L 5 0" />
+    <g className="text-sky-400" stroke="currentColor" strokeWidth="0.5">
+        <path d="M 0 -5 L 0 5" />
+        <path d="M 0 -5 L -2 -2 M 0 -5 L 2 -2" />
+        <text x="0" y="-8" textAnchor="middle" className="text-[5px] fill-sky-500">Viento</text>
     </g>
 )
 
@@ -76,12 +76,11 @@ const ManeuverSimulator = () => {
                     {/* Wind Arrow */}
                     {selectedScenario.windDirection && (
                         <g transform={`translate(${
-                            selectedScenario.windDirection === 'W' ? -40 : (selectedScenario.windDirection === 'E' ? 40 : 0)
+                            selectedScenario.windDirection === 'W' ? -45 : (selectedScenario.windDirection === 'E' ? 45 : 0)
                         }, ${
-                            selectedScenario.windDirection === 'N' ? -40 : (selectedScenario.windDirection === 'S' ? 40 : 0)
+                            selectedScenario.windDirection === 'N' ? -45 : (selectedScenario.windDirection === 'S' ? 45 : 0)
                         })`}>
                             <WindArrow />
-                            <text x="0" y="-12" textAnchor="middle" className="text-[8px] fill-sky-500">Viento</text>
                         </g>
                     )}
 
@@ -129,7 +128,7 @@ const ManeuverSimulator = () => {
             
             <Card className="bg-background/70">
                 <CardHeader className="pb-2">
-                    <CardTitle className="text-lg">{selectedScenario.title} ({selectedScenario.rule})</CardTitle>
+                    <CardTitle className="text-lg">{selectedScenario.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                     <p className="text-sm text-muted-foreground mb-3">{selectedScenario.explanation}</p>
