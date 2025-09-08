@@ -10,11 +10,12 @@ import { MANEUVER_DATA } from '@/lib/data/maniobras';
 import type { ManeuverScenario } from '@/lib/data/maniobras';
 import { cn } from '@/lib/utils';
 
-const BoatIcon = ({ colorClass }: { colorClass: string }) => (
-    <g className={cn(colorClass.replace('stroke', 'fill'))}>
-        <path d="M -5 5 L 5 0 L -5 -5 L -2 0 Z" />
+const BoatIcon = () => (
+    <g>
+        <path d="M 0 0 L -2 -5 L 5 0 L -2 5 Z" />
     </g>
 );
+
 
 const WindArrow = () => (
     <g className="text-sky-400" stroke="currentColor" strokeWidth="1.5">
@@ -102,9 +103,9 @@ const ManeuverSimulator = () => {
                                 />
                                 
                                 {/* Boat icon */}
-                                <g>
+                                <g className={vessel.colorClass.replace('stroke', 'fill')}>
                                     <animateMotion dur="8s" begin="0s" fill="freeze" repeatCount="indefinite" path={vessel.path} rotate="auto" />
-                                    <BoatIcon colorClass={vessel.colorClass} />
+                                    <BoatIcon />
                                 </g>
                             </g>
                             
@@ -129,11 +130,11 @@ const ManeuverSimulator = () => {
                     <p className="text-sm text-muted-foreground mb-3">{selectedScenario.explanation}</p>
                     <div className="flex flex-wrap gap-x-4 gap-y-1">
                        <div className="flex items-center gap-2">
-                            <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselA.colorClass.replace('stroke-', 'bg-'), selectedScenario.vesselA.colorClass.replace('stroke-', 'border-'))}/>
+                            <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselA.colorClass.replace('stroke', 'bg'), selectedScenario.vesselA.colorClass.replace('stroke', 'border'))}/>
                             <span className="text-xs font-semibold">{selectedScenario.vesselA.label}</span>
                         </div>
                         <div className="flex items-center gap-2">
-                             <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselB.colorClass.replace('stroke-', 'bg-'), selectedScenario.vesselB.colorClass.replace('stroke-', 'border-'))}/>
+                             <div className={cn("w-3 h-3 rounded-full border", selectedScenario.vesselB.colorClass.replace('stroke', 'bg'), selectedScenario.vesselB.colorClass.replace('stroke', 'border'))}/>
                             <span className="text-xs font-semibold">{selectedScenario.vesselB.label}</span>
                         </div>
                     </div>
@@ -168,6 +169,7 @@ export default function ManiobrasPage() {
         </div>
     );
 }
+
 
 
 
