@@ -1,26 +1,23 @@
 "use client";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Label } from "@/components/ui/label";
-import type { QuizOutput } from "@/ai/schemas/examen-schema";
-import { CheckCircle, FileText, HelpCircle, RefreshCw, XCircle } from "lucide-react";
+import type { QuizOutput, QuizQuestion } from "@/types/examen-types";
+import { FileText, RefreshCw } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
+import { EXAMEN_QUESTIONS_BANK } from "@/lib/data/examen-questions";
 
 
-const QUIZ_SESSION_KEY = 'perQuizSession';
 const QUIZ_RESULTS_KEY = 'perQuizResults';
 
-type ViewState = 'dashboard' | 'quiz' | 'loading' | 'error';
+type ViewState = 'dashboard' | 'quiz';
 
 interface QuizSession {
   quiz: QuizOutput;
@@ -42,13 +39,8 @@ const LoadingSkeleton = () => {
                 <div className="animate-spin mb-4">
                     <RefreshCw className="mx-auto h-12 w-12 text-primary" />
                 </div>
-                <h2 className="text-xl font-semibold">Generando tu examen...</h2>
-                <p className="mt-2 text-muted-foreground">El asistente de IA está preparando 10 preguntas para ti. ¡Un momento!</p>
-                 <div className="w-full max-w-sm space-y-4 mt-8">
-                  <Skeleton className="h-6 w-full" />
-                  <Skeleton className="h-4 w-3/4 mx-auto" />
-                  <Skeleton className="h-10 w-full mt-4" />
-                </div>
+                <h2 className="text-xl font-semibold">Cargando examen...</h2>
+                <p className="mt-2 text-muted-foreground">¡Un momento!</p>
             </Card>
         </div>
     );
@@ -58,9 +50,6 @@ export default function ExamenPage() {
   const [view, setView] = useState<ViewState>('dashboard');
   const [quizSession, setQuizSession] = useState<QuizSession | null>(null);
   const [lastResults, setLastResults] = useState<QuizResult[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [finalResults, setFinalResults] = useState<QuizResult | null>(null);
-
 
   useEffect(() => {
     try {
@@ -83,41 +72,29 @@ export default function ExamenPage() {
     }
   };
 
-
-  const loadQuiz = useCallback(async () => {
-    setView('loading');
-    setError(null);
-
-    try {
-      const response = await fetch('/api/examen', {
-        method: 'POST',
-         headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ language: 'es' }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        const errorMessage = typeof errorData.error === 'object' 
-            ? JSON.stringify(errorData.error)
-            : errorData.error || `HTTP error! status: ${response.status}`;
-        throw new Error(errorMessage);
-      }
-
-      const generatedQuiz: QuizOutput = await response.json();
-
-      setQuizSession({
-        quiz: generatedQuiz,
-        userAnswers: {},
-        currentQuestionIndex: 0,
-      });
-      setView('quiz');
-    } catch (e: any) {
-      console.error(e);
-      setError(e.message || "No se pudo generar el examen. Por favor, inténtalo de nuevo.");
-      setView('error');
+  const shuffleArray = (array: any[]) => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
+    return array;
+  };
+
+  const startNewQuiz = useCallback(() => {
+    const allQuestions = EXAMEN_QUESTIONS_BANK.questions;
+    const shuffledQuestions = shuffleArray([...allQuestions]);
+    const selectedQuestions = shuffledQuestions.slice(0, 10);
+
+    const newQuiz: QuizOutput = {
+      questions: selectedQuestions
+    };
+
+    setQuizSession({
+      quiz: newQuiz,
+      userAnswers: {},
+      currentQuestionIndex: 0,
+    });
+    setView('quiz');
   }, []);
 
   const handleAnswerChange = (questionIndex: number, answerIndexStr: string) => {
@@ -145,29 +122,9 @@ export default function ExamenPage() {
         date: new Date().toISOString(),
     };
 
-    setFinalResults(result);
     saveResults(result);
     setQuizSession(null);
     setView('dashboard');
-  }
-
-  if (view === 'loading') {
-    return <LoadingSkeleton />;
-  }
-  
-  if (view === 'error') {
-    return (
-        <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-            <Card className="w-full max-w-md p-6">
-                <XCircle className="mx-auto h-12 w-12 text-destructive" />
-                <h2 className="mt-4 text-xl font-semibold">Error al generar</h2>
-                <p className="mt-2 text-muted-foreground">{error}</p>
-                <Button onClick={() => setView('dashboard')} className="mt-6">
-                    Volver al Panel
-                </Button>
-            </Card>
-        </div>
-    );
   }
 
   if (view === 'quiz' && quizSession) {
@@ -200,6 +157,12 @@ export default function ExamenPage() {
                             ))}
                         </RadioGroup>
                     </div>
+                     <div className="mt-4 p-4 bg-muted/50 rounded-lg">
+                        <h4 className="font-semibold text-sm">Justificación</h4>
+                         <p className="text-sm text-muted-foreground mt-1">
+                            {userAnswers[currentQuestionIndex] !== undefined ? currentQuestion.explanation : 'Selecciona una respuesta para ver la justificación.'}
+                        </p>
+                    </div>
                     <div className="mt-6 flex justify-between">
                         <Button
                             variant="outline"
@@ -229,12 +192,12 @@ export default function ExamenPage() {
         <Card className="w-full max-w-3xl mx-auto">
              <CardHeader>
                 <CardTitle>Examen de Práctica PER</CardTitle>
-                <CardDescription>Pon a prueba tus conocimientos y prepárate para el examen oficial.</CardDescription>
+                <CardDescription>Pon a prueba tus conocimientos con un test de 10 preguntas aleatorias.</CardDescription>
              </CardHeader>
              <CardContent className="text-center">
-                 <Button size="lg" onClick={() => loadQuiz()}>
+                 <Button size="lg" onClick={startNewQuiz}>
                     <FileText className="mr-2 h-5 w-5"/>
-                    Generar Nuevo Examen
+                    Comenzar Nuevo Examen
                  </Button>
              </CardContent>
         </Card>

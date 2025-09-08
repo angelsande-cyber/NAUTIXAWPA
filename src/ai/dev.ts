@@ -1,2 +1,2 @@
-// Flows will be imported for their side effects in this file.
-import "./flows/examen";
+
+// This file is intentionally blank as there are no AI flows to register for development.
