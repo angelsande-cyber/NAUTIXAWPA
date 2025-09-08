@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 const BoatIcon = ({ colorClass }: { colorClass: string }) => (
     <g className={cn(colorClass.replace('stroke', 'fill'))}>
-        <path d="M 0 -10 L 8 0 L 0 10 L -4 0 Z" />
+        <path d="M -5 5 L 5 0 L -5 -5 L -2 0 Z" />
     </g>
 );
 
@@ -168,4 +168,5 @@ export default function ManiobrasPage() {
         </div>
     );
 }
+
 
