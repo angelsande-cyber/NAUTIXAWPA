@@ -1,4 +1,3 @@
-'use server';
 /**
  * @fileOverview Flujo para generar un examen de práctica para el PER.
  *
