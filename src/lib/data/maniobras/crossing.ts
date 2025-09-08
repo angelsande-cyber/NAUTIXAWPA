@@ -7,13 +7,13 @@ export const crossingScenario: ManeuverScenario = {
     rule: "Regla 15",
     vesselA: {
         label: "Buque 'Cede paso' (A)",
-        path: "M -45 0 L 0 0 C 20 0, 25 20, 25 45",
+        path: "M 0 45 L 0 10 C 0 -10, 20 -20, 45 -20",
         colorClass: "stroke-red-500",
     },
     vesselB: {
         label: "Buque 'Sigue a rumbo' (B)",
-        path: "M 0 -45 L 0 45",
+        path: "M -45 0 L 45 0",
         colorClass: "stroke-green-500",
     },
-    explanation: "El buque A, que ve al buque B por su estribor, debe ceder el paso. Maniobrará con antelación suficiente cayendo a estribor para pasar por la popa de B."
+    explanation: "El buque A, que se aproxima por el costado de estribor del buque B, es el que 'cede paso'. Debe maniobrar con antelación cayendo a estribor para pasar por la popa de B, que 'sigue a rumbo'."
 };
