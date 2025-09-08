@@ -18,10 +18,10 @@ const BoatIcon = () => (
 
 
 const WindArrow = () => (
-    <g className="text-sky-400" stroke="currentColor" strokeWidth="1.5">
-        <path d="M 0 -12 L 0 12" />
-        <path d="M 0 -12 L -5 -7 M 0 -12 L 5 -7" />
-        <path d="M -8 0 L 8 0" />
+    <g className="text-sky-400" stroke="currentColor" strokeWidth="1">
+        <path d="M 0 -8 L 0 8" />
+        <path d="M 0 -8 L -3 -5 M 0 -8 L 3 -5" />
+        <path d="M -5 0 L 5 0" />
     </g>
 )
 
@@ -76,12 +76,12 @@ const ManeuverSimulator = () => {
                     {/* Wind Arrow */}
                     {selectedScenario.windDirection && (
                         <g transform={`translate(${
-                            selectedScenario.windDirection === 'W' ? -35 : (selectedScenario.windDirection === 'E' ? 35 : 0)
+                            selectedScenario.windDirection === 'W' ? -40 : (selectedScenario.windDirection === 'E' ? 40 : 0)
                         }, ${
-                            selectedScenario.windDirection === 'N' ? -35 : (selectedScenario.windDirection === 'S' ? 35 : 0)
+                            selectedScenario.windDirection === 'N' ? -40 : (selectedScenario.windDirection === 'S' ? 40 : 0)
                         })`}>
                             <WindArrow />
-                            <text x="0" y="-18" textAnchor="middle" className="text-xs fill-sky-500">Viento</text>
+                            <text x="0" y="-12" textAnchor="middle" className="text-[8px] fill-sky-500">Viento</text>
                         </g>
                     )}
 
