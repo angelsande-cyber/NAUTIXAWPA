@@ -16,6 +16,6 @@ export const sailOppositeTacksScenario: ManeuverScenario = {
         path: "M 40 25 L -40 -25",
         colorClass: "stroke-green-500",
     },
-    explanation: "Ambos veleros navegan a un rumbo de colisión. El velero que recibe el viento por babor (Rojo) debe ceder el paso. Al apreciar el riesgo, maniobra a estribor para pasar claramente por la popa del velero amurado a estribor (Verde), que mantiene su rumbo.",
+    explanation: "Ambos veleros navegan a un rumbo de colisión. El que recibe el viento por babor (Rojo) debe ceder el paso. Al apreciar el riesgo, maniobra a estribor para pasar claramente por la popa del velero amurado a estribor (Verde), que mantiene su rumbo.",
     windDirection: 'S'
 };
