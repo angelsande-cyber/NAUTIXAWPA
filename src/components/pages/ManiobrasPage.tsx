@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from '@/components/ui/button';
 import { Play, Pause } from 'lucide-react';
 import { MANEUVER_DATA } from '@/lib/data/maniobras';
-import type { ManeuverScenario } from '@/lib/data/maniobras';
+import type { ManeuverScenario } from '@/lib/data/maniobras/types';
 import { cn } from '@/lib/utils';
 
 const BoatIcon = () => (
@@ -169,6 +169,7 @@ export default function ManiobrasPage() {
         </div>
     );
 }
+
 
 
 
