@@ -16,6 +16,6 @@ export const sailSameTackScenario: ManeuverScenario = {
         path: "M -15 40 L 35 -10",
         colorClass: "stroke-green-500",
     },
-    explanation: "El buque rojo maniobra para pasar por la popa del verde.",
+    explanation: "Según la Regla 12, el buque que está a barlovento (A, Rojo) debe mantenerse apartado de la derrota del que está a sotavento (B, Verde). Por ello, el rojo maniobra para pasar por la popa del verde.",
     windDirection: 'W'
 };
