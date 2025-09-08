@@ -12,7 +12,7 @@ export const crossingScenario: ManeuverScenario = {
     },
     vesselB: {
         label: "Buque 'Cede paso' (B)",
-        path: "M 20 -45 L 20 -15 C 20 15, 0 25, -40 25",
+        path: "M -40 30 L -10 10 C 20 10, 30 40, 30 45",
         colorClass: "stroke-red-500",
     },
     explanation: "El buque B, que ve al buque A por su estribor, es el que 'cede paso'. Debe maniobrar con antelación y de forma decidida, cayendo a estribor para evitar cruzar por la proa de A y pasar a una distancia segura por su popa."
