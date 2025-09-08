@@ -11,17 +11,17 @@ import type { ManeuverScenario } from '@/lib/data/maniobras/types';
 import { cn } from '@/lib/utils';
 
 const BoatIcon = () => (
-    <g transform="scale(1.2)">
-        <path d="M 0 -5 L 4 5 L 0 2 L -4 5 Z" fill="currentColor" />
+    <g transform="scale(1.2) rotate(90)">
+        <path d="M 0 -7 L 4 7 L 0 5 L -4 7 Z" fill="currentColor" />
     </g>
 );
 
 
 const WindArrow = () => (
     <g className="text-sky-400" stroke="currentColor" strokeWidth="0.5">
-        <path d="M 0 -5 L 0 5" />
-        <path d="M 0 -5 L -2 -2 M 0 -5 L 2 -2" />
-        <text x="0" y="-8" textAnchor="middle" className="text-[5px] fill-sky-500">Viento</text>
+        <path d="M 0 -4 L 0 4" />
+        <path d="M 0 -4 L -1.5 -1.5 M 0 -4 L 1.5 -1.5" />
+        <text x="0" y="-7" textAnchor="middle" className="text-[4px] fill-sky-500">Viento</text>
     </g>
 )
 
@@ -72,13 +72,14 @@ const ManeuverSimulator = () => {
                         </pattern>
                     </defs>
                     <rect x="-50" y="-50" width="100" height="100" fill="url(#grid)" />
+                    
 
                     {/* Wind Arrow */}
                     {selectedScenario.windDirection && (
                         <g transform={`translate(${
-                            selectedScenario.windDirection === 'W' ? -45 : (selectedScenario.windDirection === 'E' ? 45 : 0)
+                            selectedScenario.windDirection === 'W' ? -42 : (selectedScenario.windDirection === 'E' ? 42 : 0)
                         }, ${
-                            selectedScenario.windDirection === 'N' ? -45 : (selectedScenario.windDirection === 'S' ? 45 : 0)
+                            selectedScenario.windDirection === 'N' ? -42 : (selectedScenario.windDirection === 'S' ? 42 : 0)
                         })`}>
                             <WindArrow />
                         </g>
