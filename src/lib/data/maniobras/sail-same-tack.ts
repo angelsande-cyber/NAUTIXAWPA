@@ -13,9 +13,9 @@ export const sailSameTackScenario: ManeuverScenario = {
     },
     vesselB: {
         label: "Buque 'Cede paso' (Barlovento)",
-        path: "M -20 40 L 0 5 C 10 0, 30 -20, 50 0",
+        path: "M -20 40 L 0 5 L 50 0",
         colorClass: "stroke-red-500",
     },
-    explanation: "De acuerdo con la Regla 12 (a) (ii), cuando ambos veleros reciben el viento por la misma banda, el que está a barlovento (rojo) debe ceder el paso al que está a sotavento (verde).",
+    explanation: "Con el viento del Sur, el velero rojo (barlovento) debe ceder el paso maniobrando por la popa del velero verde (sotavento), que tiene preferencia.",
     windDirection: 'S'
 };
