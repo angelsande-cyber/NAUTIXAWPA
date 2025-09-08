@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 const BoatIcon = ({ colorClass }: { colorClass: string }) => (
     <g className={cn(colorClass.replace('stroke', 'fill'))}>
-        <path d="M 0 -10 L 6 8 L 0 5 L -6 8 Z" />
+        <path d="M 0 10 L -6 -8 L 0 -5 L 6 -8 Z" />
     </g>
 );
 
