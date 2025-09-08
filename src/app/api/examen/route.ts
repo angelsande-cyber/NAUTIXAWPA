@@ -20,7 +20,14 @@ export async function GET() {
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ language: 'es' }), // default
   });
-  return handler(req);
+  const res = await handler(req);
+  const headers = new Headers(res.headers);
+  for (const [k, v] of Object.entries(corsHeaders)) headers.set(k, v);
+  return new Response(res.body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers,
+  });
 }
 
 
@@ -43,7 +50,14 @@ export async function POST(req: Request) {
     body: JSON.stringify(payload),
   });
 
-  return handler(wrapped);
+  const res = await handler(wrapped);
+  const headers = new Headers(res.headers);
+  for (const [k, v] of Object.entries(corsHeaders)) headers.set(k, v);
+  return new Response(res.body, {
+    status: res.status,
+    statusText: res.statusText,
+    headers,
+  });
 }
 
 // (opcional) habilita CORS si lo llamas desde otro dominio
