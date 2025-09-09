@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { AppShell } from "@/components/AppShell";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, Anchor } from "lucide-react";
 
 
 const LoadingScreen = () => (
@@ -36,10 +36,26 @@ const SignInScreen = ({ isLoading, signInAction }: { isLoading: boolean; signInA
   const buttonDisabled = isLoading || isSigningIn;
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-background to-secondary p-8">
-      <div className="w-full max-w-sm rounded-2xl border bg-card p-8 text-center shadow-2xl animate-in fade-in zoom-in-95">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute z-0 min-h-full min-w-full max-w-none object-cover"
+        poster="/images/login-poster.jpg"
+      >
+        <source src="/videos/login-bg.mp4" type="video/mp4" />
+        Tu navegador no soporta vídeos.
+      </video>
+      <div className="absolute inset-0 z-10 bg-black/50" />
+      
+      <div className="relative z-20 w-full max-w-sm rounded-2xl border border-white/20 bg-background/50 p-8 text-center shadow-2xl backdrop-blur-lg animate-in fade-in zoom-in-95">
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border border-primary/20 bg-primary/10 text-primary">
+          <Anchor className="h-8 w-8" />
+        </div>
         <h1 className="text-4xl font-bold tracking-tight text-primary">NAUTIXA</h1>
-        <p className="mt-2 text-muted-foreground">Tu asistente de navegación y comunicaciones marítimas</p>
+        <p className="mt-2 text-foreground/80">Tu asistente de navegación y comunicaciones marítimas</p>
         <Button onClick={handleSignIn} disabled={buttonDisabled} className="mt-8 h-12 w-full text-base">
           {buttonDisabled ? (
             <Loader2 className="mr-2 h-5 w-5 animate-spin" />

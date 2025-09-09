@@ -21,6 +21,9 @@ const fontMono = FontMono({
 export const metadata: Metadata = {
   title: "NAUTIXA",
   description: "Asistente de navegación y comunicaciones para marinos.",
+  icons: {
+    icon: "/favicon.ico",
+  }
 };
 
 export default function RootLayout({
