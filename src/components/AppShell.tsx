@@ -22,6 +22,7 @@ import {
   Navigation,
   TowerControl,
   GitCompareArrows,
+  Calendar,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -51,6 +52,7 @@ import SonidosPage from "./pages/SonidosPage";
 import BalizamientoPage from "./pages/BalizamientoPage";
 import FarosPage from "./pages/FarosPage";
 import ManiobrasPage from "./pages/ManiobrasPage";
+import AlmanaquePage from "./pages/AlmanaquePage";
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -91,6 +93,7 @@ export function AppShell({ user }: { user: User }) {
     { id: "sonidos", label: "Sonidos", icon: AudioLines, description: "Señales acústicas de maniobra y visibilidad reducida." },
     { id: "balizamiento", label: "Balizas", icon: Navigation, description: "Sistema de balizamiento marítimo IALA A y B." },
     { id: "faros", label: "Faros", icon: TowerControl, description: "Identifica y simula las características de las luces." },
+    { id: "almanaque", label: "Almanaque", icon: Calendar, description: "Calculadora astronómica para navegación." },
     { id: "examen", label: "Examen PER", icon: FileText, description: "Genera un examen tipo test para el PER." },
     { id: "colreg", label: "Reglamento", icon: FileText, description: "Consulta y estudia el reglamento de abordajes." },
     { id: "directorio", label: "Directorio", icon: LifeBuoy, description: "Contactos de emergencia y servicios marítimos." },
@@ -108,6 +111,7 @@ export function AppShell({ user }: { user: User }) {
     sonidos: { bg: 'bg-sky-500/10', text: 'text-sky-500', hoverBg: 'group-hover:bg-sky-500/20' },
     balizamiento: { bg: 'bg-amber-500/10', text: 'text-amber-500', hoverBg: 'group-hover:bg-amber-500/20' },
     faros: { bg: 'bg-violet-500/10', text: 'text-violet-500', hoverBg: 'group-hover:bg-violet-500/20' },
+    almanaque: { bg: 'bg-purple-500/10', text: 'text-purple-500', hoverBg: 'group-hover:bg-purple-500/20' },
     examen: { bg: 'bg-indigo-500/10', text: 'text-indigo-500', hoverBg: 'group-hover:bg-indigo-500/20' },
     colreg: { bg: 'bg-slate-500/10', text: 'text-slate-500', hoverBg: 'group-hover:bg-slate-500/20' },
     directorio: { bg: 'bg-red-500/10', text: 'text-red-500', hoverBg: 'group-hover:bg-red-500/20' },
@@ -126,6 +130,7 @@ export function AppShell({ user }: { user: User }) {
     sonidos: "Señales Acústicas",
     balizamiento: "Balizamiento Marítimo (IALA)",
     faros: "Faros y Luces",
+    almanaque: "Almanaque Náutico Perpetuo",
     examen: "Examen de Práctica",
     directorio: "Directorio",
     calculadora: "Calculadora de Coordenadas",
@@ -144,6 +149,7 @@ export function AppShell({ user }: { user: User }) {
       case 'sonidos': return <SonidosPage />;
       case 'balizamiento': return <BalizamientoPage />;
       case 'faros': return <FarosPage />;
+      case 'almanaque': return <AlmanaquePage />;
       case 'directorio': return <DirectorioPage />;
       case 'colreg': return <ColregPage />;
       case 'calculadora': return <CalculadoraPage />;
