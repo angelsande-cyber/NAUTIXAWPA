@@ -4,9 +4,9 @@
   "display": "standalone",
   "scope": "/",
   "start_url": "/",
-  "name": "Nautica",
-  "short_name": "Nautica",
-  "description": "Nautica - Your companion for sailing.",
+  "name": "Nautixa",
+  "short_name": "Nautixa",
+  "description": "Nautixa - Tu app para aprender a navegar!",
   "icons": [
     {
       "src": "/icon-192x192.png",
