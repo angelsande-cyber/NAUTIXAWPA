@@ -57,7 +57,7 @@ export default function AlfabetoPage() {
                         {combinedLetters.map((item) => (
                             <Card key={item.letter} className="overflow-hidden">
                                 <div className="flex items-center p-4 bg-muted/30">
-                                    <div className="w-20 h-12 flex items-center justify-center mr-4">{item.flag}</div>
+                                    <div className="w-20 h-12 flex items-center justify-center mr-4 rounded-lg overflow-hidden">{item.flag}</div>
                                     <div>
                                         <p className="font-bold text-2xl">{item.letter}</p>
                                         <p className="font-mono text-lg text-muted-foreground">{item.word}</p>
@@ -106,7 +106,7 @@ export default function AlfabetoPage() {
                         {combinedNumbers.map((item) => (
                              <Card key={item.digit} className="overflow-hidden">
                                 <div className="flex items-center p-4 bg-muted/30">
-                                    <div className="w-20 h-12 flex items-center justify-center mr-4">{item.flag}</div>
+                                    <div className="w-20 h-12 flex items-center justify-center mr-4 rounded-lg overflow-hidden">{item.flag}</div>
                                     <div>
                                         <p className="font-bold text-2xl">{item.digit}</p>
                                         <p className="font-mono text-lg text-muted-foreground">{item.pronunciation}</p>
