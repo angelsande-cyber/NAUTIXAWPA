@@ -21,7 +21,6 @@ import {
   TowerControl,
   GitCompareArrows,
   Calendar,
-  Anchor,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SosgenPage from "./pages/SosgenPage";
@@ -111,7 +110,7 @@ export function AppShell() {
   };
 
   const pageTitleMap: { [key: string]: string } = {
-    dashboard: "Panel de Navegación",
+    dashboard: "NAUTIXA",
     sosgen: "Llamada de Socorro",
     buques: "Luces y Marcas de Buques",
     maniobras: "Reglas de Paso (COLREG)",
@@ -185,11 +184,9 @@ export function AppShell() {
                         <span className="sr-only">Volver a Inicio</span>
                     </Button>
                 ) : (
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary">
-                      <Anchor className="h-5 w-5" />
-                    </div>
+                    <img src="/icon-48x48.png" alt="NAUTIXA logo" className="h-8 w-8" />
                 )}
-                 <h1 className="text-lg font-semibold uppercase tracking-wider">{pageTitleMap[activePage] || 'NAUTIXA'}</h1>
+                 <h1 className="text-xl font-bold tracking-wider">{pageTitleMap[activePage] || 'NAUTIXA'}</h1>
             </div>
             <div className="flex items-center gap-4">
                 <ThemeToggle />
