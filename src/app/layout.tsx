@@ -23,7 +23,8 @@ export const metadata: Metadata = {
   description: "Asistente de navegación y comunicaciones para marinos.",
   icons: {
     icon: "/favicon.ico",
-  }
+  },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
