@@ -1,5 +1,5 @@
 
-const CACHE_NAME = 'nautixa-cache-v1';
+const CACHE_NAME = 'nautixa-cache-v2'; // Versión de caché actualizada
 const urlsToCache = [
   '/',
   '/manifest.json',
@@ -12,25 +12,14 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
+  // Obliga al nuevo service worker a tomar el control inmediatamente
+  self.skipWaiting(); 
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        if (response) {
-          return response;
-        }
-        return fetch(event.request);
-      }
-    )
   );
 });
 
@@ -41,10 +30,25 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            // Borra las cachés antiguas
             return caches.delete(cacheName);
           }
         })
       );
     })
+    // Le dice al service worker que empiece a controlar la página inmediatamente
+    .then(() => self.clients.claim())
   );
 });
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        // Si el recurso está en la caché, lo devuelve. Si no, lo busca en la red.
+        return response || fetch(event.request);
+      }
+    )
+  );
+});
+
