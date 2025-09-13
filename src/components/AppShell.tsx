@@ -2,10 +2,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import type { User } from "firebase/auth";
 import {
   LifeBuoy,
-  LogOut,
   Home,
   Moon,
   Sun,
@@ -26,23 +24,13 @@ import {
   Anchor,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAuth } from "@/context/AuthContext";
 import SosgenPage from "./pages/SosgenPage";
 import DirectorioPage from "./pages/DirectorioPage";
 import CalculadoraPage from "./pages/CalculadoraPage";
 import ColregPage from "./pages/ColregPage";
 import { useTheme } from "next-themes";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import AlfabetoPage from "./pages/AlfabetoPage";
 import CanalesPage from "./pages/CanalesPage";
 import CodigosQPage from "./pages/CodigosQPage";
@@ -83,9 +71,8 @@ function ThemeToggle() {
   );
 }
 
-export function AppShell({ user }: { user: User }) {
+export function AppShell() {
   const [activePage, setActivePage] = useState("dashboard");
-  const { signOut } = useAuth();
 
   const dashboardItems = [
     { id: "sosgen", label: "Llamadas SOS", icon: Radio, description: "Crea y practica llamadas de socorro MAYDAY." },
@@ -206,29 +193,6 @@ export function AppShell({ user }: { user: User }) {
             </div>
             <div className="flex items-center gap-4">
                 <ThemeToggle />
-                 <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                             <Avatar className="h-9 w-9 border">
-                                <AvatarImage src={user.photoURL ?? ""} alt={user.displayName ?? ""} />
-                                <AvatarFallback>{user.displayName?.charAt(0)}</AvatarFallback>
-                            </Avatar>
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-56">
-                        <DropdownMenuItem disabled>
-                            <div className="flex flex-col space-y-1">
-                                <p className="text-sm font-medium leading-none">{user.displayName}</p>
-                                <p className="text-xs leading-none text-muted-foreground">{user.email}</p>
-                            </div>
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={signOut}>
-                            <LogOut className="mr-2 h-4 w-4" />
-                            <span>Cerrar sesión</span>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
             </div>
         </header>
 
@@ -256,5 +220,3 @@ export function AppShell({ user }: { user: User }) {
       </div>
   );
 }
-
-    
