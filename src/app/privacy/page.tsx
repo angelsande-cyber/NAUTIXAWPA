@@ -1,9 +1,10 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-export function PrivacyPolicyPage() {
+export default function PrivacyPage() {
   return (
-    <Card>
+    <div className="flex justify-center items-center h-screen">
+    <Card className="w-full max-w-4xl mx-4">
       <CardHeader>
         <CardTitle>Política de Privacidad</CardTitle>
       </CardHeader>
@@ -61,5 +62,6 @@ export function PrivacyPolicyPage() {
         <p>Publicaremos cualquier cambio en esta página. El uso continuado de la app tras la publicación implica aceptación de la versión actualizada.</p>
       </CardContent>
     </Card>
+    </div>
   );
 }
