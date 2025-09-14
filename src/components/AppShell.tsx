@@ -41,6 +41,7 @@ import BalizamientoPage from "./pages/BalizamientoPage";
 import FarosPage from "./pages/FarosPage";
 import ManiobrasPage from "./pages/ManiobrasPage";
 import AlmanaquePage from "./pages/AlmanaquePage";
+import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -126,6 +127,7 @@ export function AppShell() {
     canales: "Canales VHF",
     codigosq: "Códigos Q",
     meteorologia: "Meteorología",
+    privacy: "Política de Privacidad",
   };
 
   const renderContent = () => {
@@ -145,6 +147,7 @@ export function AppShell() {
       case 'codigosq': return <CodigosQPage />;
       case 'meteorologia': return <MeteorologiaPage />;
       case 'examen': return <ExamenPage />;
+      case 'privacy': return <PrivacyPolicyPage />;
       default:
         return (
           <div className="p-4 md:p-6 lg:p-8">
@@ -158,7 +161,7 @@ export function AppShell() {
                     className="group flex flex-col items-center justify-start text-center p-3 bg-card border rounded-xl hover:bg-card/90 hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
                     >
                     <div className={cn("flex items-center justify-center w-16 h-16 rounded-2xl transition-colors duration-200", colors.bg, colors.text, colors.hoverBg)}>
-                        <item.icon className="h-8 w-8"/>
+                        <item.icon className="h-8 w-8" />
                     </div>
                     <div className="mt-3">
                         <p className="font-semibold text-sm text-card-foreground">{item.label}</p>
@@ -166,6 +169,11 @@ export function AppShell() {
                     </div>
                   </button>
               )})}
+            </div>
+            <div className="mt-8 text-center">
+                <Button variant="link" onClick={() => setActivePage('privacy')}>
+                    Política de Privacidad
+                </Button>
             </div>
           </div>
         );
