@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from 'next/link';
 import {
   LifeBuoy,
   Home,
@@ -41,7 +42,6 @@ import BalizamientoPage from "./pages/BalizamientoPage";
 import FarosPage from "./pages/FarosPage";
 import ManiobrasPage from "./pages/ManiobrasPage";
 import AlmanaquePage from "./pages/AlmanaquePage";
-import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
@@ -127,7 +127,6 @@ export function AppShell() {
     canales: "Canales VHF",
     codigosq: "Códigos Q",
     meteorologia: "Meteorología",
-    privacy: "Política de Privacidad",
   };
 
   const renderContent = () => {
@@ -147,7 +146,6 @@ export function AppShell() {
       case 'codigosq': return <CodigosQPage />;
       case 'meteorologia': return <MeteorologiaPage />;
       case 'examen': return <ExamenPage />;
-      case 'privacy': return <PrivacyPolicyPage />;
       default:
         return (
           <div className="p-4 md:p-6 lg:p-8">
@@ -171,9 +169,9 @@ export function AppShell() {
               )})}
             </div>
             <div className="mt-8 text-center">
-                <Button variant="link" onClick={() => setActivePage('privacy')}>
-                    Política de Privacidad
-                </Button>
+                <Link href="/privacy" passHref>
+                    <Button variant="link">Política de Privacidad</Button>
+                </Link>
             </div>
           </div>
         );
