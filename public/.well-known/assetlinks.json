@@ -1,0 +1,13 @@
+
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vercel.nautixawpa.twa",
+      "sha256_cert_fingerprints": [
+        "1E:86:A7:D0:58:44:D8:BB:F6:07:18:2C:A2:28:42:5F:C5:A9:52:77:4C:52:92:F4:2E:4B:27:35:4E:6D:51:FB"
+      ]
+    }
+  }
+]
