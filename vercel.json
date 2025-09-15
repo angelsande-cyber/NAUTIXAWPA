@@ -3,5 +3,16 @@
     "src/app/api/genkit/[...slug]/route.ts": {
       "maxDuration": 300
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/manifest.json",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/manifest+json"
+        }
+      ]
+    }
+  ]
 }
